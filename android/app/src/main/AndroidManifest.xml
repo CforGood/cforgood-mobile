@@ -1,0 +1,89 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cforgood"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="22" />
+
+    <application
+      android:largeHeap="true"
+      android:name=".MainApplication"
+      android:allowBackup="true"
+      android:label="@string/app_name"
+      android:icon="@mipmap/ic_launcher"
+      android:theme="@style/AppTheme">
+
+      <service android:name="com.evollu.react.fcm.MessagingService" android:enabled="true" android:exported="true">
+       <intent-filter>
+          <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+       </intent-filter>
+      </service>
+
+      <service android:name="com.evollu.react.fcm.InstanceIdService" android:exported="false">
+         <intent-filter>
+           <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+         </intent-filter>
+      </service>
+
+      <service android:name="com.mapbox.mapboxsdk.telemetry.TelemetryService"/>
+      
+      <meta-data
+           android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyAoEfEhkUEzeBqPsenCwQAJCVHiPJnr8qQ"/>
+      <meta-data 
+        android:name="com.facebook.sdk.ApplicationId" 
+        android:value="@string/facebook_app_id"
+      />
+      <meta-data 
+        android:name="io.branch.sdk.BranchKey"
+        android:value="key_live_gfqAlMUTW2VKGL0CMTY5pfolvAkDCibA"
+      />
+      <meta-data 
+        android:name="io.branch.sdk.BranchKey.test" 
+        android:value="key_test_hhxwgQVK21HPTOYEQR65dpobsDauDpeP" 
+      />
+      <activity
+
+        android:launchMode="singleTop"
+        android:name=".MainActivity"
+        android:label="@string/app_name"
+        android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+          
+        </intent-filter>
+        <intent-filter>
+          <data android:scheme="CforGood" android:host="cforgood" />
+          <action android:name="android.intent.action.VIEW" />
+          <category android:name="android.intent.category.DEFAULT" />
+          <category android:name="android.intent.category.BROWSABLE" />
+        </intent-filter>
+
+        <intent-filter>
+          <action android:name="fcm.ACTION.CforGood" />
+          <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+      </activity>
+      <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+
+      <receiver android:name="io.branch.referral.InstallListener" android:exported="true">
+        <intent-filter>
+          <action android:name="com.android.vending.INSTALL_REFERRER" />
+        </intent-filter>
+      </receiver>
+    </application>
+
+</manifest>

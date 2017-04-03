@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1078578778429",
+    "firebase_url": "https://cforgood-12e74.firebaseio.com",
+    "project_id": "cforgood-12e74",
+    "storage_bucket": "cforgood-12e74.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078578778429:android:c071cda351aff6d2",
+        "android_client_info": {
+          "package_name": "com.cforgood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1078578778429-7u25j70i93gspl4roo7ot2obr48mtuh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaTu-RQlzjm7zS3nIGe7HGhktIYErYn0I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

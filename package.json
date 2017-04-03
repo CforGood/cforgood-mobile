@@ -1,0 +1,50 @@
+{
+  "name": "CforGood",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "crypto-js": "^3.1.9-1",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "react": "~15.4.0-rc.4",
+    "react-native": "0.42.0",
+    "react-native-blur": "^2.0.0",
+    "react-native-branch": "^1.1.0",
+    "react-native-code-push": "^1.17.3-beta",
+    "react-native-communications": "^2.2.1",
+    "react-native-fbsdk": "^0.5.0",
+    "react-native-fcm": "^6.1.0",
+    "react-native-firebase-crash-report": "^1.2.0",
+    "react-native-image-picker": "^0.26.2",
+    "react-native-linear-gradient": "^2.0.0",
+    "react-native-mapbox-gl": "git+https://github.com/mapbox/react-native-mapbox-gl.git",
+    "react-native-orientation": "git+https://github.com/jedt/react-native-orientation.git",
+    "react-native-permissions": "^0.2.7",
+    "react-native-share": "^1.0.20",
+    "react-native-slider": "^0.9.1",
+    "react-native-swiper": "^1.5.4",
+    "react-native-textinput-effects": "^0.3.0",
+    "react-native-vector-icons": "^4.0.0",
+    "react-native-video": "^1.0.0",
+    "react-navigation": "git+https://github.com/react-community/react-navigation.git",
+    "react-redux": "^5.0.2",
+    "redux": "^3.6.0",
+    "redux-logger": "^2.8.1",
+    "redux-persist": "^4.1.0",
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "babel-jest": "18.0.0",
+    "babel-preset-react-native": "1.9.1",
+    "jest": "18.1.0",
+    "react-test-renderer": "~15.4.0-rc.4"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}

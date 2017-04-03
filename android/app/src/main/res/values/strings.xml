@@ -1,0 +1,6 @@
+<resources>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">AkXANyxlMZeX4c81WbG0avMtddKmE1hsPAnnb</string>
+    <string name="app_name">CforGood</string>
+    <string name="facebook_app_id">1886061218307655</string>
+    <string name="access_token_mapbox">pk.eyJ1IjoiY2Zvcmdvb2QiLCJhIjoiY2l6azFkNmFiMDA0eTJxcXBpZW1iY2RldyJ9.VqXqgT-hY1gi7jMtHssK2A</string>
+</resources>

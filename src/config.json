@@ -1,0 +1,16 @@
+{
+  "site": "https://app.cforgood.com",
+  "API_URL": "https://app.cforgood.com/api/v1",
+  "API_STAGING_URL": "http://cforgood-staging.herokuapp.com/api/v1",
+  "API_PROD_URL": "https://app.cforgood.com/api/v1",
+  "accessTokenMapBox": "pk.eyJ1IjoiY2Zvcmdvb2QiLCJhIjoiY2l6azFkNmFiMDA0eTJxcXBpZW1iY2RldyJ9.VqXqgT-hY1gi7jMtHssK2A",
+  "styleMapBox": "mapbox://styles/cforgood/cizk1j8b3001x2speifk9bnlf",
+  "mapGoogleKey": "AIzaSyCx1jFW8urYfFBr_lVMxPviV6AWdWRCgSQ",
+  "geoKey": " AIzaSyBX-ktEIVHXCPON3abYGLjNs2bkvOgd3k8 ",
+  "cloudinary": {
+  	"api_key": "842991594876692",
+  	"api_secret": "mR99A-hvQfNhAhK4eDgeACowsHs",
+  	"cloud": "dktivbech",
+  	"url": "cloudinary://842991594876692:mR99A-hvQfNhAhK4eDgeACowsHs@dktivbech"
+  }
+}

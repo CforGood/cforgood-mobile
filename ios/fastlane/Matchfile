@@ -1,0 +1,9 @@
+git_url "https://TunDev@bitbucket.org/bestwm/cforgood.git"
+
+type "development" # The default type, can be: appstore, adhoc, enterprise or development
+
+app_identifier "com.cforGood.app"
+username "allan@cforgood.com" # Your Apple Developer Portal username
+
+# For all available options run `fastlane match --help`
+# Remove the # in the beginning of the line to enable the other options
