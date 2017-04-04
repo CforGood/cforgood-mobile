@@ -13,11 +13,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Permissions from 'react-native-permissions';
 
-import { loadBusiness } from '../redux/actions/business';
-import { loadAssociation } from '../redux/actions/association';
+
 import { loadUserData, onUpdateUserLocation } from '../redux/actions/user';
 import { siginSuccess } from '../redux/actions/auth';
-
 
 import {
   styles,
@@ -33,7 +31,6 @@ import Email from '../components/login/Email';
 import Login from '../components/login/Login';
 import Welcome from '../components/login/Welcome';
 
-
 class LoginScreen extends PureComponent {
   state = {
     step: 1,
@@ -44,35 +41,15 @@ class LoginScreen extends PureComponent {
     this.setState({ step });
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this._requestPermission();
   }
 
   async componentWillUpdate(nextProps, nextState){
     if(nextState.step === 3 && this.state.step !== 3){
       await this.props.loadUserData();
-      
-
-      this.verifyPermission();
-
       setTimeout(() => { this.props.siginSuccess(); }, 300);
     }
-  }
-  
-
-  verifyPermission() {
-    Permissions.getPermissionStatus('location', 'always')
-      .then(response => {
-        if (response !== 'authorized') {
-
-          this.load();
-          this._requestPermission();
-        }
-        else{
-          this.loadhWidthPosition();
-          
-        }
-    });
   }
 
   _requestPermission = () => {
@@ -84,26 +61,10 @@ class LoginScreen extends PureComponent {
         }
       }).catch(e => console.log(e))
   }
+  
 
-  loadhWidthPosition() {
-
-    navigator.geolocation.getCurrentPosition( position => {
-      if(position && position.coords ){
-        this.props.onUpdateUserLocation(position.coords);
-      }
-      this.load();
-      return true;
-    });
-
-    return false;
-    
-  }
-
-  async load(){
-
-    await this.props.loadBusiness();
-    await this.props.loadAssociation();
-    return true;
+  loadApp() {
+    setTimeout(() => { this.props.siginSuccess(); }, 1000);
   }
 
   renderContent() {
@@ -142,6 +103,7 @@ class LoginScreen extends PureComponent {
         break;
     }
   }
+
   render() {
     
     return (
@@ -212,8 +174,6 @@ class LoginScreen extends PureComponent {
 
 
 const mapDispatchToProps = (dispatch) => ({
-  loadBusiness: bindActionCreators(loadBusiness, dispatch),
-  loadAssociation: bindActionCreators(loadAssociation, dispatch),
   onUpdateUserLocation: bindActionCreators(onUpdateUserLocation, dispatch),
   loadUserData: bindActionCreators(loadUserData, dispatch),
   siginSuccess: bindActionCreators(siginSuccess, dispatch),

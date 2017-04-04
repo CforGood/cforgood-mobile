@@ -326,7 +326,13 @@ class PerkDetailScreen extends Component {
               source={require('../resources/icons/available.png')}
             /> 
           </View>
-          <View style={{paddingLeft: metrics.baseMargin, paddingRight: 1}}>
+          <View 
+            style={{
+              paddingLeft: metrics.baseMargin, 
+              paddingRight: 1,
+              justifyContent: 'center'
+            }}
+          >
             <Text
               style={[
                 fonts.style.t15,
@@ -339,7 +345,7 @@ class PerkDetailScreen extends Component {
             }
             {
               perk.durable && 
-              "valable tout le temps"
+              "Valable tout le temps"
             }
             {
               perk.flash && perk.times && 
@@ -425,7 +431,7 @@ class PerkDetailScreen extends Component {
 
                 }}
               >
-                <View style={{ height: 172+60 }}>
+                <View style={{ height: 172+60}}>
                   <PerkFullRow
                     business={business}
                     perk={perk}
@@ -434,12 +440,8 @@ class PerkDetailScreen extends Component {
                     detail={true}
                   />
                 </View> 
-                <View 
-                  style={{
-                    marginTop: metrics.marginApp
-                  }}
-                >  
-                  <Text style={fonts.style.t16}>
+                <View>  
+                  <Text style={[fonts.style.t16, {fontWeight: fonts.fontWeight.f400}]}>
                     {perk.description}
                   </Text>  
                 </View>

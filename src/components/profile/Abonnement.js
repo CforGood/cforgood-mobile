@@ -80,7 +80,7 @@ class Abonnement extends PureComponent {
         <Separator color={colors.separatorLine} />
         <Text 
            style={[ 
-             fonts.style.regular, 
+             fonts.style.t16, 
              style.boldCenter
             ]} 
         >
@@ -95,7 +95,7 @@ class Abonnement extends PureComponent {
         <Separator color={colors.separatorLine} style ={{marginVertical : 20}} /> 
         <Text 
            style={[ 
-             fonts.style.regular, 
+             fonts.style.t16, 
              style.boldCenter
             ]} 
         >
@@ -128,7 +128,7 @@ class Abonnement extends PureComponent {
           onPress={() => this.updateMember()}
         >
           <Text
-            style={[fonts.style.regular, { textAlign: 'center'}]}
+            style={[fonts.style.t16, { textAlign: 'center'}]}
           >
             Je me désabonne
           </Text>

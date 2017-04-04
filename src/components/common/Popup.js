@@ -124,7 +124,7 @@ class PopupScreen extends PureComponent {
                 {bigtitle}
               </Text>
               <Text style={[
-                  fonts.style.regular,
+                  fonts.style.t16,
                   fonts.style.bold,
                   {
                     marginVertical: metrics.baseMargin,
@@ -136,7 +136,7 @@ class PopupScreen extends PureComponent {
                 {smalltitle}
               </Text>
               <Text style={[
-                  fonts.style.regular,
+                  fonts.style.t16,
                   {
                     marginVertical: metrics.baseMargin,
                     textAlign: 'center',

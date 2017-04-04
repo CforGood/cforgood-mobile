@@ -14,6 +14,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { onUpdateUserLocation } from '../../redux/actions/user';
+import { loadBusiness } from '../../redux/actions/business';
+import { loadAssociation } from '../../redux/actions/association';
+
 import Marker from './Marker';
 import MapDirection from './MapDirection';
 import { 
@@ -31,9 +34,7 @@ import {
 
 
 const rayonMarker = 21;
-const circle = 52; 
-const LATITUDE = 44.8460252;
-const LONGITUDE = -0.5736973;
+const circle = 52;
 
 Mapbox.setAccessToken(accessTokenMapBox);
 
@@ -43,12 +44,9 @@ class MapView extends Component {
     legs: {},
     direction: [],
     showsUserLocation: true,
-    regionUser: {
-      latitude: LATITUDE,
-      longitude: LONGITUDE,
-    },
+    regionUser: this.props.location,
     zoom: 12,
-    userTrackingMode: Mapbox.userTrackingMode.none,
+    userTrackingMode: Mapbox.userTrackingMode.followWithHeading,
     annotations: [],
     annotation: null,
     color: 'white',
@@ -67,6 +65,10 @@ class MapView extends Component {
       nextState.direction !== this.state.direction
       ||
       nextState.mode !== this.state.mode
+      ||
+      nextState.userTrackingMode !== this.state.userTrackingMode
+      ||
+      nextProps.changedLocation !== nextProps.changedLocation
     ){
       return true;
     }
@@ -83,24 +85,15 @@ class MapView extends Component {
     this._offlineErrorSubscription = Mapbox.addOfflineErrorListener(error => {
       //console.log('offline error', error);
     });
-
-    //if(this.props.userTrackingMode){
-      this.setState({
-        regionUser: this.props.location,
-        gps_activate: true,
-        userTrackingMode: Mapbox.userTrackingMode.followWithHeading
-      });
-    //}
   }
 
   componentWillUpdate(nextProps, nextState){
-    if(nextState.mode !== this.state.mode){
+    if(nextState.mode !== this.state.mode) {
       this.fetchDirection(this.props.address, this.props.category.color, true);
     }
-  }
-
-  componentWillUnMount(){
-    //this.setState({findRegionUser: false})
+    else if(this.state.userTrackingMode != nextState.userTrackingMode){
+      this.fetchDirection(this.state.annotation, this.state.color, nextState.gps_activate);
+    }
   }
 
   componentDidMount() {
@@ -132,7 +125,6 @@ class MapView extends Component {
       
     }
   }
-  
 
   componentWillReceiveProps(nextProps) {
 
@@ -161,11 +153,15 @@ class MapView extends Component {
           
         }
       }
+
       else {
         this.props.showBusiness(null, null)
         this.setState({nearMe: false, direction: []});
       }
       
+    }
+    else if(nextProps.changedLocation !== this.props.changedLocation) {
+      this.load();
     }
   }
 
@@ -180,19 +176,27 @@ class MapView extends Component {
   };
 
   onUpdateUserLocation = (location) => {
-    //console.log('onUpdateUserLocation', location);
+
     const regionUser =  {
       latitude: location.latitude,
       longitude: location.longitude,
     }
-    
-    if(!this.props.mapDirection){
-      this.props.onUpdateUserLocation(regionUser);
-    }
-    this.setState({ regionUser });
 
+    this.setState({ regionUser });
+    
+    if(!this.props.changedLocation){
+      
+      this.setCenterCoordinate(regionUser);
+      this.props.onUpdateUserLocation(regionUser);
+      
+    }
     
   };
+
+  load() {
+    this.props.loadBusiness();
+    this.props.loadAssociation();
+  }
   
 
   onOpenAnnotation = (annotation) => {
@@ -236,9 +240,10 @@ class MapView extends Component {
 
   onChangeUserTrackingMode = (userTrackingMode) => {
     this.setState({ userTrackingMode });
-    console.log('onChangeUserTrackingMode', userTrackingMode);
+    //console.log('onChangeUserTrackingMode', userTrackingMode);
   };
   
+
   setDirection = () => {
     //this.fetchDirection(this.state.annotation);
     this.setState({
@@ -249,18 +254,12 @@ class MapView extends Component {
         Mapbox.userTrackingMode.none
     });
 
-
-    this.fetchDirection(
-      this.state.annotation,
-      this.state.color,
-      !this.state.gps_activate
-    );
   }
   
-  setCenterCoordinate() {
+  setCenterCoordinate(regionUser) {
     this._map.setCenterCoordinate(
-      this.state.regionUser.latitude,
-      this.state.regionUser.longitude,
+      regionUser.latitude,
+      regionUser.longitude,
       true
     );
   }
@@ -362,7 +361,9 @@ class MapView extends Component {
       .then(response => {
         return response.json();
       })
-      .then((responseData) => {
+      .then(async (responseData) => {
+
+        console.log('responseDataDirection', responseData)
         let coordinates = [];
         let legs = {};
 
@@ -372,13 +373,15 @@ class MapView extends Component {
 
           
           legs = responseData.routes[0].legs[0];
-          legs.steps.forEach( step => {
+          await legs.steps.forEach( step => {
             coordinates.push([step.start_location.lat,step.start_location.lng]);
             coordinates.push([step.end_location.lat,step.end_location.lng]);
           })
         }
         
+        
         if(!this.props.mapDirection){
+
           this.setState({
             direction: coordinates,
           });
@@ -394,8 +397,6 @@ class MapView extends Component {
             legs
           });
         }
-        
-
         
       })
       .catch(error => {
@@ -459,7 +460,7 @@ class MapView extends Component {
             style={[
               styles.iconContainer,
             ]}
-            onPress={() => this.setCenterCoordinate()}
+            onPress={() => this.setCenterCoordinate(this.state.regionUser)}
           >
             <Image
               resizeMode='contain'
@@ -518,11 +519,14 @@ class MapView extends Component {
 
 const mapStateToProps = state => ({
   location: state.location.latlng,
+  changedLocation: state.location.changed,
 });
 
 
 const mapDispatchToProps = (dispatch) => ({
   onUpdateUserLocation: bindActionCreators(onUpdateUserLocation, dispatch),
+  loadBusiness: bindActionCreators(loadBusiness, dispatch),
+  loadAssociation: bindActionCreators(loadAssociation, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapView);

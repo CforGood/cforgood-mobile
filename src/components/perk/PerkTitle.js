@@ -23,7 +23,7 @@ export default class PerkTitle extends PureComponent {
         <Text 
           style={[
             fonts.style.bold,
-            fonts.style.regular,
+            fonts.style.t16,
             {  
               color: this.props.color,
             },
@@ -36,7 +36,7 @@ export default class PerkTitle extends PureComponent {
           &&
           <Text 
             style={[
-              fonts.style.regular,
+              fonts.style.t16,
               {  
                 color: this.props.color,
               },

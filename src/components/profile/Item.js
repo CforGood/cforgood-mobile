@@ -34,7 +34,7 @@ export default class Item extends PureComponent {
           {this.props.number}
         </Text>
         <Text style={[
-            fonts.style.regular,
+            fonts.style.t16,
             {textAlign: 'center'}
           ]} 
         >

@@ -43,13 +43,12 @@ export const updateUserData = (id, data) => {
 
   return (dispatch, getState) => {
      
-    console.log('updateUserData', data, id)
+    
     return ApiHandler.updateUserData(id, data)
     .then(response => {
       
       if(response && !response.error)
       {
-        console.log('successUpdate', response)
         dispatch(successUpdate(data));
       }
       else{
@@ -57,7 +56,6 @@ export const updateUserData = (id, data) => {
       }
     })
     .catch(message => {
-      console.log('errorUpdate', message)
       dispatch(failure(message.error));
     });
     

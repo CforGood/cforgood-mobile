@@ -10,7 +10,6 @@ import {
   Image,
   Platform
 } from 'react-native';
-import { withNavigation } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {
@@ -26,6 +25,7 @@ class SearchBar extends PureComponent {
 
   static propTypes = {
     filter: PropTypes.func.isRequired,
+    goBack: PropTypes.func.isRequired,
     textSearch: PropTypes.string,
   };
 
@@ -33,12 +33,9 @@ class SearchBar extends PureComponent {
     filter: () => {},
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      textSearch: props.textSearch
-    };
-  }
+  state = {
+    textSearch: this.props.textSearch
+  };
 
   filter = ( textSearch ) => {
     this.setState({ textSearch });
@@ -61,7 +58,7 @@ class SearchBar extends PureComponent {
         >
           <View style={styles.center}>
             <Icon
-              onPress={() => this.props.navigation.goBack()}
+              onPress={() => this.props.goBack()}
               source={require('../../resources/icons/back-arrow-circular-symbol.png')}
               style={[
                 {
@@ -120,7 +117,7 @@ class SearchBar extends PureComponent {
     );
   }
 }
-export default  withNavigation(SearchBar);
+export default SearchBar;
 
 const styleSearch = StyleSheet.create({
   container: {

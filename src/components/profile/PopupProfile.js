@@ -33,6 +33,8 @@ class PopupProfileMap extends Component {
       !this.state.checked
       ||
       this.state.visible === true && nextState.visible === false
+      ||
+      nextProps.loadedBusinesses !== this.props.loadedBusinesses
     ){
       return true;
     }
@@ -41,12 +43,21 @@ class PopupProfileMap extends Component {
 
 
   componentDidMount() {
-  	
-  	setTimeout(() => { this.checkPopupProfile(this.props.user, this.props.businesses); }, 4500);
+    
+    setTimeout(() => { this.checkPopupProfile(
+      this.props.user, 
+      this.props.businesses,
+      this.props.loadedBusinesses
+      ); 
+    }, 4500);
   }
 
   componentWillReceiveProps(nextProps) {
-  	setTimeout(() => { this.checkPopupProfile(nextProps.user, nextProps.businesses); }, 4500);
+  	setTimeout(() => { this.checkPopupProfile(
+      nextProps.user,
+      nextProps.businesses,
+      nextProps.loadedBusinesses); 
+    }, 4500);
    
   }
 
@@ -94,9 +105,11 @@ class PopupProfileMap extends Component {
   }
 
 
-  checkPopupProfile(user, businesses){
+  checkPopupProfile(user, businesses, loadedBusinesses){
 
     const businesses_around = businesses ? businesses.length : 0;
+
+    console.log('loadedBusinessesloadedBusinesses', businesses_around, loadedBusinesses)
     
   	if(user && !this.state.visible) {
       let visible = false;
@@ -114,7 +127,7 @@ class PopupProfileMap extends Component {
         else{
           type= 'not_partner';
         }
-      } else if( businesses_around === 0) {
+      } else if(loadedBusinesses && businesses_around === 0) {
         visible = true;
         type = 'businesses_around';
       }
@@ -153,6 +166,7 @@ class PopupProfileMap extends Component {
 
 const mapStateToProps = state => ({
   user: state.user.data,
+  loadedBusinesses: state.business.loaded,
   businesses: state.business.businesses,
 });
 

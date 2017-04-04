@@ -50,7 +50,7 @@ export default class AssociationItem extends Component {
         >
           <View>
             <Text style={[
-                fonts.style.regular,
+                fonts.style.t16,
                 fonts.style.bold,
                 style.text,
               ]}
@@ -76,7 +76,7 @@ export default class AssociationItem extends Component {
             {
               total_donation !== null &&
               <Text style={[
-                  fonts.style.regular,
+                  fonts.style.t16,
                   fonts.style.bold,
                   style.text,
                 ]}
@@ -88,7 +88,7 @@ export default class AssociationItem extends Component {
           </View>
           <View>
             <Text style={[
-                fonts.style.regular,
+                fonts.style.t16,
                 fonts.style.mediumBold,
                 style.text,
               ]}

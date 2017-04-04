@@ -98,14 +98,7 @@ class BusinessScreen extends PureComponent {
       }
     }).
     catch(error => {
-      //this.props.navigation.goBack();
-      //Alert.alert(
-      //  'Erreur',
-      //  error.message,
-      //  [
-      //    {text: 'Fermer', onPress: () => console.log('OK Pressed')},
-      //  ]
-      //);
+
     });
   }
 

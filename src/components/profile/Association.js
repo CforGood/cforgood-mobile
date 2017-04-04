@@ -84,7 +84,7 @@ class Association extends PureComponent {
           <Text
             style=
             {[ 
-              fonts.style.regular, 
+              fonts.style.t16, 
               style.boldCenter
             ]}
           >

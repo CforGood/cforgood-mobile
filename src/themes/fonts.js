@@ -64,7 +64,7 @@ const style = {
     fontSize: 15,
     color: colors.darkGray,
   },
-  regular: {
+  t16: {
     fontFamily: type.base,
     fontSize: 16,
     color: colors.darkGray,

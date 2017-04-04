@@ -6,13 +6,14 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Animated
+  Animated,
+  Platform,
 } from 'react-native';
 
-import { NavigationActions } from 'react-navigation'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-
- 
+import { setBusiness } from '../redux/actions/business'; 
 import Separator from '../components/common/Separator'; 
 import Button from '../components/common/ButtonGradient';
 import PerkFullRow from '../components/perk/PerkFullRow';
@@ -54,9 +55,18 @@ class PerkListScreen extends PureComponent {
   }
 
   onValidate = () => {
-    this.props.navigation.goBack();
+    this.goBack();
 
     this.setPerk(null);
+  }
+
+  goBack() {
+    //probleme with map 
+    if(Platform.OS === 'android') {
+      this.props.setBusiness(null);
+    }
+
+    this.props.navigation.goBack();
   }
 
   render() {
@@ -134,7 +144,11 @@ class PerkListScreen extends PureComponent {
   }
 }
 
-export default PerkListScreen;
+const mapDispatchToProps = (dispatch) => ({
+  setBusiness: bindActionCreators(setBusiness, dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(PerkListScreen);
 
 const stylePerkListScreen = {
   header: {

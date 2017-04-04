@@ -7,7 +7,8 @@ import {
   Easing,
   Image,
   AsyncStorage,
-  NetInfo
+  NetInfo,
+  Alert,
 } from 'react-native';
 import Permissions from 'react-native-permissions';
 import Orientation from 'react-native-orientation';
@@ -22,8 +23,6 @@ import {
 } from '../themes';
 
 import { loadUserData, onUpdateUserLocation } from '../redux/actions/user';
-import { loadBusiness } from '../redux/actions/business';
-import { loadAssociation } from '../redux/actions/association';
 import { siginSuccess } from '../redux/actions/auth';
 
 
@@ -48,7 +47,7 @@ class SplashScreen extends Component {
     );
 
     NetInfo.isConnected.fetch().done(
-        (isConnected) => { this.setState({isConnected}); }
+      (isConnected) => { this.setState({isConnected}); }
     );
     
     this.animate(0);
@@ -59,7 +58,6 @@ class SplashScreen extends Component {
       if(this.state.isConnected){
         this.loadData();
       }
-      
     }
     else{
 
@@ -79,6 +77,7 @@ class SplashScreen extends Component {
   
   componentWillMount() {
     Orientation.lockToPortrait();
+    this._requestPermission();
   }
 
   componentWillUnmount() {
@@ -112,8 +111,8 @@ class SplashScreen extends Component {
     auth = await AsyncStorage.getItem('@CfoorGoodStore:auth');
     
     if(auth !== null){
-      this.verifyPermission();
       
+      this.loadApp();
     }
     else{
       setTimeout(() => {  this.animateOpacity(); }, 1000);
@@ -124,38 +123,7 @@ class SplashScreen extends Component {
     }
   }
 
-  verifyPermission() {
-    Permissions.getPermissionStatus('location', 'always')
-      .then(response => {
-        if (response !== 'authorized') {
-          
-          this.load();
-          this._requestPermission();
-        }
-        else{
-          this.loadWidthPosition();
-        }
-    });
-  }
-
-  loadWidthPosition() {
-    try{
-      navigator.geolocation.getCurrentPosition(position => {
-        if(position && position.coords ){
-          this.props.onUpdateUserLocation(position.coords);
-        }
-        this.load();
-      });
-    } catch (e) {
-      //alert(e)
-    }
-    
-  }
-
-  async load() {
-    await this.props.loadBusiness();
-    await this.props.loadAssociation();
-    
+  loadApp() {
     setTimeout(() => {  this.animateOpacity(); }, 800);
     setTimeout(() => { this.props.siginSuccess(); }, 1000);
   }
@@ -163,13 +131,11 @@ class SplashScreen extends Component {
   _requestPermission = () => {
     Permissions.requestPermission('location', 'always')
       .then(response => {
-
         if (response !== 'authorized') {
           Permissions.openSettings
         }
       }).catch(e => console.log(e))
   }
-
   
   animate(i) {
     this.state.scale.setValue(0.2);
@@ -219,8 +185,6 @@ class SplashScreen extends Component {
           styles.center
         ]}
       >
-          
-          
         <Animated.Image
           resizeMode='contain'
           style={[
@@ -258,8 +222,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loadUserData: bindActionCreators(loadUserData, dispatch),
-  loadBusiness: bindActionCreators(loadBusiness, dispatch),
-  loadAssociation: bindActionCreators(loadAssociation, dispatch),
   onUpdateUserLocation: bindActionCreators(onUpdateUserLocation, dispatch),
   siginSuccess: bindActionCreators(siginSuccess, dispatch),
 });

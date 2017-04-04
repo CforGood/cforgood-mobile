@@ -4,12 +4,12 @@ import {
   Text,
   Image,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
+  Platform,
 } from 'react-native';
 
-import {
-  connect
-} from 'react-redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import { 
   styles,
@@ -17,7 +17,7 @@ import {
   fonts
 } from '../themes';
 
-
+import { setBusiness } from '../redux/actions/business';
 import SearchBar from '../components/common/SearchBar';
 import BusinessList from '../components/business/BusinessList';
 import AssociationList from '../components/Association/AssociationList';
@@ -42,8 +42,17 @@ class SearchScreen extends Component {
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.perkId !== null && this.props.perkId === null){
-      this.props.navigation.goBack();
+      this.goBack();
     }
+  }
+
+  goBack() {
+    //probleme with map 
+    if(Platform.OS === 'android') {
+      this.props.setBusiness(null);
+    }
+
+    this.props.navigation.goBack();
   }
 
   filter = ( textSearch ) => {
@@ -160,6 +169,7 @@ class SearchScreen extends Component {
         }        
         <SearchBar 
           filter={this.filter}
+          goBack={() => this.goBack()}
         />
         {
           this.renderText()
@@ -181,5 +191,9 @@ const mapStateToProps = state => ({
   businesses: state.business.entities,
 });
 
-export default connect(mapStateToProps)(SearchScreen);
+const mapDispatchToProps = (dispatch) => ({
+  setBusiness: bindActionCreators(setBusiness, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchScreen);
 

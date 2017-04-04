@@ -203,7 +203,7 @@ export default class Amount extends PureComponent {
           <View style={[styles.row, styles.center]}>
             <Text 
               style={[
-                fonts.style.regular,
+                fonts.style.t16,
                 fonts.style.bold,
                 style.offert,
               ]} 
@@ -212,7 +212,7 @@ export default class Amount extends PureComponent {
             </Text>
             <Text 
               style={[
-                fonts.style.regular, 
+                fonts.style.t16, 
                 style.offert,
               ]} 
             >
@@ -224,7 +224,7 @@ export default class Amount extends PureComponent {
         
 
         <View style={styles.center}>
-          <Text style={[fonts.style.regular, {paddingTop :30} ]} >
+          <Text style={[fonts.style.t16, {paddingTop :30} ]} >
             Actuellement
           </Text>
           <Box text={String(Math.floor(this.state.amount)) + ' €'}/>

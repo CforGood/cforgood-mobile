@@ -66,7 +66,10 @@ class BusinessRow extends PureComponent {
             business={business}
             category={category}
           />
-          <Separator type={'v'} margin={2} />
+          <Separator 
+            type={'v'}
+            margin={metrics.smallMargin}
+          />
           {
             business.perks.map((perk, key) =>
               <TouchableOpacity

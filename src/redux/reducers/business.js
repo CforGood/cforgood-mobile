@@ -20,10 +20,11 @@ export default function reducer(state = initialState, action = {}) {
     case LOAD:
       return {
         ...state,
-        loaded: true,
+        loaded: false,
         failed: false,
       };
     case LOAD_SUCCESS: {
+      console.log(action.entities, 'action.entities' )
       const entities = action.entities;
       return {
         ...state,

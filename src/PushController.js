@@ -20,7 +20,6 @@ export default class PushController extends Component {
     FCM.requestPermissions();
 
     FCM.getFCMToken().then(token => {
-      console.log("TOKEN (getFCMToken)", token);
       this.props.onChangeToken(token);
     });
 

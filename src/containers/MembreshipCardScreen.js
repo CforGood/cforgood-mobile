@@ -83,8 +83,10 @@ class MembreshipCardScreen extends PureComponent {
             >   
               <Text style={styleMembreshipCardScreen.description} >  
                 ” La carte de membre doit être montrée au commerçant après la prise de commande, 
-                cliquez ensuite sur Terminer pour valider votre bon plan ”
-              </Text>  
+                cliquez ensuite sur 
+              </Text>
+              <Text style={[styleMembreshipCardScreen.description, {fontWeight: 'bold'}]} > Terminer </Text>
+              <Text style={styleMembreshipCardScreen.description} > pour valider votre bon plan ” </Text>
             </View> 
           </View>
           <Button 

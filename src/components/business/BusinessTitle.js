@@ -32,7 +32,7 @@ export default class BusinessTitle extends PureComponent {
               color: this.props.color, 
             },
             fonts.style.bold,
-            fonts.style.regular,  
+            fonts.style.t16,  
             this.props.style,
           ]}
           numberOfLines={this.props.activity ? 1 : 2}
@@ -44,7 +44,7 @@ export default class BusinessTitle extends PureComponent {
             {  
               color: 'this.props.color', 
             },
-            fonts.style.regular,  
+            fonts.style.t16,  
             this.props.style,
            
           ]}

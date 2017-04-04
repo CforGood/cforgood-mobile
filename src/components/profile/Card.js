@@ -71,7 +71,7 @@ class Card extends PureComponent {
                 }
               ]}
             >
-              {moment().format('LL')}
+              Le {moment().format('LL')}
             </Text> 
           </LinearGradient>
         </View>
@@ -136,7 +136,8 @@ class Card extends PureComponent {
                   {
                     color: colors.gray, 
                     marginHorizontal: metrics.smallMargin,
-                    width: metrics.deviceWidth/3
+                    width: metrics.deviceWidth/3,
+                    textAlign: 'right',
                   }
                 ]}
               >

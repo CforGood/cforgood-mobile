@@ -30,7 +30,7 @@ export default class OfferView extends PureComponent {
           <Text 
             style={[ 
               style.text,
-              fonts.style.regular,
+              fonts.style.t16,
               fonts.style.bold,
             ]}
             numberOfLines={1}

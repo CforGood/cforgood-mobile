@@ -6,7 +6,6 @@ import { View } from 'react-native';
 
 import FirebaseCrash from 'react-native-firebase-crash-report';
 import { connect } from 'react-redux';
-import Mapbox from 'react-native-mapbox-gl';
 
 import HomeNavigator from './navigator/HomeNavigator';
 import LoginNavigator from './navigator/InitialNavigator';
@@ -18,11 +17,8 @@ import {
   accessTokenMapBox,
 } from './config.json';
 
-Mapbox.setAccessToken(accessTokenMapBox);
-
 class MyApp extends Component {
   
-
   compnentWillMount() {
     FirebaseCrash.log('LOAD APP');
   }

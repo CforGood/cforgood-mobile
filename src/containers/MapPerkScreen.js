@@ -50,7 +50,7 @@ class MapPerkScreen extends Component {
     } = this.props;
 
     const address = business.address || business.addresses[0]
-    
+    console.log('addressaddress', address)
     return (
       <Modal
         onClose={onClose}
@@ -66,7 +66,7 @@ class MapPerkScreen extends Component {
             <MapView 
               onClose={onClose}
               category={category}
-              address={business.address || business.addresses[0]}
+              address={address}
               userTrackingMode={true}
               mapDirection={true}
               setDistance={this.setDistance}
@@ -79,7 +79,7 @@ class MapPerkScreen extends Component {
               <Text 
                 style={[
                   fonts.style.bold,
-                  fonts.style.regular,
+                  fonts.style.t16,
                 ]}
                 numberOfLines={1}
               >

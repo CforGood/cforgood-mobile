@@ -57,9 +57,9 @@ export const loadBusiness = () => {
     .then(response => {
       if(response && !response.error){
         
-        if(response.length !== 0){
-          dispatch(success(response));
+        dispatch(success(response));
         
+        if(response.length !== 0){
           
           const categories = filters.categories;
           if(categories.length > 0){

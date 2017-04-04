@@ -32,8 +32,6 @@ export default function reducer(state = initialState, action = {}) {
     }
     case UPDATE_SUCCESS: {
       const data = action.data;
-
-      console.log('data USer reducer', data)
       return {
         ...state,
         loaded: true,

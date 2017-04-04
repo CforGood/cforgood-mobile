@@ -89,7 +89,7 @@ class PerkReviewsScreen extends Component {
                 style={{alignItems: 'center'}}
               >
                 <Text style={[ 
-                    fonts.style.regular,  
+                    fonts.style.t16,  
                     fonts.style.bold,
                     {  
                       marginVertical: metrics.baseMargin
