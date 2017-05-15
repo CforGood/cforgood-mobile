@@ -31,18 +31,18 @@ import LoginScreen from './LoginScreen';
 
 import { URL_VIDEO } from '../constants';
 
-const marginLeft = (metrics.deviceHeight - metrics.deviceWidth)/2;
-const marginFooter = metrics.images.logo 
-  + 
-  (metrics.deviceHeight - metrics.images.logo)/8
+const marginLeft = (metrics.deviceHeight - metrics.deviceWidth) / 2;
+const marginFooter = metrics.images.logo
   +
-  metrics.deviceHeight/16;
+  (metrics.deviceHeight - metrics.images.logo) / 8
+  +
+  metrics.deviceHeight / 16;
 
 class HomeScreen extends PureComponent {
 
   state = {
-    animatedValue:  new Animated.Value(0),
-    animatedBackground:  new Animated.Value(0),
+    animatedValue: new Animated.Value(0),
+    animatedBackground: new Animated.Value(0),
     scale: new Animated.Value(Platform.OS === 'ios' ? 0 : 0.01),
     played: false,
     canPlay: false,
@@ -54,26 +54,26 @@ class HomeScreen extends PureComponent {
     animated: false,
 
   };
-  
-  
+
+
   componentWillMount() {
 
     Orientation.addOrientationListener(this._orientationDidChange);
 
   }
-  
-  startAnimate() {
-    if(this.state.animated === false){
 
-      this.setState({animated: true});
-      
+  startAnimate() {
+    if (this.state.animated === false) {
+
+      this.setState({ animated: true });
+
       setTimeout(() => { this.spring() }, 100);
       setTimeout(() => { this._zoomIn() }, 390);
       setTimeout(() => { this.animated() }, 300);
 
 
     }
-    
+
   }
   componentWillUnmount() {
 
@@ -81,7 +81,7 @@ class HomeScreen extends PureComponent {
   }
 
   animated = () => {
-    
+
     Animated.timing(
       this.state.animatedValue,
       {
@@ -93,7 +93,7 @@ class HomeScreen extends PureComponent {
   }
 
   _zoomIn = () => {
-    
+
     Animated.timing(
       this.state.animatedBackground,
       {
@@ -102,19 +102,19 @@ class HomeScreen extends PureComponent {
       }
     ).start();
   }
-  
+
   spring = () => {
 
-      this.state.scale.setValue(0.01);
-      Animated.spring(
-        this.state.scale,
-        {
-          toValue: 1,
-          tension: 10,
-          duration: 200,
-          easing: Easing.linear
-        }
-      ).start();
+    this.state.scale.setValue(0.01);
+    Animated.spring(
+      this.state.scale,
+      {
+        toValue: 1,
+        tension: 10,
+        duration: 200,
+        easing: Easing.linear
+      }
+    ).start();
   }
 
   _orientationDidChange = (orientation) => {
@@ -123,7 +123,7 @@ class HomeScreen extends PureComponent {
 
       this.setState({
         marginLeft: 0,
-        topVideo: - ((metrics.deviceHeight)/2),
+        topVideo: - ((metrics.deviceHeight) / 2),
         widthVideo: metrics.deviceHeight
       })
     } else {
@@ -142,11 +142,11 @@ class HomeScreen extends PureComponent {
 
   setPlay = () => {
 
-   if(!this.state.played)
-    Orientation.unlockAllOrientations();
-   else
-    Orientation.lockToPortrait();
-    
+    if (!this.state.played)
+      Orientation.unlockAllOrientations();
+    else
+      Orientation.lockToPortrait();
+
 
     this.setState({ played: !this.state.played, canPlay: true });
   }
@@ -158,17 +158,17 @@ class HomeScreen extends PureComponent {
 
 
   getVideo() {
-    return(
+    return (
       this.state.canPlay &&
       <View style={[
-          styles.screen.overlay,
-          stylesHome.videoContainer,
-          {
-            zIndex: this.state.played ? 5 : 3,
-            marginLeft: this.state.marginLeft,
-            width: this.state.widthVideo,
-          }
-        ]}
+        styles.screen.overlay,
+        stylesHome.videoContainer,
+        {
+          zIndex: this.state.played ? 5 : 3,
+          marginLeft: this.state.marginLeft,
+          width: this.state.widthVideo,
+        }
+      ]}
       >
         <Icon
           source={require('../resources/icons/close-white.png')}
@@ -178,7 +178,7 @@ class HomeScreen extends PureComponent {
             height: 26,
             width: 26,
             marginLeft: metrics.marginApp,
-            marginTop: metrics.marginApp + (Platform.OS === 'ios' ? 22: 0),
+            marginTop: metrics.marginApp + (Platform.OS === 'ios' ? 22 : 0),
           }}
           styleImage={{
             height: 26,
@@ -187,10 +187,10 @@ class HomeScreen extends PureComponent {
         />
         <Video
           resizeMode='contain'
-          source={{uri: URL_VIDEO}}
+          source={{ uri: URL_VIDEO }}
           style={[
             styles.screen.overlay,
-            { 
+            {
               top: this.state.topVideo,
             }
           ]}
@@ -198,7 +198,7 @@ class HomeScreen extends PureComponent {
           repeat={true}
           onLoadStart={this.loadStart}     // Callback when video starts to load
           onLoad={this.loadStart}          // Callback when video loads
-          //onEnd={this.onEnd}             // Callback when playback finishes 
+        //onEnd={this.onEnd}             // Callback when playback finishes 
         />
       </View>
     );
@@ -224,21 +224,21 @@ class HomeScreen extends PureComponent {
     const top = this.state.animatedValue.interpolate({
       inputRange: [0, 1],
       outputRange: [
-        (metrics.deviceHeight - metrics.images.logo)/2, 
-        (metrics.deviceHeight - metrics.images.logo)/8
+        (metrics.deviceHeight - metrics.images.logo) / 2,
+        (metrics.deviceHeight - metrics.images.logo) / 8
       ]
     });
-    
+
 
     return (
-      <Animated.View 
+      <Animated.View
         style={[
           {
             position: 'absolute',
-            left: marginLeft ,
+            left: marginLeft,
             zIndex: 4,
             top,
-            height: metrics.images.logo + metrics.deviceHeight/16,
+            height: metrics.images.logo + metrics.deviceHeight / 16,
           }
         ]}
       >
@@ -247,7 +247,7 @@ class HomeScreen extends PureComponent {
       </Animated.View>
     )
   }
-  
+
 
   getFooter() {
     const { navigation } = this.props;
@@ -262,10 +262,10 @@ class HomeScreen extends PureComponent {
           { opacity },
           stylesHome.footer,
         ]}
-      > 
-        
+      >
+
         <View style={stylesHome.playContainer}>
-          <Icon  
+          <Icon
             onPress={() => this.setPlay()}
             source={require('../resources/icons/play.png')}
             style={{
@@ -278,43 +278,43 @@ class HomeScreen extends PureComponent {
             }}
           />
         </View>
-        <View style={stylesHome.bottomFooter}>   
+        <View style={stylesHome.bottomFooter}>
           <Button
             onPress={() => navigation.navigate('Signup')}
             text={"S'inscrire"}
             styleButton={{
               marginBottom: metrics.baseMargin
             }}
-            styleText={{fontWeight: 'normal'}}
-          />  
+            styleText={{ fontWeight: 'normal' }}
+          />
           <Text style={[
             fonts.style.textWhite,
             stylesHome.text,
-            fonts.style.h11, 
+            fonts.style.h11,
             {
               marginBottom: metrics.smallMargin
             }
           ]}
-          > 
+          >
             ou
-          </Text> 
+          </Text>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Login', { step: 1 })}  
+            onPress={() => navigation.navigate('Login', { step: 1 })}
           >
             <Text style={[
-                fonts.style.textWhite,
-                stylesHome.text,
-                fonts.style.h9,
-              ]}
-            > 
+              fonts.style.textWhite,
+              stylesHome.text,
+              fonts.style.h9,
+            ]}
+            >
               Se connecter
             </Text>
-          </TouchableOpacity> 
+          </TouchableOpacity>
         </View>
       </Animated.View>
     )
   }
-  
+
 
   render() {
 
@@ -322,10 +322,10 @@ class HomeScreen extends PureComponent {
       inputRange: [0, 1],
       outputRange: [0, 1]
     });
- 
+
     const borderRadius = this.state.animatedBackground.interpolate({
       inputRange: [0, 1],
-      outputRange: [metrics.deviceHeight/2, 0]
+      outputRange: [metrics.deviceHeight / 2, 0]
     });
 
     return (
@@ -334,9 +334,9 @@ class HomeScreen extends PureComponent {
           {
             borderRadius,
             transform: [
-              { 
+              {
                 scale: this.state.scale
-              },      
+              },
             ],
             left: - this.state.marginLeft,
           },
@@ -344,17 +344,17 @@ class HomeScreen extends PureComponent {
           stylesHome.mainContainer,
         ]}
       >
-        { this.getBackground(borderRadius) }
-        { this.getVideo() }
-        { this.getLogo() }
-        { this.getFooter() }
+        {this.getBackground(borderRadius)}
+        {this.getVideo()}
+        {this.getLogo()}
+        {this.getFooter()}
       </Animated.View>
     );
   }
 };
 
- 
-const stylesHome = StyleSheet.create({ 
+
+const stylesHome = StyleSheet.create({
   mainContainer: {
     height: metrics.deviceHeight,
     width: metrics.deviceHeight,
@@ -373,7 +373,7 @@ const stylesHome = StyleSheet.create({
     alignItems: 'center',
     height: (metrics.deviceHeight - marginFooter)
     -
-    metrics.deviceHeight/5
+    metrics.deviceHeight / 5
     -
     metrics.doubleBaseMargin,
   },
@@ -392,7 +392,7 @@ const stylesHome = StyleSheet.create({
   },
   bottomFooter: {
     marginHorizontal: metrics.doubleBaseMargin,
-    height: metrics.deviceHeight/5,
+    height: metrics.deviceHeight / 5,
     marginBottom: metrics.doubleBaseMargin,
     //marginTop: marginBottom,
   }

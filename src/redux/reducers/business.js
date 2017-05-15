@@ -31,7 +31,7 @@ export default function reducer(state = initialState, action = {}) {
         loaded: true,
         failed: false,
         entities,
-        businesses: entities,
+        //businesses: entities,
       };
     }
     case FILTER: {

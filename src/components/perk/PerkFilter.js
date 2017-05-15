@@ -23,6 +23,7 @@ class PerkFilter extends PureComponent {
 
   setFilter(filter) {
     this.setState({ filter });
+    this.props.sortBy(filter);
   }
 
   render() {

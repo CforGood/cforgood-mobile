@@ -8,8 +8,8 @@ const type = {
 const size = {
   h1: metrics.deviceWidth/10,
   h2: 35,
-  h8: metrics.deviceWidth/18,
-  h9: metrics.deviceWidth/19,
+  h8: 22,
+  h9: 19,
   input: 15,
   regular: 16,
   medium: 14,
@@ -38,10 +38,6 @@ const style = {
     fontSize: size.h2,
     fontFamily: type.base,
     color: colors.darkGray,
-  },
-  h9: {
-    fontFamily: type.base,
-    fontSize: size.h9,
   },
   t10: {
     fontFamily: type.base,
@@ -78,6 +74,10 @@ const style = {
     fontFamily: type.base,
     fontSize: 18,
     color: colors.darkGray,
+  },
+  h9: {
+    fontFamily: type.base,
+    fontSize: 19,
   },
   t20: {
     fontFamily: type.base,

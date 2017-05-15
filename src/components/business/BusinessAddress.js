@@ -44,6 +44,10 @@ class BusinessAddress extends Component {
   }
 
   getDistanceFromLatLonInKm(myPosition, address) {
+
+    //const LATITUDE = 44.8450097;
+    //const LONGITUDE = -0.5785995;
+
     //if(address) {
       var R = 6371; // Radius of the earth in km
       var dLat = this.deg2rad(address.latitude - myPosition.latitude);  // deg2rad below
@@ -55,7 +59,14 @@ class BusinessAddress extends Component {
         ; 
       var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
       var d = R * c; // Distance in km
-      this.setState({distance: Math.round(d) + ' km'});
+      if(parseInt(d) === 0){
+        this.setState({distance: Math.round(d*1000) + ' m'});
+      }
+      else {
+        this.setState({distance: Math.round(d) + ' km'});
+      }
+
+      
     //}
     
   }

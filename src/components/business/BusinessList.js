@@ -21,7 +21,6 @@ import {
   businesses
 } from '../../dummyData';
 
-import PerkDetailScreen from '../../containers/PerkDetailScreen';
 import BusinessRow from './BusinessRow';
 import Separator from '../common/Separator';
  
@@ -36,23 +35,19 @@ class BusinessesList extends Component {
   static propTypes = {
     businesses: PropTypes.arrayOf(businessType).isRequired,
   };
-  
-  setPerk = (perk, business = null, category= null) => {
-    this.setState({ perk, business, category });
-  };
 
-  onValidate = () => {
-
-    const resetAction = NavigationActions.reset({
-      index: 0,
-      actions: [
-        NavigationActions.navigate({ routeName: 'Maps'})
-      ]
-    })
-    this.props.navigation.dispatch(resetAction)
-
-    this.setState({ perk: null });
+  setPerk = (perk, business, category) => {
+    if(perk && business) {
+      this.props.navigation.navigate('PerkDetail',
+        {
+          perkId: perk.id,
+          businessId: business.id,
+          addressId: business.addresses[0].id,
+        }
+      );
+    }
   }
+  
 
   renderRow = (business, key) => (
     <View
@@ -86,17 +81,7 @@ class BusinessesList extends Component {
           ) 
         }
         </ScrollView>
-        {
-          this.state.perk &&
-          <PerkDetailScreen
-            visible={true}
-            onClose={() => this.setPerk(null)}
-            perk={this.state.perk}
-            business={this.state.business}
-            category={this.state.category}
-            onValidate={() => this.onValidate()}
-          />
-        }
+        
         
       </View>
     );

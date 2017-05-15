@@ -13,7 +13,7 @@ import {
   styles,
   colors,
   fonts,
-  metrics, 
+  metrics,
 } from '../themes';
 
 
@@ -24,8 +24,8 @@ import ButtonAdd from '../components/common/ButtonAdd';
 
 const HEADER_SCROLL_DISTANCE = metrics.marginApp;
 
-class AssociationScreen extends Component { 
-  
+class AssociationScreen extends Component {
+
   state = {
     scrollY: new Animated.Value(0),
   };
@@ -37,22 +37,22 @@ class AssociationScreen extends Component {
       extrapolate: 'clamp',
     });
 
-    return (  
+    return (
       <View style={styles.screen.mainContainer}>
         <Header module={'association'} />
 
         <ButtonAdd
           styleButton={style.styleButton}
           styleText={style.text}
-          text={' Proposer une association '} 
+          text={' Proposer une association '}
           onPress={() => this.props.navigation.navigate('AssociationForm')}
-        /> 
-        
+        />
+
         <AssociationList
           associations={this.props.associations}
         />
-        
-      </View>  
+
+      </View>
     );
   }
 }
@@ -64,9 +64,9 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(AssociationScreen);
 
-const style = {   
-  associationContainer: {  
-    width: metrics.deviceWidth/2 - metrics.marginApp,
+const style = {
+  associationContainer: {
+    width: metrics.deviceWidth / 2 - metrics.marginApp,
     height: 229,
     marginVertical: metrics.smallMargin,
     backgroundColor: 'transparent',
@@ -79,14 +79,14 @@ const style = {
     overflow: 'hidden',
     backgroundColor: colors.blueAssociation,
   },
-  styleButton:{    
+  styleButton: {
     backgroundColor: colors.white,
     borderColor: colors.blueAssociation,
     borderWidth: 2,
     borderRadius: 22,
-    height: 44, 
+    height: 44,
     marginVertical: 13,
-    marginHorizontal: metrics.marginApp , 
+    marginHorizontal: metrics.marginApp,
   },
   text: [
     fonts.style.t18,
@@ -94,6 +94,6 @@ const style = {
       color: colors.blueAssociation,
       textAlign: 'center',
       fontWeight: 'bold',
-    } 
+    }
   ]
 }; 

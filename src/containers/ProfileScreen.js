@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Platform,
+  Linking,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -28,7 +29,7 @@ import ProfileHeader from '../components/profile/ProfileHeader';
 
 import Separator from '../components/common/Separator';
 import ModalDatePicker from '../components/common/ModalDatePicker';
-import Button from '../components/common/ButtonGradient'; 
+import Button from '../components/common/ButtonGradient';
 
 //Profile
 import ProfileForm from '../components/profile/ProfileForm';
@@ -53,12 +54,18 @@ class ProfileScreen extends Component {
     popupUpdateSubsription: false,
   };
 
-  componentWillMount(){
+  componentWillMount() {
     const { params } = this.props.navigation.state;
-    this.setState({
-      user: this.props.user,
-      selectedItem: params && params.tab || 'profile'
-    });
+    if (this.props.user) {
+      this.setState({
+        user: this.props.user,
+        selectedItem: params && params.tab || 'profile'
+      });
+    }
+    else {
+      this.props.navigation.goBack();
+    }
+
 
   }
 
@@ -78,24 +85,24 @@ class ProfileScreen extends Component {
     this.setUserData({
       ...this.state.user, birthday: date
     })
-    if(Platform.OS === 'ios'){
-      this.setState({enableChangeBirthDay: false});
+    if (Platform.OS === 'ios') {
+      this.setState({ enableChangeBirthDay: false });
     }
   }
 
-  onEnableChangeDate(date = null){
+  onEnableChangeDate(date = null) {
 
-    if(Platform.OS === 'ios'){
-      this.setState({enableChangeBirthDay: true});
+    if (Platform.OS === 'ios') {
+      this.setState({ enableChangeBirthDay: true });
     }
-    else{
+    else {
       this.setBirthDay(date);
     }
-    
+
   }
 
   saveUserUpdating = async () => {
-    
+
     const { user } = this.state;
     let uploadPictureResponse;
     if (this.state.pictureSource) {
@@ -124,16 +131,19 @@ class ProfileScreen extends Component {
         ...this.state.user, picture: userData.picture
       })
     }
-    
-    const subscription = this.props.user.subscription;
+
+    const { subscription } = this.props.user;
+
+    this.verifyMember();
 
     await this.props.updateUserData(user.id, userData);
 
 
-    if( user.subscription !== subscription ) {
+
+    if (user.subscription !== subscription) {
       this.setVisiblePopupSubscription(true);
     }
-    else{
+    else {
       this.setVisiblePopupUser(true);
     }
 
@@ -141,6 +151,25 @@ class ProfileScreen extends Component {
 
   }
 
+  verifyMember() {
+    const { amount, id, member, subscription } = this.props.user;
+    if (
+      (amount !== this.state.user.amount
+        ||
+        subscription != this.state.user.subscription)
+
+      && member === false) {
+      const url = "https://app.cforgood.com/member/users/" + id + "/profile#subscription"
+      Linking.canOpenURL(url).then(supported => {
+        if (!supported) {
+          console.log('Can\'t handle url: ');
+        } else {
+          return Linking.openURL(url);
+        }
+      }).catch(err => console.error('An error occurred', err));
+    }
+
+  }
   setVisiblePopupSubscription(popupUpdateSubsription) {
     this.setState({ popupUpdateSubsription })
   }
@@ -148,78 +177,78 @@ class ProfileScreen extends Component {
   setVisiblePopupUser(popupUpdate) {
     this.setState({ popupUpdate })
   }
-  
-  closePopup(){
+
+  closePopup() {
     this.setVisiblePopupUser(false);
     this.setVisiblePopupSubscription(false);
   }
 
   async updateEmail() {
-    if(this.props.user.email !== this.state.user.email){
-      await AsyncStorage.getItem('@CfoorGoodStore:auth', (err, result) => { 
+    if (this.props.user.email !== this.state.user.email) {
+      await AsyncStorage.getItem('@CfoorGoodStore:auth', (err, result) => {
         user = JSON.parse(result);
         user.email = this.state.user.email;
         AsyncStorage.setItem('@CfoorGoodStore:auth', JSON.stringify(user));
       });
     }
-    
+
   }
-  
+
 
   render() {
     const { user } = this.state;
     return (
       <View style={[
-          styles.screen.mainContainer,
-        ]} 
-      > 
+        styles.screen.mainContainer,
+      ]}
+      >
         <View style={style.profileheader}>
           <ProfileHeader ambassador={user.ambassador} />
         </View>
         <ScrollView>
 
-          <View style={style.info}>  
-            <Info 
-              user={user} 
+          <View style={style.info}>
+            <Info
+              user={user}
               pictureSource={this.state.pictureSource || user.picture}
               setPrictureSource={(pictureSource) => this.setPrictureSource(pictureSource)}
             />
           </View>
-          
-          <Tab 
-            selectedItem={this.state.selectedItem} 
-            changeSelectedItem={(item) => this.setState({selectedItem: item})}
 
-           /> 
+          <Tab
+            selectedItem={this.state.selectedItem}
+            changeSelectedItem={(item) => this.setState({ selectedItem: item })}
+
+          />
           <View style={[
-              style.profileForm,
-              {
-                paddingHorizontal: metrics.marginApp
-              }
-            ]}
+            style.profileForm,
+            {
+              paddingHorizontal: metrics.marginApp
+            }
+          ]}
           >
             {
-              this.state.selectedItem == 'Association' && 
-               <Association user={user} />
+              this.state.selectedItem == 'Association' &&
+              <Association user={user} />
             }
             {
-              this.state.selectedItem == 'profile' && 
-              <ProfileForm 
-                user={user} 
+              this.state.selectedItem == 'profile' &&
+              <ProfileForm
+                user={user}
                 setUserData={(user) => this.setUserData(user)}
                 onChangeDate={(date) => this.onEnableChangeDate(date)}
               />
             }
             {
-              this.state.selectedItem == 'Abonnement' && 
+              this.state.selectedItem == 'Abonnement' &&
               <Abonnement
                 user={user}
                 setUserData={(user) => this.setUserData(user)}
               />
             }
             {
-              this.state.selectedItem == 'Settings' && 
-              <Settings user={user}/>
+              this.state.selectedItem == 'Settings' &&
+              <Settings user={user} />
             }
           </View>
         </ScrollView>
@@ -228,11 +257,11 @@ class ProfileScreen extends Component {
           Platform.OS === 'ios' &&
           <ModalDatePicker
             visible={this.state.enableChangeBirthDay}
-            onDateChange={(date) => this.setBirthDay(date)} 
+            onDateChange={(date) => this.setBirthDay(date)}
           />
         }
-        
-        <Button 
+
+        <Button
           text={' Enregistrer '}
           onPress={() => this.saveUserUpdating()}
         />
@@ -244,17 +273,12 @@ class ProfileScreen extends Component {
             this.state.popupUpdate
           }
           type={
-            this.state.popupUpdate 
-            ? 
-            'user'
-            :
-            (
-              user.subscription === 'M'
+            this.state.popupUpdate
               ?
-              'mensuelle'
+              'user'
               :
-              'annuelle'
-            )
+              user.subscription
+
           }
         />
       </View>
@@ -281,12 +305,12 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     //position: 'absolute'
   },
-  info:{
+  info: {
     height: 200,
     marginTop: metrics.baseMargin
   },
-  profileForm:{
-    flex: 1, 
+  profileForm: {
+    flex: 1,
     paddingVertical: metrics.baseMargin
   },
   boldCenter: {

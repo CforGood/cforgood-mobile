@@ -8,6 +8,7 @@ import {
   Animated,
   TouchableOpacity,
   Alert,
+  BackAndroid,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -23,7 +24,7 @@ import Commitment from '../components/business/Commitment';
 import Social from '../components/business/Social';
 import BusinessContact from '../components/business/BusinessContact';
 import BusinessLeader from '../components/business/BusinessLeader';
-import BusinessHeader from '../components/business/BusinessHeader'; 
+import BusinessHeader from '../components/business/BusinessHeader';
 
 import Modal from '../components/Modal';
 import Button from '../components/common/ButtonGradient';
@@ -46,22 +47,33 @@ const HEADER_MAX_HEIGHT = 221;
 const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 70 : 50;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
-class BusinessScreen extends PureComponent { 
+class BusinessScreen extends PureComponent {
   state = {
     scrollY: new Animated.Value(0),
     business: null,
   };
-  
+
+  componentDidMount() {
+    BackAndroid.addEventListener('hardwareBackPress', this.backHandler);
+  }
+  componentWillUnmount() {
+    BackAndroid.removeEventListener('hardwareBackPress', this.backHandler);
+  }
+
+  backHandler = () => {
+    this.props.setBusiness(null);
+  }
 
   async componentWillMount() {
 
     const params = this.props.navigation.state.params;
-    
-    if(params.business){
-      this.setState({business: params.business})
+
+
+    if (params.business) {
+      this.setState({ business: params.business })
       this.getDetail(params.business.id, params.address.id);
     }
-    else if( params.businessId ) {
+    else if (params.businessId) {
       await this.getDetail(params.businessId, params.addressId);
     }
     else {
@@ -69,37 +81,31 @@ class BusinessScreen extends PureComponent {
     }
   }
 
-  componentWillReceiveProps(nextProps){
-    if(nextProps.perk !== null && this.props.perk === null){
-      this.goBack();
-    }
-  }
-
   goBack() {
     //probleme with map 
-    if(Platform.OS === 'android') {
+    if (Platform.OS === 'android') {
       this.props.setBusiness(null);
     }
 
     this.props.navigation.goBack();
   }
 
-  getDetail (businessId, addressId) {
-    
+  getDetail(businessId, addressId) {
+
     //probleme with map 
-    if(Platform.OS === 'android'){
+    if (Platform.OS === 'android') {
       this.props.setBusiness(businessId);
     }
-    
-    ApiHandler.businessDetail(businessId, addressId)
-    .then(response => {
-      if(!response.error){
-        this.setState({ business: response });
-      }
-    }).
-    catch(error => {
 
-    });
+    ApiHandler.businessDetail(businessId, addressId)
+      .then(response => {
+        if (!response.error) {
+          this.setState({ business: response });
+        }
+      }).
+      catch(error => {
+
+      });
   }
 
   render() {
@@ -122,8 +128,8 @@ class BusinessScreen extends PureComponent {
     });
 
     var colorOpacity = this.state.scrollY.interpolate({
-        inputRange: [0, HEADER_SCROLL_DISTANCE],
-        outputRange: ['white', colors.darkGray]
+      inputRange: [0, HEADER_SCROLL_DISTANCE],
+      outputRange: ['white', colors.darkGray]
     });
 
     const titleOpacity = this.state.scrollY.interpolate({
@@ -131,171 +137,172 @@ class BusinessScreen extends PureComponent {
       outputRange: [0, 0, 1],
       extrapolate: 'clamp',
     });
-    
-    const detailsBusiness  = this.state.business;
+
+    const TopTranslate = this.state.scrollY.interpolate({
+      inputRange: [0, HEADER_SCROLL_DISTANCE],
+      outputRange: [metrics.marginApp, 7],
+      extrapolate: 'clamp',
+    });
+
+    const detailsBusiness = this.state.business;
+
+    if (detailsBusiness === null)
+      return null;
+
     const category = getCategory(detailsBusiness.business_category_id);
-    
-    if(!detailsBusiness)
-     return null;
-   
+
     return (
-        
-        <View style={styles.screen.mainContainer}>
-          <Animated.ScrollView 
-            style={{flex:1}}
-            scrollEventThrottle={1}
-            onScroll={Animated.event(
-              [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
-            )}
-          > 
-            <View 
-              style={{  
-                  height: 221
-              }}
+
+      <View style={styles.screen.mainContainer}>
+        <Animated.ScrollView
+          style={{ flex: 1 }}
+          scrollEventThrottle={1}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }]
+          )}
+        >
+          <View
+            style={{
+              height: 221
+            }}
+          />
+          <View style={style.container} >
+            <BusinessHeader
+              name={detailsBusiness.name}
+              category={category}
+              online={detailsBusiness.online}
+              address={detailsBusiness.address}
             />
-            <View style={style.container} >
-              
-              <BusinessHeader
-                name={detailsBusiness.name}
-                category={category}
-                online={detailsBusiness.online}
-                address={detailsBusiness.address}
-              />
-              <Separator 
-                style={style.marginVertical}
-                margin={0}
-              />
-
-              <Detail 
-                title={'Leurs engagements'}  
-              />  
-
-              <View style={styles.wrap}>
+            <Separator
+              style={style.marginVertical}
+              margin={0}
+            />
+            <Detail
+              title={'Leurs engagements'}
+            />
+            <View style={styles.wrap}>
               {
                 detailsBusiness.labels &&
-                detailsBusiness.labels.map((label, key) => 
+                detailsBusiness.labels.map((label, key) =>
                   <Commitment
                     index={key}
                     key={key}
                     name={label.name}
+                    picture={label.picture}
+
                   />
                 )
               }
-              </View>
-              
-              <Separator 
-                style={style.marginVertical}
-                margin={0}
+            </View>
+            <Separator
+              style={style.marginVertical}
+              margin={0}
+            />
+            <View>
+              <Detail
+                title={'En quelques mots'}
+                description={detailsBusiness.description}
               />
-              
-              <View>
-                <Detail 
-                  title={'En quelques mots'} 
-                  description={detailsBusiness.description} 
-                />
-              </View>
+            </View>
+            <Separator
+              style={style.marginVertical}
+              margin={0}
+            />
 
-              <Separator 
-                style={style.marginVertical}
-                margin={0}
-              />
-              {
-                detailsBusiness.address &&
-                <BusinessContact 
-                  business={detailsBusiness}
-                  category={category}
-                />
-              }
-              
-              <Separator 
-                style={style.marginVertical}
-                margin={0}
-                color={'#979797'}
-              />
-              
+            <BusinessContact
+              business={detailsBusiness}
+              category={category}
+            />
 
-              <BusinessLeader
-                color={category.color}
-                business={detailsBusiness}
-              />
-            </View>  
-          </Animated.ScrollView>
-
-          <Animated.View 
-            style={[
-              style.header, 
-              {
-                height: headerHeight,
-                borderBottomColor: category.color
-              }
-            ]}
-          >
-            <View style={styles.row} >
-              <Animated.View
-                style={[
-                  style.titleContainer,
-                  {
-                    opacity: titleOpacity,
-                  },
-                ]}
-              >
-                <Text 
-                  style={fonts.style.title}
-                >
-                  {detailsBusiness.name}
-                </Text>
-              </Animated.View>
-              
-            </View> 
-            <Animated.Image
+            <Separator
+              style={style.marginVertical}
+              margin={0}
+              color={'#979797'}
+            />
+            <BusinessLeader
+              color={category.color}
+              business={detailsBusiness}
+            />
+          </View>
+        </Animated.ScrollView>
+        <Animated.View
+          style={[
+            style.header,
+            {
+              height: headerHeight,
+              borderBottomColor: category.color
+            }
+          ]}
+        >
+          <View style={styles.row} >
+            <Animated.View
               style={[
-                style.backgroundImage,
+                style.titleContainer,
                 {
-                  opacity: imageOpacity,
-                  transform: [
-                    {translateY: imageTranslate}
-                  ]
+                  opacity: titleOpacity,
                 },
               ]}
-              source={{uri: detailsBusiness.picture}}
             >
-              <Share
-                url={`/businesses/${detailsBusiness.id}?address_id=${detailsBusiness.id}&perk_id=${detailsBusiness.perks[0].id}`}
-                title={detailsBusiness.name}
-                message={detailsBusiness.description}
-                style={style.share} 
-              />
-            </Animated.Image>
-            <TouchableOpacity 
-                onPress={() => this.goBack()}
-                style={[
-                  style.backContainer,
-                ]}
+              <Text
+                style={fonts.style.title}
               >
-                <Animated.Image
-                  resizeMode={'contain'}
-                  style={[
-                    {
-                      height: 36,
-                      width: 36,
-                      tintColor: colorOpacity,
-                      transform:[{rotate: '-90deg'}],
-                    }
-                  ]}
-                  source={require('../resources/icons/back-arrow-circular-symbol.png')}
-                />
-              </TouchableOpacity>
+                {detailsBusiness.name}
+              </Text>
+            </Animated.View>
+
+          </View>
+          <Animated.Image
+            style={[
+              style.backgroundImage,
+              {
+                opacity: imageOpacity,
+                transform: [
+                  { translateY: imageTranslate }
+                ]
+              },
+            ]}
+            source={{ uri: detailsBusiness.picture }}
+          >
+            <Share
+              url={`/businesses/${detailsBusiness.id}?address_id=${detailsBusiness.id}&perk_id=${detailsBusiness.perks[0].id}`}
+              title={detailsBusiness.name}
+              message={detailsBusiness.description}
+              style={style.share}
+            />
+          </Animated.Image>
+          <Animated.View
+            style={[
+              style.backContainer,
+              { top: (Platform.OS === 'ios' ? 27 : TopTranslate) }
+            ]}
+          >
+            <TouchableOpacity
+              onPress={() => this.goBack()}
+            >
+              <Animated.Image
+                resizeMode={'contain'}
+                style={[
+                  {
+                    height: 36,
+                    width: 36,
+                    tintColor: colorOpacity,
+                    transform: [{ rotate: '-90deg' }],
+                  }
+                ]}
+                source={require('../resources/icons/back-arrow-circular-symbol.png')}
+              />
+            </TouchableOpacity>
           </Animated.View>
-          
-          <Button
-            type={'simple'}
-            onPress={() => this.props.navigation.navigate('PerkList', {business: detailsBusiness})}
-            style={{
-              backgroundColor: category.color
-            }}
-            text={'Voir nos bons plans '}
-          />
-        </View>
+        </Animated.View>
+        <Button
+          type={'simple'}
+          onPress={() => this.props.navigation.navigate('PerkList', { business: detailsBusiness })}
+          style={{
+            backgroundColor: category.color
+          }}
+          text={'Voir nos bons plans '}
+        />
+      </View>
     );
   }
 }
@@ -313,12 +320,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(BusinessScreen);
 
 
 const style = {
-  container:{
+  container: {
     margin: metrics.marginApp,
   },
   backContainer: {
     position: 'absolute',
-    top:  (Platform.OS === 'ios' ?  27 : 7),
     left: metrics.marginApp,
     flexDirection: 'row',
     zIndex: 10
@@ -343,14 +349,14 @@ const style = {
     width: null,
     height: HEADER_MAX_HEIGHT,
     resizeMode: 'cover',
-  },  
+  },
   title: {
     color: 'white',
     fontSize: 20,
     backgroundColor: 'transparent'
   },
   titleContainer: {
-    marginTop: (Platform.OS === 'ios' ?  20 : 0),
+    marginTop: (Platform.OS === 'ios' ? 20 : 0),
     marginLeft: metrics.marginApp + 36 + metrics.baseMargin,
     alignItems: 'center',
     justifyContent: 'center',

@@ -3,9 +3,10 @@ import {
 } from '../constants/user.js';
 
 const initialState = {
-  latlng: {latitude: 44.8450097, longitude: -0.5785995},
+  latlng: {latitude: 44.840412, longitude: -0.5703524},
   changed: false
 };
+
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {

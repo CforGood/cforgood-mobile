@@ -7,18 +7,20 @@ import {
   ScrollView,
   Animated,
   Linking,
-  TouchableOpacity
+  TouchableOpacity,
+  Platform,
+  BackAndroid,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withNavigation } from 'react-navigation';
 import Communications from 'react-native-communications';
 import moment from 'moment';
 
 import ApiHandler from '../utils/api';
-import { review } from '../redux/actions/review';
+import { use } from '../redux/actions/review';
+import { setBusiness } from '../redux/actions/business';
 
-import Separator from '../components/common/Separator'; 
+import Separator from '../components/common/Separator';
 import Button from '../components/common/ButtonGradient';
 import PerkFullRow from '../components/perk/PerkFullRow';
 import Header from '../components/common/Header';
@@ -28,7 +30,11 @@ import ReservedSpaceScreen from './ReservedSpaceScreen';
 import MembreshipCardScreen from './MembreshipCardScreen';
 import MapPerkScreen from './MapPerkScreen';
 
+import PopupProfile from '../components/profile/Popup';
 
+import {
+  getCategory,
+} from '../constants/categories';
 
 import {
   styles,
@@ -39,8 +45,8 @@ import {
 
 const HEADER_SCROLL_DISTANCE = metrics.marginApp;
 
-class PerkDetailScreen extends Component { 
-  
+class PerkDetailScreen extends Component {
+
   static propTypes = {
     onClose: PropTypes.func,
     animation: PropTypes.string.isRequired,
@@ -53,158 +59,191 @@ class PerkDetailScreen extends Component {
 
   state = {
     scrollY: new Animated.Value(0),
-    reserved: false,
-    validationPopup: false,
     map: false,
-    membership: false,
-    perk: {},
-    offset: this.props.animation === 'horizontal' ?
-    new Animated.ValueXY({x: metrics.deviceWidth, y: 0})
-    :
-    new Animated.ValueXY({x: 0, y: metrics.deviceHeight})
-    ,
+    perk: null,
+    business: null,
+    category: null,
   };
 
-  componentWillMount() {
-
-    this.setState({perk: this.props.perk});
-    this.getDetail();
-
-    this.openModal();
+  componentDidMount() {
+    BackAndroid.addEventListener('hardwareBackPress', this.backHandler);
   }
 
-  componentWillUnMount() {
-    this.setState({perk: null});
-    this.closeModal();
+  componentWillUnmount() {
+    BackAndroid.removeEventListener('hardwareBackPress', this.backHandler);
+  }
+
+  backHandler = () => {
+    this.props.setBusiness(null);
   }
 
 
-  setMemberShip(flag) {
-    
-    this.setState({membership: flag});
-    if(flag === true){
-      this.setReservedScreen(false);
+  async componentWillMount() {
+
+    const params = this.props.navigation.state.params;
+
+
+    if (params.businessId) {
+
+      if (Platform.OS === 'android') {
+        this.props.setBusiness(params.businessId);
+      }
+
+      this.props.setBusiness(params.businessId);
+      this.getDetailBusiness(params.businessId, params.addressId);
+      this.getDetail(params.perkId);
+
+
+    }
+    else {
+      const { perk, business, category } = params;
+      if (Platform.OS === 'android') {
+        this.props.setBusiness(business.id);
+      }
+
+
+      this.setState({ perk, business, category })
+      this.getDetail(perk.id);
+
     }
   }
 
-  setReservedScreen(flag){
-    this.setState({reserved: flag});
+  goBack() {
+    //probleme with map 
+    if (Platform.OS === 'android') {
+      this.props.setBusiness(null);
+    }
+
+    this.props.navigation.goBack();
   }
 
-  setMap(flag){
-    this.setState({map: flag});
+  getDetailBusiness(businessId, addressId) {
+
+    return ApiHandler.businessDetail(businessId, addressId)
+      .then(response => {
+        if (!response.error) {
+          const category = getCategory(response.business_category_id);
+
+          this.setState({ business: response, category });
+        }
+      }).
+      catch(error => {
+
+      });
   }
 
-  validate = () => {
-    
-    this.props.review(this.props.perk, this.props.business);
-    this.setState({membership: false, reserved: false});
+  getDetail(id) {
+    ApiHandler.perkDetail(id)
+      .then(response => {
+        if (!response.error) {
+          this.setState({ perk: response });
+        }
+        else {
+          this.props.navigation.goBack();
+        }
+      }).catch(message => {
+        this.props.navigation.goBack();
+      });;
+  }
 
-    setTimeout(() => { this.props.onValidate(); }, 50);
+  componentWillUnMount() {
+    this.setState({ perk: null });
+  }
+
+
+  goToMemberShip() {
+
+    const {
+      user,
+    } = this.props;
+
+    const {
+      perk,
+      business,
+    } = this.state;
+
+
+    if (user.member || (
+      user.first_perk_offer_attributes
+      &&
+      user.first_perk_offer_attributes.business_id === business.id
+    )) {
+
+      this.props.navigation.navigate('Member', { business, perk });
+    }
+    else {
+      this.props.navigation.navigate('Reserved');
+    }
 
   }
 
-  getDetail () {
-    ApiHandler.perkDetail(this.props.perk.id)
-    .then(response => {
-      if(!response.error){
-        this.setState({ perk: response });
-      }
-    });
+
+  setMap(flag) {
+    this.setState({ map: flag });
   }
 
 
-  openModal = () => {
-    
-    Animated.timing(this.state.offset, {
-      duration: 350,
-      toValue: 0
-    }).start();
-
-  }
-
-  closeModal = () => {
-    
-    Animated.timing(this.state.offset, {
-      duration: 350,
-      toValue: metrics.deviceWidth
-    }).start(this.props.onClose);
-
-    
-  }
 
   getTextButton() {
     const { perk } = this.state;
     //perk.perk_detail_id
-    if( perk.perk_detail_id === 1){
+    if (perk.perk_detail_id === 1) {
       return 'Afficher ma carte de membre';
       //( seulement chez le commerçant )
-    } else if( perk.perk_detail_id === 2){
+    } else if (perk.perk_detail_id === 2) {
       return 'Nous écrire';
-    } else if( perk.perk_detail_id === 3){
-      return 'Me rendre sur le site';
+    } else if (perk.perk_detail_id === 3) {
+      return 'Obtenir le code promo';
     }
-     else {
+    else {
       return '';
     }
   }
 
-  openBrowser(url) {
-    if(url && url !== ''){
-      Linking.canOpenURL(url).then(supported => {
-        if (supported) {
-            Linking.openURL(url);
-        } else {
-            console.log('Don\'t know how to open URI: ' + url);
-        }
-        return false
-      });
-    }
-    
-  }
 
   goToAction = () => {
-    const { business, user } = this.props;
-    
-    const { perk } = this.state;
-    if( perk.perk_detail_id === 1){
-      
-      this.setMemberShip(true);
-    } else if( perk.perk_detail_id === 2){
-      
-      this.props.review(perk, business, false);
+    const { user } = this.props;
+
+    const { perk, business } = this.state;
+    if (perk.perk_detail_id === 1) {
+
+
+      this.goToMemberShip();
+
+
+    } else if (perk.perk_detail_id === 2) {
+
+      this.props.use(perk, business, false);
 
       const body = `Bonjour ` + (business.leader_first_name || '') + ',\n' +
-       `${business.name}  semble sympa comme tout ! \n` +
-       `Je souhaiterais bénéficier du bon plan « ${perk.name} » `+ 
-       `(Code :  « ${perk.perk_code} » , pouvez-vous me dire comment procéder ? \n`+ 
-       `Merci par avance ! \n`+
-       (user.name ? user.name : `${user.first_name} ${user.last_name}`) + '\n' +
-       ``;
-      Communications.email([business.email], null,null,'Nouvelle demande de bon plan CforGood !',body);
-      
-    } else if( perk.perk_detail_id === 3){
-      
-      this.props.review(perk, business, false);
-      this.openBrowser(business.url);
+        `${business.name}  semble sympa comme tout ! \n` +
+        `Je souhaiterais bénéficier du bon plan « ${perk.name} » ` +
+        `(Code :  « ${perk.perk_code} » , pouvez-vous me dire comment procéder ? \n` +
+        `Merci par avance ! \n` +
+        (user.name ? user.name : `${user.first_name} ${user.last_name}`) + '\n' +
+        ``;
+      Communications.email([business.email], null, null, 'Nouvelle demande de bon plan CforGood !', body);
 
-      //this.setReservedScreen(true)
+    } else if (perk.perk_detail_id === 3) {
+
+      this.props.use(perk, business, false);
+      this.props.navigation.navigate('Promo', { business, perk });
     }
-    
+
   }
 
   renderViewAction() {
-    const { perk } = this.state;
+    const { perk, business, category } = this.state;
 
-    if( perk.perk_detail_id === 1){
+    if (perk.perk_detail_id === 1) {
       return (
-        <View 
+        <View
           style={[
             styles.center,
             { marginVertical: metrics.baseMargin }
           ]}
         >
-          <Text 
+          <Text
             style={[
               fonts.style.t15,
               fonts.style.mediumBold,
@@ -213,8 +252,10 @@ class PerkDetailScreen extends Component {
           >
             Montrez votre carte de membre au commerçant.
           </Text>
-          <TouchableOpacity 
-            onPress={() => this.setMap(true)}
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('MapPerk', {
+              perk, business, category
+            })}
             style={[
               styles.center,
               { marginVertical: metrics.baseMargin }
@@ -228,7 +269,7 @@ class PerkDetailScreen extends Component {
               }}
               source={require('../resources/icons/gps_activate.png')}
             />
-            <Text 
+            <Text
               style={[
                 fonts.style.normal,
                 fonts.style.bold,
@@ -242,9 +283,9 @@ class PerkDetailScreen extends Component {
           </TouchableOpacity>
         </View>
       );
-    } else if( perk.perk_detail_id === 2){
+    } else if (perk.perk_detail_id === 2) {
       return (
-        <View 
+        <View
           style={[
             styles.row,
             styles.center,
@@ -260,15 +301,15 @@ class PerkDetailScreen extends Component {
           >
             Envoyer-nous un email pour réserver votre bon plan
           </Text>
-        </View> 
+        </View>
       );
-    } else if( perk.perk_detail_id === 3){
+    } else if (perk.perk_detail_id === 3) {
       return (
         <View style={[
-            styles.row,
-            styles.center,
-            { marginVertical: metrics.baseMargin }
-          ]}
+          styles.row,
+          styles.center,
+          { marginVertical: metrics.baseMargin }
+        ]}
         >
           <Text
             style={[
@@ -277,58 +318,57 @@ class PerkDetailScreen extends Component {
               stylePerkDetailScreen.tCode,
             ]}
           >
-            Utilisez ce code : 
-          </Text>  
-          <Text 
-            style={[ 
+            Utilisez ce code :
+          </Text>
+          <Text
+            style={[
               fonts.style.t18,
               fonts.style.bold
             ]}
           >
             {perk.perk_code}
-          </Text> 
+          </Text>
         </View>
       );
     }
-     else {
+    else {
       return <View />;
     }
 
-    
+
 
   }
-  
 
-  renderStatus(){
-    const { perk } = this.state;
-    const { category } = this.props;
-    if(perk.appel || perk.durable || perk.flash){
-      return(
+
+  renderStatus() {
+    const { perk, category } = this.state;
+    if (perk.appel || perk.durable || perk.flash) {
+      return (
         <View style={[
-            stylePerkDetailScreen.row, 
-            styles.row,
-          ]}
-        > 
+          stylePerkDetailScreen.row,
+          styles.row,
+        ]}
+        >
           <View
             style={[
               stylePerkDetailScreen.availableContainer,
               {
                 backgroundColor: category.color,
               }
-            ]} 
+            ]}
           >
             <Image
               resizeMode='contain'
               style={{
                 width: 12,
                 height: 12
-              }} 
+              }}
               source={require('../resources/icons/available.png')}
-            /> 
+            />
           </View>
-          <View 
+          <View
             style={{
-              paddingLeft: metrics.baseMargin, 
+              paddingLeft: metrics.baseMargin,
               paddingRight: 1,
               justifyContent: 'center'
             }}
@@ -339,42 +379,42 @@ class PerkDetailScreen extends Component {
                 stylePerkDetailScreen.tCode,
               ]}
             >
-            {
-              perk.appel && 
-              "Ce bon plan n'est valable qu'une seule fois."
-            }
-            {
-              perk.durable && 
-              "Valable tout le temps"
-            }
-            {
-              perk.flash && perk.times && 
-              "Ce bon est valable du "+  
-              moment(perk.start_date).format('l') +
-              " au "+ 
-              moment(perk.end_date).format('l') +
-              ". Il est utilisable  "+ 
-              perk.times +" fois." 
-            }
+              {
+                perk.appel &&
+                "Ce bon plan n'est valable qu'une seule fois."
+              }
+              {
+                perk.durable &&
+                "Valable tout le temps"
+              }
+              {
+                perk.flash && perk.times &&
+                "Ce bon est valable du " +
+                moment(perk.start_date).format('l') +
+                " au " +
+                moment(perk.end_date).format('l') +
+                ". Il est utilisable  " +
+                perk.times + " fois."
+              }
             </Text>
           </View>
         </View>
       )
-
     }
     return null;
   }
+
   render() {
+
     const {
-      onClose,
-      onValidate,
-      business,
-      category,
-      visible,
-      animation
+      user,
     } = this.props;
 
-    const { perk } = this.state;
+    const {
+      perk,
+      business,
+      category,
+    } = this.state;
 
     const heightSeparator = this.state.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
@@ -382,134 +422,97 @@ class PerkDetailScreen extends Component {
       extrapolate: 'clamp',
     });
 
-    return (
-      <Modal
-        onClose={() => this.closeModal()}
-        animationType={'none'}
-        blurType={'light'}
-        blurAmount={0}
-        visible={visible}
-      >
-        <Animated.View
-          style={[
-            styles.screen.mainContainer,
-            {
-              transform:
-              [
-                animation === 'horizontal'
-                ?
-                {translateX: this.state.offset.x}
-                :
-                {translateY: this.state.offset.y}
-              ]
-            }
-          ]}
-        >
-          <Header
-            onClose={() => this.closeModal()}
-            back={animation === 'horizontal' ? '0' : '-90deg'}
-            text={'Bon plan'}
-            color={category.color}
-            style={{
-              paddingHorizontal: metrics.marginApp
-            }}
-          />
-          <View style={{flex: 1}}>
-            <Animated.ScrollView 
-              style={{flex: 1}}
-              scrollEventThrottle={1}
-              onScroll={Animated.event(
-                [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
-              )}
-            > 
-              
-              <View 
-                style={{
-                  flex:1, 
-                  marginHorizontal: metrics.marginApp,
-                  marginVertical: metrics.baseMargin
+    if (perk === null || category === null) {
+      return null;
+    }
 
-                }}
-              >
-                <View style={{ height: 172+60}}>
-                  <PerkFullRow
-                    business={business}
-                    perk={perk}
-                    category={category}
-                    availableOnLeft={true}
-                    detail={true}
-                  />
-                </View> 
-                <View>  
-                  <Text style={[fonts.style.t16, {fontWeight: fonts.fontWeight.f400}]}>
-                    {perk.description}
-                  </Text>  
-                </View>
-                {
-                  this.renderStatus()
-                }
-                <Separator 
-                  style={stylePerkDetailScreen.marginVertical}
-                  margin={0}
-                  color={'#979797'}
+    return (
+
+      <View
+        style={styles.screen.mainContainer}
+      >
+        <Header
+          back={'-90deg'}
+          text={'Bon plan'}
+          color={category.color}
+          style={{
+            paddingHorizontal: metrics.marginApp
+          }}
+          onClose={() => this.goBack()}
+        />
+        <View style={{ flex: 1 }}>
+          <Animated.ScrollView
+            style={{ flex: 1 }}
+            scrollEventThrottle={1}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }]
+            )}
+          >
+            <View
+              style={{
+                flex: 1,
+                marginHorizontal: metrics.marginApp,
+                marginVertical: metrics.baseMargin
+              }}
+            >
+              <View style={{ height: 172 + 60 }}>
+                <PerkFullRow
+                  business={business}
+                  perk={perk}
+                  category={category}
+                  availableOnLeft={true}
+                  detail={true}
                 />
-                <View style={styles.center}> 
-                  <Text style={[ 
-                      fonts.style.t22,
-                      {
-                        fontWeight: fonts.fontWeight.f300
-                      } 
-                    ]}
-                  >
-                    Envie d'en profiter ?
-                  </Text>  
-                  
-                </View>
-                {
-                  this.renderViewAction()
-                }
               </View>
-            </Animated.ScrollView>
-            <Animated.View 
-              style={[
-                stylePerkDetailScreen.header,
-                {
-                  height: heightSeparator,
-                  backgroundColor: category.color,
-                }
-              ]} 
-            />
-          </View>
-          
-          <Button
-            onPress={() => this.goToAction()} 
-            type={'simple'} 
-            style={{
-              backgroundColor: category.color
-            }} 
-            text={this.getTextButton()} 
-          />    
-          {
-            perk.perk_detail_id === 1 &&
-            <MapPerkScreen
-              onClose={() => this.setMap(false)}
-              visible={this.state.map}
-              category={category}
-              business={business}
-            />
-          }
-          
-          
-          <MembreshipCardScreen
-            business={business}
-            perk={perk}
-            visible={this.state.membership}
-            onValidate={this.validate}
-            onClose={() => this.setMemberShip(false)}
-            image={perk.picture || business.picture}
-          /> 
-        </Animated.View>
-      </Modal>
+              <View>
+                <Text style={[fonts.style.t16, { fontWeight: fonts.fontWeight.f400 }]}>
+                  {perk.description}
+                </Text>
+              </View>
+              {
+                this.renderStatus()
+              }
+              <Separator
+                style={stylePerkDetailScreen.marginVertical}
+                margin={0}
+                color={'#979797'}
+              />
+              <View style={styles.center}>
+                <Text style={[
+                  fonts.style.t22,
+                  {
+                    fontWeight: fonts.fontWeight.f300
+                  }
+                ]}
+                >
+                  Envie d'en profiter ?
+                  </Text>
+
+              </View>
+              {
+                this.renderViewAction()
+              }
+            </View>
+          </Animated.ScrollView>
+          <Animated.View
+            style={[
+              stylePerkDetailScreen.header,
+              {
+                height: heightSeparator,
+                backgroundColor: category.color,
+              }
+            ]}
+          />
+        </View>
+        <Button
+          onPress={() => this.goToAction()}
+          type={'simple'}
+          style={{
+            backgroundColor: category.color
+          }}
+          text={this.getTextButton()}
+        />
+      </View>
     );
   }
 }
@@ -519,31 +522,32 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  review: bindActionCreators(review, dispatch),
+  use: bindActionCreators(use, dispatch),
+  setBusiness: bindActionCreators(setBusiness, dispatch),
 });
 
-export default  connect(mapStateToProps , mapDispatchToProps)(PerkDetailScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(PerkDetailScreen);
 
-const stylePerkDetailScreen = { 
+const stylePerkDetailScreen = {
   marginVertical: {
     marginVertical: metrics.baseMargin,
   },
   tBeneficie: {
     color: colors.darkGray,
     fontFamily: fonts.type.base,
-    fontSize: metrics.deviceWidth/22, 
+    fontSize: metrics.deviceWidth / 22,
   },
   tCode: {
     color: colors.grayDate,
     fontWeight: '300',
     //textAlign: 'center'
-  }, 
+  },
   row: {
     marginVertical: metrics.baseMargin,
   },
   image: {
-    width:30,
-    height:30,
+    width: 30,
+    height: 30,
     marginRight: metrics.smallMargin,
   },
   availableContainer: {
@@ -552,7 +556,6 @@ const stylePerkDetailScreen = {
     borderRadius: 12.5,
     justifyContent: 'center',
     alignItems: 'center',
-    
   },
   header: {
     position: 'absolute',

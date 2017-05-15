@@ -9,6 +9,7 @@ import filters from './filters';
 import user from './user';
 import location from './location';
 import offer from './offer';
+import popup from './popup';
 
 
 export default combineReducers({
@@ -21,4 +22,5 @@ export default combineReducers({
   user,
   offer,
   location,
+  popup
 });

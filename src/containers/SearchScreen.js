@@ -40,18 +40,11 @@ class SearchScreen extends Component {
     this.setState({ list: []})
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.perkId !== null && this.props.perkId === null){
-      this.goBack();
-    }
-  }
-
   goBack() {
     //probleme with map 
     if(Platform.OS === 'android') {
       this.props.setBusiness(null);
-    }
-
+    }//
     this.props.navigation.goBack();
   }
 
@@ -59,8 +52,14 @@ class SearchScreen extends Component {
     
     let list = [];
 
-    if(textSearch.length > 2){
-
+    if(textSearch.length > 2 && 
+        (
+          (this.props.businesses && this.state.module === "business")
+          ||
+          (this.props.associations && this.state.module === "association")
+        )
+      ){
+      
       switch (this.state.module) {
         case 'business':
           list = this.props.businesses.filter(business => 
@@ -175,9 +174,7 @@ class SearchScreen extends Component {
           this.renderText()
         }
         {
-         
           this.renderList()
-
         }
         
         

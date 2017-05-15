@@ -13,15 +13,11 @@ import OnboardingScreen from '../containers/OnboardingScreen';
 import HomeScreen from '../containers/HomeScreen';
 import LoginScreen from '../containers/LoginScreen';
 import SignupScreen from '../containers/SignupScreen';
-
+import WebViewScreen from '../containers/WebViewScreen';
 
 const Routes = {
   Splash: {
-    navigationOptions: {
-      header: {
-        visible: false,
-      },
-    },
+    
     name: 'Splash',
     description: 'Splash',
     screen: SplashScreen,
@@ -58,6 +54,10 @@ const Routes = {
     description: 'Signup',
     screen: SignupScreen,
   },
+  WebView: {
+    name: 'WebView',
+    screen: WebViewScreen,
+  }
 };
  
 export default AppNavigator = StackNavigator(
@@ -65,17 +65,14 @@ export default AppNavigator = StackNavigator(
     ...Routes,
   },
   {
-    headerMode: 'none',
+    headerMode: 'screen',
     navigationOptions: {
       cardStack:{
         gesturesEnabled: false,
       },
-      header: () => ({
-        visible: false,
-      }),
+      header: null,
     },
     mode: Platform.OS ==='ios' ? 'modal' : 'card',
-    direction: 'vertical',
     cardStyle: {
       backgroundColor: 'transparent',
     }

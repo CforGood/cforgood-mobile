@@ -26,6 +26,14 @@ import {
 } from '../../themes';
 
 class ButtonFacebook extends PureComponent {
+  
+  componentWillReceiveProps(nextProps){
+
+    if(nextProps.LoggedIn === true && this.props.LoggedIn === false){
+      this.props.validate();
+    }
+
+  }
 
   facebookManager() {
     LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
@@ -36,11 +44,6 @@ class ButtonFacebook extends PureComponent {
         } else {
           AccessToken.getCurrentAccessToken().then(
             (data) => {
-
-              //alert(JSON.stringify(data));
-
-              
-
               AsyncStorage.setItem('accessToken', data.accessToken);
 
               const infoRequest = new GraphRequest(
@@ -49,7 +52,7 @@ class ButtonFacebook extends PureComponent {
                   accessToken: data.accessToken,
                   parameters: {
                     fields: {
-                      string: 'email'
+                      string: 'email,last_name,first_name,location'
                     }
                   }
                 },
@@ -77,12 +80,22 @@ class ButtonFacebook extends PureComponent {
     if (error) {
       alert('Error fetching data: ' + error.toString());
     } else {
-      //alert(JSON.stringify(result))
-      //AsyncStorage.setItem('me', result);
-      //Actions.home();
+      if(this.props.signupScreen)
+      {
+        this.props.validate({
+          email: result.email,
+          last_name: result.last_name,
+          first_name: result.first_name,
+          city: result.location ? result.location.name : null,
+          zipcode: result.location ? result.location.zip : null,
+//          access_token: accessToken
+        })
+      } 
+      else {
+        this.props.signin(result.email, accessToken, 'facebook');
+      } 
+      
 
-      //this.props.loginWidthFacebook(accessToken, result.email);
-      this.props.signin(result.email, accessToken, 'facebook');
     }
   }
 
@@ -95,7 +108,12 @@ class ButtonFacebook extends PureComponent {
             fonts.style.h9
           ]}
         > 
-          Se connecter rapidement avec :
+          {
+            this.props.signupScreen ?
+            "S'inscrire rapidement avec :"
+            :
+            "Se connecter rapidement avec :"
+          }
         </Text>  
         <View style={{
             marginTop: metrics.smallMargin
@@ -118,7 +136,7 @@ class ButtonFacebook extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-  isLoggedIn: state.auth.isLoggedIn,
+  LoggedIn: state.auth.LoggedIn,
   failure: state.auth.failure,
 });
 

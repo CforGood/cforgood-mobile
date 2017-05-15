@@ -7,16 +7,8 @@ import {
   ScrollView
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
-
-import BusinessTitle from '../components/business/BusinessTitle';
 import BusinessDistance from '../components/business/BusinessDistance';
-
-import Modal from '../components/Modal';
-import Distance from '../components/map/Distance';
-import Position from '../components/map/Position';
 import MapView from '../components/map/MapView';
-
 
 import {
   styles,
@@ -25,107 +17,87 @@ import {
   metrics,
 } from '../themes';
 
-class MapPerkScreen extends Component { 
-  
-  //https://maps.google.com/maps/api/geocode/json?latlng=
-  //
+class MapPerkScreen extends Component {
 
   state = {
     distance: ''
   };
 
-  setDistance = ( address ) => {
-    console.log('address.distance', address.distance)
-    this.setState({distance: `à ${address.distance.text} ( ${address.duration.text} )`});
+  setDistance = (address) => {
+    this.setState({ distance: `à ${address.distance.text} ( ${address.duration.text} )` });
   }
 
   render() {
 
-    const {
-      onClose,
-      business,
-      visible,
-      color,
-      category
-    } = this.props;
+    const { business, perk, category } = this.props.navigation.state.params;
 
     const address = business.address || business.addresses[0]
     console.log('addressaddress', address)
     return (
-      <Modal
-        onClose={onClose}
-        animationType={'none'}
-        blurType={'light'}
-        blurAmount={0}
-        visible={visible}
-      >
-        <View 
-          style={styles.screen.mainContainer}
-        >
-          <View style={{flex: 1}} >
-            <MapView 
-              onClose={onClose}
-              category={category}
-              address={address}
-              userTrackingMode={true}
-              mapDirection={true}
-              setDistance={this.setDistance}
-            />
-          </View>
-          <View
-            style={styleMapDistanceScreen.footer}
-          >
-            <View style={{flex: 1, justifyContent: 'center'}}>
-              <Text 
-                style={[
-                  fonts.style.bold,
-                  fonts.style.t16,
-                ]}
-                numberOfLines={1}
-              >
-                {business.name} 
-              </Text>
-            </View>
-            <BusinessDistance 
-              color={ category.color }
-              distance={this.state.distance}
-            /> 
-          </View>
+      <View style={styles.screen.mainContainer}>
+        <View style={{ flex: 1 }} >
+          <MapView
+            onClose={() => this.props.navigation.goBack()}
+            category={category}
+            address={address}
+            userTrackingMode={true}
+            mapDirection={true}
+            setDistance={this.setDistance}
+          />
         </View>
-      </Modal> 
+        <View
+          style={styleMapDistanceScreen.footer}
+        >
+          <View style={{ flex: 1, justifyContent: 'center' }}>
+            <Text
+              style={[
+                fonts.style.bold,
+                fonts.style.t16,
+              ]}
+              numberOfLines={1}
+            >
+              {business.name}
+            </Text>
+          </View>
+          <BusinessDistance
+            color={category.color}
+            distance={this.state.distance}
+          />
+        </View>
+      </View>
     );
   }
 }
 
 export default MapPerkScreen;
 
-const styleMapDistanceScreen = StyleSheet.create({ 
-  distanceMap: {  
-    flex:3,
+const styleMapDistanceScreen = StyleSheet.create({
+  distanceMap: {
+    flex: 3,
     backgroundColor: '#4285f4',
   },
-  distanceMap: {  
-    flex:6
+  distanceMap: {
+    flex: 6
   },
-  footer: {  
+  footer: {
     height: 60,
     paddingHorizontal: metrics.marginApp,
     paddingVertical: 2
   },
   position: {
-    flex:2, 
+    flex: 2,
     backgroundColor: '#4285f4'
   },
-  text:{
-    color: colors.white, 
+  text: {
+    color: colors.white,
     marginLeft: metrics.smallMargin
   },
   distance: {
-    flex:1, 
+    flex: 1,
     paddingVertical: metrics.baseMargin
   },
   icon: {
-    flex:1, 
-    alignItems: 'center' 
+    flex: 1,
+    alignItems: 'center'
   }
 }); 

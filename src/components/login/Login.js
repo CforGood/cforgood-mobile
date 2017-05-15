@@ -9,6 +9,7 @@ import {
   Animated,
   Easing,
   Keyboard,
+  TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -103,7 +104,7 @@ class Login extends Component {
           }
         ]}
       > 
-        <View style={styleLogin.formContainer }> 
+        <View style={styleLogin.formContainer }>
           <Kohana
             style={{ backgroundColor: colors.white  }}
             label={ 'Email' }
@@ -112,11 +113,11 @@ class Login extends Component {
             iconColor={ colors.lightBlue }
             labelStyle={ fonts.style.textInput }
             inputStyle={{ color: colors.darkGray  }}
-            onChangeText={(email) => this.setState({email})}
+            onChangeText={(email) => this.setState({email})} 
             selectTextOnFocus={ true }
             onSubmitEditing={() => this.focusNextField(this.password)}
             ref={ref => { this.email = ref }}
-            value={ this.state.email }
+            value={ this.state.email.toLowerCase() }
           />
           <Separator color={colors.separatorText} margin={metrics.smallMargin} />
           <Kohana
@@ -165,7 +166,10 @@ class Login extends Component {
               styleText={{fontWeight: 'normal'}}
             />   
           </View>
-          <View style={styles.center}>  
+          <TouchableOpacity
+            onPress={this.props.forgetPassword}
+            style={styles.center}
+          >  
             <Text style={[
               fonts.style.textWhite,
               styleLogin.text,
@@ -173,7 +177,7 @@ class Login extends Component {
             > 
               Mot de passe oublié ?
             </Text>  
-          </View> 
+          </TouchableOpacity> 
         </View>
       </Animated.View>
     )

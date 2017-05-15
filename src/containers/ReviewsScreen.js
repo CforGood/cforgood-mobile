@@ -29,10 +29,6 @@ import {
 } from '../themes';
 
 class PerkReviewsScreen extends Component { 
-
-  props: {
-    onClose: () => mixed,
-  };
   
   reviewPerk = (flag) => {
     this.props.feedback(this.props.use, flag);

@@ -26,7 +26,6 @@
 		1B97AFF2AD2748589CA23267 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C684B3ADF723440DAE32DE72 /* libz.tbd */; };
 		33FF18181091065EEF5A4ECB /* libPods-CforGoodTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B0E8C24E4C58F314EFF211 /* libPods-CforGoodTests.a */; };
 		360378615F234442B625B212 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B4CD685A40C49C1B24FCAC7 /* libCodePush.a */; };
-		3A332A0537A84D35A4C9D980 /* libRCTMapboxGL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38DE4FCEC053440DB0F097AD /* libRCTMapboxGL.a */; };
 		4D36F58EDE2E415E971D13D2 /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9C64FD8AEF4647A4AF9B79 /* libRNFIRMessaging.a */; };
 		54C076F5DDCF4F71AA04CC88 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B85185351E6040A1B5A94204 /* MaterialIcons.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
@@ -63,6 +62,7 @@
 		87213EEECEEA4890B5D5FC07 /* libRNBlur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E1C073A70434BB39403F80C /* libRNBlur.a */; };
 		8CD58B13166B4389A3BE59AC /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E139CFAB90F4A898E23E8AC /* libRNImagePicker.a */; };
 		B535F93ADB274A798DC797B5 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB57040557D44D6AAF49FC16 /* libRNVectorIcons.a */; };
+		B88730FE0D7F4F949F5E6B20 /* libRCTMapboxGL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632D75223DF244E49CE106FB /* libRCTMapboxGL.a */; };
 		C3CA581D2AAC4A2C8DAED716 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 013EE9433F65413A8108CA57 /* libBVLinearGradient.a */; };
 		CEA4181A534841D38E79FDFA /* libRNIntercom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1E5A0060E3474EA5A89213 /* libRNIntercom.a */; };
 		E045B7015E9E427085D969AA /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8983778F0B6A47938632FE2E /* libRCTVideo.a */; };
@@ -301,6 +301,20 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RCTOrientation;
 		};
+		868A80EA1EC9A40000BEAF62 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 529A50A12D5B4D6AA44E239D /* RCTMapboxGL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C5DBB3401AF2EF2B00E611A9;
+			remoteInfo = RCTMapboxGL;
+		};
+		868A80EC1EC9A40000BEAF62 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 529A50A12D5B4D6AA44E239D /* RCTMapboxGL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C5DBB34B1AF2EF2B00E611A9;
+			remoteInfo = RCTMapboxGLTests;
+		};
 		86A05BFA1E4A44A700C2926E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9CBD6AD5C095498DB7979A3E /* RCTVideo.xcodeproj */;
@@ -321,20 +335,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 014A3B5C1C6CF33500B6D375;
 			remoteInfo = RNImagePicker;
-		};
-		86AA09781E645518002E76A7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EE59B8388474457A99895379 /* RCTMapboxGL.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C5DBB3401AF2EF2B00E611A9;
-			remoteInfo = RCTMapboxGL;
-		};
-		86AA097A1E645518002E76A7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EE59B8388474457A99895379 /* RCTMapboxGL.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C5DBB34B1AF2EF2B00E611A9;
-			remoteInfo = RCTMapboxGLTests;
 		};
 		86C46A241E7FADCE0025FF92 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -406,16 +406,19 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		18D338DA5EB34464A81C640C /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		1BC3A168D2F1494DBDBD0A7A /* RNIntercom.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNIntercom.xcodeproj; path = "../node_modules/react-native-intercom/iOS/RNIntercom.xcodeproj"; sourceTree = "<group>"; };
+		1CC09975298ABB446017E006 /* Pods-CforGoodTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CforGoodTests.staging.xcconfig"; path = "Pods/Target Support Files/Pods-CforGoodTests/Pods-CforGoodTests.staging.xcconfig"; sourceTree = "<group>"; };
 		20C7EB845588400BB2059F6B /* CodePush.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		27757DDFC04D1C52F7760B7B /* Pods-CforGoodTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CforGoodTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CforGoodTests/Pods-CforGoodTests.debug.xcconfig"; sourceTree = "<group>"; };
-		38DE4FCEC053440DB0F097AD /* libRCTMapboxGL.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTMapboxGL.a; sourceTree = "<group>"; };
 		3B1F227591714A0DACCCC573 /* libReactNativePermissions.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativePermissions.a; sourceTree = "<group>"; };
 		40DFC2D0F40C4D288118688D /* ReactNativePermissions.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativePermissions.xcodeproj; path = "../node_modules/react-native-permissions/ReactNativePermissions.xcodeproj"; sourceTree = "<group>"; };
 		4A1E5A0060E3474EA5A89213 /* libRNIntercom.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNIntercom.a; sourceTree = "<group>"; };
 		4E139CFAB90F4A898E23E8AC /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		4E1C073A70434BB39403F80C /* libRNBlur.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNBlur.a; sourceTree = "<group>"; };
+		529A50A12D5B4D6AA44E239D /* RCTMapboxGL.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTMapboxGL.xcodeproj; path = "../node_modules/react-native-mapbox-gl/ios/RCTMapboxGL.xcodeproj"; sourceTree = "<group>"; };
 		5CAC5FB0A75346DBA9BB929E /* libRNFirebaseCrashReport.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebaseCrashReport.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		632D75223DF244E49CE106FB /* libRCTMapboxGL.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTMapboxGL.a; sourceTree = "<group>"; };
+		78632CD24944A62CD8A91DDB /* Pods-CforGood.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CforGood.staging.xcconfig"; path = "Pods/Target Support Files/Pods-CforGood/Pods-CforGood.staging.xcconfig"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7C903E6A18B44DE0935EFEF3 /* libRCTOrientation.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTOrientation.a; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -463,7 +466,6 @@
 		EA102029953747FFA9DD8526 /* libRNShare.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNShare.a; sourceTree = "<group>"; };
 		EACFFF002F564192B64262AD /* RNBlur.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNBlur.xcodeproj; path = "../node_modules/react-native-blur/ios/RNBlur.xcodeproj"; sourceTree = "<group>"; };
 		EB57040557D44D6AAF49FC16 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
-		EE59B8388474457A99895379 /* RCTMapboxGL.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTMapboxGL.xcodeproj; path = "../node_modules/react-native-mapbox-gl/ios/RCTMapboxGL.xcodeproj"; sourceTree = "<group>"; };
 		EEC6CF45876B4824A61095DD /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
 		FA7A49491F8146A4AA8F30B3 /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -513,7 +515,6 @@
 				60CD1F984AB44B2EBC3FA217 /* libRCTOrientation.a in Frameworks */,
 				B535F93ADB274A798DC797B5 /* libRNVectorIcons.a in Frameworks */,
 				C3CA581D2AAC4A2C8DAED716 /* libBVLinearGradient.a in Frameworks */,
-				3A332A0537A84D35A4C9D980 /* libRCTMapboxGL.a in Frameworks */,
 				7DCD95DA4DB54DB8B92139BC /* libRNShare.a in Frameworks */,
 				85973CBC4C3D454198ED67E1 /* libRNFirebaseCrashReport.a in Frameworks */,
 				8CD58B13166B4389A3BE59AC /* libRNImagePicker.a in Frameworks */,
@@ -524,6 +525,7 @@
 				1B97AFF2AD2748589CA23267 /* libz.tbd in Frameworks */,
 				4D36F58EDE2E415E971D13D2 /* libRNFIRMessaging.a in Frameworks */,
 				643C0ECA50FF4659AB16ECAD /* libReactNativePermissions.a in Frameworks */,
+				B88730FE0D7F4F949F5E6B20 /* libRCTMapboxGL.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,6 +657,8 @@
 				CA66A7239A2CE3A1E7CF3112 /* Pods-CforGood.release.xcconfig */,
 				27757DDFC04D1C52F7760B7B /* Pods-CforGoodTests.debug.xcconfig */,
 				D8DB725E83960430CD9E9261 /* Pods-CforGoodTests.release.xcconfig */,
+				78632CD24944A62CD8A91DDB /* Pods-CforGood.staging.xcconfig */,
+				1CC09975298ABB446017E006 /* Pods-CforGoodTests.staging.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -688,7 +692,6 @@
 				C79D31B9C61243F2ABE0D3FD /* RCTOrientation.xcodeproj */,
 				8727679752C94BA1A3BD6F6E /* RNVectorIcons.xcodeproj */,
 				8910256894D041B9BD77634D /* BVLinearGradient.xcodeproj */,
-				EE59B8388474457A99895379 /* RCTMapboxGL.xcodeproj */,
 				EACFFF002F564192B64262AD /* RNBlur.xcodeproj */,
 				9EAD598851FE452BABB85FD2 /* RNShare.xcodeproj */,
 				13FC9B287A8B416690275544 /* RNFirebaseCrashReport.xcodeproj */,
@@ -697,6 +700,7 @@
 				20C7EB845588400BB2059F6B /* CodePush.xcodeproj */,
 				D1A6EAE7E81D4A1A97630A3D /* RNFIRMessaging.xcodeproj */,
 				40DFC2D0F40C4D288118688D /* ReactNativePermissions.xcodeproj */,
+				529A50A12D5B4D6AA44E239D /* RCTMapboxGL.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -813,6 +817,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		868A80DB1EC9A40000BEAF62 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				868A80EB1EC9A40000BEAF62 /* libRCTMapboxGL.a */,
+				868A80ED1EC9A40000BEAF62 /* RCTMapboxGLTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		86A05BE71E4A44A700C2926E /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -849,15 +862,6 @@
 			isa = PBXGroup;
 			children = (
 				86A56ECB1E7FC12100FF93A4 /* libRNImagePicker.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		86AA096A1E645518002E76A7 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				86AA09791E645518002E76A7 /* libRCTMapboxGL.a */,
-				86AA097B1E645518002E76A7 /* RCTMapboxGLTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -984,7 +988,7 @@
 								enabled = 1;
 							};
 							com.apple.SafariKeychain = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -1035,8 +1039,8 @@
 					ProjectRef = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
 				},
 				{
-					ProductGroup = 86AA096A1E645518002E76A7 /* Products */;
-					ProjectRef = EE59B8388474457A99895379 /* RCTMapboxGL.xcodeproj */;
+					ProductGroup = 868A80DB1EC9A40000BEAF62 /* Products */;
+					ProjectRef = 529A50A12D5B4D6AA44E239D /* RCTMapboxGL.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302D41ABCB9D200DB3ED1 /* Products */;
@@ -1340,6 +1344,20 @@
 			remoteRef = 866628701E505E6100FCF1F2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		868A80EB1EC9A40000BEAF62 /* libRCTMapboxGL.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTMapboxGL.a;
+			remoteRef = 868A80EA1EC9A40000BEAF62 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		868A80ED1EC9A40000BEAF62 /* RCTMapboxGLTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RCTMapboxGLTests.xctest;
+			remoteRef = 868A80EC1EC9A40000BEAF62 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		86A05BFB1E4A44A700C2926E /* libRCTVideo.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1359,20 +1377,6 @@
 			fileType = archive.ar;
 			path = libRNImagePicker.a;
 			remoteRef = 86A56ECA1E7FC12100FF93A4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		86AA09791E645518002E76A7 /* libRCTMapboxGL.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTMapboxGL.a;
-			remoteRef = 86AA09781E645518002E76A7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		86AA097B1E645518002E76A7 /* RCTMapboxGLTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RCTMapboxGLTests.xctest;
-			remoteRef = 86AA097A1E645518002E76A7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		86C46A251E7FADCE0025FF92 /* libRNFirebaseCrashReport.a */ = {
@@ -1475,7 +1479,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		861390C71E83DE460086A873 /* Crash Report */ = {
@@ -1547,7 +1551,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		BB289B8904B8559EA1A8DA7E /* [CP] Copy Pods Resources */ = {
@@ -1629,7 +1633,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: CforGood (3GT9TQHS3E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: CforGood (3GT9TQHS3E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = 3GT9TQHS3E;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1645,15 +1649,13 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-permissions/**",
+					"$(SRCROOT)/../node_modules/react-native-mapbox-gl/ios/**",
 				);
 				INFOPLIST_FILE = CforGoodTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1674,7 +1676,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: CforGood (3GT9TQHS3E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: CforGood (3GT9TQHS3E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 3GT9TQHS3E;
 				HEADER_SEARCH_PATHS = (
@@ -1687,15 +1689,13 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-permissions/**",
+					"$(SRCROOT)/../node_modules/react-native-mapbox-gl/ios/**",
 				);
 				INFOPLIST_FILE = CforGoodTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1740,6 +1740,7 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-permissions/**",
+					"$(SRCROOT)/../node_modules/react-native-mapbox-gl/ios/**",
 				);
 				INFOPLIST_FILE = CforGood/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1753,8 +1754,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cforGood.app;
 				PRODUCT_NAME = CforGood;
-				PROVISIONING_PROFILE = "81361386-9f76-4596-91f4-24c4932cb429";
-				PROVISIONING_PROFILE_SPECIFIER = "Prof dist cforgood";
+				PROVISIONING_PROFILE = "d595b82a-c734-41fe-ad2f-bcd178026bf8";
+				PROVISIONING_PROFILE_SPECIFIER = "Prof dist cforgoods";
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1790,6 +1791,7 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-permissions/**",
+					"$(SRCROOT)/../node_modules/react-native-mapbox-gl/ios/**",
 				);
 				INFOPLIST_FILE = CforGood/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1802,8 +1804,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cforGood.app;
 				PRODUCT_NAME = CforGood;
-				PROVISIONING_PROFILE = "81361386-9f76-4596-91f4-24c4932cb429";
-				PROVISIONING_PROFILE_SPECIFIER = "Prof dist cforgood";
+				PROVISIONING_PROFILE = "d595b82a-c734-41fe-ad2f-bcd178026bf8";
+				PROVISIONING_PROFILE_SPECIFIER = "Prof dist cforgoods";
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1829,8 +1831,8 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODEPUSH = "";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: CforGood (3GT9TQHS3E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: CforGood (3GT9TQHS3E)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 3GT9TQHS3E;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1853,6 +1855,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "d595b82a-c734-41fe-ad2f-bcd178026bf8";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1877,8 +1880,8 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODEPUSH = "YoiPKcGXzVWIdUMB9nWuX-pBw6CGE1hsPAnnb";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: CforGood (3GT9TQHS3E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: CforGood (3GT9TQHS3E)";
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 3GT9TQHS3E;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1893,6 +1896,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "d595b82a-c734-41fe-ad2f-bcd178026bf8";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1918,8 +1922,8 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODEPUSH = " DK3F2dTBjEWN_vTZMc9ExMUYnCqRE1hsPAnnb";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: CforGood (3GT9TQHS3E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: CforGood (3GT9TQHS3E)";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/Release$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 3GT9TQHS3E;
@@ -1935,6 +1939,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "d595b82a-c734-41fe-ad2f-bcd178026bf8";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1942,7 +1947,7 @@
 		};
 		864C2C0A1E83A0A100D36E81 /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CA66A7239A2CE3A1E7CF3112 /* Pods-CforGood.release.xcconfig */;
+			baseConfigurationReference = 78632CD24944A62CD8A91DDB /* Pods-CforGood.staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODEPUSH = HQRu6bkBXJENrECg6604o8AswQ3xE1hsPAnnb;
@@ -1970,6 +1975,7 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-permissions/**",
+					"$(SRCROOT)/../node_modules/react-native-mapbox-gl/ios/**",
 				);
 				INFOPLIST_FILE = CforGood/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1982,8 +1988,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cforGood.app;
 				PRODUCT_NAME = CforGood;
-				PROVISIONING_PROFILE = "81361386-9f76-4596-91f4-24c4932cb429";
-				PROVISIONING_PROFILE_SPECIFIER = "Prof dist cforgood";
+				PROVISIONING_PROFILE = "d595b82a-c734-41fe-ad2f-bcd178026bf8";
+				PROVISIONING_PROFILE_SPECIFIER = "Prof dist cforgoods";
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1991,11 +1997,11 @@
 		};
 		864C2C0B1E83A0A100D36E81 /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D8DB725E83960430CD9E9261 /* Pods-CforGoodTests.release.xcconfig */;
+			baseConfigurationReference = 1CC09975298ABB446017E006 /* Pods-CforGoodTests.staging.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: CforGood (3GT9TQHS3E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: CforGood (3GT9TQHS3E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 3GT9TQHS3E;
 				HEADER_SEARCH_PATHS = (
@@ -2008,15 +2014,13 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-permissions/**",
+					"$(SRCROOT)/../node_modules/react-native-mapbox-gl/ios/**",
 				);
 				INFOPLIST_FILE = CforGoodTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (

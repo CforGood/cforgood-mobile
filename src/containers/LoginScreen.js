@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import {
   View,
-  Text, 
+  Text,
   StyleSheet,
   Image,
   Animated,
@@ -45,8 +45,8 @@ class LoginScreen extends PureComponent {
     this._requestPermission();
   }
 
-  async componentWillUpdate(nextProps, nextState){
-    if(nextState.step === 3 && this.state.step !== 3){
+  async componentWillUpdate(nextProps, nextState) {
+    if (nextState.step === 3 && this.state.step !== 3) {
       await this.props.loadUserData();
       setTimeout(() => { this.props.siginSuccess(); }, 300);
     }
@@ -61,43 +61,49 @@ class LoginScreen extends PureComponent {
         }
       }).catch(e => console.log(e))
   }
-  
+
 
   loadApp() {
     setTimeout(() => { this.props.siginSuccess(); }, 1000);
   }
 
   renderContent() {
-    
+
     const { step } = this.state;
     switch (step) {
       case 1:
         return (
           <View style={[
-              styles.screen.container,
-              styles.spaceBetween
-            ]}
+            styles.screen.container,
+            styles.spaceBetween
+          ]}
           >
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <Facebook validate={() => this.setStep(3)} />
               <Email onPress={() => this.setStep(2)} />
             </View>
-            <View style={{flex: 1}} />
+            <View style={{ flex: 1 }} />
           </View>
         );
         break;
       case 2:
         return (
           <View style={styles.screen.container}>
-            <Login validate={() => this.setStep(3)}/>
+            <Login
+              validate={() => this.setStep(3)}
+              forgetPassword={() => this.props.navigation.navigate(
+                'WebView',
+                { url: 'https://app.cforgood.com/password/new', title: 'Mot de passe oublié ?' }
+              )}
+            />
           </View>
         );
         break;
       default:
         return (
-          <View style={{flex: 1}}>
+          <View style={{ flex: 1 }}>
             <Welcome />
-            <View style={{flex: 1}} />
+            <View style={{ flex: 1 }} />
           </View>
         );
         break;
@@ -105,9 +111,9 @@ class LoginScreen extends PureComponent {
   }
 
   render() {
-    
+
     return (
-      <Image 
+      <Image
         style={[
           styles.screen.container,
           {
@@ -116,7 +122,7 @@ class LoginScreen extends PureComponent {
           }
         ]}
         source={require('../resources/images/background-Signup.jpg')}
-      > 
+      >
         <View style={{ flex: 1, justifyContent: 'center' }} >
           {
             this.state.step !== 3 &&
@@ -139,31 +145,31 @@ class LoginScreen extends PureComponent {
               }}
             />
           }
-          
-          <View style={stylesLogin.pointContainer}> 
+
+          <View style={stylesLogin.pointContainer}>
             <View style={[
-                stylesLogin.point,
-                this.state.step === 1 ? stylesLogin.pointActivate : null 
-              ]} 
+              stylesLogin.point,
+              this.state.step === 1 ? stylesLogin.pointActivate : null
+            ]}
             />
             <View style={[
-                stylesLogin.point,
-                this.state.step === 2 ? stylesLogin.pointActivate : null
-              ]} 
+              stylesLogin.point,
+              this.state.step === 2 ? stylesLogin.pointActivate : null
+            ]}
             />
             <View style={[
-                stylesLogin.point,
-                this.state.step === 3 ? stylesLogin.pointActivate : null
-              ]} 
+              stylesLogin.point,
+              this.state.step === 3 ? stylesLogin.pointActivate : null
+            ]}
             />
-          </View> 
+          </View>
         </View>
-        <View style={{ 
-            flex: 5,
-            padding: metrics.marginApp
-          }}
+        <View style={{
+          flex: 5,
+          padding: metrics.marginApp
+        }}
         >
-         {this.renderContent()} 
+          {this.renderContent()}
         </View>
       </Image>
 
@@ -184,8 +190,8 @@ export default connect(null, mapDispatchToProps)(LoginScreen);
 const stylesLogin = StyleSheet.create({
   pointContainer: {
     justifyContent: 'center',
-    alignItems: 'center', 
-    flexDirection: 'row', 
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   point: {
     height: 10,

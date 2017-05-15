@@ -43,7 +43,7 @@ const HEADER_MAX_HEIGHT = 221;
 const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 70 : 50;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
-class AssociationDetailScreen extends Component { 
+class AssociationDetailScreen extends Component {
   state = {
     scrollY: new Animated.Value(0),
     validationPopup: false,
@@ -57,77 +57,77 @@ class AssociationDetailScreen extends Component {
   async componentWillMount() {
 
     const { association, associationId } = this.props.navigation.state.params;
-    if (association){
+    if (association) {
 
       this.setState({ association });
       this.getDetail(association.id);
     }
-    else if( associationId ) {
+    else if (associationId) {
       await this.getDetail(associationId);
     }
   }
 
-  getDetail (associationId) {
+  getDetail(associationId) {
 
     ApiHandler.associationDetail(associationId)
-    .then(response => {
-      if(!response.error){
-        this.setState({ 
-          association: response,
-          loaded: true,
-          video: response.link_video
-        });
-      }
-    }).
-    catch(message => {
-      console.log('ErrorLog' , message)
-      //this.props.navigation.goBack();
-    });
-    
+      .then(response => {
+        if (!response.error) {
+          this.setState({
+            association: response,
+            loaded: true,
+            video: response.link_video
+          });
+        }
+      }).
+      catch(message => {
+        console.log('ErrorLog', message)
+        //this.props.navigation.goBack();
+      });
+
 
   }
 
-  setValidationPopup(flag){
-    if(flag === true){
-      if(!this.state.association.user_cause)
-        this.setState({validationPopup: flag});
+  setValidationPopup(flag) {
+    if (flag === true) {
+      if (!this.state.association.user_cause)
+        this.setState({ validationPopup: flag });
     }
-    else{
-      this.setState({validationPopup: flag});
+    else {
+      this.setState({ validationPopup: flag });
     }
-    
+
   }
-  
-  onValidate(){
-    
+
+  onValidate() {
+
     ApiHandler.supportAssociation(this.state.association.id)
-    .then(response => {
-      if(!response.error){
-        this.setThanksPopup(true);
-      }
-    }).
-    catch(message => {
-      alert(message.error);
-    });
-    
+      .then(response => {
+        if (!response.error) {
+          this.setThanksPopup(true);
+        }
+      }).
+      catch(message => {
+        alert(message.error);
+      });
+
   }
 
-  setThanksPopup(flag){
+  setThanksPopup(flag) {
     this.setValidationPopup(false);
-    this.setState({thanksPopup: flag});
+    this.setState({ thanksPopup: flag });
 
-    if(flag === true){
-      this.setState({use: true})
-      setTimeout(() => {  this.setThanksPopup(false); }, 2500);
+    if (flag === true) {
+      this.setState({ use: true })
+      setTimeout(() => { this.setThanksPopup(false); }, 2500);
     }
   }
 
   use() {
     return this.state.association.user_cause ||
-    this.state.use;
+      this.state.use;
 
   }
-  
+
   render() {
 
     const detailsAssociation = this.state.association;
@@ -150,8 +150,8 @@ class AssociationDetailScreen extends Component {
     });
 
     var colorOpacity = this.state.scrollY.interpolate({
-        inputRange: [0, HEADER_SCROLL_DISTANCE],
-        outputRange: ['white', colors.darkGray]
+      inputRange: [0, HEADER_SCROLL_DISTANCE],
+      outputRange: ['white', colors.darkGray]
     });
 
     const titleOpacity = this.state.scrollY.interpolate({
@@ -160,26 +160,32 @@ class AssociationDetailScreen extends Component {
       extrapolate: 'clamp',
     });
 
-   if(!detailsAssociation)
-    return null;
+    const TopTranslate = this.state.scrollY.interpolate({
+      inputRange: [0, HEADER_SCROLL_DISTANCE],
+      outputRange: [metrics.marginApp, 7],
+      extrapolate: 'clamp',
+    });
+
+    if (!detailsAssociation)
+      return null;
 
     return (
       <View style={styles.screen.mainContainer}>
-        <Animated.ScrollView 
-          style={{flex:1}}
+        <Animated.ScrollView
+          style={{ flex: 1 }}
           scrollEventThrottle={1}
           onScroll={Animated.event(
-            [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
+            [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }]
           )}
-        > 
-          <View 
-            style={{  
-                height: HEADER_MAX_HEIGHT
+        >
+          <View
+            style={{
+              height: HEADER_MAX_HEIGHT
             }}
           />
           <View style={style.container} >
-            
-            <Text 
+
+            <Text
               style={[
                 fonts.style.title,
                 fonts.style.t26
@@ -190,25 +196,25 @@ class AssociationDetailScreen extends Component {
 
 
             <Text style={[
-                fonts.style.normal,
-                fonts.style.normal, 
-                {marginVertical: metrics.baseMargin}
-              ]}
+              fonts.style.normal,
+              fonts.style.normal,
+              { marginVertical: metrics.baseMargin }
+            ]}
             >
-              Protection et mise en valeur du littoral et des océans. 
+              {detailsAssociation.impact}
             </Text>
 
-            <Separator 
+            <Separator
               style={style.marginVertical}
               margin={0}
               color={'#979797'}
             />
-  
-           <View>
-              <Detail 
-                title={'En quelques mots'} 
+
+            <View>
+              <Detail
+                title={'En quelques mots'}
                 colorTitle={colors.blueAssociation}
-                description={detailsAssociation.description} 
+                description={detailsAssociation.description}
               />
               {
                 (
@@ -219,50 +225,50 @@ class AssociationDetailScreen extends Component {
                 &&
                 <Video link={this.state.video} />
               }
-              
+
             </View>
 
 
-            <Separator 
+            <Separator
               style={style.marginVertical}
               margin={0}
               color={'#979797'}
             />
             {
               this.state.loaded &&
-              <AssociationContact 
-                association={detailsAssociation} 
-              />
-            }
-           
-
-            <Separator 
-              style={style.marginVertical}
-              margin={0}
-              color={'#979797'}
-            />
-            
-
-            {
-              this.state.loaded &&
-              <AssociationLeader 
+              <AssociationContact
                 association={detailsAssociation}
               />
             }
-            
-          </View>  
+
+
+            <Separator
+              style={style.marginVertical}
+              margin={0}
+              color={'#979797'}
+            />
+
+
+            {
+              this.state.loaded &&
+              <AssociationLeader
+                association={detailsAssociation}
+              />
+            }
+
+          </View>
         </Animated.ScrollView>
 
-        <Animated.View style={[style.header, {height: headerHeight}]}>
+        <Animated.View style={[style.header, { height: headerHeight }]}>
           <View
             style={[
               styles.row,
-              { 
+              {
                 paddingHorizontal: metrics.marginApp,
                 justifyContent: 'space-between'
               }
             ]}
-          > 
+          >
             <Animated.View
               style={[
                 style.titleContainer,
@@ -271,7 +277,7 @@ class AssociationDetailScreen extends Component {
                 }
               ]}
             >
-              <Text 
+              <Text
                 style={fonts.style.title}
               >
                 {detailsAssociation.name}
@@ -281,37 +287,36 @@ class AssociationDetailScreen extends Component {
           <Animated.Image
             style={[
               style.backgroundImage,
-              {opacity: imageOpacity, transform: [{translateY: imageTranslate}]},
+              { opacity: imageOpacity, transform: [{ translateY: imageTranslate }] },
             ]}
-            source={{uri: detailsAssociation.picture}}
+            source={{ uri: detailsAssociation.picture }}
           >
-            <Image
-              resizeMode={'contain'}
-              style={{
-                height: 200,
-              }}
-              source={{uri: detailsAssociation.logo}}
-            />
             <Share
               url={`/asso/causes/${detailsAssociation.id}`}
               title={detailsAssociation.name}
               message={detailsAssociation.description}
-              style={style.share} 
+              style={style.share}
             />
           </Animated.Image>
-          <TouchableOpacity 
+          <Animated.View
+            style={[
+              style.backContainer,
+              { top: (Platform.OS === 'ios' ? 27 : TopTranslate) }
+            ]}
+          >
+            <TouchableOpacity
               onPress={() => this.props.navigation.goBack()}
-              style={style.backContainer}
             >
               <Animated.Image
                 resizeMode={'contain'}
                 style={[
                   style.back,
-                  {tintColor: colorOpacity}
+                  { tintColor: colorOpacity }
                 ]}
                 source={require('../resources/icons/close-circular-button-of-a-cross-white.png')}
               />
             </TouchableOpacity>
+          </Animated.View>
         </Animated.View>
         <Button
           type={'simple'}
@@ -323,12 +328,12 @@ class AssociationDetailScreen extends Component {
           icon={<Heart liked={this.use()} />}
         />
 
-        <PopupThanks 
+        <PopupThanks
           onClose={() => this.setThanksPopup(false)}
           visible={this.state.thanksPopup}
           association={detailsAssociation}
         />
-        
+
         <PopupValidation
           association={detailsAssociation}
           visible={this.state.validationPopup}
@@ -344,26 +349,26 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default  connect(mapStateToProps)(AssociationDetailScreen);
+export default connect(mapStateToProps)(AssociationDetailScreen);
 
 
 const style = {
 
-  container:{
+  container: {
     margin: metrics.marginApp,
   },
   backContainer: {
     position: 'absolute',
-    top:  (Platform.OS === 'ios' ? 27 : 7),
+    top: (Platform.OS === 'ios' ? 27 : 7),
     right: metrics.marginApp,
     flexDirection: 'row',
     zIndex: 10
   },
-  back:{
+  back: {
     resizeMode: 'contain',
     height: 36,
     width: 36,
-    transform:[{rotate: '-90deg'}],
+    transform: [{ rotate: '-90deg' }],
     tintColor: colors.white,
   },
   marginVertical: {
@@ -388,21 +393,21 @@ const style = {
     height: HEADER_MAX_HEIGHT,
     resizeMode: 'cover',
     paddingHorizontal: metrics.marginApp,
-  },  
+  },
   title: {
     color: 'white',
     fontSize: 20,
     backgroundColor: 'transparent'
   },
   titleContainer: {
-    marginTop: (Platform.OS === 'ios' ?  20 : 0),
+    marginTop: (Platform.OS === 'ios' ? 20 : 0),
     alignItems: 'center',
     justifyContent: 'center',
   },
   scrollViewContent: {
     marginTop: HEADER_MAX_HEIGHT,
   },
-  share:{
+  share: {
     position: 'absolute',
     bottom: metrics.baseMargin,
     right: metrics.marginApp,

@@ -34,10 +34,13 @@ export default class BusinessHeader extends Component {
     return (
       <View>
         <View style={{flex:1}} >
-          <StateBusiness
-            state={online ? 'Ouvert' : 'Fermé'}
-            color={online ? colors.online : colors.lightGray}
-          />
+          {
+            // <StateBusiness
+            //   state={online ? 'Ouvert' : 'Fermé'}
+            //   color={online ? colors.online : colors.lightGray}
+            // />
+          }
+          
           <BusinessTitle 
             name={name} 
             style={fonts.style.t26} 

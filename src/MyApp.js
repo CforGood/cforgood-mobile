@@ -11,8 +11,6 @@ import HomeNavigator from './navigator/HomeNavigator';
 import LoginNavigator from './navigator/InitialNavigator';
 import Intercom from './Intercom';
 import Branch from './branch';
-import PushController from  "./PushController";
-
 import { 
   accessTokenMapBox,
 } from './config.json';
@@ -34,7 +32,6 @@ class MyApp extends Component {
         }
         <Branch />
         <Intercom />
-        <PushController onChangeToken={() => {}} />
       </View>
     )
   }

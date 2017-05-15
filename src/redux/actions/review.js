@@ -52,18 +52,18 @@ export const saveReview = (perk, business, use) => {
 }
 
 
-export const review = (perk, business, feedback = true) => {
+export const use = (perk, business, feedback = true) => {
   return (dispatch) => {
     ApiHandler.uses(perk.id)
     .then(response => {
-      if(feedback) {
-        dispatch(saveReview(perk, business, response.id));
+      if(!response.error){
+        if(feedback) {
+          dispatch(saveReview(perk, business, response.id));
+        }
       }
-      
-    })
-    .catch(message => {
-      dispatch(failure(message.error));
-      
+      else {
+        dispatch(failure(response.error));
+      }
     });
   }
 

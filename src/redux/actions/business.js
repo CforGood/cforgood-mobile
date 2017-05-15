@@ -43,31 +43,17 @@ export const filterBusiness = (entities) => {
   };
 }
 
-const LATITUDE = 44.8460252;
-const LONGITUDE = -0.5736973;
-
 export const loadBusiness = () => {
 
   return (dispatch, getState) => {
-    const { filters, location } = getState();
-
+    const { filters,  location } = getState();
+    //const location = {latlng : { latitude: 44.8460252, longitude: -0.5736973}};
     dispatch(load());
-    //{latitude: LATITUDE, longitude: LONGITUDE}
+
     return ApiHandler.businesses(true, location.latlng)
     .then(response => {
       if(response && !response.error){
-        
         dispatch(success(response));
-        
-        if(response.length !== 0){
-          
-          const categories = filters.categories;
-          if(categories.length > 0){
-            const filterData = response.filter(obj => categories.indexOf(parseInt(obj.business_category_id)) !== -1 );
-
-            dispatch(filterBusiness(filterData));
-          }
-        }
       }
       else
       {

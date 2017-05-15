@@ -26,7 +26,7 @@ class ButtonEmail extends PureComponent {
             fonts.style.h9
           ]}
         > 
-          Où utiliser votre Email :
+          Ou utiliser votre Email :
         </Text>  
         <View style={{
             marginTop: metrics.smallMargin

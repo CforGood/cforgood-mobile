@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -7,25 +7,26 @@ import {
   ScrollView,
   TouchableOpacity,
   Animated,
-  ListView
+  ListView,
+  RefreshControl
 } from 'react-native';
 import { connect } from 'react-redux';
 
 import Filter from '../components/common/Filter';
-import Separator from '../components/common/Separator';  
+import Separator from '../components/common/Separator';
 import ButtonGradient from '../components/common/ButtonGradient';
 import SeparatorColor from '../components/common/SeparatorColor';
 import Header from '../components/common/HeaderApp';
 import PerkAddressRow from '../components/perk/PerkAddressRow';
 import PerkFilter from '../components/perk/PerkFilter';
 import ReviewsScreen from './ReviewsScreen';
-import PerkDetailScreen from './PerkDetailScreen';
 
+import { distance } from '../helpers/distance';
 import {
   styles,
   colors,
   fonts,
-  metrics, 
+  metrics,
 } from '../themes';
 
 import {
@@ -33,97 +34,127 @@ import {
 } from '../constants/categories';
 
 
-const HEADER_SCROLL_DISTANCE = metrics.marginApp;
-const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
-class PerksScreen extends PureComponent { 
-  
+class PerksScreen extends Component {
+
   state = {
+    sort: 'nearme',
+    more: false,
     perks: [],
+    popularPerk: [],
     business: null,
-    perk: null,
     filter: 'nearme',
-    scrollY: new Animated.Value(0),
     count: 4,
     dataSource: ds.cloneWithRows([])
 
   };
 
-
   setFilter(filter) {
     this.setState({ filter });
   }
 
-  setPerk(perk, business = null, category = null){
-    if(perk && perk.usable_for_user) {
-      this.setState({ perk, business, category });
-    }
-    else if(perk === null){
-      this.setState({ perk });
+
+  setPerk = (perk, business, category) => {
+    if (perk && business) {
+      this.props.navigation.navigate('PerkDetail',
+        {
+          perkId: perk.id,
+          businessId: business.id,
+          addressId: (
+            business.address ?
+              business.address.id
+              :
+              business.addresses[0].id
+          ),
+        }
+      );
     }
   }
 
-  onValidate = () => {
-    
-    //this.props.navigation.navigate('MapScreen');
-    this.setState({perk: null});
-  }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.perk !== null && this.props.perk === null){
-      this.props.navigation.goBack();
-    }
-    if(nextProps.businesses !== this.props.businesses){
-      this.loadPerks(nextProps.businesses);
+
+    if (nextProps.businesses !== this.props.businesses
+      ||
+      nextProps.categories !== this.props.categories
+    ) {
+      this.loadPerks(nextProps.businesses, nextProps.categories);
     }
   }
 
   componentWillMount() {
-    this.loadPerks(this.props.businesses);
+    this.loadPerks(this.props.businesses, this.props.categories);
   }
 
-  loadPerks(businesses) {
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.sort !== this.state.sort) {
+
+      this._onRefresh(nextState.sort);
+    }
+  }
+
+
+  loadPerks(businesses, categories) {
     let perks = [];
-    if(businesses){
-      businesses.forEach(business => {
+
+    let results = businesses;
+    if (categories.length > 0) {
+      results = businesses.filter(obj =>
+        categories.indexOf(parseInt(obj.business_category_id)) !== -1
+        ||
+        (categories.indexOf(13) !== -1 && obj.online === true)
+      )
+    }
+
+
+    if (businesses) {
+      results.forEach(business => {
 
         const category = getCategory(business.business_category_id);
         business.perks.forEach((perk) => {
-          perks.push({
-            perk,
-            business: {
-              id: business.id,
-              name: business.name,
-              picture: business.picture,
-              addresses: business.addresses,
-              email: business.email,
-              leader_first_name: business.leader_first_name
-            },
-            category 
-          });
+          if (perk.usable_for_user) {
+            perks.push({
+              perk,
+              business: {
+                id: business.id,
+                name: business.name,
+                picture: business.picture,
+                addresses: business.addresses,
+                email: business.email,
+                url: business.url,
+                leader_first_name: business.leader_first_name
+              },
+              category
+            });
+          }
+
         })
       })
 
-      
+
       this.setState({
         perks,
-        dataSource: this.state.dataSource.cloneWithRows( perks ),
+        popularPerk: perks.slice(0).sort((a, b) => { return b.perk.nb_views - a.perk.nb_views }),
+        dataSource: this.state.dataSource.cloneWithRows(perks.slice(0, 4)),
       });
-      //perks.s.slice(0, this.state.count)
     }
-    
+
   }
 
   loadMore() {
-    
-//    const count = this.state.count + 4;
-//    if(count < this.state.perks.length){
-//      this.setState({
-//        count,
-//        businesses: this.state.perks.slice(0, count),
-//      });
-//    }
-    
+    const count = this.state.count + 4;
+    if (count < this.state.perks.length) {
+
+      this.setState({
+        more: true,
+        count,
+        dataSource: this.state.dataSource.cloneWithRows(
+          this.state.sort === 'nearme' ? this.state.perks.slice(0, count) : this.state.popularPerk.slice(0, count)
+        ),
+      });
+    }
+
   }
 
   _renderRow = (obj) => {
@@ -142,59 +173,62 @@ class PerksScreen extends PureComponent {
     )
   }
 
-  render() {
-    const heightSeparator = this.state.scrollY.interpolate({
-      inputRange: [0, HEADER_SCROLL_DISTANCE],
-      outputRange: [0, 3],
-      extrapolate: 'clamp',
+  _onRefresh = (sort) => {
+    this.setState({
+      more: false,
+      count: 4,
+      dataSource: this.state.dataSource.cloneWithRows(
+        sort === 'nearme' ? this.state.perks.slice(0, 4) : this.state.popularPerk.slice(0, 4)
+      ),
     });
+  }
+
+  sortBy = (sortType) => {
+    this.setState({
+      sort: sortType,
+    });
+  }
+
+  render() {
+
 
     return (
       <View style={styles.screen.mainContainer}>
-        <Header 
+        <Header
           module={'business'}
         />
-        <View style={{flex:1}}>
-          <PerkFilter />
-          <View style={{flex:1}} >
-            <Animated.ScrollView
-              scrollEventThrottle={1}
-              onScroll={Animated.event(
-                [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
-              )}
-            >
-              <ListView
-                dataSource={this.state.dataSource}
-                renderRow={this._renderRow}
-                onEndReached={() => this.loadMore()}
-                enableEmptySections={true}
+        <View style={{ flex: 1 }}>
+          <PerkFilter sortBy={this.sortBy} />
+          <View style={{ flex: 1 }} >
+            <ListView
+              dataSource={this.state.dataSource}
+              renderRow={this._renderRow}
+
+              enableEmptySections={true}
+              onEndReachedThreshold={4}
+              initialListSize={4}
+              onEndReached={() => this.loadMore()}
+              refreshControl={<RefreshControl
+                refreshing={false}
+                onRefresh={() => this._onRefresh(this.state.sort)}
+                tintColor={colors.commerce}
+                colors={colors.gradientColor}
+                progressBackgroundColor="#ffffff"
               />
-            </Animated.ScrollView>
-            <Animated.View style={[
-                style.header, 
-                {
-                  height: heightSeparator
-                }
-              ]}
-            >
-              <SeparatorColor />
-            </Animated.View>
-            <Filter 
-              onPress={() => this.props.navigation.navigate('Filter')}
+              }
             />
-          </View>  
+            {
+              this.state.more &&
+              <View style={style.header} >
+                <SeparatorColor />
+              </View>
+            }
+
+            <Filter
+              onPress={() => this.props.navigation.navigate('Filter', { from: 'perk' })}
+            />
+          </View>
         </View>
-        {
-          this.state.perk &&
-          <PerkDetailScreen
-            visible={true}
-            onClose={() => this.setPerk(null)}
-            perk={this.state.perk}
-            business={this.state.business}
-            category={this.state.category}
-            onValidate={() => this.onValidate()}
-          />
-        }        
       </View>
     );
   }
@@ -202,7 +236,9 @@ class PerksScreen extends PureComponent {
 
 const mapStateToProps = state => ({
   businesses: state.business.entities,
+  categories: state.filters.categoriesPerks,
   perk: state.review.perk,
+  location: state.location.latlng,
 });
 
 
@@ -212,8 +248,8 @@ export default connect(mapStateToProps)(PerksScreen);
 
 const style = {
   container: {
-    
-    height:153,
+
+    height: 153,
     flex: 1,
     marginVertical: metrics.baseMargin,
     paddingHorizontal: metrics.marginApp,
@@ -223,7 +259,7 @@ const style = {
     top: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'white',
+    height: 3,
     overflow: 'hidden',
   },
 }; 

@@ -95,8 +95,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         multiDexEnabled true
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 15
+        versionName "1.1.5"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -157,6 +157,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-mapbox-gl')
     compile project(':react-native-permissions')
     compile project(':react-native-fcm')
     compile project(':react-native-code-push')
@@ -177,7 +178,6 @@ dependencies {
     compile project(':react-native-firebase-crash-report')
     compile project(':react-native-share')
     compile project(':react-native-blur')
-    compile project(':react-native-mapbox-gl')
     compile project(':react-native-linear-gradient')
     compile project(':react-native-vector-icons')
     compile project(':react-native-orientation')

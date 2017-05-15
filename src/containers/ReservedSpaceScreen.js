@@ -4,12 +4,10 @@ import {
   Text,
   Image,
   StyleSheet,
-  ScrollView
 } from 'react-native';
 
 import Button from '../components/common/ButtonGradient';
 import Header from '../components/common/Header';
-import Modal from '../components/Modal';
 
 import {
   styles,
@@ -18,110 +16,88 @@ import {
   metrics,
 } from '../themes';
 
-class ReservedSpaceScreen extends Component { 
-
-  props: {
-    onClose: () => mixed,
-    visible: false
-  };
+class ReservedSpaceScreen extends Component {
 
   render() {
-    const {
-      onClose,
-      onValidate,
-      visible,
-      color,
-      image,
-    } = this.props;
 
     return (
-      <Modal
-        onClose={onClose}
-        animationType={'slide'}
-        blurType={'xlight'}
-        blurAmount={10}
-        visible={this.props.visible}
-        image={image}
-      > 
-        <View style={styles.screen.container}> 
-          <Header 
-            close={true}
-            onClose={onClose}
-          />
-          <View style={{
-              flex:1, 
-              margin: metrics.marginApp
-            }}
+      <View style={styles.screen.mainContainer}>
+        <Header
+          close={true}
+        />
+        <View style={{
+          flex: 1,
+          marginHorizontal: metrics.marginApp
+        }}
+        >
+          <View style={[
+            {
+              flex: 1,
+              alignItems: 'center',
+            }
+          ]}
           >
-            <View style={[
-                styles.center,
-                {flex:1}
-              ]}
+            <Image
+              style={{
+                height: metrics.images.logo * 0.9,
+                width: metrics.images.logo * 0.9,
+              }}
+              source={require('../resources/images/logo.png')}
+            />
+            <Text style={[
+              fonts.style.h9,
+              {
+                marginVertical: metrics.baseMargin,
+                color: colors.darkGray
+              }
+            ]}
             >
-              <Image 
-                style={{
-                  height: metrics.images.logo * 0.9,
-                  width: metrics.images.logo * 0.9,      
-                }}
-                source={require('../resources/images/logo.png')}
-              />
-              <Text style={[ 
-                  fonts.style.h9, 
-                  {
-                    color: colors.darkGray,
-                    marginVertical: metrics.baseMargin,
-                  }
-                ]}
-              >
-                Espace réservé aux abonnés
-              </Text> 
-            </View> 
- 
 
-            <View style={[
-                styles.center,
-                {flex:1}
-              ]}
-            >  
-              <Text style={[ 
-                  fonts.style.t22, 
-                  {color: colors.darkGray,}
-                ]}
-              >
-                Rejoignez la révolition positive
-              </Text> 
-              <Text style={[  
-                  {
-                    color: colors.darkGray,
-                    fontFamily: fonts.type.base,
-                    fontSize: fonts.size.regular,
-                    marginVertical: metrics.baseMargin,
-                    textAlign: 'center'
-                  }
-                ]}
-              >  
-                Je trouve de nouveaux commerçants responsables, des associations engagées et des événements enthousiasmant chez moi où dans les autres villes ou je me rends.
-              </Text>  
-            </View> 
+            </Text>
           </View>
-          <Button
-            onPress={onValidate} 
-            type={'simple'} 
-            style={{
-              backgroundColor: this.props.color
-            }} 
-            text={" Je m'inscris "} 
-          />
+          <View style={[
+            styles.center,
+            { flex: 1 }
+          ]}
+          >
+            <Text style={[
+              fonts.style.t22,
+              fonts.style.bold,
+              { textAlign: 'center' }
+            ]}
+            >
+              Rejoignez la révolition positive
+            </Text>
+            <Text style={[
+              fonts.style.t15,
+              styleReservedSpaceScreen.desc
+            ]}
+            >
+              Je trouve de nouveaux commerçants responsables, des associations engagées et
+              des événements enthousiasmant chez moi ou dans les autres villes où je me rends.
+            </Text>
+          </View>
         </View>
-      </Modal>     
+        <Button
+          onPress={() => this.props.navigation.navigate('Profile', {
+            'tab': 'Abonnement'
+          })}
+          text={"Je deviens membre "}
+        />
+      </View>
     );
   }
 }
 
 export default ReservedSpaceScreen;
 
-const styleReservedSpaceScreen = { 
-  button:{
-    backgroundColor: colors.orange, 
+const styleReservedSpaceScreen = {
+  button: {
+    backgroundColor: colors.orange,
   },
+  desc: {
+    marginVertical: metrics.baseMargin,
+    textAlign: 'center',
+    lineHeight: 30
+  }
 }; 

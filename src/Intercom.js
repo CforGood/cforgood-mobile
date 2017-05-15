@@ -33,6 +33,7 @@ class Intercom extends PureComponent {
   }
 
   _onUnreadChange = ({ count }) => {
+    //alert(count)
     //...
   }
 
@@ -44,7 +45,7 @@ class Intercom extends PureComponent {
 
       return IntercomRN.updateUser({
         email: user.email,
-        name: user.name ,
+        name: user.first_name + ' ' + user.last_name  ,
       });
     })
     .catch((err) => {

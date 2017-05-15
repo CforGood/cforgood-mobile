@@ -2,7 +2,7 @@ import React, {
   PropTypes,
   PureComponent,
 } from 'react';
-
+import moment from 'moment';
 import {
   View,
   Text,
@@ -19,6 +19,12 @@ import {
   fonts,
   metrics,
 } from '../../themes';
+
+const days  = (date) => {
+  const start = moment();
+  const end = moment(date);
+  return end.diff(start, 'days')  
+}
 
 class PopupProfile extends PureComponent { 
   
@@ -39,11 +45,12 @@ class PopupProfile extends PureComponent {
       nextProps.visible != this.props.visible
     ){
       return true;
+
     }
     return false;
   }
   
-  renderPopup(){
+  renderPopup() {
     switch (this.props.type) {
       case 'user' : 
         return (
@@ -55,12 +62,20 @@ class PopupProfile extends PureComponent {
           /> 
         )
         break;
-      case 'mensuelle' || 'annuelle': 
+      case 'M' || 'Y': 
         return (
           <Popup
             icon={require('../../resources/profile/claping-hands.png')}
             bigtitle={'Bravo et merci !'} 
-            description= {'Votre participation '+ this.props.type +'  \nà bien été prise en compte.'}
+            description= {(<Text>Votre participation <Text>
+              {
+                this.props.type === 'M'
+                ?
+                'mensuelle'
+                :
+                'annuelle'
+              }
+              </Text> a bien été prise en compte.</Text>)}
             onClose={this.props.onClose}
           />
         )
@@ -90,7 +105,7 @@ class PopupProfile extends PureComponent {
           />
         )
         break;
-      case 'partner': 
+      case 'partner':
         return (
           <Popup
             bgImage={
@@ -107,8 +122,12 @@ class PopupProfile extends PureComponent {
             icon={require('../../resources/profile/Shape.png')}
             bigtitle={'Excellent !'} 
             description= {
-              'Fred Pétris vous a offert 12 mois\nd’accès à l’application CforGood'+
-             '\npour une consommation plus positive !'
+              this.props.trial_attributes.user_offering_first_name + ' ' +
+              this.props.trial_attributes.user_offering_last_name + 
+              ' vous a offert ' +
+              this.props.trial_attributes.nb_month_beneficiary +
+              ' mois\nd’accès à l’application CforGood'+
+             '\npour une consommation positive !'
             }
             iconButton={require('../../resources/icons/hand-like.png')}
             textButton={'A vous de jouer !'}
@@ -134,7 +153,13 @@ class PopupProfile extends PureComponent {
             }
             icon={require('../../resources/profile/Shape.png')}
             bigtitle={'Waouu génial !'} 
-            description= {'Profitez bien des 31 jours OFFERTS\npar CforGood\npour découvrir l’application.'}
+            description= {
+              'Profitez bien des '+
+              days( this.props.trial_attributes.date_end_partner) +
+              ' jours OFFERTS\npar '+
+              (this.props.trial_attributes.partner_name || 'Cforgood') +
+              +'\n pour découvrir l’application.'
+            }
             textButton={'A vous de jouer !'}
             iconButton={require('../../resources/icons/hand-like.png')}
             onClose={this.props.onClose}

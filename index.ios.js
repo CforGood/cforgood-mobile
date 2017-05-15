@@ -15,4 +15,6 @@ AppRegistry.registerComponent('CforGood', () => App);
 │ Staging    │ DK3F2dTBjEWN_vTZMc9ExMUYnCqRE1hsPAnnb │
 └────────────┴───────────────────────────────────────┘
 
+code-push release-react CforGood-IOS ios -m --description "update"
+code-push promote CforGood-IOS Staging Production -r 100%
 */

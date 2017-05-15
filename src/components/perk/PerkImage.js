@@ -76,7 +76,7 @@ class PerkImage extends PureComponent {
             {
               smallTitle &&
               <PerkTitle  
-                name={perk.usable_for_user ? business.name: "Bon plan épuisé"}
+                name={perk.usable_for_user ? business.name : "Bon plan épuisé"}
                 activity={business.activity}
                 code={perk.perk_code}
                 color={colors.white}

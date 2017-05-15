@@ -29,9 +29,9 @@ import {
   styleMapBox,
 } from '../../config.json';
 
-Mapbox.setAccessToken(accessTokenMapBox);
 
-class MapExample extends Component {
+
+class MapBusiness extends Component {
   state = {
     center: null,
     zoom: 10,
@@ -69,6 +69,7 @@ class MapExample extends Component {
   renderMap () {
     return (
       <MapView
+        ref={map => { this._map = map; }}
         style={styles.map}
         initialCenterCoordinate={this.state.center}
         initialZoomLevel={this.state.zoom}
@@ -103,4 +104,4 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-export default MapExample;
+export default MapBusiness;

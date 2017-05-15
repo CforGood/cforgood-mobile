@@ -40,7 +40,7 @@ class SplashScreen extends Component {
   };
 
   async componentDidMount() {
-
+    //AsyncStorage.removeItem('@CfoorGoodStore:auth');
     NetInfo.isConnected.addEventListener(
       'change',
       this._handleConnectivityChange
@@ -55,6 +55,7 @@ class SplashScreen extends Component {
     auth = await AsyncStorage.getItem('@CfoorGoodStore:auth');
 
     if( auth !== null ){
+      //alert(JSON.stringify(auth))
       if(this.state.isConnected){
         this.loadData();
       }

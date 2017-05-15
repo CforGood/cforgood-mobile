@@ -105,9 +105,15 @@ class Abonnement extends PureComponent {
         <View style ={[styles.center, styles.row]}>
           <View style={{flex: 1}} />
           <View style={style.partner}>
-            <Text style={style.textPartner} >
-              {user.code_partner} 
-            </Text>
+            <TextInput
+              style={style.textPartner}
+              value={user.code_partner}
+              onChangeText={
+                (value) => this.props.setUserData({
+                  ...user, code_partner: value
+                })
+              }
+            />
           </View>
           
           <View style={{flex: 1}} />
@@ -192,7 +198,8 @@ const style = StyleSheet.create({
   },
   textPartner: {
     textAlign: 'center',
-    color: colors.darkGray
+    color: colors.darkGray,
+    flex: 1,
   }
 }); 
 

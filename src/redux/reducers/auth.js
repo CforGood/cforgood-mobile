@@ -13,6 +13,7 @@ const initialState = {
   loaded: true,
   failure: false,
   LoggedIn: false,
+  error: null
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -22,6 +23,7 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         loaded: true,
         failure: false,
+        error: null,
       };
     case LOGIN_SUCCESS:
       return {
@@ -29,6 +31,7 @@ const reducer = (state = initialState, action = {}) => {
         loaded: true,
         isLoggedIn: true,
         failure: false,
+        error: null,
         
       };
     case LOGIN:
@@ -37,6 +40,7 @@ const reducer = (state = initialState, action = {}) => {
         loaded: true,
         LoggedIn: true,
         failure: false,
+        error: null,
         
       };
     case LOGIN_FAILURE:
@@ -46,6 +50,7 @@ const reducer = (state = initialState, action = {}) => {
         loaded: false,
         isLoggedIn: false,
         failure: true,
+        error: action.error
       };
     case LOGOUT_SUCCESS:
       AsyncStorage.removeItem('@CfoorGoodStore:auth');
@@ -55,6 +60,7 @@ const reducer = (state = initialState, action = {}) => {
         isLoggedIn: false,
         LoggedIn: false,
         failure: false,
+        error: null,
       };
     default:
       return state;

@@ -2,7 +2,10 @@
 import React, { 
   Component,
 } from 'react';
-import { AsyncStorage, AppState } from 'react-native';
+import { 
+  AsyncStorage,
+  AppState,
+} from 'react-native';
 import { 
   Provider,
   connect
@@ -34,11 +37,10 @@ class AppWithNavigationState extends React.Component {
   }
 }
 
-
 class App extends Component {
 
   componentDidMount() {
-    this.handleAppStateChange()
+    this.handleAppStateChange();
   }
 
   componentWillMount() {

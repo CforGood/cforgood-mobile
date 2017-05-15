@@ -29,10 +29,14 @@ export default class PerkTitle extends PureComponent {
             },
           ]}
         >
-          {this.props.name.charAt(0).toUpperCase() + this.props.name.slice(1).toLowerCase()} 
+          { this.props.name ? 
+            this.props.name.charAt(0).toUpperCase() + this.props.name.slice(1).toLowerCase()
+            :
+            ""
+          } 
         </Text>
         {
-          this.props.activity
+          this.props.activity !== ""
           &&
           <Text 
             style={[
@@ -42,7 +46,11 @@ export default class PerkTitle extends PureComponent {
               },
             ]}
           >
-            {this.props.activity.toLowerCase()} 
+            {
+              this.props.activity &&
+              this.props.activity != "" &&
+              this.props.activity.toLowerCase()
+            } 
           </Text>
 
         }

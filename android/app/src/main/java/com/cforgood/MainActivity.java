@@ -5,8 +5,7 @@ import io.branch.rnbranch.*;
 
 import android.content.res.Configuration; 
 import com.facebook.react.ReactActivity;
-import com.ianlin.RNFirebaseCrashReport.RNFirebaseCrashReportPackage;
-import com.ianlin.RNFirebaseCrashReport.RNFirebaseCrashReportPackage;
+
 
 public class MainActivity extends ReactActivity {
 

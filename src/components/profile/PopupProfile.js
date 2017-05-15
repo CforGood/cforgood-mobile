@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withNavigation } from 'react-navigation';
 
+
+import ApiHandler from '../../utils/api';
 import Popup from './Popup';
 import {
   getCategory,
@@ -35,6 +37,8 @@ class PopupProfileMap extends Component {
       this.state.visible === true && nextState.visible === false
       ||
       nextProps.loadedBusinesses !== this.props.loadedBusinesses
+      ||
+      nextProps.nearme !== this.props.nearme
     ){
       return true;
     }
@@ -47,21 +51,25 @@ class PopupProfileMap extends Component {
     setTimeout(() => { this.checkPopupProfile(
       this.props.user, 
       this.props.businesses,
-      this.props.loadedBusinesses
+      this.props.loadedBusinesses,
+      true
       ); 
-    }, 4500);
+    }, 100);
   }
 
   componentWillReceiveProps(nextProps) {
   	setTimeout(() => { this.checkPopupProfile(
-      nextProps.user,
-      nextProps.businesses,
-      nextProps.loadedBusinesses); 
-    }, 4500);
+        nextProps.user,
+        nextProps.businesses,
+        nextProps.loadedBusinesses,
+        nextProps.nearme,
+      ); 
+    }, 100);
    
   }
 
-  onValidate = (type) => {
+  onValidate = async (type) => {
+
     if(type==='partner' || type==='not_partner'){
       this.props.updateUserData(this.props.user.id, {trial_done: false});
     }
@@ -78,25 +86,25 @@ class PopupProfileMap extends Component {
       this.props.navigation.navigate('Profile', {'tab': 'Abonnement'})
     }
 
-    else if(type === 'first_perk_offer'){
-      const business  = null;
-      const perk = null;
-      
-      for(const businessSearch of this.props.businesses) {
-        
-        perk  = businessSearch.perks.find(perk => perk.id === this.props.user.first_perk_offer);
-        if(perk != null){
-          business = businessSearch;
+    else if(type === 'first_perk_offer' && this.props.businesses){
 
-          break;
-        };
 
-      };
-    
-      if(perk != null) {
-        const category = getCategory(business.business_category_id);
-        this.props.newOffer(perk, business, category);
-      }
+      let business  = null;
+      let perk = null;
+      const { business_id, address_id, perk_id } = this.props.user.first_perk_offer_attributes;
+
+
+      ApiHandler.businessDetail(business_id, address_id)
+      .then(response => {
+        if(!response.error){
+
+          const category = getCategory(response.business_category_id);
+
+          perk = response.perks.find(perk => perk.id === perk_id);
+          //alert(JSON.stringify(response));
+          this.props.newOffer(perk, response, category);
+        }
+      });
       
     }
     
@@ -105,21 +113,20 @@ class PopupProfileMap extends Component {
   }
 
 
-  checkPopupProfile(user, businesses, loadedBusinesses){
+  checkPopupProfile(user, businesses, loadedBusinesses, nearme){
 
     const businesses_around = businesses ? businesses.length : 0;
 
-    console.log('loadedBusinessesloadedBusinesses', businesses_around, loadedBusinesses)
-    
-  	if(user && !this.state.visible) {
+    if(user && !this.state.visible && loadedBusinesses) {
       let visible = false;
       let type = '';
-      
-      if( user.first_perk_offer ) {
+
+
+      if(businesses_around === 0 || !nearme) {
         visible = true;
-        type= 'first_perk_offer';
+        type = 'businesses_around';
       }
-      else if( user.trial_done) {
+      else if( user.trial_done ) {
         visible = true;
         if(codes.includes(user.code_partner)) {
           type= 'partner';
@@ -127,9 +134,10 @@ class PopupProfileMap extends Component {
         else{
           type= 'not_partner';
         }
-      } else if(loadedBusinesses && businesses_around === 0) {
+      }
+      else if( user.first_perk_offer_attributes ) {
         visible = true;
-        type = 'businesses_around';
+        type= 'first_perk_offer';
       }
       else if( !user.member ) {
         visible = true;
@@ -137,7 +145,7 @@ class PopupProfileMap extends Component {
       }
       
       this.setState({
-      	checked: visible === true,
+        checked: visible === true,
         visible,
         type,
       });
@@ -154,11 +162,19 @@ class PopupProfileMap extends Component {
   render () {
     const { type, visible, perk } = this.state;
     return (
+      this.props.user &&
       <Popup
         onClose={() => this.closePopup()}
         visible={visible}
         type={type}
         onValidate={() => this.onValidate(type)}
+        trial_attributes={
+          type === 'not_partner' 
+            ?
+            this.props.user.trial_attributes
+            : 
+            this.props.user.gift_attributes
+          }
       />
     )
   }
@@ -167,7 +183,8 @@ class PopupProfileMap extends Component {
 const mapStateToProps = state => ({
   user: state.user.data,
   loadedBusinesses: state.business.loaded,
-  businesses: state.business.businesses,
+  businesses: state.business.entities,
+  nearme: state.popup.nearme
 });
 
 const mapDispatchToProps = (dispatch) => ({

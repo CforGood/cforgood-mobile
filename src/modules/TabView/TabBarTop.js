@@ -33,9 +33,9 @@ type Props = {
   inactiveTintColor: string;
   inactiveBackgroundColor: string;
   position: Animated.Value;
-  navigationState: NavigationState;
+  navigation: NavigationScreenProp<NavigationState, NavigationAction>,
   jumpToIndex: (index: number) => void;
-  getLabelText: (scene: TabScene) => string;
+  getLabel: (scene: TabScene) => ?(React.Element<*> | string);
   renderIcon: (scene: TabScene) => React.Element<*>;
   showLabel: boolean;
   style?: Style;
@@ -60,7 +60,7 @@ export default class TabBarBottom extends PureComponent<DefaultProps, Props, voi
   _renderLabel = (scene: TabScene) => {
     const {
       position,
-      navigationState,
+      navigation,
       activeTintColor,
       inactiveTintColor,
       labelStyle,
@@ -70,7 +70,7 @@ export default class TabBarBottom extends PureComponent<DefaultProps, Props, voi
       return null;
     }
     const { index } = scene;
-    const { routes } = navigationState;
+    const { routes } = navigation.state;
     // Prepend '-1', so there are always at least 2 items in inputRange
     const inputRange = [-1, ...routes.map((x: *, i: number) => i)];
     const outputRange = inputRange.map((inputIndex: number) =>
@@ -80,7 +80,8 @@ export default class TabBarBottom extends PureComponent<DefaultProps, Props, voi
       inputRange,
       outputRange,
     });
-    const label = this.props.getLabelText(scene);
+
+    const label = this.props.getLabel(scene);
     if (typeof label === 'string') {
       return (
         <Animated.Text style={[styles.label, { color }, labelStyle]}>
@@ -88,13 +89,17 @@ export default class TabBarBottom extends PureComponent<DefaultProps, Props, voi
         </Animated.Text>
       );
     }
+    if (typeof label === 'function') {
+      return label(scene);
+    }
+
     return label;
   };
 
   _renderIcon = (scene: TabScene) => {
     const {
       position,
-      navigationState,
+      navigation,
       activeTintColor,
       inactiveTintColor,
       renderIcon,
@@ -106,7 +111,7 @@ export default class TabBarBottom extends PureComponent<DefaultProps, Props, voi
     return (
       <TabBarIcon
         position={position}
-        navigationState={navigationState}
+        navigation={navigation}
         activeTintColor={activeTintColor}
         inactiveTintColor={inactiveTintColor}
         renderIcon={renderIcon}
@@ -119,19 +124,19 @@ export default class TabBarBottom extends PureComponent<DefaultProps, Props, voi
   render() {
     const {
       position,
-      navigationState,
+      navigation,
       jumpToIndex,
       activeBackgroundColor,
       inactiveBackgroundColor,
       style,
     } = this.props;
-    const { routes } = navigationState;
+    const { routes } = navigation.state;
     // Prepend '-1', so there are always at least 2 items in inputRange
     const inputRange = [-1, ...routes.map((x: *, i: number) => i)];
     return (
       <View style={[styles.tabBar, style]}>
-        {navigationState.routes.map((route: NavigationRoute, index: number) => {
-          const focused = index === navigationState.index;
+        {routes.map((route: NavigationRoute, index: number) => {
+          const focused = index === navigation.state.index;
           const scene = { route, index, focused };
           const outputRange = inputRange.map((inputIndex: number) =>
             (inputIndex === index ? activeBackgroundColor : inactiveBackgroundColor)
@@ -143,14 +148,9 @@ export default class TabBarBottom extends PureComponent<DefaultProps, Props, voi
           const justifyContent = this.props.showIcon ? 'flex-end' : 'center';
           return (
             <TouchableWithoutFeedback key={route.key} onPress={() => jumpToIndex(index)}>
-              <Animated.View style={[
-                  styles.tab, 
-                  { backgroundColor, justifyContent },
-                  this.props.tabStyle
-                ]}
-              >
-                {this._renderIcon(scene)}
+              <Animated.View style={[styles.tab, { backgroundColor, justifyContent }]}>
                 {this._renderLabel(scene)}
+                {this._renderIcon(scene)}
               </Animated.View>
             </TouchableWithoutFeedback>
           );
@@ -169,17 +169,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#f4f4f4', // Default background color in iOS 10
   },
   tab: {
-    flexGrow: 1,
+    flex: 1,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
   },
   icon: {
     flexGrow: 1,
+    marginBottom: 1.5,
   },
   label: {
     textAlign: 'center',
     fontSize: 10,
-    marginBottom: 1.5,
     backgroundColor: 'transparent',
   },
 });

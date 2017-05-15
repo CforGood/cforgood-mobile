@@ -11,9 +11,10 @@ import io.branch.rnbranch.*;
 import io.branch.referral.Branch;
 
 import io.intercom.android.sdk.Intercom;
-import com.mapbox.mapboxsdk.MapboxAccountManager;
+//import com.mapbox.mapboxsdk.MapboxAccountManager;
 
 import com.facebook.react.ReactApplication;
+import com.mapbox.reactnativemapboxgl.ReactNativeMapboxGLPackage;
 import com.joshblour.reactnativepermissions.ReactNativePermissionsPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.microsoft.codepush.react.CodePush;
@@ -22,7 +23,6 @@ import io.branch.rnbranch.RNBranchPackage;
 import com.imagepicker.ImagePickerPackage;
 import cl.json.RNSharePackage;
 import com.cmcewen.blurview.BlurViewPackage;
-import com.mapbox.reactnativemapboxgl.ReactNativeMapboxGLPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.github.yamill.orientation.OrientationPackage;
@@ -32,6 +32,7 @@ import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
+import com.ianlin.RNFirebaseCrashReport.RNFirebaseCrashReportPackage;
 import com.facebook.soloader.SoLoader;
 
 import java.util.Arrays;
@@ -51,7 +52,7 @@ public class MainApplication extends Application implements ReactApplication {
     FacebookSdk.sdkInitialize(getApplicationContext());
     // If you want to use AppEventsLogger to log events.
     AppEventsLogger.activateApp(this);
-    MapboxAccountManager.start(this, getString(R.string.access_token_mapbox));
+    //MapboxAccountManager.start(this, getString(R.string.access_token_mapbox));
 
     SoLoader.init(this, /* native exopackage */ false);
     Branch.getAutoInstance(this);
@@ -74,8 +75,10 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativeMapboxGLPackage(),
           new ReactNativePermissionsPackage(),
           new FIRMessagingPackage(),
+          new RNFirebaseCrashReportPackage(),
           new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG),
           new IntercomPackage(),
           new RNBranchPackage(),

@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cforgood"
     android:versionCode="1"
-    android:versionName="1.0">
+    android:versionName="1.0"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -46,17 +47,8 @@
         android:name="com.facebook.sdk.ApplicationId" 
         android:value="@string/facebook_app_id"
       />
-      <meta-data 
-        android:name="io.branch.sdk.BranchKey"
-        android:value="key_live_gfqAlMUTW2VKGL0CMTY5pfolvAkDCibA"
-      />
-      <meta-data 
-        android:name="io.branch.sdk.BranchKey.test" 
-        android:value="key_test_hhxwgQVK21HPTOYEQR65dpobsDauDpeP" 
-      />
       <activity
-
-        android:launchMode="singleTop"
+        android:launchMode="singleTask"
         android:name=".MainActivity"
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
@@ -65,11 +57,28 @@
             <category android:name="android.intent.category.LAUNCHER" />
           
         </intent-filter>
+
         <intent-filter>
-          <data android:scheme="CforGood" android:host="cforgood" />
-          <action android:name="android.intent.action.VIEW" />
-          <category android:name="android.intent.category.DEFAULT" />
-          <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="CforGood" android:host="cforgood" />
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+        </intent-filter>
+
+        <!-- Branch URI scheme -->
+        <intent-filter>
+            <data android:scheme="CforGood" android:host="open" />
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+        </intent-filter>
+
+        <!-- Branch App Links -->
+        <intent-filter android:autoVerify="true">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" android:host="r53r.app.link" />
         </intent-filter>
 
         <intent-filter>
@@ -79,11 +88,36 @@
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 
-      <receiver android:name="io.branch.referral.InstallListener" android:exported="true">
-        <intent-filter>
-          <action android:name="com.android.vending.INSTALL_REFERRER" />
-        </intent-filter>
-      </receiver>
+      <!-- Branch init -->
+      <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_gfqAlMUTW2VKGL0CMTY5pfolvAkDCibA" />
+      <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_hhxwgQVK21HPTOYEQR65dpobsDauDpeP" />
+
+              <!-- Branch install referrer tracking -->
+        <receiver android:name="io.branch.referral.InstallListener" android:exported="true">
+            <intent-filter>
+              <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
+        
+
+      <!-- Branch testing (TestMode "true" to simulate fresh installs on dev environment) -->
+      <meta-data android:name="io.branch.sdk.TestMode" android:value="false" />
+      
+      <service
+          android:name="com.robinpowered.react.Intercom.IntercomIntentService"
+          android:exported="false">
+          <intent-filter
+          android:priority="999">
+             <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+         </intent-filter>
+      </service>
+ 
+      <receiver
+       android:name="io.intercom.android.sdk.push.IntercomPushBroadcastReceiver"
+       tools:replace="android:exported"
+       android:exported="true"
+       />
     </application>
 
 </manifest>

@@ -47,7 +47,7 @@ class ApiHandler {
   }
 
   feedback (id: number, feedback: string) {
-    return this.api(`uses/${id}`, {use: {feedback}}, 'POST');
+    return this.api(`uses/${id}`, {use: {feedback}}, 'PATCH');
   }
   
   async loadUserData () {
@@ -120,7 +120,7 @@ class ApiHandler {
     });
   }
   
-  signin(email, password , type= 'password') {
+  signin(email, password , type) {
 
 
     let request = {
@@ -130,14 +130,15 @@ class ApiHandler {
         'password': password,
       },
     };
-    
+
     if(type=== 'facebook'){
+      
       request = {
         method: 'POST',
         headers: {
           'email': email,
           'access_token': password,
-        },
+        }
       };
     }
     
@@ -149,7 +150,18 @@ class ApiHandler {
         return response.json();
       })
       .then(async (responseJson) => {
-        if(responseJson.errors || responseJson.error){
+        if(responseJson.errors || responseJson.error) {
+
+          if(responseJson.errors && type=== 'facebook'){
+            Alert.alert(
+              'Erreur',
+              responseJson.errors,
+              [
+                {text: 'Fermer', onPress: () => {}},
+              ]
+            );
+          }
+
           return Promise.reject({error: responseJson.errors || responseJson.error});
         }
         else {
@@ -163,10 +175,33 @@ class ApiHandler {
       
 
     } catch (e) {
-      alert(JSONS.stringify(e))
       return Promise.reject({error: e.message});
     }
   };
+  
+  signup(user) {
+
+    const request = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({user: user})
+    };
+
+    return fetch(`${API_URL}/users`, request)
+    .then(response => {
+      return response.json();
+    })
+    .then((responseJson) => {
+      return Promise.resolve(responseJson); 
+      
+    })
+    .catch(error => {
+      console.log('catchAPI', error)
+      return Promise.reject({error: error.message});
+    })
+  }
 
   async api( endpoint, params = null, method = 'get' ) {
     
@@ -192,8 +227,6 @@ class ApiHandler {
           request.headers['Content-Type'] = 'application/json';
         }
       }
-
-
         
 
       return fetch(`${API_URL}/${endpoint}`, request)
@@ -204,21 +237,13 @@ class ApiHandler {
         return response.json();
       })
       .then((responseJson) => {
-        if(responseJson.error || responseJson.errors){
+        return responseJson;
+        //if(responseJson.error || responseJson.errors){
+//          
+//          return Promise.reject(responseJson);
+//        }//
 
-//          if(responseJson.error){
-//            Alert.alert(
-//              'Erreur',
-//              responseJson.error,
-//              [
-//                {text: 'Fermer', onPress: () => {}},
-//              ]
-//            );
-//          }
-          return Promise.reject(responseJson);
-        }
-
-        return Promise.resolve(responseJson); 
+//        return Promise.resolve(responseJson); 
         
       })
       .catch(error => {

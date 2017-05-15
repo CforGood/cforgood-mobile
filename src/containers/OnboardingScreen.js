@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { 
+import {
   Text,
   View,
   StyleSheet,
@@ -24,16 +24,16 @@ import {
   metrics,
 } from '../themes';
 
-const points = Array.apply(null, {length: 8});
+const points = Array.apply(null, { length: 8 });
 
-const marginLeft = (metrics.deviceHeight - metrics.deviceWidth)/2;
+const marginLeft = (metrics.deviceHeight - metrics.deviceWidth) / 2;
 
 class OnboardingScreen extends PureComponent {
 
   state = {
-    animatedValue:  new Animated.Value(0),
-    animatedBackground:  new Animated.Value(0),
-    scale:  new Animated.Value(Platform.OS === 'ios' ? 0 : 0.01),
+    animatedValue: new Animated.Value(0),
+    animatedBackground: new Animated.Value(0),
+    scale: new Animated.Value(Platform.OS === 'ios' ? 0 : 0.01),
     lastPage: false,
   };
 
@@ -42,15 +42,15 @@ class OnboardingScreen extends PureComponent {
 
   }
 
-  componentDidMount () {
+  componentDidMount() {
 
-    
+
     this.startAnimate();
     Orientation.lockToPortrait();
   }
 
   animated = () => {
-    
+
     Animated.timing(
       this.state.animatedValue,
       {
@@ -62,7 +62,7 @@ class OnboardingScreen extends PureComponent {
   }
 
   _zoomIn = () => {
-    
+
     Animated.timing(
       this.state.animatedBackground,
       {
@@ -71,7 +71,7 @@ class OnboardingScreen extends PureComponent {
       }
     ).start();
   }
-  
+
   spring = () => {
 
     this.state.scale.setValue(0.01);
@@ -98,15 +98,15 @@ class OnboardingScreen extends PureComponent {
   }
 
   render() {
-  
+
     const scale = this.state.scale.interpolate({
       inputRange: [0, 0.5, 1],
       outputRange: [0, 1, 0]
-    });  
-  
+    });
+
     const borderRadius = this.state.animatedBackground.interpolate({
       inputRange: [0, 1],
-      outputRange: [metrics.deviceHeight/2, 0]
+      outputRange: [metrics.deviceHeight / 2, 0]
     });
 
 
@@ -114,9 +114,9 @@ class OnboardingScreen extends PureComponent {
       {
         borderRadius,
         transform: [
-          { 
+          {
             scale: this.state.scale
-          },       
+          },
         ],
         left: - marginLeft,
       },
@@ -126,21 +126,21 @@ class OnboardingScreen extends PureComponent {
     return (
       <Animated.View
         style={style}
-      > 
+      >
         <Animated.View
           style={[
             stylesOnboarding.container,
             {
               transform: [
-                { 
+                {
                   scale: this.state.scale
-                },       
+                },
               ],
               borderRadius,
             }
           ]}
         >
-          <Swiper 
+          <Swiper
             style={style}
             setLastPage={this.setLastPage}
           />
@@ -149,11 +149,11 @@ class OnboardingScreen extends PureComponent {
               (marker, key) => <Point key={key} index={key} />
             )
           }
-          <TouchableOpacity 
+          <TouchableOpacity
             style={[
               stylesOnboarding.button,
-              {left: metrics.baseMargin},
-              Platform.OS === 'ios' ? {} : {paddingBottom: metrics.doubleBaseMargin},
+              { left: metrics.baseMargin },
+              Platform.OS === 'ios' ? {} : { paddingBottom: metrics.doubleBaseMargin },
             ]}
             onPress={() => this.renderHome()}
           >
@@ -165,19 +165,19 @@ class OnboardingScreen extends PureComponent {
             </Text>
           </TouchableOpacity>
           {
-            this.state.lastPage && 
-            <TouchableOpacity 
+            this.state.lastPage &&
+            <TouchableOpacity
               style={[
                 stylesOnboarding.button,
                 { right: metrics.baseMargin },
-                Platform.OS === 'ios' ? {} : {paddingBottom: metrics.doubleBaseMargin},
+                Platform.OS === 'ios' ? {} : { paddingBottom: metrics.doubleBaseMargin },
               ]}
               onPress={() => this.renderHome()}
             >
               <Text style={[
-                  fonts.style.activateText,
-                  fonts.style.bold
-                ]}
+                fonts.style.activateText,
+                fonts.style.bold
+              ]}
               >
                 Commencer
               </Text>
@@ -191,7 +191,7 @@ class OnboardingScreen extends PureComponent {
 
 export default withNavigation(OnboardingScreen);
 
-const stylesOnboarding = StyleSheet.create({ 
+const stylesOnboarding = StyleSheet.create({
   mainContainer: {
     height: metrics.deviceHeight,
     width: metrics.deviceHeight,

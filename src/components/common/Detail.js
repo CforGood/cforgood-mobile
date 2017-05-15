@@ -50,7 +50,6 @@ export default class Detail extends PureComponent {
               },
               fonts.style.normal,  
             ]}
-            numberOfLines={10}
           >
             {this.props.description} 
           </Text>  
@@ -60,6 +59,4 @@ export default class Detail extends PureComponent {
   }
 };
 
-const styleDetail = StyleSheet.create({  
-}); 
 

@@ -10,12 +10,15 @@ import AppNavigator from './AppNavigator';
 
 import PopupProfile from '../components/profile/PopupProfile';
 import ReviewsScreen from '../containers/ReviewsScreen';
+import PushController from  "../PushController";
 
 class App extends Component {
   
   render () {
     return (
       <View style={{flex: 1}}>
+
+        <PushController onChangeToken={() => {}} />
         <AppNavigator />
         <PopupProfile />
         <ReviewsScreen />

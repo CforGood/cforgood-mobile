@@ -58,7 +58,7 @@ export default class PerkRow extends PureComponent {
                 fonts.style.normal
               ]}
             >
-              {perk.name.toLowerCase()}
+              {perk.name && perk.name.toLowerCase()}
             </Text>
           </View> 
         </View>

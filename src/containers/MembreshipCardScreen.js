@@ -3,14 +3,21 @@ import {
   View,
   Text,
   StyleSheet,
+  Platform,
+  BackAndroid,
 } from 'react-native';
-  
-import Button from '../components/common/ButtonGradient'; 
-import Header from '../components/common/Header';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { NavigationActions } from 'react-navigation';
+
+import Button from '../components/common/ButtonGradient';
 import Card from '../components/profile/Card';
 import Modal from '../components/Modal';
 
-import { businessType, perkType } from '../types';
+import { use } from '../redux/actions/review';
+import { setBusiness } from '../redux/actions/business';
 
 import {
   styles,
@@ -19,97 +26,114 @@ import {
   metrics,
 } from '../themes';
 
-class MembreshipCardScreen extends PureComponent { 
+class MembreshipCardScreen extends PureComponent {
 
-  static propTypes = {
-    visible:  PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
-    business: businessType.isRequired,
-    perk: perkType.isRequired
-  };
+  onValidate = () => {
+    const { business, perk } = this.props.navigation.state.params;
 
+    this.props.use(perk, business, true);
 
-  static defaultProps = { 
-    visible: true,
-  };
+    if (Platform.OS === 'android') {
+      this.props.setBusiness(null);
+    }
+
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Maps' })
+      ]
+    })
+    this.props.navigation.dispatch(resetAction)
+  }
+
+  componentDidMount() {
+    BackAndroid.addEventListener('hardwareBackPress', this.handleBackAndroid);
+  }
+
+  componentWillUnmount() {
+    BackAndroid.removeEventListener('hardwareBackPress', this.handleBackAndroid);
+  }
+
+  handleBackAndroid = () => {
+    return true;
+  }
+
 
 
   render() {
-    const { onClose, onValidate, visible, business, perk } = this.props;
+    const { business, perk } = this.props.navigation.state.params;
 
     return (
-      <Modal
-        onClose={onClose}
-        animationType={'none'}
-        blurType={'xlight'}
-        visible={visible}
-      > 
-        <View style={styles.screen.mainContainer}>
-          
-          <View style={{
-              flex:1, 
-              margin: metrics.marginApp
-            }}
-          > 
-            <View style={[
-                styles.center,
-                { 
-                  flex:1,
-                  marginVertical: metrics.baseMargin,
-                }
-              ]}
-            > 
-              <Text style={[ 
-                  fonts.style.t18,  
-                  {fontWeight: 'bold'}
-                ]}
-              >
-                {business.name}
-              </Text> 
-              <Text style={[ 
-                  fonts.style.h9,  
-                ]}
-              >
-                {perk.name.toLowerCase()}
-              </Text> 
-            </View>  
-            <View style={{height: 213}}>
-              <Card /> 
-            </View>
-            <View style={[
-                styles.center,
-                {flex:2}
-              ]}
-            >   
-              <Text style={styleMembreshipCardScreen.description} >  
-                ” La carte de membre doit être montrée au commerçant après la prise de commande, 
-                cliquez ensuite sur 
-              </Text>
-              <Text style={[styleMembreshipCardScreen.description, {fontWeight: 'bold'}]} > Terminer </Text>
-              <Text style={styleMembreshipCardScreen.description} > pour valider votre bon plan ” </Text>
-            </View> 
+      <View style={styles.screen.mainContainer}>
+        <View style={{
+          flex: 1,
+          margin: metrics.marginApp
+        }}
+        >
+          <View style={[
+            styles.center,
+            {
+              flex: 1,
+              marginVertical: metrics.baseMargin,
+            }
+          ]}
+          >
+            <Text style={[
+              fonts.style.t18,
+              { fontWeight: 'bold' }
+            ]}
+            >
+              {business.name}
+            </Text>
+            <Text style={[
+              fonts.style.h9,
+            ]}
+            >
+              {perk.name.toLowerCase()}
+            </Text>
           </View>
-          <Button 
-            onPress={onValidate} 
-            text={"Terminer"} 
-          />
-        </View>      
-      </Modal>
+          <View style={{ height: 213 }}>
+            <Card />
+          </View>
+          <View style={[
+            styles.center,
+            { flex: 2 }
+          ]}
+          >
+            <Text style={styleMembreshipCardScreen.description} >
+              ” La carte de membre doit être montrée au commerçant après la prise de commande,
+              cliquez ensuite sur
+              <Text style={[styleMembreshipCardScreen.description, { fontWeight: 'bold' }]} >{" << Terminer >> "}</Text>
+              pour valider votre bon plan ”
+            </Text>
+          </View>
+        </View>
+        <Button
+          onPress={this.onValidate}
+          text={"Terminer"}
+        />
+      </View>
     );
   }
 }
 
-export default MembreshipCardScreen;
 
-const styleMembreshipCardScreen = { 
+const mapDispatchToProps = (dispatch) => ({
+  use: bindActionCreators(use, dispatch),
+  setBusiness: bindActionCreators(setBusiness, dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(MembreshipCardScreen);
+
+const styleMembreshipCardScreen = {
   marginVertical: {
     marginVertical: metrics.doubleBaseMargin,
-  },  
-  description: { 
+  },
+  description: {
     color: colors.darkGray,
     fontFamily: fonts.type.base,
     fontSize: fonts.size.regular,
     marginVertical: metrics.baseMargin,
-    textAlign: 'center' 
+    textAlign: 'center'
   }
 }; 

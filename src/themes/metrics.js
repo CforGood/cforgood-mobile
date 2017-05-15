@@ -20,7 +20,8 @@ const metrics = {
   border: deviceHeight/200,
   buttonHeight: deviceHeight/14,
   buttonHeightLarge: deviceHeight/12,
-  inputHeight: deviceHeight/14,
+  inputHeight: 48,//deviceHeight/14,
+
   borderWidth: 1,  
   rowHeight: 112,
   icons: {

@@ -20,47 +20,40 @@ const TabNavigatorAPP = TabNavigator({
   MapScreen: {
     screen: MapScreen,
     navigationOptions: {
-      tabBar: {
-        label: 'Commerces',
-        icon: ({ tintColor }) => (
-          <Image
-            resizeMode='contain'
-            source={require('../resources/icons/map-of-roads.png')}
-            style={[styles.icon, {tintColor: tintColor}]}
-          />
-        ),
-      },
+      tabBarLabel: 'Commerces',
+      tabBarIcon: ({ tintColor }) => (
+        <Image
+          resizeMode='contain'
+          source={require('../resources/icons/map-of-roads.png')}
+          style={[styles.icon, {tintColor: tintColor}]}
+        />
+      ),
     },
   }, 
   Perks: {
     screen: PerksScreen,
     navigationOptions: {
-      visible: false,
-      tabBar: {
-        label: 'Bons Plans',
-        icon: ({ tintColor }) => (
-          <Image
-            resizeMode='contain'
-            source={require('../resources/icons/price-tag.png')}
-            style={[styles.icon, {tintColor: tintColor}]}
-          />
-        ),
-      },
+      tabBarLabel: 'Bons Plans',
+      tabBarIcon: ({ tintColor }) => (
+        <Image
+          resizeMode='contain'
+          source={require('../resources/icons/price-tag.png')}
+          style={[styles.icon, {tintColor: tintColor}]}
+        />
+      ),
     },
   },
   Association: {
     screen: AssociationScreen,
     navigationOptions: {
-      tabBar: {
-        label: 'Associations',
-        icon: ({ tintColor }) => (
-          <Image
-            resizeMode='contain'
-            source={require('../resources/icons/handshake.png')}
-            style={[styles.icon, {tintColor: tintColor}]}
-          />
-        ),
-      },
+      tabBarLabel: 'Associations',
+      tabBarIcon: ({ tintColor }) => (
+        <Image
+          resizeMode='contain'
+          source={require('../resources/icons/handshake.png')}
+          style={[styles.icon, {tintColor: tintColor}]}
+        />
+      ),
     },
   },
 
@@ -75,20 +68,20 @@ const TabNavigatorAPP = TabNavigator({
     labelStyle: {
       fontFamily: 'Avenir',
       fontWeight: 'bold',
-      fontSize: width/28,
+      fontSize: 14,
     },
     style: {
       backgroundColor: 'white',
       borderTopWidth: 1,
       borderTopColor: '#404040',
-      height: height/12,
+      height: 49,
     },
     indicatorStyle: {
       backgroundColor: 'transparent'
     },
     tabStyle: {
       flexDirection: 'column-reverse',
-      height: height/13.01, 
+      height: 50, 
     }
   }
 });
@@ -96,8 +89,9 @@ const TabNavigatorAPP = TabNavigator({
 const styles = StyleSheet.create({
   icon: {
     width: 50,
-    height: height/21,
-    marginTop: 2,
+    height: 30,
+    marginTop: 1,
+    marginBottom: 2,
   },
 });
 

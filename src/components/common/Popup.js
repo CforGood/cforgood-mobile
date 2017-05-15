@@ -34,7 +34,7 @@ class PopupScreen extends PureComponent {
     icon: PropTypes.any,
     bigtitle: PropTypes.string,
     smalltitle: PropTypes.string,
-    description: PropTypes.string,
+    description: PropTypes.any,
     textButton: PropTypes.string,
     iconButton: PropTypes.any,
   };

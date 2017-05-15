@@ -10,10 +10,9 @@ import { bindActionCreators } from 'redux';
 
 import Header from '../components/common/Header';
 import ButtonGradient from '../components/common/ButtonGradient';
-import { categories, } from '../constants/categories';
 import CategoryList from '../components/category/CategoryList';
 
-import { update, reset } from '../redux/actions/filters';
+import { filter, reset } from '../redux/actions/filters';
 import {
   styles,
   colors,
@@ -28,14 +27,20 @@ class FiltersScreen extends Component {
   };
 
   componentWillMount() {
-    console.log('this.props.categories', this.props.categories)
-    this.setState({ selectedCategories: this.props.categories });
+    const { from } = this.props.navigation.state.params;
+    this.setState({
+      selectedCategories:
+      from === 'maps' ?
+        this.props.categories
+        :
+        this.props.categoriesPerks
+    });
   }
 
   renderRight() {
     return (
-      <TouchableOpacity 
-        onPress={() => this.setState({reset: !this.state.reset})}
+      <TouchableOpacity
+        onPress={() => this.setState({ reset: !this.state.reset })}
       >
         <Text style={fonts.style.normal}>
           Tout réinitialiser
@@ -45,23 +50,21 @@ class FiltersScreen extends Component {
   }
 
   handlerFilter = () => {
-    if(this.state.reset === true) {
-      this.props.update([]);
+    const params = this.props.navigation.state.params;
+
+    if (this.state.reset === true) {
+      this.props.filter([], params.from);
     } else {
-      this.props.update(this.state.selectedCategories);
+      this.props.filter(this.state.selectedCategories, params.from);
     }
-    
-    //this.props.filter(this.state.selectedCategories , this.props.businesses);
+
     this.props.navigation.goBack();
   }
 
-
-  
   setCategories = (selectedCategories) => {
-    console.log('selectedCategories', selectedCategories)
     this.setState({ selectedCategories })
   }
-  
+
   render() {
     const params = this.props.navigation.state.params;
     return (
@@ -75,14 +78,19 @@ class FiltersScreen extends Component {
           }}
         />
         <View style={{ flex: 1 }} >
-          <CategoryList 
+          <CategoryList
             params={params}
             reset={this.state.reset}
-            categories={this.props.categories}
+            categories={
+              params.from === 'maps' ?
+                this.props.categories
+                :
+                this.props.categoriesPerks
+            }
             setCategories={this.setCategories}
           />
         </View>
-        <ButtonGradient onPress={() => this.handlerFilter()} />    
+        <ButtonGradient onPress={() => this.handlerFilter()} />
       </View>
     );
   }
@@ -90,10 +98,11 @@ class FiltersScreen extends Component {
 
 const mapStateToProps = state => ({
   categories: state.filters.categories,
+  categoriesPerks: state.filters.categoriesPerks,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  update: bindActionCreators(update, dispatch),
+  filter: bindActionCreators(filter, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FiltersScreen);

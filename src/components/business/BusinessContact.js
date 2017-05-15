@@ -6,7 +6,8 @@ import {
   StyleSheet,
   ScrollView,
   Linking,
-  TouchableOpacity
+  TouchableOpacity,
+  Platform
 } from 'react-native';
 
 import Detail from '../common/Detail';
@@ -46,6 +47,8 @@ export default class BusinessContact extends Component {
 
   render() {
     const { business, category } = this.props;
+    if(!business.address)
+      return <View />;
 
     return (
       <View style={{flex:1}} >  
@@ -53,10 +56,11 @@ export default class BusinessContact extends Component {
           title={'Détail'}  
         />          
         <View style={styleBusinessContact.mapContainer}>
-          <MapView 
-            address={business.address}
-            category={category}
-          />
+         
+         <MapView 
+           address={business.address}
+           category={category}
+         />
         </View>         
         <View style={[
             styles.row,
@@ -111,16 +115,22 @@ export default class BusinessContact extends Component {
           </View>
         </View>  
         <View>
-          <Social
-            color={category.color}
-            text={business.telephone} 
-            icon={require('../../resources/icons/phone-circle.png')} 
-          />
-          <Social
-            color={category.color}
-            text={business.email} 
-            icon={require('../../resources/icons/email-circle.png')} 
-          />
+          {
+            business.telephone &&
+            <Social
+              color={category.color}
+              text={business.telephone} 
+              icon={require('../../resources/icons/phone-circle.png')} 
+            />
+          }
+          {
+            business.email &&
+            <Social
+              color={category.color}
+              text={business.email} 
+              icon={require('../../resources/icons/email-circle.png')} 
+            />
+          }
         </View>
         <View 
           style={{
@@ -188,7 +198,6 @@ export default class BusinessContact extends Component {
                 /> 
               </TouchableOpacity>
             }
-            
           </View> 
         </View>
           
