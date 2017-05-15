@@ -135,7 +135,7 @@ class MapScreen extends Component {
   listBusiness() {
     const { businesses, categories } = this.props;
 
-    if (categories.length > 0) {
+    if (categories.length > 0 && businesses) {
       return businesses
         .filter(obj =>
           categories.indexOf(parseInt(obj.business_category_id)) !== -1
@@ -143,8 +143,12 @@ class MapScreen extends Component {
           (obj.online === false)
         )
     }
+    if (businesses) {
+      return businesses.filter(obj => obj.online === false);
+
+    }
+    return false;
     //console.log('businesses.filter(obj => obj.online === false',businesses.filter(obj => obj.online === false)) 
-    return businesses.filter(obj => obj.online === false);
 
   }
 

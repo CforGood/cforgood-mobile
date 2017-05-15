@@ -99,7 +99,7 @@ class PerksScreen extends Component {
     let perks = [];
 
     let results = businesses;
-    if (categories.length > 0) {
+    if (categories.length > 0 && businesses) {
       results = businesses.filter(obj =>
         categories.indexOf(parseInt(obj.business_category_id)) !== -1
         ||

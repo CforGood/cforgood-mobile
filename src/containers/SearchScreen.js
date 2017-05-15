@@ -11,7 +11,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { 
+import {
   styles,
   metrics,
   fonts
@@ -21,7 +21,7 @@ import { setBusiness } from '../redux/actions/business';
 import SearchBar from '../components/common/SearchBar';
 import BusinessList from '../components/business/BusinessList';
 import AssociationList from '../components/Association/AssociationList';
- 
+
 class SearchScreen extends Component {
 
   state = {
@@ -30,80 +30,85 @@ class SearchScreen extends Component {
     module: '',
     keyborad: false
   };
-  
+
   componentWillMount() {
     const { module } = this.props.navigation.state.params;
     this.setState({ module })
   }
 
   componentWillUnMount() {
-    this.setState({ list: []})
+    this.setState({ list: [] })
   }
 
   goBack() {
     //probleme with map 
-    if(Platform.OS === 'android') {
+    if (Platform.OS === 'android') {
       this.props.setBusiness(null);
     }//
     this.props.navigation.goBack();
   }
 
-  filter = ( textSearch ) => {
-    
+  filter = (textSearch) => {
+
     let list = [];
 
-    if(textSearch.length > 2 && 
-        (
-          (this.props.businesses && this.state.module === "business")
-          ||
-          (this.props.associations && this.state.module === "association")
-        )
-      ){
-      
+    if (textSearch.length > 2 &&
+      (
+        (this.props.businesses && this.state.module === "business")
+        ||
+        (this.props.associations && this.state.module === "association")
+      )
+      &&
+
+      (this.props.businesses
+        ||
+        this.props.associations)
+    ) {
+
       switch (this.state.module) {
         case 'business':
-          list = this.props.businesses.filter(business => 
+          list = this.props.businesses.filter(business =>
             business.name.toLowerCase().includes(textSearch.toLowerCase())
           );
           break;
         case 'association':
-          list =  this.props.associations.filter(association => 
+          list = this.props.associations.filter(association =>
             association.name.toLowerCase().includes(textSearch.toLowerCase())
           );
           break;
       }
     }
 
-    this.setState({ 
+    this.setState({
       list,
       textSearch,
       keyborad: true
     });
-    
+
   }
 
   renderList() {
-    
+
     switch (this.state.module) {
       case 'business':
-        return <BusinessList 
+        return <BusinessList
           businesses={this.state.list}
         />
         break;
       case 'association':
-        return <AssociationList 
+        return <AssociationList
           associations={this.state.list}
         />
         break;
     }
-    
+
   }
 
   renderText() {
-    if(this.state.textSearch.length <= 2) {
+    if (this.state.textSearch.length <= 2) {
 
       return (
-        <Text 
+        <Text
           style={[
             fonts.style.medium,
             {
@@ -112,32 +117,32 @@ class SearchScreen extends Component {
               color: '#8B8B8B',
               marginTop: 40,
               marginHorizontal: metrics.marginApp
-            } 
+            }
           ]}
         >
-        {
+          {
             this.state.module === 'business' ?
-            "”  Entrez le nom d'un bon plan ou d'un commerçant ”"
-            :
-            "”  Entrez le nom de l’association ”"
-        }
+              "”  Entrez le nom d'un bon plan ou d'un commerçant ”"
+              :
+              "”  Entrez le nom de l’association ”"
+          }
         </Text>
       )
-      
+
     }
-    
+
 
     return null;
-    
+
   }
 
-  renderImage() {
-    
-    let resource= require('../resources/images/map-of-roads.png');
-    if(this.state.module === 'association'){
-      resource= require('../resources/images/handshake.png');
+  renderImage()  {
+
+    let resource = require('../resources/images/map-of-roads.png');
+    if (this.state.module === 'association') {
+      resource = require('../resources/images/handshake.png');
     }
-       
+
     return (
       <View
         style={[
@@ -145,14 +150,14 @@ class SearchScreen extends Component {
           styles.center
         ]}
       >
-        
-          <Image
-            resizeMode={'contain'}
-            source={resource}
-            style={{
-              width: metrics.deviceWidth/1.5
-            }}
-          />
+
+        <Image
+          resizeMode={'contain'}
+          source={resource}
+          style={{
+            width: metrics.deviceWidth / 1.5
+          }}
+        />
       </View>
     )
   }
@@ -165,8 +170,8 @@ class SearchScreen extends Component {
       <View style={styles.screen.mainContainer}>
         {
           this.renderImage()
-        }        
-        <SearchBar 
+        }
+        <SearchBar
           filter={this.filter}
           goBack={() => this.goBack()}
         />
@@ -176,8 +181,8 @@ class SearchScreen extends Component {
         {
           this.renderList()
         }
-        
-        
+
+
       </View>
     );
   }

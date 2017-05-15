@@ -121,6 +121,7 @@ class ProfileScreen extends Component {
       "street": user.street,
       "zipcode": user.zipcode,
       "city": user.city,
+      "code_partner": user.code_partner
     };
 
     if (uploadPictureResponse && uploadPictureResponse.secure_url) {
