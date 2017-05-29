@@ -1752,7 +1752,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cforgood;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cforGood.app;
 				PRODUCT_NAME = CforGood;
 				PROVISIONING_PROFILE = "d595b82a-c734-41fe-ad2f-bcd178026bf8";
 				PROVISIONING_PROFILE_SPECIFIER = "Prof dist cforgoods";
@@ -1802,7 +1802,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cforgood;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cforGood.app;
 				PRODUCT_NAME = CforGood;
 				PROVISIONING_PROFILE = "d595b82a-c734-41fe-ad2f-bcd178026bf8";
 				PROVISIONING_PROFILE_SPECIFIER = "Prof dist cforgoods";
@@ -1986,7 +1986,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cforgood;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cforGood.app;
 				PRODUCT_NAME = CforGood;
 				PROVISIONING_PROFILE = "d595b82a-c734-41fe-ad2f-bcd178026bf8";
 				PROVISIONING_PROFILE_SPECIFIER = "Prof dist cforgoods";
