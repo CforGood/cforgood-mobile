@@ -13,6 +13,7 @@ const initialState = {
   loaded: false,
   loading: false,
   entities: [],
+  entities_perk: [],
   businessId: null
 
 };
@@ -38,8 +39,6 @@ export default function reducer(state = initialState, action = {}) {
       const entities = action.entities;
       return {
         ...state,
-        loaded: true,
-        failed: false,
         entities_perk: entities,
       };
     }
@@ -53,6 +52,11 @@ export default function reducer(state = initialState, action = {}) {
     case LOAD_FAIL:
       return {
         loaded: true,
+        failed: true,
+        error: action.error,
+      };
+    case LOAD_PERK_FAIL:
+      return {
         failed: true,
         error: action.error,
       };

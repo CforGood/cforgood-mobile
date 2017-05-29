@@ -30,6 +30,7 @@ import PerkDetailScreen from './PerkDetailScreen';
 class MapScreen extends Component {
 
   state = {
+    businesses: [],
     business: null,
     address: null,
     perk: null,
@@ -71,6 +72,10 @@ class MapScreen extends Component {
 
   }
 
+  componentWillMount() {
+    this.updateListBusiness(this.props.businesses, this.props.categories);
+  }
+
   componentWillReceiveProps(nextProps) {
 
     if (nextProps.goAssocation === true && this.props.goAssocation === false) {
@@ -81,6 +86,12 @@ class MapScreen extends Component {
       const { perk, business, category } = nextProps.offer;
       this.setPerk(perk, business, category);
 
+    }
+    else if (nextProps.categories !== this.props.categories
+      ||
+      nextProps.businesses !== this.props.businesses
+    ) {
+      this.updateListBusiness(nextProps.businesses, nextProps.categories);
     }
 
   }
@@ -132,23 +143,22 @@ class MapScreen extends Component {
     }
   }
 
-  listBusiness() {
-    const { businesses, categories } = this.props;
+  updateListBusiness(businesses, categories) {
+    if (businesses.length > 0) {
+      if (categories.length > 0 && businesses) {
+        this.setState({
+          businesses: businesses
+            .filter(obj =>
+              categories.indexOf(parseInt(obj.business_category_id)) !== -1
+            )
+        });
+      }
+      else {
+        this.setState({ businesses });
 
-    if (categories.length > 0 && businesses) {
-      return businesses
-        .filter(obj =>
-          categories.indexOf(parseInt(obj.business_category_id)) !== -1
-          &&
-          (obj.online === false)
-        )
+      }
     }
-    if (businesses) {
-      return businesses.filter(obj => obj.online === false);
 
-    }
-    return false;
-    //console.log('businesses.filter(obj => obj.online === false',businesses.filter(obj => obj.online === false)) 
 
   }
 
@@ -167,7 +177,7 @@ class MapScreen extends Component {
         >
           <MapView
             showBusiness={this.showBusiness}
-            businesses={this.listBusiness()}
+            businesses={this.state.businesses}
             business={this.state.business}
             address={this.state.address}
           />

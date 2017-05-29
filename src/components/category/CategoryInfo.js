@@ -39,7 +39,7 @@ import {
                 fontWeight: '700',
               }
             ]}
-            numberOfLines={2}
+            numberOfLines={1}
           >
             {this.props.category.name}
           </Text>
@@ -55,6 +55,6 @@ const CategoryInfoStyle = StyleSheet.create({
     height: 18,
     width: 18,
     borderRadius: 9,
-    marginRight: 5
+    marginRight: 3,
   }
 });

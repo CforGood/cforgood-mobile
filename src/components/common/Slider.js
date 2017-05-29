@@ -83,8 +83,8 @@ export default class Slider extends PureComponent {
     return (  
       <View style={styleBar.container}> 
         <Circle 
-          bigCircle={styleBar.baseBig} 
-          smallCircle={styleBar.baseSmall} 
+          bigCircle={styleBar.bigCircle} 
+          smallCircle={styleBar.smallCircle} 
         />
         <Animated.View
           style={{
@@ -106,12 +106,12 @@ const styleBar = StyleSheet.create({
     justifyContent: 'center',
     marginTop: metrics.baseMargin
   }, 
-  baseBig: {
+  bigCircle: {
     width: metrics.deviceWidth - metrics.marginApp*2,
     height: 5,
     borderRadius: 5 /2,
   },
-  baseSmall: {
+  smallCircle: {
     width: 0,
     height: 0,
     borderRadius: 0, 
