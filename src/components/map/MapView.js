@@ -59,7 +59,7 @@ class MapView extends Component {
     annotation: null,
     color: 'white',
     gps_activate: true,
-    mode: 'driving',
+    mode: 'walking',
     loadedDirection: true,
     nearMe: false,
     //findRegionUser: true
