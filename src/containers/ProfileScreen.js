@@ -148,6 +148,13 @@ class ProfileScreen extends Component {
       this.setVisiblePopupUser(true);
     }
 
+    setTimeout(() => {
+      this.setVisiblePopupUser(false);
+      this.setVisiblePopupSubscription(false);
+    }, 2500
+    );
+
+
     this.updateEmail();
 
   }

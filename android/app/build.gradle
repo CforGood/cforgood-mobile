@@ -88,15 +88,15 @@ def enableProguardInReleaseBuilds = true
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
 
     defaultConfig {
         applicationId "com.cforgood"
         minSdkVersion 16
         targetSdkVersion 25
         multiDexEnabled true
-        versionCode 16
-        versionName "1.2.0"
+        versionCode 17
+        versionName "1.2.1"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -181,12 +181,15 @@ dependencies {
     compile project(':react-native-linear-gradient')
     compile project(':react-native-vector-icons')
     compile project(':react-native-orientation')
-    compile project(':react-native-fbsdk')
+    compile(project(':react-native-fbsdk')){
+      exclude(group: 'com.facebook.android', module: 'facebook-android-sdk')
+    }
+    compile "com.facebook.android:facebook-android-sdk:4.22.1"
     compile project(':react-native-video')
 
 
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:25.2.0"
+    compile "com.android.support:appcompat-v7:25.2.5"
     compile "com.facebook.react:react-native:+"  // From node_modules
 }
 
