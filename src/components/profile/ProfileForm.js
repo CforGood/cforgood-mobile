@@ -8,8 +8,11 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  
+  Platform,
 } from 'react-native';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
+import FontMaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { Kohana } from 'react-native-textinput-effects';
 
 import {
   styles,
@@ -17,47 +20,42 @@ import {
   fonts,
   metrics,
 } from '../../themes';
-
-import FontMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { Kohana } from 'react-native-textinput-effects';
 import Separator from '../common/Separator';
 import DateProfile from '../common/Date';
 
 
 export default class ProfilForm extends Component {
-  
+
   static propTypes = {
     onChangeDate: PropTypes.func.isRequired
   }
-  
 
-  render() { 
-    
+  render() {
     const { user } = this.props;
 
     return (
-      
-      <View style={styles.screen.mainContainer }> 
-      <Text
+
+      <View style={styles.screen.mainContainer}>
+        <Text
           style=
-          {[ 
-             fonts.style.t20, 
-             style.boldCenter,
-             { marginBottom:20 }
-           ]}
+          {[
+            fonts.style.t20,
+            style.boldCenter,
+            { marginBottom: 20 }
+          ]}
         >
           Profil
       </Text>
         <Separator color={colors.separatorText} />
         <Kohana
-          style={{ backgroundColor: colors.white  }}
-          label={ 'Prénom' }
-          iconClass={ FontMaterialIcons }
+          style={{ backgroundColor: colors.white }}
+          label={'Prénom'}
+          iconClass={FontMaterialIcons}
           iconName={'face'}
-          iconColor={ colors.lightBlue }
-          labelStyle={ fonts.style.textInput }
-          inputStyle={{ color: colors.darkGray  }} 
-          selectTextOnFocus={ true }
+          iconColor={colors.lightBlue}
+          labelStyle={fonts.style.textInput}
+          inputStyle={{ color: colors.darkGray }}
+          selectTextOnFocus={true}
           value={user.first_name}
           onChangeText={
             (value) => this.props.setUserData({
@@ -67,14 +65,14 @@ export default class ProfilForm extends Component {
         />
         <Separator color={colors.separatorText} />
         <Kohana
-          style={{ backgroundColor: colors.white  }}
-          label={ 'Nom' }
-          iconClass={ FontMaterialIcons }
+          style={{ backgroundColor: colors.white }}
+          label={'Nom'}
+          iconClass={FontMaterialIcons}
           iconName={'face'}
-          iconColor={ colors.lightBlue }
-          labelStyle={ fonts.style.textInput }
-          inputStyle={{ color: colors.darkGray  }} 
-          selectTextOnFocus={ true }
+          iconColor={colors.lightBlue}
+          labelStyle={fonts.style.textInput}
+          inputStyle={{ color: colors.darkGray }}
+          selectTextOnFocus={true}
           value={user.last_name}
           onChangeText={
             (value) => this.props.setUserData({
@@ -84,14 +82,14 @@ export default class ProfilForm extends Component {
         />
         <Separator color={colors.separatorText} />
         <Kohana
-          style={{ backgroundColor: colors.white  }}
-          label={ 'Email' }
-          iconClass={ FontMaterialIcons }
+          style={{ backgroundColor: colors.white }}
+          label={'Email'}
+          iconClass={FontMaterialIcons}
           iconName={'email'}
-          iconColor={ colors.lightBlue }
-          labelStyle={ fonts.style.textInput }
-          inputStyle={{ color: colors.darkGray  }} 
-          selectTextOnFocus={ true }
+          iconColor={colors.lightBlue}
+          labelStyle={fonts.style.textInput}
+          inputStyle={{ color: colors.darkGray }}
+          selectTextOnFocus={true}
           value={user.email}
           onChangeText={
             (value) => this.props.setUserData({
@@ -100,23 +98,23 @@ export default class ProfilForm extends Component {
           }
         />
         <Separator color={colors.separatorText} />
-        <DateProfile 
+        <DateProfile
           text={'Date de naissance'}
           onDateChange={(date = null) => this.props.onChangeDate(date)}
-          maximumDate={new Date(2005,1,1)}
-          minimumDate={new Date(1910,1,1)}
+          maximumDate={new Date(2005, 1, 1)}
+          minimumDate={new Date(1910, 1, 1)}
           date={user.birthday || new Date()}
         />
         <Separator color={colors.separatorText} />
         <Kohana
-          style={{ backgroundColor: colors.white  }}
-          label={ 'Adresse' }
-          iconClass={ FontMaterialIcons }
+          style={{ backgroundColor: colors.white }}
+          label={'Adresse'}
+          iconClass={FontMaterialIcons}
           iconName={'place'}
-          iconColor={ colors.lightBlue }
-          labelStyle={ fonts.style.textInput }
-          inputStyle={{ color: colors.darkGray  }} 
-          selectTextOnFocus={ true }
+          iconColor={colors.lightBlue}
+          labelStyle={fonts.style.textInput}
+          inputStyle={{ color: colors.darkGray }}
+          selectTextOnFocus={true}
           value={user.street}
           onChangeText={
             (value) => this.props.setUserData({
@@ -126,14 +124,14 @@ export default class ProfilForm extends Component {
         />
         <Separator color={colors.separatorText} />
         <Kohana
-          style={{ backgroundColor: colors.white  }}
-          label={ 'Ville' }
-          iconClass={ FontMaterialIcons }
+          style={{ backgroundColor: colors.white }}
+          label={'Ville'}
+          iconClass={FontMaterialIcons}
           iconName={'location-city'}
-          iconColor={ colors.lightBlue }
-          labelStyle={ fonts.style.textInput }
-          inputStyle={{ color: colors.darkGray  }} 
-          selectTextOnFocus={ true }
+          iconColor={colors.lightBlue}
+          labelStyle={fonts.style.textInput}
+          inputStyle={{ color: colors.darkGray }}
+          selectTextOnFocus={true}
           value={user.city}
           onChangeText={
             (value) => this.props.setUserData({
@@ -141,16 +139,23 @@ export default class ProfilForm extends Component {
             })
           }
         />
+        {
+          Platform.OS === 'ios' &&
+          <KeyboardSpacer onToggle={
+            () => null
+          }
+          />
+        }
       </View>
     );
   }
 }
 
-const style= StyleSheet.create({ 
-  formContainer: { 
-    flex:1,  
+const style = StyleSheet.create({
+  formContainer: {
+    flex: 1,
   },
-   boldCenter: {
+  boldCenter: {
     textAlign: 'center',
     marginVertical: metrics.baseMargin,
     fontWeight: 'bold',
