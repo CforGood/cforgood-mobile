@@ -56,19 +56,29 @@ class SearchScreen extends Component {
       (
         (this.props.businesses && this.state.module === "business")
         ||
+        (this.props.businesses_perks && this.state.module === "perks")
+        ||
         (this.props.associations && this.state.module === "association")
       )
-      &&
-
-      (this.props.businesses
-        ||
-        this.props.associations)
     ) {
 
       switch (this.state.module) {
         case 'business':
           list = this.props.businesses.filter(business =>
             business.name.toLowerCase().includes(textSearch.toLowerCase())
+            ||
+            business.labels.find(label => label.name.toLowerCase().includes(textSearch.toLowerCase()))
+            ||
+            business.perks.find(perk => perk.name.toLowerCase().includes(textSearch.toLowerCase()))
+          );
+          break;
+        case 'perks':
+          list = this.props.businesses_perks.filter(business =>
+            business.name.toLowerCase().includes(textSearch.toLowerCase())
+            ||
+            business.labels.find(label => label.name.toLowerCase().includes(textSearch.toLowerCase()))
+            ||
+            business.perks.find(perk => perk.name.toLowerCase().includes(textSearch.toLowerCase()))
           );
           break;
         case 'association':
@@ -90,7 +100,7 @@ class SearchScreen extends Component {
   renderList() {
 
     switch (this.state.module) {
-      case 'business':
+      case 'business' || 'perks':
         return <BusinessList
           businesses={this.state.list}
         />
@@ -121,7 +131,7 @@ class SearchScreen extends Component {
           ]}
         >
           {
-            this.state.module === 'business' ?
+            this.state.module === 'business' || this.state.module === 'perks' ?
               "”  Entrez le nom d'un bon plan ou d'un commerçant ”"
               :
               "”  Entrez le nom de l’association ”"
@@ -136,7 +146,7 @@ class SearchScreen extends Component {
 
   }
 
-  renderImage()  {
+  renderImage() {
 
     let resource = require('../resources/images/map-of-roads.png');
     if (this.state.module === 'association') {
@@ -191,6 +201,7 @@ class SearchScreen extends Component {
 const mapStateToProps = state => ({
   associations: state.association.entities,
   businesses: state.business.entities,
+  businesses_perks: state.business.entities_perk,
 });
 
 const mapDispatchToProps = (dispatch) => ({

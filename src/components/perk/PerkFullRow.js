@@ -4,12 +4,11 @@ import {
   Text,
   Image,
   StyleSheet,
-  TouchableOpacity,
 } from 'react-native';
- 
+
 
 import PerkImage from './PerkImage';
- 
+
 import { perkType, categoryType } from '../../types';
 import {
   styles,
@@ -17,7 +16,7 @@ import {
   fonts,
   metrics,
 } from '../../themes';
- 
+
 export default class PerkDetailItem extends PureComponent {
   static propTypes = {
     perk: perkType.isRequired,
@@ -38,9 +37,9 @@ export default class PerkDetailItem extends PureComponent {
       availableOnLeft,
       business,
       detail
-    } = this.props;      
+    } = this.props;
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <PerkImage
           business={business}
           perk={perk}
@@ -51,25 +50,24 @@ export default class PerkDetailItem extends PureComponent {
           smallTitle={false}
         />
         <View style={[
+          {
+            height: 60,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }
+        ]}
+        >
+          <Text style={[
+            !detail ? fonts.style.bold : fonts.style.mediumBold,
+            !detail ? fonts.style.t18 : fonts.style.t20,
             {
-              height: 60,
-              justifyContent: 'center',
-              alignItems: 'center'
+              textAlign: 'center'
             }
           ]}
-        > 
-          <Text style={[
-
-              !detail ? fonts.style.bold : fonts.style.mediumBold  ,
-              !detail ? fonts.style.t18 : fonts.style.t20, 
-              {
-                textAlign: 'center'
-              } 
-            ]}
           >
             {perk.name.charAt(0).toUpperCase() + perk.name.slice(1).toLowerCase()}
-          </Text> 
-        </View> 
+          </Text>
+        </View>
       </View>
     );
   }

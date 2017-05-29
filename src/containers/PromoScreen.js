@@ -6,7 +6,8 @@ import {
   Platform,
   BackAndroid,
   TextInput,
-  Linking
+  Linking,
+  Clipboard
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -27,6 +28,8 @@ import {
 } from '../themes';
 
 class PromoScreen extends PureComponent {
+
+  state = { content: '' };
 
   onValidate = () => {
     const { business, perk } = this.props.navigation.state.params;
@@ -53,6 +56,18 @@ class PromoScreen extends PureComponent {
     }
 
   }
+
+  _setClipboardContent = async () => {
+    const { perk } = this.props.navigation.state.params;
+    Clipboard.setString(perk.perk_code);
+    try {
+      var content = await Clipboard.getString();
+      this.setState({ content });
+    }
+    catch (e) {
+      this.setState({ content: e.message });
+    }
+  };
 
   componentDidMount() {
     BackAndroid.addEventListener('hardwareBackPress', this.handleBackAndroid);
@@ -126,10 +141,14 @@ class PromoScreen extends PureComponent {
               colors={colors.gradientColor}
               style={style.codePromo}
             >
-              <TextInput
-                style={style.textPromo}
-                value={perk.perk_code}
-              />
+              <View style={style.textPromoContainer}>
+                <Text
+                  onPress={this._setClipboardContent}
+                  style={style.textPromo}
+                >
+                  {perk.perk_code}
+                </Text>
+              </View>
             </LinearGradient>
           </View>
           <View style={[
@@ -181,10 +200,13 @@ const style = {
   textPromo: {
     textAlign: 'center',
     color: colors.darkGray,
+    fontWeight: 'bold',
+  },
+  textPromoContainer: {
+    justifyContent: 'center',
     flex: 1,
     backgroundColor: colors.code_partenaire,
     margin: 1,
-    fontWeight: 'bold',
     borderRadius: 4,
   }
 }; 

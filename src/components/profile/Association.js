@@ -92,7 +92,7 @@ class Association extends PureComponent {
           </Text>
           <Histories 
             user={user}
-            type={'amount'}
+            type={'donation'}
           />
       </View>
     );

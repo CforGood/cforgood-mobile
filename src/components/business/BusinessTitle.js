@@ -44,7 +44,7 @@ export default class BusinessTitle extends PureComponent {
             {  
               color: 'this.props.color', 
             },
-            fonts.style.t16,  
+            fonts.style.normal,  
             this.props.style,
            
           ]}

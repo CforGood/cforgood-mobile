@@ -30,7 +30,6 @@ import {
         />
         <View
           style={{ 
-            //alignItems: 'center',
             flex: 1,
           }}>
           <Text 
@@ -38,7 +37,6 @@ import {
               fonts.style.normal,
               { 
                 fontWeight: '700',
-                color: colors.darkGray,
               }
             ]}
             numberOfLines={2}

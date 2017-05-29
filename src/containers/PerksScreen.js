@@ -195,7 +195,7 @@ class PerksScreen extends Component {
     return (
       <View style={styles.screen.mainContainer}>
         <Header
-          module={'business'}
+          module={'perks'}
         />
         <View style={{ flex: 1 }}>
           <PerkFilter sortBy={this.sortBy} />
@@ -235,7 +235,7 @@ class PerksScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-  businesses: state.business.entities,
+  businesses: state.business.entities_perk,
   categories: state.filters.categoriesPerks,
   perk: state.review.perk,
   location: state.location.latlng,

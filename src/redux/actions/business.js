@@ -3,7 +3,9 @@ import ApiHandler from '../../utils/api';
 import {
   LOAD,
   LOAD_SUCCESS,
+  LOAD_PERK_SUCCESS,
   LOAD_FAIL,
+  LOAD_PERK_FAIL,
   FILTER,
   SHOW
 } from '../constants/business';
@@ -14,16 +16,16 @@ export const load = () => {
   };
 }
 
-export const failure = (error) => {
+export const failure = (error, online) => {
   return {
-    type: LOAD_FAIL,
+    type: online ? LOAD_PERK_FAIL : LOAD_FAIL,
     error: error,
   };
 }
 
-export const success = (entities) => {
+export const success = (entities, online) => {
   return {
-    type: LOAD_SUCCESS,
+    type: online ? LOAD_PERK_SUCCESS : LOAD_SUCCESS,
     entities,
   };
 }
@@ -46,23 +48,37 @@ export const filterBusiness = (entities) => {
 export const loadBusiness = () => {
 
   return (dispatch, getState) => {
-    const { filters,  location } = getState();
-    //const location = {latlng : { latitude: 44.8460252, longitude: -0.5736973}};
+    const { filters, location } = getState();
+    //location
+    //const location = { latlng: { latitude: 44.8460252, longitude: -0.5736973 } };
     dispatch(load());
 
-    return ApiHandler.businesses(true, location.latlng)
-    .then(response => {
-      if(response && !response.error){
-        dispatch(success(response));
-      }
-      else
-      {
-        dispatch(failure('error'));
-      }
-    })
-    .catch(message => {
-      dispatch(failure(message.error));
-    });
-    
+
+    ApiHandler.businesses(true, location.latlng)
+      .then(response => {
+        if (response && !response.error) {
+          dispatch(success(response, true));
+        }
+        else {
+          dispatch(failure('error', true));
+        }
+      })
+      .catch(message => {
+        dispatch(failure(message.error, true));
+      });
+
+    ApiHandler.businesses(false, location.latlng)
+      .then(response => {
+        if (response && !response.error) {
+          dispatch(success(response, false));
+        }
+        else {
+          dispatch(failure('error', false));
+        }
+      })
+      .catch(message => {
+        dispatch(failure(message.error, false));
+      })
+    return true;
   }
 };

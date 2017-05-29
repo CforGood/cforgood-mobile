@@ -3,7 +3,9 @@ import {
   LOAD_SUCCESS,
   LOAD_FAIL,
   FILTER,
-  SHOW
+  SHOW,
+  LOAD_PERK_SUCCESS,
+  LOAD_PERK_FAIL,
 } from '../constants/business.js';
 
 const initialState = {
@@ -24,14 +26,21 @@ export default function reducer(state = initialState, action = {}) {
         failed: false,
       };
     case LOAD_SUCCESS: {
-      console.log(action.entities, 'action.entities' )
       const entities = action.entities;
       return {
         ...state,
         loaded: true,
         failed: false,
         entities,
-        //businesses: entities,
+      };
+    }
+    case LOAD_PERK_SUCCESS: {
+      const entities = action.entities;
+      return {
+        ...state,
+        loaded: true,
+        failed: false,
+        entities_perk: entities,
       };
     }
     case FILTER: {

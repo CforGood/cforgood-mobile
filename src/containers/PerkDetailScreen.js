@@ -303,38 +303,9 @@ class PerkDetailScreen extends Component {
           </Text>
         </View>
       );
-    } else if (perk.perk_detail_id === 3) {
-      return (
-        <View style={[
-          styles.row,
-          styles.center,
-          { marginVertical: metrics.baseMargin }
-        ]}
-        >
-          <Text
-            style={[
-              fonts.style.t15,
-              fonts.style.mediumBold,
-              stylePerkDetailScreen.tCode,
-            ]}
-          >
-            Utilisez ce code :
-          </Text>
-          <Text
-            style={[
-              fonts.style.t18,
-              fonts.style.bold
-            ]}
-          >
-            {perk.perk_code}
-          </Text>
-        </View>
-      );
-    }
-    else {
+    } else {
       return <View />;
     }
-
 
 
   }

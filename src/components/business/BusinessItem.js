@@ -19,7 +19,6 @@ import BusinessAddress from './BusinessAddress';
 import Separator from '../common/Separator';
 
 import { businessType, categoryType } from '../../types';
-//import { showBusiness } from '../../redux/actions/business';
 
 import {
   styles,
@@ -37,18 +36,17 @@ class BusinessItem extends PureComponent {
   };
 
   navigateToBusiness() {
-    this.props.navigation.navigate('BusinessDetail', 
+    this.props.navigation.navigate('BusinessDetail',
       { business: this.props.business, address: this.props.address }
     );
     //this.props.showBusiness(this.props.business.id)
   }
- 
+
   render() {
     const { business, category, address } = this.props;
     return (
-      <TouchableOpacity 
+      <TouchableOpacity
         style={style.container}
-        
         activeOpacity={0.95}
         onPress={() => this.navigateToBusiness()}
       >
@@ -61,27 +59,27 @@ class BusinessItem extends PureComponent {
           <Image
             resizeMode={'cover'}
             source={{ uri: business.picture }}
-            style={{flex: 1}}
-          /> 
+            style={{ flex: 1 }}
+          />
         </View>
         <View style={[
-            styles.spaceBetween,
-            style.infoContainer,
-          ]}
-        > 
-          <View style={{height: 21, marginBottom: 12}}>
-            <CategoryInfo 
-              category={ category }
+          styles.spaceBetween,
+          style.infoContainer,
+        ]}
+        >
+          <View style={{ height: 21, marginBottom: 12 }}>
+            <CategoryInfo
+              category={category}
             />
           </View>
-          <BusinessTitle  
-            name={ business.name }
+          <BusinessTitle
+            name={business.name}
             activity={business.activity}
-            color={ colors.darkGray }
+            color={colors.darkGray}
           />
-          <BusinessAddress 
-            address={ address }
-            color={ category.color }
+          <BusinessAddress
+            address={address}
+            color={category.color}
           />
         </View>
       </TouchableOpacity>
@@ -91,12 +89,12 @@ class BusinessItem extends PureComponent {
 
 export default withNavigation(BusinessItem);
 
-const style = StyleSheet.create({ 
-  container:{
+const style = StyleSheet.create({
+  container: {
     marginTop: metrics.smallMargin,
     marginHorizontal: metrics.baseMargin,
     flex: 1,
-    width: metrics.deviceWidth/1.354,
+    width: metrics.deviceWidth / 1.354,
     flexDirection: 'row',
     backgroundColor: 'transparent'
   },

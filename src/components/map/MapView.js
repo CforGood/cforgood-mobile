@@ -491,7 +491,7 @@ class MapView extends Component {
         <RNMapView
           ref={map => { this._map = map; }}
           style={styles.map}
-          //initialCenterCoordinate={this.state.regionUser}
+          initialCenterCoordinate={this.state.regionUser}
           initialZoomLevel={this.state.zoom}
           initialDirection={0}
           rotateEnabled={true}

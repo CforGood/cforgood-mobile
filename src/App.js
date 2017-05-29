@@ -1,12 +1,12 @@
 // @flow
-import React, { 
+import React, {
   Component,
 } from 'react';
-import { 
+import {
   AsyncStorage,
   AppState,
 } from 'react-native';
-import { 
+import {
   Provider,
   connect
 } from 'react-redux';
@@ -25,13 +25,18 @@ connect(state => ({
   nav: state.nav,
 }))
 class AppWithNavigationState extends React.Component {
+
+  componentDidMount() {
+    persistStore(store, { whitelist: ['review', 'filters'], storage: AsyncStorage });
+  }
+
   render() {
     return (
-      <MyApp 
+      <MyApp
         navigation={addNavigationHelpers({
           dispatch: this.props.dispatch,
           state: this.props.nav,
-        })} 
+        })}
       />
     );
   }
@@ -69,7 +74,7 @@ class App extends Component {
 
   codePushStatusDidChange = (syncStatus) => {
     console.log('syncStatus', syncStatus)
-    switch(syncStatus) {
+    switch (syncStatus) {
       case RNCodePush.SyncStatus.CHECKING_FOR_UPDATE:
         this.setState({ syncMessage: "Checking for update." });
         break;
@@ -96,8 +101,8 @@ class App extends Component {
         break;
     }
   }
-  
-  render () {
+
+  render() {
     return (
       <Provider store={store}>
         <AppWithNavigationState />
@@ -106,6 +111,6 @@ class App extends Component {
   }
 };
 
-export default RNCodePush({ 
+export default RNCodePush({
   checkFrequency: RNCodePush.CheckFrequency.ON_APP_RESUME,
 })(App);

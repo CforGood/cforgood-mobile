@@ -37,6 +37,13 @@ export const successUpdate = (data) => {
   };
 }
 
+export const updateAssociation = (cause_attributes) => {
+  return {
+    type: UPDATE_SUCCESS,
+    data : {cause_attributes},
+  };
+}
+
 
 
 export const updateUserData = (id, data) => {

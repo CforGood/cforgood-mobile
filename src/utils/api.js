@@ -10,7 +10,6 @@ import {
 class ApiHandler {
 
   businesses (online, position) {
-    console.log(`/businesses?online=${online}&lat=${position.latitude}&lng=${position.longitude}`);
     return this.api(`businesses?online=${online}&lat=${position.latitude}&lng=${position.longitude}`);
   }
 
@@ -238,12 +237,6 @@ class ApiHandler {
       })
       .then((responseJson) => {
         return responseJson;
-        //if(responseJson.error || responseJson.errors){
-//          
-//          return Promise.reject(responseJson);
-//        }//
-
-//        return Promise.resolve(responseJson); 
         
       })
       .catch(error => {

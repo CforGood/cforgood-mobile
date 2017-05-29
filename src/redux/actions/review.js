@@ -6,6 +6,7 @@ import {
   REVIEW_CANCEL,
 } from '../constants/review';
 
+import { loadBusiness } from './business';
 
 export const cancelReview = (perk) => {
   return {
@@ -15,16 +16,16 @@ export const cancelReview = (perk) => {
 
 
 export const feedback = (use, flag) => {
-  
+
   return (dispatch) => {
     ApiHandler.feedback(use, flag)
-    .then(response => {    
-      dispatch(SuccessReview());
-    })
-    .catch(message => {
-      dispatch(failure(message.error));
-      
-    });
+      .then(response => {
+        dispatch(SuccessReview());
+        dispatch(loadBusiness());
+      })
+      .catch(message => {
+        dispatch(failure(message.error));
+      });
   }
 };
 
@@ -55,16 +56,16 @@ export const saveReview = (perk, business, use) => {
 export const use = (perk, business, feedback = true) => {
   return (dispatch) => {
     ApiHandler.uses(perk.id)
-    .then(response => {
-      if(!response.error){
-        if(feedback) {
-          dispatch(saveReview(perk, business, response.id));
+      .then(response => {
+        if (!response.error) {
+          if (feedback) {
+            dispatch(saveReview(perk, business, response.id));
+          }
         }
-      }
-      else {
-        dispatch(failure(response.error));
-      }
-    });
+        else {
+          dispatch(failure(response.error));
+        }
+      });
   }
 
 }

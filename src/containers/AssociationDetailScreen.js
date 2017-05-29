@@ -9,6 +9,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import ApiHandler from '../utils/api';
 
@@ -26,6 +27,8 @@ import Button from '../components/common/ButtonGradient';
 
 import PopupValidation from '../components/Association/PopupValidation';
 import PopupThanks from '../components/Association/PopupThanks';
+
+import { updateAssociation } from '../redux/actions/user';
 
 
 import {
@@ -104,6 +107,7 @@ class AssociationDetailScreen extends Component {
       .then(response => {
         if (!response.error) {
           this.setThanksPopup(true);
+          this.props.updateAssociation(this.state.association);
         }
       }).
       catch(message => {
@@ -349,7 +353,12 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps)(AssociationDetailScreen);
+const mapDispatchToProps = (dispatch) => ({
+  updateAssociation: bindActionCreators(updateAssociation, dispatch),
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(AssociationDetailScreen);
 
 
 const style = {

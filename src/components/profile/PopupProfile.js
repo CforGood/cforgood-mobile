@@ -71,7 +71,7 @@ class PopupProfileMap extends Component {
   onValidate = async (type) => {
 
     if(type==='partner' || type==='not_partner'){
-      this.props.updateUserData(this.props.user.id, {trial_done: false});
+      //this.props.updateUserData(this.props.user.id, {trial_done: false});
     }
     else if(type === 'businesses_around'){
       this.props.navigation.navigate(
