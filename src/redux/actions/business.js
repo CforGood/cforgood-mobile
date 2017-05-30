@@ -53,18 +53,17 @@ export const loadBusiness = () => {
     //const location = { latlng: { latitude: 44.8460252, longitude: -0.5736973 } };
     dispatch(load());
 
-
     ApiHandler.businesses(true, location.latlng)
       .then(response => {
         if (response && !response.error) {
           dispatch(success(response, true));
         }
         else {
-          dispatch(failure('error', true));
+          //dispatch(failure('error', true));
         }
       })
       .catch(message => {
-        dispatch(failure(message.error, true));
+        //dispatch(failure(message.error, true));
       });
 
     ApiHandler.businesses(false, location.latlng)
@@ -73,11 +72,11 @@ export const loadBusiness = () => {
           dispatch(success(response, false));
         }
         else {
-          dispatch(failure('error', false));
+          //dispatch(failure('error', false));
         }
       })
       .catch(message => {
-        dispatch(failure(message.error, false));
+        //dispatch(failure(message.error, false));
       })
     return true;
   }

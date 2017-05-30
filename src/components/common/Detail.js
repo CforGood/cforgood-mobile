@@ -46,7 +46,8 @@ export default class Detail extends PureComponent {
           <Text 
             style={[ 
               {  
-                color: this.props.color, 
+                color: this.props.color,
+                lineHeight: 20, 
               },
               fonts.style.normal,  
             ]}

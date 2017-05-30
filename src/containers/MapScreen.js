@@ -90,6 +90,8 @@ class MapScreen extends Component {
     else if (nextProps.categories !== this.props.categories
       ||
       nextProps.businesses !== this.props.businesses
+      &&
+      nextProps.businesses
     ) {
       this.updateListBusiness(nextProps.businesses, nextProps.categories);
     }
@@ -163,13 +165,12 @@ class MapScreen extends Component {
   }
 
   render() {
-
     return (
       <View style={styles.screen.container}>
         <Header module={'business'} />
         <View style={[
           Platform.OS === 'android' &&
-            this.props.businessId !== null ?
+            this.props.businessId ?
             { height: 1 }
             :
             { flex: 1 }
