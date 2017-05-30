@@ -25,7 +25,7 @@ export const failure = (error, online) => {
 
 export const success = (entities, online) => {
   return {
-    type: online ? LOAD_PERK_SUCCESS : LOAD_SUCCESS,
+    type: online ? LOAD_SUCCESS : LOAD_SUCCESS,
     entities,
   };
 }
@@ -48,28 +48,30 @@ export const filterBusiness = (entities) => {
 export const loadBusiness = () => {
 
   return (dispatch, getState) => {
-    const { filters, location } = getState();
+    const { filters,location } = getState();
     //location
     //const location = { latlng: { latitude: 44.8460252, longitude: -0.5736973 } };
     dispatch(load());
+    // ApiHandler.businesses(true, location.latlng)
+    //   .then(response => {
+    //     if (response && !response.error) {
+    //       alert("LOAD PERK")
+    //       dispatch(success(response, true));
+    //     }
+    //     else {
+    //       //dispatch(failure('error', true));
+    //     }
+    //   })
+    //   .catch(message => {
+    //     //dispatch(failure(message.error, true));
+    //   });
+
 
     ApiHandler.businesses(true, location.latlng)
       .then(response => {
         if (response && !response.error) {
+          
           dispatch(success(response, true));
-        }
-        else {
-          //dispatch(failure('error', true));
-        }
-      })
-      .catch(message => {
-        //dispatch(failure(message.error, true));
-      });
-
-    ApiHandler.businesses(false, location.latlng)
-      .then(response => {
-        if (response && !response.error) {
-          dispatch(success(response, false));
         }
         else {
           //dispatch(failure('error', false));
@@ -77,7 +79,10 @@ export const loadBusiness = () => {
       })
       .catch(message => {
         //dispatch(failure(message.error, false));
-      })
+      });
+
+
+
     return true;
   }
 };

@@ -95,8 +95,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         multiDexEnabled true
-        versionCode 18
-        versionName "1.2.2"
+        versionCode 20
+        versionName "1.2.4"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -170,7 +170,6 @@ dependencies {
     compile ('com.mapbox.mapboxsdk:mapbox-android-sdk:4.2.2@aar'){
         transitive=true
     }
-    
     
     compile project(':react-native-intercom')
     compile project(':react-native-branch')

@@ -201,7 +201,7 @@ class SearchScreen extends Component {
 const mapStateToProps = state => ({
   associations: state.association.entities,
   businesses: state.business.entities,
-  businesses_perks: state.business.entities_perk,
+  businesses_perks: state.business.entities,
 });
 
 const mapDispatchToProps = (dispatch) => ({

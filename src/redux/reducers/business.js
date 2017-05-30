@@ -51,12 +51,14 @@ export default function reducer(state = initialState, action = {}) {
     }
     case LOAD_FAIL:
       return {
+        ...state,
         loaded: true,
         failed: true,
         error: action.error,
       };
     case LOAD_PERK_FAIL:
       return {
+        ...state,
         failed: true,
         error: action.error,
       };

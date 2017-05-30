@@ -152,11 +152,13 @@ class MapScreen extends Component {
           businesses: businesses
             .filter(obj =>
               categories.indexOf(parseInt(obj.business_category_id)) !== -1
+              &&
+              obj.online === false
             )
         });
       }
       else {
-        this.setState({ businesses });
+        this.setState({ businesses: businesses.filter(obj => obj.online === false) });
 
       }
     }
