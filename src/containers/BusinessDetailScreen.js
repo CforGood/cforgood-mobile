@@ -296,7 +296,7 @@ class BusinessScreen extends PureComponent {
         </Animated.View>
         <Button
           type={'simple'}
-          onPress={() => this.props.navigation.navigate('PerkList', { business: detailsBusiness })}
+          onPress={() => this.props.navigation.navigate('PerkList', { business: detailsBusiness, category })}
           style={{
             backgroundColor: category.color
           }}

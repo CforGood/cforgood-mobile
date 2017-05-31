@@ -12,6 +12,7 @@ import Permissions from 'react-native-permissions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import ApiHandler from '../utils/api';
 import { goToAssociations } from '../redux/actions/association';
 import {
   styles,
@@ -125,23 +126,38 @@ class MapScreen extends Component {
   }
 
 
-  setPerk = (perk, business, category) => {
-
+  setPerk = async (perk, business, category) => {
     if (perk && business) {
-      this.props.navigation.navigate('PerkDetail',
-        {
-          perkId: perk.id,
-          businessId: business.id,
-          addressId: this.state.address ?
-            this.state.address.id :
-            (
-              business.address ?
-                business.address.id
-                :
-                business.addresses[0].id
-            ),
-        }
-      );
+      let businessDetail = business;
+      let perkDetail = perk;
+      let addressId = this.state.address ?
+        this.state.address.id
+        :
+        this.state.addresses[0].id;
+
+      await ApiHandler.businessDetail(business.id, addressId)
+        .then(response => {
+          if (!response.error) {
+            const category = getCategory(response.business_category_id);
+            businessDetail = response;
+          }
+        }).
+        catch(error => {
+
+        });
+
+      ApiHandler.perkDetail(perk.id)
+        .then(response => {
+          if (!response.error) {
+            this.props.navigation.navigate('PerkDetail', {
+              business: businessDetail,
+              category: category,
+              perk: response
+            });
+          }
+        }).catch(message => {
+        });
+
     }
   }
 
@@ -159,7 +175,6 @@ class MapScreen extends Component {
       }
       else {
         this.setState({ businesses: businesses.filter(obj => obj.online === false) });
-
       }
     }
 

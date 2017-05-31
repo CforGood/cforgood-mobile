@@ -13,6 +13,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import ApiHandler from '../utils/api';
 import { setBusiness } from '../redux/actions/business';
 import Separator from '../components/common/Separator';
 import Button from '../components/common/ButtonGradient';
@@ -27,11 +28,6 @@ import {
   fonts,
   metrics,
 } from '../themes';
-
-
-import {
-  getCategory,
-} from '../constants/categories';
 
 const HEADER_SCROLL_DISTANCE = metrics.marginApp;
 
@@ -53,27 +49,33 @@ class PerkListScreen extends PureComponent {
     });
   }
 
-  setPerk(perk) {
+  setPerk = async (perk) => {
+    const { business, category } = this.props.navigation.state.params;
 
-    const { business } = this.props.navigation.state.params;
+    if (perk && business) {
+      let perkDetail = perk;
+      let addressId = business.address ?
+        business.address.id
+        :
+        business.addresses[0].id;
 
-    const category = getCategory(business.business_category_id);
 
-    if (perk && perk.usable_for_user) {
-      this.props.navigation.navigate('PerkDetail',
-        {
-          perkId: perk.id,
-          businessId: business.id,
-          addressId: (
-            business.address ?
-              business.address.id
-              :
-              business.addresses[0].id
-          ),
-        }
-      );
+
+      ApiHandler.perkDetail(perk.id)
+        .then(response => {
+          if (!response.error) {
+            this.props.navigation.navigate('PerkDetail', {
+              business,
+              category,
+              perk: response,
+            });
+          }
+        }).catch(message => {
+        });
     }
   }
+
+
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.perk !== null && this.props.perk === null) {
@@ -97,9 +99,8 @@ class PerkListScreen extends PureComponent {
       extrapolate: 'clamp',
     });
 
-    const { business } = this.props.navigation.state.params;
+    const { business, category } = this.props.navigation.state.params;
 
-    const category = getCategory(business.business_category_id);
 
     return (
       <View style={styles.screen.mainContainer}>

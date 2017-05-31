@@ -11,7 +11,6 @@ import location from './location';
 import offer from './offer';
 import popup from './popup';
 
-
 export default combineReducers({
   nav,
   auth,
