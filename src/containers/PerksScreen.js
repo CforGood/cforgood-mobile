@@ -255,7 +255,7 @@ class PerksScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-  businesses: state.business.entities,
+  businesses: state.business.entities_perk,
   categories: state.filters.categoriesPerks,
   perk: state.review.perk,
   location: state.location.latlng,
