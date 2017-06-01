@@ -133,7 +133,11 @@ class MapScreen extends Component {
       let addressId = this.state.address ?
         this.state.address.id
         :
-        this.state.addresses[0].id;
+        (
+          business.address ?
+          business.address.id :
+          business.addresses[0].id
+        );
 
       await ApiHandler.businessDetail(business.id, addressId)
         .then(response => {

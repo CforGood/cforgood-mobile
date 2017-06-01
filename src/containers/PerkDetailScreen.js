@@ -16,6 +16,7 @@ import { bindActionCreators } from 'redux';
 import Communications from 'react-native-communications';
 import moment from 'moment';
 
+import ApiHandler from '../utils/api';
 import { use } from '../redux/actions/review';
 import { setBusiness } from '../redux/actions/business';
 
@@ -91,6 +92,48 @@ class PerkDetailScreen extends Component {
       this.setState({ perk, business, category })
 
     }
+    else if (
+      params.businessId &&
+      params.perkId &&
+      params.addressId
+    ) {
+      if (Platform.OS === 'android') {
+        this.props.setBusiness(params.businessId);
+      }
+
+      this.props.setBusiness(params.businessId);
+      this.getDetailBusiness(params.businessId, params.addressId);
+      this.getDetail(params.perkId);
+    }
+  }
+
+  getDetailBusiness(businessId, addressId) {
+
+    return ApiHandler.businessDetail(businessId, addressId)
+      .then(response => {
+        if (!response.error) {
+          const category = getCategory(response.business_category_id);
+
+          this.setState({ business: response, category });
+        }
+      }).
+      catch(error => {
+
+      });
+  }
+
+  getDetail(id) {
+    ApiHandler.perkDetail(id)
+      .then(response => {
+        if (!response.error) {
+          this.setState({ perk: response });
+        }
+        else {
+          this.goBack();
+        }
+      }).catch(message => {
+        this.goBack();
+      });;
   }
 
   goBack() {

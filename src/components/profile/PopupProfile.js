@@ -121,10 +121,13 @@ class PopupProfileMap extends Component {
       let visible = false;
       let type = '';
 
-
-      if(businesses_around === 0 || !nearme) {
+      if( user.first_perk_offer_attributes ) {
         visible = true;
-        type = 'businesses_around';
+        type= 'first_perk_offer';
+      }
+      else if( !user.member ) {
+        visible = true;
+        type= 'not_member';
       }
       else if( user.trial_done ) {
         visible = true;
@@ -135,13 +138,9 @@ class PopupProfileMap extends Component {
           type= 'not_partner';
         }
       }
-      else if( user.first_perk_offer_attributes ) {
+      else if(businesses_around === 0 || !nearme) {
         visible = true;
-        type= 'first_perk_offer';
-      }
-      else if( !user.member ) {
-        visible = true;
-        type= 'not_member';
+        type = 'businesses_around';
       }
       
       this.setState({
