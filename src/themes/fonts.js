@@ -137,7 +137,8 @@ const style = {
     fontFamily: type.base,
   },
   mediumBold: {
-    fontWeight: '500'
+    fontWeight: '500',
+    fontFamily: type.base,
   },
   textInput: {
     color: colors.textinput, 
