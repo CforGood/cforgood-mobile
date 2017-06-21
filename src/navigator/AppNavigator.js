@@ -24,8 +24,6 @@ import MembreshipCardScreen from '../containers/MembreshipCardScreen';
 import PromoScreen from '../containers/PromoScreen';
 import ReservedSpaceScreen from '../containers/ReservedSpaceScreen';
 
-
-
 const Routes = {
 
   Maps: {

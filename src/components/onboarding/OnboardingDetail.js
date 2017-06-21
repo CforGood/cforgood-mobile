@@ -29,9 +29,9 @@ class OnboardingDetail extends PureComponent {
     text: PropTypes.element,
     title: PropTypes.element,
     source: PropTypes.node.isRequired,
-    index: PropTypes.number.isRequired,
     textButton: PropTypes.string,
     cta: PropTypes.func,
+    onPress: PropTypes.func,
   };
 
   static defaultProps = {
@@ -40,6 +40,7 @@ class OnboardingDetail extends PureComponent {
     textButton: null,
     cta: null,
     title: null,
+    onPress: () => { }
   };
 
   state = {
@@ -47,7 +48,12 @@ class OnboardingDetail extends PureComponent {
   };
 
   render() {
-    const { textButton, cta, icon, title } = this.props;
+    const {
+      textButton,
+      cta,
+      icon,
+      title,
+      onPress, } = this.props;
     return (
       <Animated.View
         style={[
@@ -94,7 +100,7 @@ class OnboardingDetail extends PureComponent {
                 />
               }
               {
-                title 
+                title
               }
             </View>
             <View style={styles.center}>
@@ -104,7 +110,7 @@ class OnboardingDetail extends PureComponent {
               {
                 textButton &&
                 <ButtonGradient
-                  onPress={() => { }}
+                  onPress={onPress}
                   text={
                     this.props.textButton
                   }
@@ -124,7 +130,7 @@ class OnboardingDetail extends PureComponent {
               {
                 cta &&
                 <TouchableOpacity
-                  onPress={() => this.setState({ visibleTheme: true })}
+                  onPress={cta}
                   style={{
                     height: 60,
                     justifyContent: 'center',

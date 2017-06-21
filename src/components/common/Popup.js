@@ -24,10 +24,10 @@ import Button from './ButtonGradient';
 import Like from './Like';
 import Separator from './Separator';
 import ButtonGradient from './ButtonGradient';
- 
-class PopupScreen extends PureComponent { 
- 
-  static propTypes = { 
+
+class PopupScreen extends PureComponent {
+
+  static propTypes = {
     onClose: PropTypes.func.isRequired,
     onValidate: PropTypes.func,
     bgImage: PropTypes.any,
@@ -40,16 +40,16 @@ class PopupScreen extends PureComponent {
   };
 
   static defaultProps = {
-    onClose: () => {}, 
+    onClose: () => { },
     bigtitle: '',
     smalltitle: '',
     description: '',
     textButton: null,
     iconButton: null,
     bgImage: null,
-    onValidate: () => {},
+    onValidate: () => { },
   };
- 
+
 
   render() {
     const {
@@ -64,14 +64,14 @@ class PopupScreen extends PureComponent {
       onValidate
     } = this.props;
 
-    return ( 
-      <Image 
+    return (
+      <Image
         style={stylePopupScreen.popup}
-        source={require('../../resources/images/popup.png')}    
-      > 
+        source={require('../../resources/images/popup.png')}
+      >
         <LinearGradient
-          start={{x: 0, y:0}}
-          end={{x: 0, y:1}}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 0, y: 1 }}
           colors={colors.gradientColor}
           style={[
             {
@@ -81,24 +81,23 @@ class PopupScreen extends PureComponent {
           ]}
         >
           <View style={[
-              styles.screen.mainContainer,
-              {
-                paddingHorizontal: metrics.marginApp,
-              }
-            ]}
-          >
-            
+            styles.screen.mainContainer,
             {
-              <View 
+              paddingHorizontal: metrics.marginApp,
+            }
+          ]}
+          >
+            {
+              <View
                 style={[
                   styles.screen.overlay,
                   styles.center
                 ]}
               >
-                { bgImage !== null && bgImage}
+                {bgImage !== null && bgImage}
               </View>
             }
-            <View 
+            <View
               style={{
                 alignItems: 'center',
                 backgroundColor: 'transparent',
@@ -111,42 +110,42 @@ class PopupScreen extends PureComponent {
                   styles.center,
                   stylePopupScreen.picture
                 ]}
-                source={icon} 
+                source={icon}
               />
               <Text style={[
-                  fonts.style.bold,
-                  {
-                    fontSize: 22,
-                    marginVertical: metrics.baseMargin
-                  }
-                ]}
+                fonts.style.bold,
+                {
+                  fontSize: 22,
+                  marginVertical: metrics.baseMargin
+                }
+              ]}
               >
                 {bigtitle}
               </Text>
               <Text style={[
-                  fonts.style.t16,
-                  fonts.style.bold,
-                  {
-                    marginVertical: metrics.baseMargin,
-                    textAlign: 'center',
-                    fontSize: 18,
-                  }
-                ]}
+                fonts.style.t16,
+                fonts.style.bold,
+                {
+                  marginVertical: metrics.baseMargin,
+                  textAlign: 'center',
+                  fontSize: 18,
+                }
+              ]}
               >
                 {smalltitle}
               </Text>
               <Text style={[
-                  fonts.style.t16,
-                  {
-                    marginVertical: metrics.baseMargin,
-                    textAlign: 'center',
-                  }
-                ]}
+                fonts.style.t16,
+                {
+                  marginVertical: metrics.baseMargin,
+                  textAlign: 'center',
+                }
+              ]}
               >
                 {description}
               </Text>
             </View>
-            <TouchableOpacity 
+            <TouchableOpacity
               onPress={onClose}
               style={stylePopupScreen.black}
             >
@@ -160,74 +159,73 @@ class PopupScreen extends PureComponent {
                 source={require('../../resources/icons/close-circular-button-of-a-cross-white.png')}
               />
             </TouchableOpacity>
-            
+
             {
               textButton ?
-              <View 
-                style={{
-                  marginVertical: metrics.baseMargin
-                }}
-              >
-                <ButtonGradient
-                  onPress={onValidate}
-                  text={
-                    textButton
-                  }
-                  styleButton={{
-                    height: 44,
-                    borderRadius: 22,
-                    justifyContent: 'center',
-                  }}
+                <View
                   style={{
-                    height: 44,
-                    borderRadius: 22,
-                    justifyContent: 'center',
+                    marginVertical: metrics.baseMargin
                   }}
-                  iconGradient={
-                    iconButton &&
-                    <Image 
-                      source={iconButton}
-                      style={{
-                        height: 25,
-                        width: 38,
-                        tintColor: 'white'
-                      }}
-                      resizeMode={'contain'}
-                    />
-                  }
-                />
-              </View>
-              :
-              <View 
-                style={{
-                  alignItems: 'center',
-                  marginVertical: metrics.baseMargin
-                }}
-              >
-                <Image 
+                >
+                  <ButtonGradient
+                    onPress={onValidate}
+                    text={
+                      textButton
+                    }
+                    styleButton={{
+                      height: 44,
+                      borderRadius: 22,
+                      justifyContent: 'center',
+                    }}
+                    style={{
+                      height: 44,
+                      borderRadius: 22,
+                      justifyContent: 'center',
+                    }}
+                    iconGradient={
+                      iconButton &&
+                      <Image
+                        source={iconButton}
+                        style={{
+                          height: 25,
+                          width: 38,
+                          tintColor: 'white'
+                        }}
+                        resizeMode={'contain'}
+                      />
+                    }
+                  />
+                </View>
+                :
+                <View
                   style={{
-                    width: 92,
-                    height: 92,
+                    alignItems: 'center',
+                    marginVertical: metrics.baseMargin
                   }}
-                  resizeMode='contain'
-                  source={require('../../resources/images/logo.png')}
-                />
-
-              </View>
-            }        
+                >
+                  <Image
+                    style={{
+                      width: 92,
+                      height: 92,
+                    }}
+                    resizeMode='contain'
+                    source={require('../../resources/images/logo.png')}
+                  />
+                </View>
+            }
           </View>
         </LinearGradient>
-      </Image> 
+      </Image>
     );
   }
 }
 
 export default PopupScreen;
 
-const stylePopupScreen = {  
+const stylePopupScreen = {
   popup: {
-    width: Math.min(320, metrics.deviceWidth - metrics.marginApp*2), 
-    height: Math.min(429, metrics.deviceHeight*0.75),
+    width: Math.min(320, metrics.deviceWidth - metrics.marginApp * 2),
+    height: Math.min(429, metrics.deviceHeight * 0.75),
     //left: metrics.marginApp,
   },
   picture: {
