@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Header from '../components/common/Header';
-import ButtonGradient from '../components/common/ButtonGradient';
+import ButtonGradiant from '../components/common/ButtonGradiant';
 import CategoryList from '../components/category/CategoryList';
 
 import { filter, reset } from '../redux/actions/filters';
@@ -90,7 +90,7 @@ class FiltersScreen extends Component {
             setCategories={this.setCategories}
           />
         </View>
-        <ButtonGradient onPress={() => this.handlerFilter()} />
+        <ButtonGradiant onPress={() => this.handlerFilter()} />
       </View>
     );
   }

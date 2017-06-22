@@ -23,8 +23,8 @@ import Separator from '../../components/common/Separator';
 import ButtonUpdate from '../../components/common/Button';
 
 import Item from './Item';
-import Amount from './Amount'; 
-import Histories from './Histories'; 
+import Amount from './Amount';
+import Histories from './Histories';
 
 
 const monthlyMinAmount = 1;
@@ -32,78 +32,78 @@ const monthlyMaxAmount = 50;
 const yearlyMinAmount = 30;
 const yearlyMaxAmount = 500;
 const minLeft = 1;
-const maxLeft = (metrics.deviceWidth - metrics.marginApp*2 - 25);
+const maxLeft = (metrics.deviceWidth - metrics.marginApp * 2 - 25);
 const realAmountPercent = 0.34;
 
 class Abonnement extends PureComponent {
 
-  updateMember(){
-    this.props.updateUserData(this.props.user.id, {subscription: 'X'});
+  updateMember() {
+    this.props.updateUserData(this.props.user.id, { subscription: 'X' });
   }
 
   OpenMember() {
     this.props.navigation.navigate(
       'WebView',
-      { 
-        url: `https://app.cforgood.com/member/users/${this.props.user.id}/profile#subscription`, 
+      {
+        url: `https://app.cforgood.com/member/users/${this.props.user.id}/profile#subscription`,
         title: 'Mettre à jour CB'
       }
     )
   }
 
   render() {
-    const { user } =  this.props;
+    const { user } = this.props;
 
-    if(user.supervisor_attributes && user.supervisor_attributes.supervisor_name){
+    if (user.supervisor_attributes && user.supervisor_attributes.supervisor_name) {
       return null;
     }
     return (
       <View style={styles.screen.mainContainer}>
         <Text
           style=
-          {[ 
-             fonts.style.t20, 
-             style.boldCenter,
-           ]}
+          {[
+            fonts.style.t20,
+            style.boldCenter,
+          ]}
         >
           Participation
         </Text>
         <Text style={style.title} >
-          Choisissez le rythme et le montant de votre participation
+          Choisissez le rythme et le montant de votre participation, libre et sans engagement.
         </Text>
 
         <Amount
           setUserData={this.props.setUserData}
           user={user}
         />
- 
+
         <Separator color={colors.separatorLine} />
-        <Text 
-           style={[ 
-             fonts.style.t16, 
-             style.boldCenter
-            ]} 
+        <Text
+          style={[
+            fonts.style.t16,
+            style.boldCenter
+          ]}
         >
           Historique des paiements
         </Text>
 
-        <Histories 
+        <Histories
           user={user}
           type='amount'
         />
 
-        <Separator color={colors.separatorLine} style ={{marginVertical : 20}} /> 
-        <Text 
-           style={[ 
-             fonts.style.t16, 
-             style.boldCenter
-            ]} 
+        <Separator color={colors.separatorLine} style={{ marginVertical: 20 }} />
+        <Text
+          style={[
+            fonts.style.t16,
+            style.boldCenter
+          ]}
         >
           Code promo
         </Text>
-       
-        <View style ={[styles.center, styles.row]}>
-          <View style={{flex: 1}} />
+
+        <View style={[styles.center, styles.row]}>
+          <View style={{ flex: 1 }} />
           <View style={style.partner}>
             <TextInput
               style={style.textPartner}
@@ -115,32 +115,32 @@ class Abonnement extends PureComponent {
               }
             />
           </View>
-          
-          <View style={{flex: 1}} />
+
+          <View style={{ flex: 1 }} />
         </View>
-       
-        <Separator color={colors.separatorLine} style ={{marginVertical : 20}} /> 
+
+        <Separator color={colors.separatorLine} style={{ marginVertical: 20 }} />
         <Text style={style.boldCenter} >
           Coordonnées bancaires
-        </Text> 
-        <ButtonUpdate 
+        </Text>
+        <ButtonUpdate
           text={'Mettre à jour CB'}
           styleButton={style.update}
-          styleText={[fonts.style.textButton , { color : colors.darkGray } ]}
+          styleText={[fonts.style.textButton, { color: colors.darkGray }]}
           onPress={() => this.OpenMember()}
 
-        /> 
-        <TouchableOpacity 
+        />
+        <TouchableOpacity
           onPress={() => this.updateMember()}
         >
           <Text
-            style={[fonts.style.t16, { textAlign: 'center'}]}
+            style={[fonts.style.t16, { textAlign: 'center' }]}
           >
             Je me désabonne
           </Text>
         </TouchableOpacity>
-       
-  
+
+
       </View>
     );
   }
@@ -150,15 +150,15 @@ const mapDispatchToProps = (dispatch) => ({
   updateUserData: bindActionCreators(updateUserData, dispatch),
 });
 
-export default connect(null,mapDispatchToProps)(withNavigation(Abonnement));
+export default connect(null, mapDispatchToProps)(withNavigation(Abonnement));
 
-const style = StyleSheet.create({  
-  title: {    
+const style = StyleSheet.create({
+  title: {
     color: colors.darkGray,
     fontFamily: fonts.type.base,
-    fontSize: fonts.size.t17, 
+    fontSize: fonts.size.t16,
     textAlign: 'center',
-    fontWeight: 'bold', 
+    fontWeight: fonts.fontWeight.f500,
     marginVertical: metrics.baseMargin,
   },
   boldCenter: {
@@ -167,19 +167,19 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
   },
   update: {
-    backgroundColor: colors.white, 
+    backgroundColor: colors.white,
     borderRadius: metrics.buttonHeight / 2,
     height: metrics.buttonHeight,
     justifyContent: 'center',
     paddingHorizontal: metrics.baseMargin,
     borderWidth: 1,
     borderColor: colors.grayDate,
-    marginHorizontal: metrics.doubleBaseMargin ,
+    marginHorizontal: metrics.doubleBaseMargin,
     marginVertical: metrics.doubleBaseMargin,
   },
   Separator: {
-    height:metrics.deviceWidth /3, 
-    paddingHorizontal: 5, 
+    height: metrics.deviceWidth / 3,
+    paddingHorizontal: 5,
     backgroundColor: '#979797',
   },
   SlideContainer: {
@@ -188,12 +188,12 @@ const style = StyleSheet.create({
     justifyContent: 'center',
   },
   partner: {
-    backgroundColor : colors.code_partenaire, 
-    borderWidth : 2, 
+    backgroundColor: colors.code_partenaire,
+    borderWidth: 2,
     height: 50,
     width: 199,
-    borderRadius : 5,
-    borderColor : colors.textinput,
+    borderRadius: 5,
+    borderColor: colors.textinput,
     justifyContent: 'center',
   },
   textPartner: {
@@ -201,5 +201,5 @@ const style = StyleSheet.create({
     color: colors.darkGray,
     flex: 1,
   }
-}); 
+});
 

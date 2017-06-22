@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import ApiHandler from '../utils/api';
 import Filter from '../components/common/Filter';
 import Separator from '../components/common/Separator';
-import ButtonGradient from '../components/common/ButtonGradient';
+import ButtonGradiant from '../components/common/ButtonGradiant';
 import SeparatorColor from '../components/common/SeparatorColor';
 import Header from '../components/common/HeaderApp';
 import PerkAddressRow from '../components/perk/PerkAddressRow';

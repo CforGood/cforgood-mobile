@@ -16,7 +16,7 @@ import {
   feedback,
 } from '../redux/actions/review';
 
-import Button from '../components/common/ButtonGradient';
+import Button from '../components/common/ButtonGradiant';
 import Like from '../components/common/Like';
 import Modal from '../components/Modal/WidthRNModal';
 import Separator from '../components/common/Separator';

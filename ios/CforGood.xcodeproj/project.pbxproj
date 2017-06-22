@@ -61,6 +61,7 @@
 		86C468C11E7F43BF0025FF92 /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C468BD1E7F43BF0025FF92 /* GoogleToolboxForMac.framework */; };
 		87213EEECEEA4890B5D5FC07 /* libRNBlur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E1C073A70434BB39403F80C /* libRNBlur.a */; };
 		8CD58B13166B4389A3BE59AC /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E139CFAB90F4A898E23E8AC /* libRNImagePicker.a */; };
+		952C210ED8FA406FADFB30C8 /* libTPSStripe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B2D138BA8F4DACB9E1478F /* libTPSStripe.a */; };
 		B535F93ADB274A798DC797B5 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB57040557D44D6AAF49FC16 /* libRNVectorIcons.a */; };
 		B88730FE0D7F4F949F5E6B20 /* libRCTMapboxGL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632D75223DF244E49CE106FB /* libRCTMapboxGL.a */; };
 		C3CA581D2AAC4A2C8DAED716 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 013EE9433F65413A8108CA57 /* libBVLinearGradient.a */; };
@@ -364,6 +365,13 @@
 			remoteGlobalIDString = A68BD7BC1BC31318005F02DF;
 			remoteInfo = RNBlur;
 		};
+		ED0A68B31EFBD2F400EB43DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FF85EA69C87A4C02847103C0 /* TPSStripe.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3A3A7F1A1DC27B520030F9DC;
+			remoteInfo = TPSStripe;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -411,6 +419,7 @@
 		27757DDFC04D1C52F7760B7B /* Pods-CforGoodTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CforGoodTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CforGoodTests/Pods-CforGoodTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3B1F227591714A0DACCCC573 /* libReactNativePermissions.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativePermissions.a; sourceTree = "<group>"; };
 		40DFC2D0F40C4D288118688D /* ReactNativePermissions.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativePermissions.xcodeproj; path = "../node_modules/react-native-permissions/ReactNativePermissions.xcodeproj"; sourceTree = "<group>"; };
+		46B2D138BA8F4DACB9E1478F /* libTPSStripe.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libTPSStripe.a; sourceTree = "<group>"; };
 		4A1E5A0060E3474EA5A89213 /* libRNIntercom.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNIntercom.a; sourceTree = "<group>"; };
 		4E139CFAB90F4A898E23E8AC /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		4E1C073A70434BB39403F80C /* libRNBlur.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNBlur.a; sourceTree = "<group>"; };
@@ -468,6 +477,7 @@
 		EB57040557D44D6AAF49FC16 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		EEC6CF45876B4824A61095DD /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
 		FA7A49491F8146A4AA8F30B3 /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
+		FF85EA69C87A4C02847103C0 /* TPSStripe.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = TPSStripe.xcodeproj; path = "../node_modules/tipsi-stripe/ios/TPSStripe.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -526,6 +536,7 @@
 				4D36F58EDE2E415E971D13D2 /* libRNFIRMessaging.a in Frameworks */,
 				643C0ECA50FF4659AB16ECAD /* libReactNativePermissions.a in Frameworks */,
 				B88730FE0D7F4F949F5E6B20 /* libRCTMapboxGL.a in Frameworks */,
+				952C210ED8FA406FADFB30C8 /* libTPSStripe.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -701,6 +712,7 @@
 				D1A6EAE7E81D4A1A97630A3D /* RNFIRMessaging.xcodeproj */,
 				40DFC2D0F40C4D288118688D /* ReactNativePermissions.xcodeproj */,
 				529A50A12D5B4D6AA44E239D /* RCTMapboxGL.xcodeproj */,
+				FF85EA69C87A4C02847103C0 /* TPSStripe.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -907,6 +919,14 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		ED0A68871EFBD2F300EB43DB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ED0A68B41EFBD2F400EB43DB /* libTPSStripe.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1109,6 +1129,10 @@
 				{
 					ProductGroup = 86F220041E536EB800290BBD /* Products */;
 					ProjectRef = 8727679752C94BA1A3BD6F6E /* RNVectorIcons.xcodeproj */;
+				},
+				{
+					ProductGroup = ED0A68871EFBD2F300EB43DB /* Products */;
+					ProjectRef = FF85EA69C87A4C02847103C0 /* TPSStripe.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1407,6 +1431,13 @@
 			remoteRef = 86FE13C01E6FF9C0002F0987 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		ED0A68B41EFBD2F400EB43DB /* libTPSStripe.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libTPSStripe.a;
+			remoteRef = ED0A68B31EFBD2F400EB43DB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1650,12 +1681,14 @@
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-permissions/**",
 					"$(SRCROOT)/../node_modules/react-native-mapbox-gl/ios/**",
+					"$(SRCROOT)/../node_modules/tipsi-stripe/ios/TPSStripe",
 				);
 				INFOPLIST_FILE = CforGoodTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1690,12 +1723,14 @@
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-permissions/**",
 					"$(SRCROOT)/../node_modules/react-native-mapbox-gl/ios/**",
+					"$(SRCROOT)/../node_modules/tipsi-stripe/ios/TPSStripe",
 				);
 				INFOPLIST_FILE = CforGoodTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1741,6 +1776,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-permissions/**",
 					"$(SRCROOT)/../node_modules/react-native-mapbox-gl/ios/**",
+					"$(SRCROOT)/../node_modules/tipsi-stripe/ios/TPSStripe",
 				);
 				INFOPLIST_FILE = CforGood/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1792,6 +1828,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-permissions/**",
 					"$(SRCROOT)/../node_modules/react-native-mapbox-gl/ios/**",
+					"$(SRCROOT)/../node_modules/tipsi-stripe/ios/TPSStripe",
 				);
 				INFOPLIST_FILE = CforGood/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1976,6 +2013,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-permissions/**",
 					"$(SRCROOT)/../node_modules/react-native-mapbox-gl/ios/**",
+					"$(SRCROOT)/../node_modules/tipsi-stripe/ios/TPSStripe",
 				);
 				INFOPLIST_FILE = CforGood/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2015,12 +2053,14 @@
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"$(SRCROOT)/../node_modules/react-native-permissions/**",
 					"$(SRCROOT)/../node_modules/react-native-mapbox-gl/ios/**",
+					"$(SRCROOT)/../node_modules/tipsi-stripe/ios/TPSStripe",
 				);
 				INFOPLIST_FILE = CforGoodTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (

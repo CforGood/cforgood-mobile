@@ -6,7 +6,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import Button from '../components/common/ButtonGradient';
+import Button from '../components/common/ButtonGradiant';
 import Header from '../components/common/Header';
 
 import {

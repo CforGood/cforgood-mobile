@@ -16,7 +16,7 @@ import { Kohana } from 'react-native-textinput-effects';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Separator from '../components/common/Separator';
-import Button from '../components/common/ButtonGradient';
+import Button from '../components/common/ButtonGradiant';
 import Header from '../components/common/Header';
 import Back from '../components/common/Back';
 

@@ -157,6 +157,7 @@ android {
 }
 
 dependencies {
+    compile project(':tipsi-stripe')
     compile project(':react-native-mapbox-gl')
     compile project(':react-native-permissions')
     compile project(':react-native-fcm')

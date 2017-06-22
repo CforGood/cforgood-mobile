@@ -7,6 +7,9 @@ const colors = {
   
   online: '#7ed321',
   darkGray: '#404040',
+  textLightGray: '#676767',
+  info: '#B3B3B3',
+  ignore: '#9B9B9B',
   gray: '#818181',
   grayDate: '#666666',
   transparent: 'transparent',

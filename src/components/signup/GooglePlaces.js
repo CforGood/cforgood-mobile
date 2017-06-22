@@ -5,7 +5,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
-import Button from '../common/ButtonGradient'; 
+import Button from '../common/ButtonGradiant'; 
 import Header from '../common/Header';
 import Modal from '../Modal';
 

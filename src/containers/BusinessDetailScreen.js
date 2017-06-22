@@ -27,7 +27,7 @@ import BusinessLeader from '../components/business/BusinessLeader';
 import BusinessHeader from '../components/business/BusinessHeader';
 
 import Modal from '../components/Modal';
-import Button from '../components/common/ButtonGradient';
+import Button from '../components/common/ButtonGradiant';
 import { setBusiness } from '../redux/actions/business';
 
 import {

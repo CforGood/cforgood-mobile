@@ -1,5 +1,5 @@
 import React from 'react';
-import { 
+import {
   Platform,
 } from 'react-native';
 
@@ -17,6 +17,7 @@ import AssociationFormScreen from '../containers/AssociationFormScreen';
 import BusinessDetailScreen from '../containers/BusinessDetailScreen';
 import MapPerkScreen from '../containers/MapPerkScreen';
 import ProfileScreen from '../containers/ProfileScreen';
+import ProfileCreditCardScreen from '../containers/ProfileCreditCardScreen';
 import PerkDetailScreen from '../containers/PerkDetailScreen';
 import WebViewScreen from '../containers/WebViewScreen';
 
@@ -57,6 +58,11 @@ const Routes = {
     screen: ProfileScreen,
     path: 'profile',
   },
+  ProfileCreditCard: {
+    name: 'ProfileCreditCard',
+    screen: ProfileCreditCardScreen,
+    path: 'profileCredit',
+  },
   MapPerk: {
     name: 'MapPerk',
     screen: MapPerkScreen,
@@ -87,10 +93,10 @@ const Routes = {
     name: 'Promo',
     screen: PromoScreen,
   },
-  
-  
+
+
 };
- 
+
 const AppNavigator = StackNavigator(
   {
     ...Routes,
@@ -99,11 +105,11 @@ const AppNavigator = StackNavigator(
     headerMode: 'screen',
     navigationOptions: {
       header: null,
-      cardStack:{
+      cardStack: {
         gesturesEnabled: false,
       },
     },
-    mode: Platform.OS === 'ios'  ? 'modal' : 'card',
+    mode: Platform.OS === 'ios' ? 'modal' : 'card',
     cardStyle: {
       backgroundColor: 'transparent',
     },
@@ -112,4 +118,4 @@ const AppNavigator = StackNavigator(
 
 const prefix = Platform.OS == 'android' ? 'CforGood://cforgood/' : 'cforgood://';
 
-export default  () => <AppNavigator uriPrefix={prefix} />;
+export default () => <AppNavigator uriPrefix={prefix} />;

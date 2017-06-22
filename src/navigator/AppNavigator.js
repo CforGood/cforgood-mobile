@@ -1,4 +1,4 @@
-import { 
+import {
   Platform,
   Animated,
   Easing,
@@ -8,7 +8,7 @@ import {
   StackNavigator,
   NavigationActions,
 } from 'react-navigation';
- 
+
 import TabNavigator from './TabNavigator';
 import FilterScreen from '../containers/FiltersScreen';
 import SearchScreen from '../containers/SearchScreen';
@@ -18,6 +18,7 @@ import AssociationFormScreen from '../containers/AssociationFormScreen';
 import BusinessDetailScreen from '../containers/BusinessDetailScreen';
 import MapPerkScreen from '../containers/MapPerkScreen';
 import ProfileScreen from '../containers/ProfileScreen';
+import ProfileCreditCardScreen from '../containers/ProfileCreditCardScreen';
 import PerkDetailScreen from '../containers/PerkDetailScreen';
 import WebViewScreen from '../containers/WebViewScreen';
 import MembreshipCardScreen from '../containers/MembreshipCardScreen';
@@ -91,10 +92,15 @@ const Routes = {
     name: 'Promo',
     screen: PromoScreen,
   },
-  
-  
+  ProfileCreditCard: {
+    name: 'ProfileCreditCard',
+    screen: ProfileCreditCardScreen,
+    path: 'profileCredit',
+  },
+
+
 };
- 
+
 export default AppNavigator = StackNavigator(
   {
     ...Routes,
@@ -103,11 +109,12 @@ export default AppNavigator = StackNavigator(
     headerMode: 'screen',
     navigationOptions: {
       header: null,
-      cardStack:{
+      cardStack: {
         gesturesEnabled: false,
       },
     },
-    mode: Platform.OS === 'ios'  ? 'modal' : 'card',
+    mode: Platform.OS === 'ios' ? 'modal' : 'card',
+    initialRouteName: 'Maps', //Map
     cardStyle: {
       backgroundColor: 'transparent',
     },

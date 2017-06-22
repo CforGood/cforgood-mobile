@@ -5,7 +5,7 @@ import {
   Platform,
 } from 'react-native';
 
-import ButtonGradient from '../common/ButtonGradient';
+import ButtonGradiant from '../common/ButtonGradiant';
 
 import {
   styles,
@@ -30,7 +30,7 @@ class PerkFilter extends PureComponent {
     return (
       <View style={style.container}
       >
-        <ButtonGradient
+        <ButtonGradiant
           type={this.state.filter !== 'nearme' ? 'simple' : ''}
           style={[
             style.button,
@@ -54,7 +54,7 @@ class PerkFilter extends PureComponent {
           onPress={() => this.setFilter('nearme')}
           text={'Autour de moi'}
         /> 
-        <ButtonGradient
+        <ButtonGradiant
           type={this.state.filter !== 'mostPopular' ? 'simple' : ''}
           style={[
             style.button,

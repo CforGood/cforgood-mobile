@@ -43,7 +43,7 @@ export default class Like extends PureComponent {
         <LinearGradient
           start={{x: 0, y:0}} end={{x: 1, y:0}} 
           colors={colors.gradientColor}
-          style={stylesLike.buttonGradient}
+          style={stylesLike.ButtonGradiant}
         >
           <View style={stylesLike.button} >
             <Image
@@ -59,7 +59,7 @@ export default class Like extends PureComponent {
         :
         <View
           style={[
-            stylesLike.buttonGradient
+            stylesLike.ButtonGradiant
           ]}
         >
           <View style={stylesLike.button} >
@@ -81,7 +81,7 @@ export default class Like extends PureComponent {
 }
 
 const stylesLike = StyleSheet.create({ 
-  buttonGradient:{    
+  ButtonGradiant:{    
     width:82,
     height:82,
     justifyContent: 'center',

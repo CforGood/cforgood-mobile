@@ -16,7 +16,7 @@ import { bindActionCreators } from 'redux';
 import ApiHandler from '../utils/api';
 import { setBusiness } from '../redux/actions/business';
 import Separator from '../components/common/Separator';
-import Button from '../components/common/ButtonGradient';
+import Button from '../components/common/ButtonGradiant';
 import PerkFullRow from '../components/perk/PerkFullRow';
 import PerkHeader from '../components/perk/PerkHeader';
 import Header from '../components/common/Header';

@@ -20,10 +20,10 @@ import {
   metrics,
 } from '../../themes';
 
-import Button from './ButtonGradient';
+import Button from './ButtonGradiant';
 import Like from './Like';
 import Separator from './Separator';
-import ButtonGradient from './ButtonGradient';
+import ButtonGradiant from './ButtonGradiant';
  
 class PopupScreen extends PureComponent { 
  
@@ -168,7 +168,7 @@ class PopupScreen extends PureComponent {
                   marginVertical: metrics.baseMargin
                 }}
               >
-                <ButtonGradient
+                <ButtonGradiant
                   onPress={onValidate}
                   text={
                     textButton

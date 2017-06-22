@@ -23,7 +23,7 @@ import Video from '../components/common/Video';
 
 import AssociationContact from '../components/Association/AssociationContact';
 import AssociationLeader from '../components/Association/AssociationLeader';
-import Button from '../components/common/ButtonGradient';
+import Button from '../components/common/ButtonGradiant';
 
 import PopupValidation from '../components/Association/PopupValidation';
 import PopupThanks from '../components/Association/PopupThanks';
