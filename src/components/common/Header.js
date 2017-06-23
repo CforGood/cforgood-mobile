@@ -78,6 +78,7 @@ class Header extends PureComponent {
               <Back
                 onPress={() => this.close()}
                 rotate={back === '-90deg'}
+                color={type === 'gradiant' ? 'white' : colors.darkGray}
               />
             }
             {leftElement}
@@ -123,6 +124,7 @@ class Header extends PureComponent {
             <Back
               close={true}
               onPress={() => this.close()}
+              color={type === 'gradiant' ? 'white' : colors.darkGray}
             />
           }
         </View>

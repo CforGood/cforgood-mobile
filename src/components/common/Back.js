@@ -17,40 +17,41 @@ import {
 import Icon from './Icon';
 
 class Back extends PureComponent {
-  
+
   static propTypes = {
     close: PropTypes.bool,
     style: PropTypes.any,
-    onPress: PropTypes.func
+    onPress: PropTypes.func,
+    color: PropTypes.string,
   };
 
   static defaultProps = {
-    close: false
+    close: false,
+    color: colors.darkGray,
   };
 
   close() {
-    if(this.props.onPress){
+    if (this.props.onPress) {
       this.props.onPress()
     }
-    else{
+    else {
       this.props.navigation.goBack()
     }
   }
 
   render() {
-    const { rotate, close, onPress } = this.props;
+    const { rotate, close, onPress, color } = this.props;
     return (
       <Icon
         onPress={() => this.close()}
         source={
-          !close ? 
-          require('../../resources/icons/back-arrow-circular-symbol.png')
-          :
-          require('../../resources/icons/close-circular-button-of-a-cross-white.png')
-
+          !close ?
+            require('../../resources/icons/back-arrow-circular-symbol.png')
+            :
+            require('../../resources/icons/close-circular-button-of-a-cross-white.png')
         }
         style={[
-          {  
+          {
             backgroundColor: 'transparent',
             height: 36,
             width: 36,
@@ -62,8 +63,8 @@ class Back extends PureComponent {
           {
             height: 36,
             width: 36,
-            tintColor: colors.darkGray,
-            transform:[{rotate: rotate ? '-90deg' : '0deg'}],
+            tintColor: color,
+            transform: [{ rotate: rotate ? '-90deg' : '0deg' }],
           },
           this.props.styleImage
         ]}
@@ -72,5 +73,5 @@ class Back extends PureComponent {
   }
 }
 
-export default  withNavigation(Back);
+export default withNavigation(Back);
 

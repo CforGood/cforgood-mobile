@@ -19,6 +19,7 @@ import {
 
 import { updateUserData } from '../../redux/actions/user';
 
+import ButtonGradiantRadius from '../../components/common/ButtonGradiantRadius';
 import Separator from '../../components/common/Separator';
 import ButtonUpdate from '../../components/common/Button';
 
@@ -59,24 +60,41 @@ class Abonnement extends PureComponent {
     }
     return (
       <View style={styles.screen.mainContainer}>
-        <Text
-          style=
-          {[
-            fonts.style.t20,
-            style.boldCenter,
-          ]}
+        <View style={{
+          ...style.center,
+          marginBottom: metrics.doubleBaseMargin
+        }}
         >
-          Participation
-        </Text>
-        <Text style={style.title} >
-          Choisissez le rythme et le montant de votre participation, libre et sans engagement.
-        </Text>
-
+          <Text
+            style=
+            {[
+              fonts.style.t20,
+              style.boldCenter,
+            ]}
+          >
+            Participation
+          </Text>
+          <Text style={style.title} >
+            Choisissez le rythme et le montant de votre participation, libre et sans engagement.
+          </Text>
+          <Text
+            style={{
+              ...fonts.style.t13, color: colors.textinput
+            }}
+          >
+            "C'est notre seule source de revenu : )"
+          </Text>
+        </View>
         <Amount
           setUserData={this.props.setUserData}
           user={user}
         />
-
+        <View style={{ ...styles.center, marginVertical: metrics.baseMargin }}>
+          <ButtonGradiantRadius
+            onPress={() => this.props.navigation.navigate('ProfileCreditCard')}
+            text={'Participer'}
+          />
+        </View>
         <Separator color={colors.separatorLine} />
         <Text
           style={[
@@ -115,10 +133,8 @@ class Abonnement extends PureComponent {
               }
             />
           </View>
-
           <View style={{ flex: 1 }} />
         </View>
-
         <Separator color={colors.separatorLine} style={{ marginVertical: 20 }} />
         <Text style={style.boldCenter} >
           Coordonnées bancaires

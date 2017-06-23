@@ -6,9 +6,11 @@ import {
   StyleSheet,
   Platform,
   Linking,
+  Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import stripe from 'tipsi-stripe'
 
 import {
   styles,
@@ -28,17 +30,111 @@ import ApiHandler from '../utils/api';
 class ProfileCreditCardScreen extends Component {
 
   state = {
+    valid: null,
+    status: {},
+    number: '',
+    expMonth: '',
+    cvc: '',
   };
 
   componentWillMount() {
+    stripe.init({
+      publishableKey: 'PUBLISHABLE_KEY',
+      merchantId: 'MERCHANT_ID', // Optional
+    });
+  }
+
+  createToken = () => {
+    const {
+      number,
+      expMonth,
+      expYear,
+      cvc,
+      status,
+      valid,
+    } = this.state;
+
+    if (valid) {
+      const params = {
+        // mandatory
+        number,
+        expMonth,
+        expYear,
+        cvc,
+      };
+      stripe.createTokenWithCard(params).then(token => {
+        //call api to add token
+      }).catch(error => Alert.alert(
+        'Erreur payement',
+        error.message,
+        [
+          { text: 'Fermer', onPress: () => { } },
+        ]
+      ))
+    }
+    else {
+      const message = '';
+      if (status.number !== 'valid') {
+        message = 'Numéro de carte ' + status.number;
+      }
+      else if (status.expiry !== 'valid') {
+        message = 'Date d’expiration ' + status.number;
+      } else if (status.cvc !== 'valid') {
+        message = 'Cryptogramme visuel ' + status.number;
+      }
+
+      if (message !== '') {
+        Alert.alert(
+          'Erreur payement',
+          message,
+          [
+            { text: 'Fermer', onPress: () => { } },
+          ]
+        );
+      }
+
+    }
+
+  }
+
+  _onChange = (form) => {
+    const { valid, values, status } = form;
+    if (valid) {
+      this.setState({
+        number: values.number,
+        expMonth: values.expiry.substr(3),
+        expYear: values.expiry.substr(0, 2),
+        cvc: values.cvc,
+        valid: true,
+      });
+
+    }
+    else {
+      this.setState({
+        status,
+        valid: false,
+      });
+
+    }
+
   }
 
   render() {
     const { user } = this.state;
     return (
       <View style={styles.screen.mainContainer}>
-        <Header type={'simple'} title={'Ajouter une CB'} />
-        <ScrollView>
+        <Header
+          back={'-90deg'}
+          text={'Ajouter une CB'}
+          type={'gradiant'}
+          style={{
+            paddingHorizontal: metrics.marginApp
+          }}
+          onClose={() => this.props.navigation.goBack()}
+        />
+        <ScrollView
+          contentContainerStyle={{ marginVertical: metrics.marginApp }}
+        >
           <View style={{ flex: 1, alignItems: 'center' }}>
             <Text style={[
               fonts.style.t20,
@@ -101,12 +197,12 @@ class ProfileCreditCardScreen extends Component {
         <View style={[{ height: 60 }, styles.center]}>
 
           <ButtonGradiantRadius
-            onPress={() => { }}
+            onPress={this.createToken}
             text={'Valider'}
           />
         </View>
         <Button
-          onPress={() => {}}
+          onPress={() => { }}
           type={'simple'}
           style={{
             backgroundColor: 'white'
