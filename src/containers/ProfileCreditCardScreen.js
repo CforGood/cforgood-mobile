@@ -24,6 +24,8 @@ import Header from '../components/common/Header';
 import Button from '../components/common/ButtonGradiant';
 import ButtonGradiantRadius from '../components/common/ButtonGradiantRadius';
 import CreditCardInput from '../modules/CreditCardInput';
+import ErrorView from '../components/common/ErrorView';
+
 //API
 import ApiHandler from '../utils/api';
 
@@ -39,8 +41,8 @@ class ProfileCreditCardScreen extends Component {
 
   componentWillMount() {
     stripe.init({
-      publishableKey: 'PUBLISHABLE_KEY',
-      merchantId: 'MERCHANT_ID', // Optional
+      publishableKey: 'sk_test_UKyzFlg4ttw8q0rN6Wtqz3ni',
+      //merchantId: 'MERCHANT_ID', // Optional
     });
   }
 
@@ -64,13 +66,7 @@ class ProfileCreditCardScreen extends Component {
       };
       stripe.createTokenWithCard(params).then(token => {
         //call api to add token
-      }).catch(error => Alert.alert(
-        'Erreur payement',
-        error.message,
-        [
-          { text: 'Fermer', onPress: () => { } },
-        ]
-      ))
+      }).catch(error => this.setState({error: error.message}))
     }
     else {
       const message = '';
@@ -84,13 +80,7 @@ class ProfileCreditCardScreen extends Component {
       }
 
       if (message !== '') {
-        Alert.alert(
-          'Erreur payement',
-          message,
-          [
-            { text: 'Fermer', onPress: () => { } },
-          ]
-        );
+        this.setState({error: message});
       }
 
     }
@@ -123,6 +113,7 @@ class ProfileCreditCardScreen extends Component {
     const { user } = this.state;
     return (
       <View style={styles.screen.mainContainer}>
+        <ErrorView message={this.state.error} />
         <Header
           back={'-90deg'}
           text={'Ajouter une CB'}
