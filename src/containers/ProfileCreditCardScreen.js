@@ -36,6 +36,7 @@ class ProfileCreditCardScreen extends Component {
     status: {},
     number: '',
     expMonth: '',
+    expYear: '',
     cvc: '',
   };
 
@@ -64,23 +65,28 @@ class ProfileCreditCardScreen extends Component {
         expYear,
         cvc,
       };
+
       stripe.createTokenWithCard(params).then(token => {
+        console.log('tokentoken', token);
         //call api to add token
-      }).catch(error => this.setState({error: error.message}))
+      }).catch(error => this.setState({ error: 'kotti' + error.message }))
     }
     else {
       const message = '';
       if (status.number !== 'valid') {
-        message = 'Numéro de carte ' + status.number;
+        message = 'Numéro de carte invalide !';
       }
       else if (status.expiry !== 'valid') {
-        message = 'Date d’expiration ' + status.number;
+        message = 'Date d’expiration invalide !';
       } else if (status.cvc !== 'valid') {
-        message = 'Cryptogramme visuel ' + status.number;
+        message = 'Cryptogramme visuel invalide !';
+      }
+      else if (number === '') {
+        message = 'Formulaire invalide ! ';
       }
 
       if (message !== '') {
-        this.setState({error: message});
+        this.setState({ error: message });
       }
 
     }
@@ -92,11 +98,13 @@ class ProfileCreditCardScreen extends Component {
     if (valid) {
       this.setState({
         number: values.number,
-        expMonth: values.expiry.substr(3),
-        expYear: values.expiry.substr(0, 2),
+        expYear: parseInt(values.expiry.substr(3)),
+        expMonth: parseInt(values.expiry.substr(0, 2)),
         cvc: values.cvc,
         valid: true,
       });
+
+      console.log('values.expiry.substr(0, 2)', values.expiry.substr(0, 2))
 
     }
     else {
