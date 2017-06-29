@@ -25,7 +25,15 @@ import MembreshipCardScreen from '../containers/MembreshipCardScreen';
 import PromoScreen from '../containers/PromoScreen';
 import ReservedSpaceScreen from '../containers/ReservedSpaceScreen';
 
+/* Authentification */
+import SingInScreen from '../containers/Auth/SingInScreen';
+import SingUpScreen from '../containers/Auth/SingUpScreen';
+import LikeScreen from '../containers/Auth/LikeScreen';
+import ValidationScreen from '../containers/Auth/ValidationScreen';
 
+/* Invitations*/
+import LoadingContactScreen from '../containers/Invitations/LoadingContactScreen';
+import ListInvitationScreen from '../containers/Invitations/ListInvitationScreen';
 
 const Routes = {
 
@@ -97,7 +105,36 @@ const Routes = {
     screen: ProfileCreditCardScreen,
     path: 'profileCredit',
   },
-
+  SingIn: {
+    name: 'SingIn',
+    screen: SingInScreen,
+    path: 'SingIn',
+  },
+  Validation: {
+    name: 'Validation',
+    screen: ValidationScreen,
+    path: 'Validation',
+  },
+  SingUp: {
+    name: 'SingUp',
+    screen: SingUpScreen,
+    path: 'SingUp',
+  },
+  LoadingContact: {
+    name: 'LoadingContact',
+    screen: LoadingContactScreen,
+    path: 'LoadingContact',
+  },
+  Like: {
+    name: 'Like',
+    screen: LikeScreen,
+    path: 'Like',
+  },
+  ListInvitation: {
+    name: 'ListInvitation',
+    screen: ListInvitationScreen,
+    path: 'ListInvitation',
+  },
 
 };
 
@@ -114,7 +151,7 @@ export default AppNavigator = StackNavigator(
       },
     },
     mode: Platform.OS === 'ios' ? 'modal' : 'card',
-    initialRouteName: 'Maps', //Map
+    initialRouteName: 'ListInvitation', //Map
     cardStyle: {
       backgroundColor: 'transparent',
     },

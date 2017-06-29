@@ -25,8 +25,12 @@ const colors = {
   blueAssociation: '#29B6F6', 
   blueBack: '#d3f1f7',
   green: '#33CC66',
+  green80: '#6bc85c',
   red_review: '#D80027',
-  
+  bleu80: "#72dbd1",
+  bleu90: "#87e5d5",
+  yellow: "#fbe716",
+
   textOnboarding: '#2E2E2E',
   textinput: '#AAAAAA',
   separatorText: '#D5D5D5',

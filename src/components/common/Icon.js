@@ -12,22 +12,29 @@ import {
   styles,
 } from '../../themes';
 
-export default class Button extends PureComponent {
+export default class Icon extends PureComponent {
 
   static propTypes = {
     onPress: PropTypes.func.isRequired,
     source: PropTypes.number.isRequired,
     style: PropTypes.any,
+    styleImage: PropTypes.any
   };
 
   static defaultProps = {
-    onPress: () => {},
+    onPress: () => { },
   };
 
   render() {
-    const { onPress, style, styleImage } = this.props;
+
+    const {
+      onPress,
+      style,
+      styleImage
+    } = this.props;
+
     return (
-      <TouchableOpacity 
+      <TouchableOpacity
         onPress={onPress}
         style={[
           styles.mediumImage,
@@ -36,7 +43,7 @@ export default class Button extends PureComponent {
       >
         <Image
           resizeMode={'contain'}
-          style={[ styleImage || styles.imageContain]}
+          style={[styleImage || styles.imageContain]}
           source={this.props.source}
         />
       </TouchableOpacity>

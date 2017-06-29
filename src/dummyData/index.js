@@ -82,12 +82,12 @@ export const businesses = [
     "addresses":
     [
       {
-        "id":2,
+        "id": 2,
         "latitude": 44.8420852,
         "longitude": -0.5824325
       },
       {
-        "id":3,
+        "id": 3,
         "latitude": 44.8720852,
         "longitude": -0.5827325
       }
@@ -97,13 +97,13 @@ export const businesses = [
       perks[0]
     ],
     "days": [
-      { label: "monday", hours: "Fermé"},
-      { label: "tuesday", hours: "9h00 | 19:00"},
-      { label: "wednesday", hours: "9h00 | 19:00"},
-      { label: "thursday", hours: "9h00 | 19:00"},
-      { label: "friday", hours: "9h00 | 19:00"},
-      { label: "saturday", hours: "9h00 | 19:00"},
-      { label: "sunday", hours: "9h00 | 19:00"},
+      { label: "monday", hours: "Fermé" },
+      { label: "tuesday", hours: "9h00 | 19:00" },
+      { label: "wednesday", hours: "9h00 | 19:00" },
+      { label: "thursday", hours: "9h00 | 19:00" },
+      { label: "friday", hours: "9h00 | 19:00" },
+      { label: "saturday", hours: "9h00 | 19:00" },
+      { label: "sunday", hours: "9h00 | 19:00" },
     ],
   },
   {
@@ -123,7 +123,7 @@ export const businesses = [
     "email": "contact@natureetpotagerenville.fr",
     "description": "La maison Hegara est une épicerie générale implantée aux chartrons. L'idée est de proposer une alimentation saine et de lutter contre le gaspillage, en proposant des produits bios et/ou locaux (légumes secs, pâtes, riz, huiles et vinaigres, thé..etc..) vendus au poinds et sans embalage. les fruits et légumes varient selon sans les saisons et les marchés ou je me déplace chaque matin pour vous proposer des produits toujours frais. ",
     "business_category_id": 16,
-    "facebook"  : "natureetpotagerenville/?fref=ts",
+    "facebook": "natureetpotagerenville/?fref=ts",
     "twitter": "",
     "instagram": "",
     "leader_first_name": "Marie-Dominique",
@@ -138,13 +138,13 @@ export const businesses = [
     "unlike": 0,
     "link_video": null,
     "days": [
-      { label: "monday", hours: "Fermé"},
-      { label: "tuesday", hours: "9h00 | 19:00"},
-      { label: "wednesday", hours: "9h00 | 19:00"},
-      { label: "thursday", hours: "9h00 | 19:00"},
-      { label: "friday", hours: "9h00 | 19:00"},
-      { label: "saturday", hours: "9h00 | 19:00"},
-      { label: "sunday", hours: "9h00 | 19:00"},
+      { label: "monday", hours: "Fermé" },
+      { label: "tuesday", hours: "9h00 | 19:00" },
+      { label: "wednesday", hours: "9h00 | 19:00" },
+      { label: "thursday", hours: "9h00 | 19:00" },
+      { label: "friday", hours: "9h00 | 19:00" },
+      { label: "saturday", hours: "9h00 | 19:00" },
+      { label: "sunday", hours: "9h00 | 19:00" },
     ],
     "perks":
     [
@@ -163,7 +163,7 @@ export const detailsBusiness = {
   "email": "contact@natureetpotagerenville.fr",
   "description": "La maison Hegara est une épicerie générale implantée aux chartrons. L'idée est de proposer une alimentation saine et de lutter contre le gaspillage, en proposant des produits bios et/ou locaux (légumes secs, pâtes, riz, huiles et vinaigres, thé..etc..) vendus au poinds et sans embalage. les fruits et légumes varient selon sans les saisons et les marchés ou je me déplace chaque matin pour vous proposer des produits toujours frais. ",
   "business_category_id": 16,
-  "facebook"  : "natureetpotagerenville/?fref=ts",
+  "facebook": "natureetpotagerenville/?fref=ts",
   "twitter": "",
   "instagram": "",
   "leader_first_name": "Marie-Dominique",
@@ -204,46 +204,46 @@ export const detailsBusiness = {
 
 
 export const associations = [
-  { 
-    picture: "https://res.cloudinary.com/dktivbech/image/upload/c_fill,dpr_2.0,h_350,w_450/v1468850664/production/stdcn2szjkkb8oswkcgc.jpg", 
+  {
+    picture: "https://res.cloudinary.com/dktivbech/image/upload/c_fill,dpr_2.0,h_350,w_450/v1468850664/production/stdcn2szjkkb8oswkcgc.jpg",
     name: 'Ecolo Info',
     addresse: "Bordeaux",
-  },  
-  { 
-    picture: "https://res.cloudinary.com/dktivbech/image/upload/c_fill,dpr_2.0,h_350,w_450/v1468850678/production/w7b9g6jjgvhlovz46bq1.jpg", 
+  },
+  {
+    picture: "https://res.cloudinary.com/dktivbech/image/upload/c_fill,dpr_2.0,h_350,w_450/v1468850678/production/w7b9g6jjgvhlovz46bq1.jpg",
     name: 'MakeSense',
     addresse: "Bordeaux",
   },
-  { 
-    picture: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTkXazhGBE_can1mctYMyieuATXBKSAL_ex_1agTIVlWuTXXaxq", 
+  {
+    picture: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTkXazhGBE_can1mctYMyieuATXBKSAL_ex_1agTIVlWuTXXaxq",
     name: 'Ludo Sens',
     addresse: "Bordeaux",
   },
-  { 
-    picture: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTkXazhGBE_can1mctYMyieuATXBKSAL_ex_1agTIVlWuTXXaxq", 
+  {
+    picture: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTkXazhGBE_can1mctYMyieuATXBKSAL_ex_1agTIVlWuTXXaxq",
     name: 'Surfrider',
     addresse: "Bordeaux",
-  }, 
-  { 
-    picture: "https://s-media-cache-ak0.pinimg.com/originals/9a/b1/84/9ab184abebb0c26c64f4f6de877ab196.jpg", 
+  },
+  {
+    picture: "https://s-media-cache-ak0.pinimg.com/originals/9a/b1/84/9ab184abebb0c26c64f4f6de877ab196.jpg",
     name: 'Oui Share',
     addresse: "Bordeaux",
-  },  
-  { 
-    picture: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQCurOT8QqyuumnPbqvWvBYqD4QU9L2v-mkVUFhJb4pSj-djX72", 
+  },
+  {
+    picture: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQCurOT8QqyuumnPbqvWvBYqD4QU9L2v-mkVUFhJb4pSj-djX72",
     name: 'Disco Soupe',
     addresse: "Bordeaux",
   },
-  { 
-    picture: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTkXazhGBE_can1mctYMyieuATXBKSAL_ex_1agTIVlWuTXXaxq", 
+  {
+    picture: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTkXazhGBE_can1mctYMyieuATXBKSAL_ex_1agTIVlWuTXXaxq",
     name: 'Ludo Sens',
     addresse: "Bordeaux",
   },
-  { 
-    picture: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTkXazhGBE_can1mctYMyieuATXBKSAL_ex_1agTIVlWuTXXaxq", 
+  {
+    picture: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTkXazhGBE_can1mctYMyieuATXBKSAL_ex_1agTIVlWuTXXaxq",
     name: 'Surfrider',
     addresse: "Bordeaux",
-  }, 
+  },
 ];
 
 
@@ -255,12 +255,12 @@ export const detailsAssociation = {
   "telephone": "0 609 725 765",
   "email": "contact@natureetpotagerenville.fr",
   "description": "Surfrider Foundation Europe est une association à but non luractif, changée de la protection et de la mise en valeur des lacs, des rivières, de l'océan, des vagues et du littoral.  ",
-  "facebook"  : "natureetpotagerenville/?fref=ts",
+  "facebook": "natureetpotagerenville/?fref=ts",
   "twitter": "",
   "instagram": "",
   "leader_first_name": "Marie-Dominique",
   "leader_last_name": "Pivetaud",
-  "leader_description": "Bordelaise de 30 ans ne voulant plus manger des tomates d'Espagne en Hiver, ni descendre sa pubelle qui se remplit trop vite!", 
+  "leader_description": "Bordelaise de 30 ans ne voulant plus manger des tomates d'Espagne en Hiver, ni descendre sa pubelle qui se remplit trop vite!",
   "logo": "https://www.credit-cooperatif.coop/particuliers/sites/eagence.exp.cc.app.coopanet.com/files/styles/association_liste_vignette/public/16_fiche_association_surfrider_logo_0.png",
   "picture": "https://d3n8a8pro7vhmx.cloudfront.net/surfrider/pages/68/attachments/original/1429668826/SURFRIDER-2013-RaP-logo-Surfer1.jpg",
   "leader_picture": "https://res.cloudinary.com/wagon/image/upload/c_fill,h_180,w_180/v1473854283/m8irpm4qwxkqf12rvfh4.jpg",
@@ -274,5 +274,43 @@ export const detailsAssociation = {
     "city": "Bordeaux",
     "latitude": 44.8420852,
     "longitude": -0.5824325
-  }, 
+  },
 };
+
+export const Contacts = [
+  {
+    id: 1,
+    name: null,
+    mobile: '+33684384540',
+    image: null,
+    invite: false,
+  },
+  {
+    id: 2,
+    name: "Wilson",
+    mobile: '+33684384540',
+    image: "https://i.vimeocdn.com/portrait/9749302_300x300",
+    invite: true,
+  },
+  {
+    id: 3,
+    name: "Claire",
+    mobile: '+33684384540',
+    image: "http://www.justacote.com/photos_entreprises_250/dos-santos-wilson-paris-147436786930.jpg",
+    invite: true,
+  },
+  {
+    id: 4,
+    name: "Anna",
+    mobile: '+33684384540',
+    image: "http://s.plurielles.fr/mmdia/i/08/9/owen-wilson-2496089_2041.jpg",
+    invite: true,
+  },
+  {
+    id: 5,
+    name: "Wilson",
+    mobile: '+33684384540',
+    image: "http://s.plurielles.fr/mmdia/i/08/9/owen-wilson-2496089_2041.jpg",
+    invite: false,
+  }
+];
