@@ -29,7 +29,9 @@ export default class CustomTextInput extends PureComponent {
     secureTextEntry: PropTypes.bool.isRequired,
     blurOnSubmit: PropTypes.bool.isRequired,
     styleTextInput: PropTypes.any,
-    styleText: PropTypes.any
+    styleText: PropTypes.any,
+    selectionColor: PropTypes.string,
+    placeholderTextColor: PropTypes.string,
   };
 
   static defaultProps = {
@@ -46,7 +48,9 @@ export default class CustomTextInput extends PureComponent {
     styleTextInput: {},
     textAlign: 'center',
     textAlignVertical: null,
-    styleText: {}
+    styleText: {},
+    selectionColor: colors.black,
+    placeholderTextColor: colors.white
   };
 
 
@@ -86,6 +90,8 @@ export default class CustomTextInput extends PureComponent {
       textAlign,
       textAlignVertical,
       styleText,
+      selectionColor,
+      placeholderTextColor
     } = this.props;
 
     return (
@@ -109,11 +115,11 @@ export default class CustomTextInput extends PureComponent {
               },
               styleText
             ]}
-            placeholderTextColor="#999"
+            placeholderTextColor={placeholderTextColor}
             placeholder={placeholder}
             underlineColorAndroid='transparent'
             secureTextEntry={secureTextEntry}
-            selectionColor={colors.black}
+            selectionColor={selectionColor}
             value={value}
             onChangeText={onChangeText}
             returnKeyType={returnKeyType}
@@ -133,15 +139,11 @@ export default class CustomTextInput extends PureComponent {
 const style = StyleSheet.create({
   container: {
     marginVertical: 0,
-    paddingHorizontal: metrics.doubleBaseMargin,
-    marginHorizontal: metrics.doubleBaseMargin,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255,255,255,0.4)'
   },
   containerForm: {
     flex: 1,
-    backgroundColor: 'white',
     paddingHorizontal: 0,
-    marginHorizontal: 1,
-    marginTop: 1,
-    marginBottom: 1.5,
   },
 });

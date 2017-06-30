@@ -21,18 +21,27 @@ import {
 export default class Header extends PureComponent {
 
   static propTypes = {
+    number: PropTypes.number,
+    offert: PropTypes.number,
   };
 
   static defaultProps = {
+    number: 0,
+    offert: 0,
   };
 
   render() {
+
+    const {
+      number,
+      offert
+    } = this.props;
 
     return (
       <View style={[
         style.container,
         styles.row,
-        { alignItems: 'center'}
+        { alignItems: 'center' }
       ]}>
         <View style={{ flex: 4 }}>
           <View >
@@ -40,34 +49,58 @@ export default class Header extends PureComponent {
               Invitez vos amis
             </Text>
           </View>
-          <View style={[
-            styles.row,
-            {
-              alignItems: 'center',
-            }
-          ]}>
-            <Text style={style.text}>
-              Génial!
-            </Text>
-            <Button
-              text={'3 mois offert'}
-              styleButton={{
-                backgroundColor: colors.transparent,
-                borderRadius: 0,
-                borderColor: colors.white,
-                borderWidth: 2,
-                height: 30,
-                marginLeft: metrics.baseMargin
-              }}
-              styleText={style.text}
-            />
-            <IconImage
-              width={30}
-              image={require('../../resources/icons/invitation.png')}
-              tintColor={colors.white}
-              onPress={() => { }}
-            />
-          </View>
+
+          {
+            number !== 0 ?
+              <View style={[
+                styles.row,
+                {
+                  alignItems: 'center',
+                }
+              ]}>
+                <Text style={style.text}>
+                  Génial!
+              </Text>
+                <Button
+                  text={'3 mois offert'}
+                  styleButton={style.button}
+                  styleText={style.text}
+                />
+                <IconImage
+                  width={25}
+                  image={require('../../resources/icons/invitation.png')}
+                  tintColor={colors.white}
+                  onPress={() => { }}
+                />
+              </View>
+              :
+              <View style={[
+                styles.row,
+                {
+                  alignItems: 'center',
+                }
+              ]}>
+                <Text style={style.text}>
+                  Plus que
+              </Text>
+                <Text style={[
+                  style.text,
+                  { marginHorizontal: metrics.smallMargin }
+                ]}>
+                  2
+              </Text>
+                <Text style={style.text}>
+                  invitations à envoyer!
+              </Text>
+                <IconImage
+                  width={25}
+                  image={require('../../resources/icons/invitation.png')}
+                  tintColor={colors.white}
+                  onPress={() => { }}
+                />
+              </View>
+          }
+          
         </View>
         <View style={{ flex: 1 }}>
           <IconImage
@@ -87,7 +120,15 @@ const style = StyleSheet.create({
     flex: 1
   },
   text: {
-    fontSize: 20,
+    fontSize: 15,
     color: colors.white
+  },
+  button: {
+    backgroundColor: colors.transparent,
+    borderRadius: 0,
+    borderColor: colors.white,
+    borderWidth: 2,
+    height: 25,
+    marginLeft: metrics.baseMargin
   }
 });                               

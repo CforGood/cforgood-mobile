@@ -35,6 +35,9 @@ import ValidationScreen from '../containers/Auth/ValidationScreen';
 import LoadingContactScreen from '../containers/Invitations/LoadingContactScreen';
 import ListInvitationScreen from '../containers/Invitations/ListInvitationScreen';
 
+/* Modal */
+import ModalPopup from '../containers/Modal/ModalPopup';
+
 const Routes = {
 
   Maps: {
@@ -135,7 +138,11 @@ const Routes = {
     screen: ListInvitationScreen,
     path: 'ListInvitation',
   },
-
+  Modal: {
+    name: 'Modal',
+    screen: ModalPopup,
+    path: 'Modal',
+  }
 };
 
 export default AppNavigator = StackNavigator(
@@ -151,7 +158,7 @@ export default AppNavigator = StackNavigator(
       },
     },
     mode: Platform.OS === 'ios' ? 'modal' : 'card',
-    initialRouteName: 'ListInvitation', //Map
+    initialRouteName: 'Modal', //Map
     cardStyle: {
       backgroundColor: 'transparent',
     },

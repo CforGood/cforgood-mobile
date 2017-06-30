@@ -21,9 +21,7 @@ import Profile from '../common/Profile';
 
 export default class ContactItem extends Component {
   render() {
-
     const { item } = this.props;
-
     return ( 
       <TouchableOpacity
         style={[

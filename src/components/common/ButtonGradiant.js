@@ -29,6 +29,9 @@ export default class ButtonGradient extends PureComponent {
     styleText: PropTypes.any,
     icon: PropTypes.any,
     iconGradient: PropTypes.any,
+    borderRadius: PropTypes.number,
+    width: PropTypes.number,
+    height: PropTypes.number,
   };
 
   static defaultProps = {
@@ -36,22 +39,33 @@ export default class ButtonGradient extends PureComponent {
     type: '',
     text: 'Appliquer',
     icon: null,
-    iconGradient: null
+    iconGradient: null,
+    borderRadius:0,
+    height: 60,
+    width: null
   };
 
   render() {
+
     const {
       onPress,
       type,
       icon,
       iconGradient,
+      borderRadius,
+      height,
+      width
     } = this.props;
+
     return (
       <TouchableOpacity
         activeOpacity={0.9}
         onPress={onPress}
         style={[
-          stylesButton.buttonContainer,
+          {
+            height: height,
+            width: width
+          },
           this.props.type === 'simple' ?
           {
             justifyContent: 'center',
@@ -84,8 +98,9 @@ export default class ButtonGradient extends PureComponent {
                 flex: 1,
                 justifyContent: 'space-around',
                 alignItems: 'center',
-                height: 60,
+                height: height,
                 flexDirection: 'row',
+                borderRadius: borderRadius,
               },
               this.props.styleButton
             ]}
@@ -109,7 +124,5 @@ export default class ButtonGradient extends PureComponent {
 }
 
 const stylesButton = StyleSheet.create({ 
-  buttonContainer:{
-    height: 60,
-  },
+ 
 });                               
