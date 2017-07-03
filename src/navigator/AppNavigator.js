@@ -37,6 +37,10 @@ import ListInvitationScreen from '../containers/Invitations/ListInvitationScreen
 
 /* Modal */
 import ModalPopup from '../containers/Modal/ModalPopup';
+import ModalScreen from '../containers/Modal/ModalScreen';
+
+/* Association */
+import AssociationListScreen from '../containers/Association/AssociationListScreen';
 
 const Routes = {
 
@@ -142,7 +146,17 @@ const Routes = {
     name: 'Modal',
     screen: ModalPopup,
     path: 'Modal',
-  }
+  },
+  Modal2: {
+    name: 'Modal2',
+    screen: ModalScreen,
+    path: 'Modal2',
+  }, 
+  AssociationList: {
+    name: 'AssociationList',
+    screen: AssociationListScreen,
+    path: 'AssociationList',
+  }, 
 };
 
 export default AppNavigator = StackNavigator(
@@ -158,7 +172,7 @@ export default AppNavigator = StackNavigator(
       },
     },
     mode: Platform.OS === 'ios' ? 'modal' : 'card',
-    initialRouteName: 'Modal', //Map
+    initialRouteName: 'Modal2', //Map
     cardStyle: {
       backgroundColor: 'transparent',
     },

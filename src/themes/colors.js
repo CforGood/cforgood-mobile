@@ -30,6 +30,7 @@ const colors = {
   bleu80: "#72dbd1",
   bleu90: "#87e5d5",
   yellow: "#fbe716",
+  gray85: "#d8d8d8",
 
   textOnboarding: '#2E2E2E',
   textinput: '#AAAAAA',

@@ -74,7 +74,7 @@ class AssociationList extends Component {
                   }
                 ]}
               >
-                <AssociationItem association={association}  />
+                <AssociationItem association={association}/>
               </TouchableOpacity>
             ) 
           }
