@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity
 } from 'react-native';
+import FlipCard from 'react-native-flip-card';
 
 import IconImage from '../common/IconImage';
 import RadioSelect from '../common/RadioSelect';
@@ -24,6 +25,7 @@ export default class AssociationSelect extends Component {
 
   state = {
     selected: false,
+    flip: false
   }
 
   static propTypes = {
@@ -44,116 +46,130 @@ export default class AssociationSelect extends Component {
 
     return (
       <View>
-        {
-          association.id !== 0 ?
-            <Image
-              resizeMode={"cover"}
-              style={style.image}
-              source={{ uri: association.picture }}
+
+        <FlipCard
+          flip={this.state.flip}
+          friction={6}
+          perspective={1000}
+          flipHorizontal={true}
+          flipVertical={false}
+          clickable={true}
+          style={style.card}
+          alignHeight={true}
+          // alignWidth={true}
+          onFlipped={(isFlipped) => { console.log('isFlipped', isFlipped) }}
+        >
+          {/* Face Association */}
+
+          <Image
+            resizeMode={"cover"}
+            style={style.image}
+            source={{ uri: association.picture }}
+          >
+            <View style={[
+              styles.row,
+              {
+                flex: 1,
+                justifyContent: 'flex-end',
+              }
+            ]}>
+              <RadioSelect
+                checked={this.state.selected}
+                onPress={() => this.changeState()}
+              />
+            </View>
+            <View
+              style={{
+                flex: 3,
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: metrics.baseMargin
+              }}
             >
-              <View style={[
-                styles.row,
-                {
-                  flex: 1,
-                  justifyContent: 'flex-end',
-                }
-              ]}>
-                <RadioSelect
-                  checked={this.state.selected}
-                  onPress={() => this.changeState()}
-                />
-              </View>
-              <View
-                style={{
-                  flex: 3,
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: metrics.baseMargin
-                }}
-              >
-                <View>
-                  <Text style={[
-                    fonts.style.t16,
-                    fonts.style.bold,
-                    style.text,
-                  ]}
-                  >
-                    {association.name}
-                  </Text>
-                  <View style={style.ligne} />
-                </View>
-                <View>
-                  <Text style={[
-                    fonts.style.t16,
-                    fonts.style.mediumBold,
-                    style.text,
-                  ]}
-                  >
-                    {association.addresse}
-                  </Text>
-                </View>
-              </View>
-              <View style={[
-                styles.row,
-                {
-                  backgroundColor: 'rgba(0,0,0,0.7)',
-                  flex: 1,
-                  alignItems: 'center',
-                  paddingHorizontal: metrics.baseMargin
-                }
-              ]}>
-                <View style={{ flex: 3 }}>
-                  <Text style={{ color: colors.white }}>
-                    {association.type}
-                  </Text>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <IconImage
-                    width={20}
-                    image={require('../../resources/icons/two-circling-arrows.png')}
-                  />
-                </View>
-              </View>
-            </Image>
-            :
-            <Image
-              resizeMode={"cover"}
-              style={style.image}
-              source={require('../../resources/white.jpg')}
-            >
-              <View
-                style={{
-                  flex: 4,
-                  padding: metrics.baseMargin
-                }}
-              >
+              <View>
                 <Text style={[
+                  fonts.style.t16,
                   fonts.style.bold,
-                  { color: colors.black }
-                ]}>
+                  style.text,
+                ]}
+                >
                   {association.name}
                 </Text>
-                <Text style={{ color: colors.black }}>
-                  {association.description}
+                <View style={style.ligne} />
+              </View>
+              <View>
+                <Text style={[
+                  fonts.style.t16,
+                  fonts.style.mediumBold,
+                  style.text,
+                ]}
+                >
+                  {association.addresse}
                 </Text>
               </View>
-              <View style={[
-                styles.row,
-                {
-                  flex: 1,
-                  justifyContent: 'flex-end',
-                  alignItems: 'center',
-                  paddingHorizontal: metrics.baseMargin
-                }
-              ]}>
+            </View>
+            <View style={[
+              styles.row,
+              {
+                backgroundColor: 'rgba(0,0,0,0.7)',
+                flex: 1,
+                alignItems: 'center',
+                paddingHorizontal: metrics.baseMargin
+              }
+            ]}>
+              <View style={{ flex: 3 }}>
+                <Text style={{ color: colors.white }}>
+                  {association.type}
+                </Text>
+              </View>
+              <View style={{ flex: 1 }}>
                 <IconImage
                   width={20}
-                  tintColor={colors.black}
                   image={require('../../resources/icons/two-circling-arrows.png')}
                 />
               </View>
-            </Image>
-        }
+            </View>
+          </Image>
+
+          {/* Back Association */}
+          <Image
+            resizeMode={"cover"}
+            style={style.image}
+            source={require('../../resources/white.jpg')}
+          >
+            <View
+              style={{
+                flex: 4,
+                padding: metrics.baseMargin
+              }}
+            >
+              <Text style={[
+                fonts.style.bold,
+                { color: colors.black }
+              ]}>
+                {association.name}
+              </Text>
+              <Text style={{ color: colors.black }}>
+                {association.description}
+              </Text>
+            </View>
+            <View style={[
+              styles.row,
+              {
+                flex: 1,
+                justifyContent: 'flex-end',
+                alignItems: 'center',
+                paddingHorizontal: metrics.baseMargin
+              }
+            ]}>
+              <IconImage
+                width={20}
+                tintColor={colors.black}
+                image={require('../../resources/icons/two-circling-arrows.png')}
+              />
+            </View>
+          </Image>
+        </FlipCard>
       </View>
     );
   }
@@ -163,9 +179,6 @@ const style = StyleSheet.create({
   image: {
     width: WIDTH_WIDGET,
     height: 220,
-    borderWidth: 1,
-    borderColor: colors.gray85,
-    margin: metrics.smallMargin,
   },
   ligne: {
     borderBottomWidth: 4,
@@ -175,5 +188,10 @@ const style = StyleSheet.create({
   text: {
     color: colors.white,
     backgroundColor: 'transparent'
-  }
+  },
+  card: {
+    margin: 5,
+    borderWidth: 1,
+    borderColor: colors.gray85,
+  },
 });

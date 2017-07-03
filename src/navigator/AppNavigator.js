@@ -172,7 +172,7 @@ export default AppNavigator = StackNavigator(
       },
     },
     mode: Platform.OS === 'ios' ? 'modal' : 'card',
-    initialRouteName: 'Modal2', //Map
+    initialRouteName: 'Maps', //Map
     cardStyle: {
       backgroundColor: 'transparent',
     },

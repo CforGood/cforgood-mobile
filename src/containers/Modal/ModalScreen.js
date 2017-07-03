@@ -18,6 +18,7 @@ import {
 
 class ModalScreen extends Component {
 
+
   render() {
 
     return (
@@ -26,7 +27,7 @@ class ModalScreen extends Component {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-
+ 
         {
           /*
           <ModalSimple
@@ -102,5 +103,5 @@ class ModalScreen extends Component {
 
 export default ModalScreen;
 
-const style = {
+const style = { 
 }; 

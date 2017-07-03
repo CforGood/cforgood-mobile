@@ -203,16 +203,12 @@ export const detailsBusiness = {
 };
 
 
-export const associations = [
-  {
-    id: 0,
-    name: 'OuiShare',
-    description: "est un collectif, une communauté, un accélérateur d'idées et de projets dédié à l'émergence de la société collaborative.",  
-  },
+export const associations = [ 
   {
     id: 1,
     picture: "https://res.cloudinary.com/dktivbech/image/upload/c_fill,dpr_2.0,h_350,w_450/v1468850664/production/stdcn2szjkkb8oswkcgc.jpg",
     name: 'Ecolo Info',
+    description: "est un collectif, une communauté, un accélérateur d'idées et de projets dédié à l'émergence de la société collaborative.",  
     addresse: "Bordeaux", 
     "type": "Alimentation"
   },
@@ -220,6 +216,7 @@ export const associations = [
     id: 2,
     picture: "https://res.cloudinary.com/dktivbech/image/upload/c_fill,dpr_2.0,h_350,w_450/v1468850678/production/w7b9g6jjgvhlovz46bq1.jpg",
     name: 'MakeSense',
+    description: "est un collectif, une communauté, un accélérateur d'idées et de projets dédié à l'émergence de la société collaborative.",  
     addresse: "Bordeaux",
     "type": "Alimentation", 
   },
@@ -227,6 +224,7 @@ export const associations = [
     id: 3,
     picture: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTkXazhGBE_can1mctYMyieuATXBKSAL_ex_1agTIVlWuTXXaxq",
     name: 'Ludo Sens',
+    description: "est un collectif, une communauté, un accélérateur d'idées et de projets dédié à l'émergence de la société collaborative.",  
     addresse: "Bordeaux",
     "type": "Alimentation"
   },
@@ -234,6 +232,7 @@ export const associations = [
     id: 4,
     picture: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTkXazhGBE_can1mctYMyieuATXBKSAL_ex_1agTIVlWuTXXaxq",
     name: 'Surfrider',
+    description: "est un collectif, une communauté, un accélérateur d'idées et de projets dédié à l'émergence de la société collaborative.",  
     addresse: "Bordeaux",
     "type": "Alimentation"
   },
@@ -241,6 +240,7 @@ export const associations = [
     id: 5,
     picture: "https://s-media-cache-ak0.pinimg.com/originals/9a/b1/84/9ab184abebb0c26c64f4f6de877ab196.jpg",
     name: 'Oui Share',
+    description: "est un collectif, une communauté, un accélérateur d'idées et de projets dédié à l'émergence de la société collaborative.",  
     addresse: "Bordeaux",
     "type": "Alimentation"
   },
@@ -248,6 +248,7 @@ export const associations = [
     id: 6,
     picture: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQCurOT8QqyuumnPbqvWvBYqD4QU9L2v-mkVUFhJb4pSj-djX72",
     name: 'Disco Soupe',
+    description: "est un collectif, une communauté, un accélérateur d'idées et de projets dédié à l'émergence de la société collaborative.",  
     addresse: "Bordeaux",
     "type": "Alimentation"
   },
@@ -255,6 +256,7 @@ export const associations = [
     id: 7,
     picture: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTkXazhGBE_can1mctYMyieuATXBKSAL_ex_1agTIVlWuTXXaxq",
     name: 'Ludo Sens',
+    description: "est un collectif, une communauté, un accélérateur d'idées et de projets dédié à l'émergence de la société collaborative.",  
     addresse: "Bordeaux",
     "type": "Alimentation"
   },
@@ -262,6 +264,7 @@ export const associations = [
     id: 8,
     picture: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTkXazhGBE_can1mctYMyieuATXBKSAL_ex_1agTIVlWuTXXaxq",
     name: 'Surfrider',
+    description: "est un collectif, une communauté, un accélérateur d'idées et de projets dédié à l'émergence de la société collaborative.",  
     addresse: "Bordeaux",
     "type": "Alimentation"
   },

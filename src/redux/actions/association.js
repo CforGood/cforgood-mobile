@@ -39,8 +39,8 @@ export const goToAssociations = (go) => {
 export const loadAssociation = () => {
 
   return (dispatch, getState) => {
-    const { location, auth } = getState();
-    //const location = {latlng : { latitude: 44.8460252, longitude: -0.5736973}};
+    //const { location, auth } = getState();
+    const location = {latlng : { latitude: 44.8460252, longitude: -0.5736973}};
     
     dispatch(load());
 
