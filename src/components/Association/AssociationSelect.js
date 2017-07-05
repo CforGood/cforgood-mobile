@@ -149,15 +149,20 @@ export default class AssociationSelect extends Component {
 
           {/* Back Association */}
           <View
-            style={[style.image, {backgroundColor: 'white'}]}
+            style={[style.image, {
+              backgroundColor: 'white',
+              padding: metrics.baseMargin
+            }]}
           >
             <View
               style={{
                 flex: 4,
-                padding: metrics.baseMargin
               }}
             >
-              <Text style={fonts.style.t15}>
+              <Text style={[
+                fonts.style.t15,
+                fonts.style.mediumBold,
+              ]}>
                 {association.name}
               </Text>
               <Text style={fonts.style.t13}>
