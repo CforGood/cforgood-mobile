@@ -48,6 +48,7 @@ export default class SimplePopup extends Component {
           <View
             style={{
               margin: metrics.baseMargin,
+              marginHorizontal: metrics.marginApp,
               justifyContent: 'space-between',
               alignItems: 'center',
             }}
@@ -91,7 +92,6 @@ export default class SimplePopup extends Component {
               />
             </View>
             <View>
-
               <Button
                 type={'simple'}
                 text={'Passer'}
