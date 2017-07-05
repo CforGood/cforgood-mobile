@@ -27,13 +27,13 @@ export default class Member extends PureComponent {
       title={(<Text style={[style.text, fonts.style.mediumBold]}>Pour devenir membre ?</Text>)}
       text={(<View>
         <Text style={style.text}>
-          Faites un <Text style={fonts.style.mediumBold}> don </Text> à l’association
-            </Text>
+          Faites un <Text style={fonts.style.mediumBold}> don </Text> à une association
+          </Text>
         <Text style={style.text}>
-          de votre choix !
-            </Text>
+          ou <Text style={fonts.style.mediumBold}> invitez vos amis sur l’app ! </Text>
+        </Text>
       </View>)}
-      cta={() => this.props.scroll()}
+      cta={() => this.props.scroll(true)}
     />);
   }
 }

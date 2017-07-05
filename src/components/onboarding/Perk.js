@@ -16,10 +16,10 @@ import {
 } from '../../themes';
 
 
-export default class Business extends PureComponent {
+export default class Perk extends PureComponent {
 
   state = {
-    visiblePopup: false
+    visiblePopupConfirm: false,
   };
 
   enableNotification() {
@@ -54,8 +54,22 @@ export default class Business extends PureComponent {
         { text: 'Fermer', onPress: () => { } },
       ]
     );
-
   }
+
+  ignore = () => {
+    this.props.scroll();
+    this.setState({
+      visiblePopupConfirm: false,
+    });
+  }
+
+  confirm = () => {
+    this.enableNotification();
+    this.setState({
+      visiblePopupConfirm: false,
+    });
+  }
+
 
   render() {
     return (
@@ -72,24 +86,18 @@ export default class Business extends PureComponent {
         </Text>
           </View>)}
           textButton={'M’informer'}
-          onPress={() => this.setState({ visiblePopup: true })}
+          onPress={() => this.setState({ visiblePopupConfirm: true })}
         />
         <ConfirmPopup
-          visiblePopup={this.state.visiblePopup}
+          visiblePopup={this.state.visiblePopupConfirm}
           message={(<Text style={style.message}>
             Autoriser <Text style={[
               fonts.style.mediumBold,
               { color: colors.darkGray }
             ]}>CforGood</Text> à vous envoyer des notifications ?
           </Text>)}
-          ignore={() => {
-            this.props.scroll();
-            this.setState({ visiblePopup: false });
-          }}
-          confirm={() => {() => {
-            this.enableNotification()}
-            this.setState({ visiblePopup: false });
-          }}
+          ignore={this.ignore}
+          confirm={this.confirm}
         />
       </View>
     );

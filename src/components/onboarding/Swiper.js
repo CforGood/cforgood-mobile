@@ -11,6 +11,7 @@ import Business from './Business';
 import Perk from './Perk';
 import Member from './Member';
 import Association from './Association';
+import PopupVideo from './PopupVideo';
 
 import {
   colors,
@@ -23,12 +24,12 @@ import {
 class OnboardingSwiper extends PureComponent {
 
   state = {
-    explication: false,
+    visiblePopupVideo: false,
   };
 
   scroll = (last = null) => {
     if (last !== null) {
-      this.setState({ explication: true });
+      this.setState({ visiblePopupVideo: true });
     }
     else {
       this.swipe.scrollBy(1);
@@ -60,6 +61,7 @@ class OnboardingSwiper extends PureComponent {
         <Perk scroll={this.scroll} />
         <Member scroll={this.scroll} />
         <Association scroll={this.scroll} />
+        <PopupVideo visiblePopup={this.state.visiblePopupVideo}/>
       </Swiper>
     );
   }

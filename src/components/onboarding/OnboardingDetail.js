@@ -21,7 +21,7 @@ import {
 } from '../../themes';
 
 import Separator from '../common/Separator';
-import ButtonGradiant from '../common/ButtonGradiant';
+import ButtonGradiantRadius from '../../components/common/ButtonGradiantRadius'
 
 class OnboardingDetail extends PureComponent {
 
@@ -53,7 +53,8 @@ class OnboardingDetail extends PureComponent {
       cta,
       icon,
       title,
-      onPress, } = this.props;
+      onPress,
+      text, } = this.props;
     return (
       <Animated.View
         style={[
@@ -82,12 +83,14 @@ class OnboardingDetail extends PureComponent {
             colors={['rgba(255,255,255,0)', 'white']}
             style={{ flex: 1.2 }}
           />
-          <View style={{
-            flex: 1,
-            backgroundColor: 'white',
-            justifyContent: 'space-between',
-            paddingTop: metrics.doubleBaseMargin,
-          }} >
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: 'white',
+              justifyContent: 'space-between',
+              paddingTop: metrics.doubleBaseMargin,
+            }}
+          >
             <View style={styles.center}>
               {
                 icon &&
@@ -103,28 +106,20 @@ class OnboardingDetail extends PureComponent {
                 title
               }
             </View>
-            <View style={styles.center}>
-              {this.props.text}
+            <View style={[styles.center, {
+              paddingHorizontal: metrics.doubleBaseMargin,
+            }]}
+            >
+              {text}
             </View>
-            <View style={styles.center}>
+            <View style={[styles.center, {
+              paddingHorizontal: metrics.doubleBaseMargin,
+            }]}>
               {
-                textButton &&
-                <ButtonGradiant
+                textButton && onPress &&
+                <ButtonGradiantRadius
                   onPress={onPress}
-                  text={
-                    this.props.textButton
-                  }
-                  styleButton={{
-                    height: 44,
-                    borderRadius: 22,
-                    justifyContent: 'center',
-                    paddingHorizontal: 15,
-                  }}
-                  style={{
-                    height: 44,
-                    borderRadius: 22,
-                    justifyContent: 'center',
-                  }}
+                  text={this.props.textButton}
                 />
               }
               {

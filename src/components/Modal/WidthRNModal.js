@@ -12,13 +12,6 @@ import {
 import BlurView from '../blur';
 
 export default class Modal extends Component {
-  props: {
-    blurAmount: number,
-    blurType: 'dark' | 'light' | 'xlight',
-    onClose: () => mixed,
-    style?: {},
-    children?: React.Element<{ onClose?: () => mixed }>,
-  };
 
   static propTypes = {
     visible: PropTypes.bool.isRequired

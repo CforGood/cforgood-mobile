@@ -3,6 +3,7 @@ import {
   Text,
   View,
   Alert,
+  Image,
 } from 'react-native';
 import Permissions from 'react-native-permissions';
 import { connect } from 'react-redux';
@@ -10,6 +11,8 @@ import { bindActionCreators } from 'redux'
 
 import OnboardingDetail from './OnboardingDetail';
 import ConfirmPopup from '../Modal/ConfirmPopup';
+import WarningPopup from '../Modal/WarningPopup';
+import ErrorView from '../common/ErrorView';
 
 
 import {
@@ -21,9 +24,13 @@ import { onUpdateUserLocation } from '../../redux/actions/user';
 
 class Business extends PureComponent {
 
-  state = { visiblePopup: false };
+  state = {
+    visiblePopupConfirm: false,
+    visiblePopupWarning: false,
+    error: '',
+  };
 
-  enableLocation() {
+  enableLocation = () => {
     Permissions.getPermissionStatus('location')
       .then(response => {
         if (response !== 'authorized') {
@@ -32,7 +39,7 @@ class Business extends PureComponent {
         else {
           this.verify();
         }
-      }).catch(e => this.notifyAutorize());
+      }).catch(e => this.notifyAutorize(e));
   }
 
   _requestPermission = () => {
@@ -44,7 +51,7 @@ class Business extends PureComponent {
         else {
           this.verify();
         }
-      }).catch(e => this.notifyAutorize())
+      }).catch(e => this.notifyAutorize(e))
   }
 
   verify() {
@@ -54,7 +61,7 @@ class Business extends PureComponent {
         this.props.scroll();
       }
     }, (error) => {
-      this.notifyAutorize();
+      this.notifyAutorize(error);
     },
       {
         enableHighAccuracy: true,
@@ -64,20 +71,45 @@ class Business extends PureComponent {
     )
   }
 
-  notifyAutorize() {
-    Alert.alert(
-      'Erreur',
-      "Activé le GPS !",
-      [
-        { text: 'Fermer', onPress: () => { } },
-      ]
-    );
-
+  notifyAutorize(error) {
+    this.setState({ error: error.message });
   }
+
+  ignoreConfirm = () => {
+    this.setState({ visiblePopupConfirm: false }, () => {
+      this.setState({
+        visiblePopupWarning: true
+      });
+    });
+  }
+
+  ignore = () => {
+    this.props.scroll();
+    this.setState({
+      visiblePopupConfirm: false,
+      visiblePopupWarning: false,
+    });
+  }
+
+  openConfirm = () => {
+    this.setState({ visiblePopupWarning: false }, this.setState({
+      visiblePopupConfirm: true
+    }));
+  }
+
+  confirm = () => {
+    this.enableLocation();
+    this.setState({
+      visiblePopupConfirm: false,
+      visiblePopupWarning: false,
+    });
+  }
+
 
   render() {
     return (
       <View style={{ flex: 1 }}>
+        <ErrorView message={this.state.error} />
         <OnboardingDetail
           source={require('../../resources/onboarding/1.png')}
           icon={require('../../resources/onboarding/commerce.png')}
@@ -90,10 +122,10 @@ class Business extends PureComponent {
             </Text>
           </View>)}
           textButton={'Me localiser'}
-          onPress={() => this.setState({ visiblePopup: true })}
+          onPress={this.openConfirm}
         />
         <ConfirmPopup
-          visiblePopup={this.state.visiblePopup}
+          visiblePopup={this.state.visiblePopupConfirm}
           message={(<Text style={style.message}>
             Autoriser <Text style={[
               fonts.style.mediumBold,
@@ -101,14 +133,37 @@ class Business extends PureComponent {
             ]}>CforGood</Text> à accéder
           à la position de cet appareil ?
           </Text>)}
-          ignore={() => {
-            this.props.scroll();
-            this.setState({ visiblePopup: false });
-          }}
-          confirm={() => {
-            this.enableLocation()}
-            this.setState({ visiblePopup: false });
-          }}
+          ignore={this.ignoreConfirm}
+          confirm={this.confirm}
+        />
+        <WarningPopup
+          visiblePopup={this.state.visiblePopupWarning}
+          title={
+            (
+              <Text>
+                Vous êtes sûr ?
+              </Text>
+            )
+          }
+          message={
+            (
+              <Text>
+                Nous devons vous localiser pour vous permettre de trouver les meilleurs commerces autour de vous !
+              </Text>
+            )
+          }
+          ignore={this.ignore}
+          confirm={this.confirm}
+          image={(
+            <Image
+              source={require('../../resources/onboarding/map.png')}
+              style={{
+                height: 70,
+              }}
+              resizeMode={'contain'}
+            />
+          )}
+          confirmText={'Me localiser'}
         />
       </View>
     );

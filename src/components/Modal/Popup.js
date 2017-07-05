@@ -9,7 +9,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 
 import Like from '../../components/common/Like';
-import Modal from '../../components/Modal/WidthRNModal';
+import Modal from '../../components/Modal';
 import Separator from '../../components/common/Separator';
 import IconImage from '../../components/common/IconImage';
 

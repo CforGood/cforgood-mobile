@@ -47,9 +47,9 @@ export default class ButtonGradiantRadius extends PureComponent {
         colors={['transparent', 'rgba(0,0,0,0.2)']}
         style={[
           {
-            height: 46,
+            height: 44,
             borderRadius: 22,
-            width: 126,
+            minWidth: 126,
           },
           styleButton
         ]}
@@ -58,15 +58,17 @@ export default class ButtonGradiantRadius extends PureComponent {
           onPress={onPress}
           text={text}
           styleButton={{
-            height: 44,
+            height: 42,
             borderRadius: 22,
           }}
-
           style={{
             flex: 1,
             marginHorizontal: 1,
             marginTop: 1,
             marginBottom: 1.5,
+          }}
+          styleText={{
+            marginHorizontal: metrics.doubleBaseMargin,
           }}
         />
       </LinearGradient>
