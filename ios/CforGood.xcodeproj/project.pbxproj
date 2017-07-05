@@ -36,8 +36,6 @@
 		85973CBC4C3D454198ED67E1 /* libRNFirebaseCrashReport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CAC5FB0A75346DBA9BB929E /* libRNFirebaseCrashReport.a */; };
 		86138DD41E80DBF70086A873 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86138DD31E80DBF70086A873 /* CoreSpotlight.framework */; };
 		862C53DE1E80A6CC006ACBE0 /* libreact-native-branch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86099E541E804AA000A59F05 /* libreact-native-branch.a */; };
-		863637831E82F07C009563EF /* Intercom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 863637821E82F07C009563EF /* Intercom.framework */; };
-		863637851E82F0D0009563EF /* Intercom.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 863637821E82F07C009563EF /* Intercom.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		864C2D361E83F8E500D36E81 /* batch-upload in Resources */ = {isa = PBXBuildFile; fileRef = 864C2D2E1E83F8E500D36E81 /* batch-upload */; };
 		864C2D381E83F8E500D36E81 /* extract-keys in Resources */ = {isa = PBXBuildFile; fileRef = 864C2D301E83F8E500D36E81 /* extract-keys */; };
 		864C2D391E83F8E500D36E81 /* FirebaseCrash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 864C2D311E83F8E500D36E81 /* FirebaseCrash.framework */; };
@@ -68,6 +66,9 @@
 		CEA4181A534841D38E79FDFA /* libRNIntercom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1E5A0060E3474EA5A89213 /* libRNIntercom.a */; };
 		E045B7015E9E427085D969AA /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8983778F0B6A47938632FE2E /* libRCTVideo.a */; };
 		E74C82056A78ADC2A2B0A1B8 /* libPods-CforGood.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8B3AC95EF071F869752E691 /* libPods-CforGood.a */; };
+		ED0D9D1D1F0AB1280030A903 /* Intercom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0D9D1C1F0AB1280030A903 /* Intercom.framework */; };
+		ED0D9D1E1F0AB3220030A903 /* Intercom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0D9D1C1F0AB1280030A903 /* Intercom.framework */; };
+		ED0D9D1F1F0AB3220030A903 /* Intercom.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ED0D9D1C1F0AB1280030A903 /* Intercom.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -382,7 +383,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				86AA09921E6455F4002E76A7 /* Mapbox.framework in Embed Frameworks */,
-				863637851E82F0D0009563EF /* Intercom.framework in Embed Frameworks */,
+				ED0D9D1F1F0AB3220030A903 /* Intercom.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -433,7 +434,6 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		86099E2F1E804A9F00A59F05 /* RNBranch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNBranch.xcodeproj; path = "../node_modules/react-native-branch/ios/RNBranch.xcodeproj"; sourceTree = "<group>"; };
 		86138DD31E80DBF70086A873 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
-		863637821E82F07C009563EF /* Intercom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Intercom.framework; sourceTree = "<group>"; };
 		864C2D2E1E83F8E500D36E81 /* batch-upload */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "batch-upload"; sourceTree = "<group>"; };
 		864C2D301E83F8E500D36E81 /* extract-keys */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "extract-keys"; sourceTree = "<group>"; };
 		864C2D311E83F8E500D36E81 /* FirebaseCrash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCrash.framework; sourceTree = "<group>"; };
@@ -475,6 +475,7 @@
 		EA102029953747FFA9DD8526 /* libRNShare.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNShare.a; sourceTree = "<group>"; };
 		EACFFF002F564192B64262AD /* RNBlur.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNBlur.xcodeproj; path = "../node_modules/react-native-blur/ios/RNBlur.xcodeproj"; sourceTree = "<group>"; };
 		EB57040557D44D6AAF49FC16 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
+		ED0D9D1C1F0AB1280030A903 /* Intercom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Intercom.framework; sourceTree = "<group>"; };
 		EEC6CF45876B4824A61095DD /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
 		FA7A49491F8146A4AA8F30B3 /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
 		FF85EA69C87A4C02847103C0 /* TPSStripe.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = TPSStripe.xcodeproj; path = "../node_modules/tipsi-stripe/ios/TPSStripe.xcodeproj"; sourceTree = "<group>"; };
@@ -499,13 +500,13 @@
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
-				863637831E82F07C009563EF /* Intercom.framework in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				864DF8D21E851EDE00725A71 /* FirebaseMessaging.framework in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				86A05D6A1E4E19E000C2926E /* FBSDKCoreKit.framework in Frameworks */,
+				ED0D9D1E1F0AB3220030A903 /* Intercom.framework in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
@@ -520,6 +521,7 @@
 				E045B7015E9E427085D969AA /* libRCTVideo.a in Frameworks */,
 				864C2D3A1E83F8E500D36E81 /* Protobuf.framework in Frameworks */,
 				87213EEECEEA4890B5D5FC07 /* libRNBlur.a in Frameworks */,
+				ED0D9D1D1F0AB1280030A903 /* Intercom.framework in Frameworks */,
 				86C468C11E7F43BF0025FF92 /* GoogleToolboxForMac.framework in Frameworks */,
 				09205350E8954525828A2D96 /* libRCTFBSDK.a in Frameworks */,
 				60CD1F984AB44B2EBC3FA217 /* libRCTOrientation.a in Frameworks */,
@@ -862,7 +864,7 @@
 				86A05D661E4E19E000C2926E /* FBSDKCoreKit.framework */,
 				86A05D671E4E19E000C2926E /* FBSDKLoginKit.framework */,
 				86A05D681E4E19E000C2926E /* FBSDKShareKit.framework */,
-				863637821E82F07C009563EF /* Intercom.framework */,
+				ED0D9D1C1F0AB1280030A903 /* Intercom.framework */,
 				D8B3AC95EF071F869752E691 /* libPods-CforGood.a */,
 				B5B0E8C24E4C58F314EFF211 /* libPods-CforGoodTests.a */,
 				C684B3ADF723440DAE32DE72 /* libz.tbd */,

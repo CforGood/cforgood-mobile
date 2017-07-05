@@ -26,7 +26,7 @@ export default class AssociationSelect extends Component {
   state = {
     selected: false,
     flip: false
-  }
+  };
 
   static propTypes = {
     association: PropTypes.any,
@@ -38,29 +38,35 @@ export default class AssociationSelect extends Component {
   changeState() {
     this.setState({ selected: !this.state.selected });
   }
+  
   render() {
 
     const {
-        association
-     } = this.props;
+      association,
+      index,
+    } = this.props;
 
     return (
-      <View>
-
+      <View style={[
+        style.associationContainer,
+        {
+          alignItems: index % 2 ? 'flex-end' : 'flex-start'
+        }
+      ]}
+      >
         <FlipCard
           flip={this.state.flip}
           friction={6}
           perspective={1000}
           flipHorizontal={true}
           flipVertical={false}
-          clickable={true}
+          clickable={false}
           style={style.card}
           alignHeight={true}
           // alignWidth={true}
           onFlipped={(isFlipped) => { console.log('isFlipped', isFlipped) }}
         >
           {/* Face Association */}
-
           <Image
             resizeMode={"cover"}
             style={style.image}
@@ -104,26 +110,32 @@ export default class AssociationSelect extends Component {
                   style.text,
                 ]}
                 >
-                  {association.addresse}
+                  {association.city}
                 </Text>
               </View>
             </View>
             <View style={[
               styles.row,
               {
-                backgroundColor: 'rgba(0,0,0,0.7)',
+                backgroundColor: 'rgba(0,0,0,0.6)',
                 flex: 1,
                 alignItems: 'center',
                 paddingHorizontal: metrics.baseMargin
               }
             ]}>
               <View style={{ flex: 3 }}>
-                <Text style={{ color: colors.white }}>
+                <Text 
+                  style={[
+                    fonts.style.t13,
+                    { color: colors.white }
+                  ]}
+                >
                   {association.type}
                 </Text>
               </View>
               <View style={{ flex: 1 }}>
                 <IconImage
+                  onPress={() => this.setState({flip: true})} 
                   width={20}
                   image={require('../../resources/icons/two-circling-arrows.png')}
                 />
@@ -143,13 +155,10 @@ export default class AssociationSelect extends Component {
                 padding: metrics.baseMargin
               }}
             >
-              <Text style={[
-                fonts.style.bold,
-                { color: colors.black }
-              ]}>
+              <Text style={fonts.style.t15}>
                 {association.name}
               </Text>
-              <Text style={{ color: colors.black }}>
+              <Text style={fonts.style.t13}>
                 {association.description}
               </Text>
             </View>
@@ -163,8 +172,9 @@ export default class AssociationSelect extends Component {
               }
             ]}>
               <IconImage
+                onPress={() => this.setState({flip: false})}
                 width={20}
-                tintColor={colors.black}
+                tintColor={colors.darkGray}
                 image={require('../../resources/icons/two-circling-arrows.png')}
               />
             </View>
@@ -176,6 +186,12 @@ export default class AssociationSelect extends Component {
 };
 
 const style = StyleSheet.create({
+  associationContainer: {
+    width: metrics.deviceWidth / 2 - metrics.marginApp,
+    height: 229,
+    marginVertical: metrics.smallMargin,
+    backgroundColor: 'transparent',
+  },
   image: {
     width: WIDTH_WIDGET,
     height: 220,
@@ -190,7 +206,7 @@ const style = StyleSheet.create({
     backgroundColor: 'transparent'
   },
   card: {
-    margin: 5,
+    //margin: 5,
     borderWidth: 1,
     borderColor: colors.gray85,
   },

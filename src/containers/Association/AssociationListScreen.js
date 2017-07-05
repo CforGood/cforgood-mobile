@@ -11,25 +11,31 @@ import {
   styles,
   colors,
   metrics,
+  fonts,
 } from '../../themes';
+import Header from '../../components/common/Header';
 import Background from '../../components/common/Background';
+
+import Button from '../../components/common/ButtonGradiant';
 import ButtonGradiantRadius from '../../components/common/ButtonGradiantRadius'
 import AssociationSelect from '../../components/Association/AssociationSelect';
 import { associations } from '../../dummyData/index';
- 
+
 class AssociationListScreen extends Component {
 
   _keyExtractor = (item) => item.id;
 
   render() {
     return (
-      <Background
-        style={{
-          flex: 1,
-        }}>
-        {
-          alert(JSON.stringify(this.props.associations))
-        }
+      <View style={styles.screen.mainContainer} >
+        <Header
+          text={'Séléctinnez une association'}
+          type={'gradiant'}
+          style={{
+            paddingHorizontal: metrics.marginApp
+          }}
+          onClose={() => this.props.navigation.goBack()}
+        />
         <ButtonGradiantRadius
           text={'Soutenir !'}
           styleButton={{
@@ -39,14 +45,6 @@ class AssociationListScreen extends Component {
             zIndex: 1,
           }}
         />
-        <View style={[
-          styles.center,
-          { height: 70, padding: metrics.baseMargin }
-        ]}>
-          <Text style={{ fontSize: 25, color: colors.white }}>
-            Séléctinnez une association
-          </Text>
-        </View>
         <View style={{ flex: 1, backgroundColor: colors.white }}>
           <FlatList
             data={this.props.associations}
@@ -58,21 +56,26 @@ class AssociationListScreen extends Component {
                 paddingTop: metrics.baseMargin
               }
             ]}
-            renderItem={({ item }) => (<AssociationSelect
+            renderItem={({ item, index }) => (<AssociationSelect
               association={item}
+              index={index}
             />
             )}
           />
         </View>
-        <View style={[
-          styles.center,
-          style.button
-        ]}>
-          <Text style={{ color: colors.gray }}>
-            Passer
-          </Text>
-        </View>
-      </Background>
+        <Button
+          onPress={() => { }}
+          type={'simple'}
+          style={{
+            backgroundColor: 'white'
+          }}
+          styleText={{
+            color: colors.ignore,
+            ...fonts.style.t15,
+          }}
+          text={'Passer'}
+        />
+      </View>
     );
   }
 }

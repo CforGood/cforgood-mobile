@@ -9,7 +9,7 @@ import { withNavigation } from 'react-navigation';
 
 import {
   colors,
-  metrics, 
+  metrics,
 } from '../../themes';
 
 import { associationType } from '../../types';
@@ -17,8 +17,8 @@ import AssociationItem from './AssociationItem';
 
 const HEADER_SCROLL_DISTANCE = metrics.marginApp;
 
-class AssociationList extends Component { 
-  
+class AssociationList extends Component {
+
   static propTypes = {
     associations: PropTypes.arrayOf(associationType),
   };
@@ -26,7 +26,7 @@ class AssociationList extends Component {
   state = {
     scrollY: new Animated.Value(0),
   };
-  
+
   goToAssociation(association) {
     this.props.navigation.navigate('AssociationDetail', { association });
   }
@@ -38,7 +38,7 @@ class AssociationList extends Component {
       extrapolate: 'clamp',
     });
 
-    return (  
+    return (
       <View
         style={{
           flex: 1,
@@ -48,11 +48,11 @@ class AssociationList extends Component {
           scrollEventThrottle={1}
           onScroll={Animated.event(
             [{
-              nativeEvent: {contentOffset: {y: this.state.scrollY}}
+              nativeEvent: { contentOffset: { y: this.state.scrollY } }
             }]
           )}
           contentContainerStyle={{
-            flexDirection:'row' , 
+            flexDirection: 'row',
             flexWrap: 'wrap'
           }}
           style={{
@@ -60,34 +60,30 @@ class AssociationList extends Component {
           }}
         >
           {
-            this.props.associations && 
-            this.props.associations.map((association, key) => 
+            this.props.associations &&
+            this.props.associations.map((association, key) =>
               association.picture &&
-              <TouchableOpacity
-                onPress={() => this.goToAssociation(association)}
-                key={key}
-                activeOpacity={0.95}
-                style={[
-                  style.associationContainer,
-                  { 
-                    alignItems: key % 2 ? 'flex-end' : 'flex-start'
-                  }
-                ]}
+              <View style={[
+                style.associationContainer,
+                {
+                  alignItems: key % 2 ? 'flex-end' : 'flex-start'
+                }
+              ]}
               >
-                <AssociationItem association={association}/>
-              </TouchableOpacity>
-            ) 
+                <AssociationItem association={association} />
+              </View>
+            )
           }
         </Animated.ScrollView>
-        <Animated.View 
+        <Animated.View
           style={[
-            style.header, 
+            style.header,
             {
               height: heightSeparator,
             }
-          ]} 
+          ]}
         />
-      </View> 
+      </View>
     );
   }
 }
@@ -95,9 +91,9 @@ class AssociationList extends Component {
 
 export default withNavigation(AssociationList);
 
-const style = {   
-  associationContainer: {  
-    width: metrics.deviceWidth/2 - metrics.marginApp,
+const style = {
+  associationContainer: {
+    width: metrics.deviceWidth / 2 - metrics.marginApp,
     height: 229,
     marginVertical: metrics.smallMargin,
     backgroundColor: 'transparent',

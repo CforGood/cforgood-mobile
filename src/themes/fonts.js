@@ -42,12 +42,12 @@ const style = {
   t10: {
     fontFamily: type.base,
     fontSize: 10,
-    color: colors.grayDate,
+    color: colors.darkGray,
   },
   t13: {
     fontFamily: type.base,
     fontSize: 13,
-    color: colors.grayDate,
+    color: colors.darkGray,
     textAlign: 'center',
   },
   normal: {

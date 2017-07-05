@@ -64,14 +64,15 @@ class Header extends PureComponent {
       leftElement,
       rightElement,
       color,
+      close,
     } = this.props;
 
     return (
       <HeaderGradiant
-        style={{...style.container, ...this.props.style}}
+        style={{ ...style.container, ...this.props.style }}
         type={type}
       >
-        {
+        {  (leftElement || back || close) &&
           <View style={{ flex: 1 }}>
             {
               back &&
@@ -93,8 +94,8 @@ class Header extends PureComponent {
           <View>
             <Text
               style={[
-                fonts.style.bold,
-                fonts.style.t24,
+                fonts.style.mediumBold,
+                fonts.style.t22,
                 {
                   zIndex: 1,
                 },
@@ -118,17 +119,21 @@ class Header extends PureComponent {
 
           </View>
         </View>
-        <View style={{ flex: 1, alignItems: 'flex-end' }}>
-          {
-            this.props.close &&
-            <Back
-              close={true}
-              onPress={() => this.close()}
-              color={type === 'gradiant' ? 'white' : colors.darkGray}
-            />
-          }
-        </View>
-        {rightElement}
+        {
+          (this.props.close || back || rightElement) &&
+          <View style={{ flex: 1, alignItems: 'flex-end' }}>
+            {
+              this.props.close &&
+              <Back
+                close={true}
+                onPress={() => this.close()}
+                color={type === 'gradiant' ? 'white' : colors.darkGray}
+              />
+            }
+            {rightElement}
+          </View>
+        }
+
       </HeaderGradiant>
     );
   }
