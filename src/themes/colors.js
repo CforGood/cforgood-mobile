@@ -4,7 +4,7 @@ const colors = {
   background: '#f5f5f5',
   backgroundOpacity: (Platform.OS === 'ios') ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.4)',
   black: 'black',
-  
+  textPoppup: '#9D9D9D',
   grey: '#9B9B9B',
   online: '#7ed321',
   darkGray: '#404040',
@@ -25,7 +25,7 @@ const colors = {
   blue: '#4285f4',
   blueAssociation: '#29B6F6', 
   blueBack: '#d3f1f7',
-  green: '#33CC66',
+  green: '#009688',
   green80: '#6bc85c',
   red_review: '#D80027',
   bleu80: "#72dbd1",

@@ -12,6 +12,7 @@ import Container from '../../components/login/Container';
 import IconImage from '../../components/common/IconImage';
 import Button from '../../components/common/Button';
 import TextInput from '../../components/common/TextInput';
+import styleLocal from './style';
 
 import {
   styles,
@@ -20,7 +21,7 @@ import {
   fonts,
 } from '../../themes';
 
-export default class SingInScreen extends Component {
+export default class SingUpScreen extends Component {
 
   render() {
     return (
@@ -42,34 +43,18 @@ export default class SingInScreen extends Component {
           />
         </View>
 
-        {
-          /*
-          //SignIn Email
-          <Container
-            title={"Quel est votre e-mail ?"}
-            firstText={"ou"}
-            button={'Se connecter avec Facebook'}
-            secondText={"Pas de compte ? Je m'inscris "}
-            textInput={'Mon e-mail'}
-            onFirstPress={() => { }}
-            onSecondPress={() => { }}
-          />
-           */
-        }
 
-        {
-          /*
-          //SignIn Mot de passe
-            <Container
-              title={"Entrez votre mot de passe"}
-              firstText={"Mot de passe oublié ?"}
-              textInput={'Mon mot de passe'} 
-              onPress={() => { }}
-            /> 
-          */
-        }
+        <Container
+          title={"Vous avez un code promo ?"}
+          subtitle={"Office de tourisme, partenaire ou parrainage …"}
+          textInput={'Mon code promo'}
+          subButton={'Passer ou valider'}
+          onPress={() => { }}
+          nextStep={() => this.props.navigation.navigate('SignupPassword')}
 
- 
+        />
+
+
 
       </Background>
     );

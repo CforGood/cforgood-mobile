@@ -7,6 +7,7 @@ import {
 import Permissions from 'react-native-permissions';
 
 import OnboardingDetail from './OnboardingDetail';
+import ConfirmPopup from '../Modal/ConfirmPopup';
 
 import {
   colors,
@@ -16,6 +17,10 @@ import {
 
 
 export default class Business extends PureComponent {
+
+  state = {
+    visiblePopup: false
+  };
 
   enableNotification() {
     Permissions.getPermissionStatus('notification')
@@ -53,20 +58,41 @@ export default class Business extends PureComponent {
   }
 
   render() {
-    return (<OnboardingDetail
-      source={require('../../resources/onboarding/2.png')}
-      icon={require('../../resources/onboarding/bons_plan.png')}
-      text={(<View>
-        <Text style={style.text}>
-          Bénéficiez des <Text style={fonts.style.mediumBold}>bons plans</Text>
+    return (
+      <View>
+        <OnboardingDetail
+          source={require('../../resources/onboarding/2.png')}
+          icon={require('../../resources/onboarding/bons_plan.png')}
+          text={(<View>
+            <Text style={style.text}>
+              Bénéficiez des <Text style={fonts.style.mediumBold}>bons plans</Text>
+            </Text>
+            <Text style={style.text}>
+              qu’ils proposent ...
         </Text>
-        <Text style={style.text}>
-          qu’ils proposent ...
-        </Text>
-      </View>)}
-      textButton={'M’informer'}
-      onPress={() => this.enableNotification()}
-    />);
+          </View>)}
+          textButton={'M’informer'}
+          onPress={() => this.setState({ visiblePopup: true })}
+        />
+        <ConfirmPopup
+          visiblePopup={this.state.visiblePopup}
+          message={(<Text style={style.message}>
+            Autoriser <Text style={[
+              fonts.style.mediumBold,
+              { color: colors.darkGray }
+            ]}>CforGood</Text> à vous envoyer des notifications ?
+          </Text>)}
+          ignore={() => {
+            this.props.scroll();
+            this.setState({ visiblePopup: false });
+          }}
+          confirm={() => {() => {
+            this.enableNotification()}
+            this.setState({ visiblePopup: false });
+          }}
+        />
+      </View>
+    );
   }
 }
 
@@ -75,4 +101,9 @@ var style = {
     ...fonts.style.t22,
     textAlign: 'center',
   },
+  message: {
+    ...fonts.style.t16,
+    color: colors.textPoppup,
+    textAlign: 'center',
+  }
 };

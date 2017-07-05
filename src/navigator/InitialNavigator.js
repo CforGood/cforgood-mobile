@@ -1,4 +1,4 @@
-import { 
+import {
   Platform,
   Animated,
   Easing,
@@ -15,9 +15,19 @@ import LoginScreen from '../containers/LoginScreen';
 import SignupScreen from '../containers/SignupScreen';
 import WebViewScreen from '../containers/WebViewScreen';
 
+/* Authentification */
+import SingInScreen from '../containers/Auth/SingInScreen';
+import SingUpEmailScreen from '../containers/Auth/SingUpEmailScreen';
+import SingUpFirstnameScreen from '../containers/Auth/SingUpFirstnameScreen';
+import SingUpLastnameScreen from '../containers/Auth/SingUpLastnameScreen';
+import SingUpPasswordScreen from '../containers/Auth/SingUpPasswordScreen';
+import SingUpCodeScreen from '../containers/Auth/SingUpCodeScreen';
+import LikeScreen from '../containers/Auth/LikeScreen';
+import ValidationScreen from '../containers/Auth/ValidationScreen';
+
 const Routes = {
   Splash: {
-    
+
     name: 'Splash',
     description: 'Splash',
     screen: SplashScreen,
@@ -46,20 +56,27 @@ const Routes = {
     description: 'Login',
     screen: LoginScreen,
   },
-  Signup: {
-    name: 'Signup',
-    navigationOptions: {
-      title: 'Signup',
-    },
-    description: 'Signup',
-    screen: SignupScreen,
+  SingUpPassword: {
+    screen: SingUpPasswordScreen,
+  },
+  SingUpLastname: {
+    screen: SingUpLastnameScreen,
+  },
+  SingUpFirstname: {
+    screen: SingUpFirstnameScreen,
+  },
+  SingupCode: {
+    screen: SingUpCodeScreen,
+  },
+  SingUpEmail: {
+    screen: SingUpEmailScreen,
   },
   WebView: {
     name: 'WebView',
     screen: WebViewScreen,
   }
 };
- 
+
 export default AppNavigator = StackNavigator(
   {
     ...Routes,
@@ -67,12 +84,12 @@ export default AppNavigator = StackNavigator(
   {
     headerMode: 'screen',
     navigationOptions: {
-      cardStack:{
+      cardStack: {
         gesturesEnabled: false,
       },
       header: null,
     },
-    mode: Platform.OS ==='ios' ? 'modal' : 'card',
+    mode: 'card',
     cardStyle: {
       backgroundColor: 'transparent',
     }

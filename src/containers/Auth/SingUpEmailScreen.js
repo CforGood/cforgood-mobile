@@ -10,8 +10,8 @@ import { Kohana } from 'react-native-textinput-effects';
 import Background from '../../components/common/Background';
 import Container from '../../components/login/Container';
 import IconImage from '../../components/common/IconImage';
-import Button from '../../components/common/Button';
-import TextInput from '../../components/common/TextInput';
+import ErrorView from '../../components/common/ErrorView';
+
 
 import {
   styles,
@@ -20,7 +20,7 @@ import {
   fonts,
 } from '../../themes';
 
-export default class SingInScreen extends Component {
+export default class SingUpScreen extends Component {
 
   render() {
     return (
@@ -42,34 +42,13 @@ export default class SingInScreen extends Component {
           />
         </View>
 
-        {
-          /*
-          //SignIn Email
-          <Container
-            title={"Quel est votre e-mail ?"}
-            firstText={"ou"}
-            button={'Se connecter avec Facebook'}
-            secondText={"Pas de compte ? Je m'inscris "}
-            textInput={'Mon e-mail'}
-            onFirstPress={() => { }}
-            onSecondPress={() => { }}
-          />
-           */
-        }
 
-        {
-          /*
-          //SignIn Mot de passe
-            <Container
-              title={"Entrez votre mot de passe"}
-              firstText={"Mot de passe oublié ?"}
-              textInput={'Mon mot de passe'} 
-              onPress={() => { }}
-            /> 
-          */
-        }
-
- 
+        <Container
+          title={"Quel est votre e-mail ?"}
+          firstText={"Déjà membre ? Connexion"}
+          textInput={'Mon e-mail'}
+          nextStep={() => this.props.navigation.navigate('SignupPassword')}
+        />
 
       </Background>
     );

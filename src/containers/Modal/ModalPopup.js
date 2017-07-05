@@ -166,22 +166,22 @@ class ModalPopup extends Component {
             {item.text4}
           </Text>
         }
-        firstLink={
+        ignoreButton={
           <Button
             type={'simple'}
             text={item.firstButton}
             styleText={{ color: colors.green }}
             height={40}
-            onPress={item.firstOnPress}
+            onPress={item.ignore}
           />
         }
-        secondLink={
+        AcceptButton={
           <Button
             type={'simple'}
             text={item.secondButton}
             styleText={{ color: colors.green }}
             height={40}
-            onPress={item.secondOnPress}
+            onPress={item.accept}
           />
         }
       />

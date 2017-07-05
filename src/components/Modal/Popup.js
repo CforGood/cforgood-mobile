@@ -64,8 +64,6 @@ class Popup extends Component {
       description,
       button,
       subButton,
-      firstLink,
-      secondLink,
       subTextIcon
     } = this.props;
 
@@ -163,29 +161,9 @@ class Popup extends Component {
                 ]}>
 
                   {
-                    button !== null &&
                     button
                   }
-
                   {
-                    firstLink !== null &&
-                    <View style={styles.row}>
-                      <View style={[
-                        styles.center,
-                        { flex: 1 }
-                      ]}>
-                        {firstLink}
-                      </View>
-                      <View style={[
-                        styles.center,
-                        { flex: 1 }
-                      ]}>
-                        {secondLink}
-                      </View>
-                    </View>
-                  }
-                  {
-                    subButton !== null &&
                     subButton
                   }
                 </View> 

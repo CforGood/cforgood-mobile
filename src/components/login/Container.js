@@ -28,6 +28,7 @@ export default class Container extends PureComponent {
     button: PropTypes.string,
     textInput: PropTypes.string,
     onPress: PropTypes.func,
+    nextStep: PropTypes.func.isRequired,
     subtitle: PropTypes.string,
     secureTextEntry: PropTypes.bool,
   };
@@ -53,7 +54,7 @@ export default class Container extends PureComponent {
       secondText,
       button,
       onFirstPress,
-      onSecondPress,
+      nextStep,
       subtitle,
       subButton,
       secureTextEntry
@@ -103,7 +104,7 @@ export default class Container extends PureComponent {
             width={60}
             tintColor={'rgba(255,255,255,0.4)'}
             image={require('../../resources/icons/arrow-right.png')}
-            onPress={onSecondPress}
+            onPress={nextStep}
             borderColor={colors.transparent}
           />
           <Text style={style.textSub}>

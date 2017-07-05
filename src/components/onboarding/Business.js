@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
 import OnboardingDetail from './OnboardingDetail';
+import ConfirmPopup from '../Modal/ConfirmPopup';
+
 
 import {
   colors,
@@ -18,6 +20,8 @@ import {
 import { onUpdateUserLocation } from '../../redux/actions/user';
 
 class Business extends PureComponent {
+
+  state = { visiblePopup: false };
 
   enableLocation() {
     Permissions.getPermissionStatus('location')
@@ -72,20 +76,42 @@ class Business extends PureComponent {
   }
 
   render() {
-    return (<OnboardingDetail
-      source={require('../../resources/onboarding/1.png')}
-      icon={require('../../resources/onboarding/commerce.png')}
-      text={(<View>
-        <Text style={style.text}>
-          Trouvez les <Text style={fonts.style.mediumBold}>meilleurs</Text>
-        </Text>
-        <Text style={style.text}>
-          <Text style={fonts.style.mediumBold}>commerces</Text> autour de vous
+    return (
+      <View style={{ flex: 1 }}>
+        <OnboardingDetail
+          source={require('../../resources/onboarding/1.png')}
+          icon={require('../../resources/onboarding/commerce.png')}
+          text={(<View>
+            <Text style={style.text}>
+              Trouvez les <Text style={fonts.style.mediumBold}>meilleurs</Text>
             </Text>
-      </View>)}
-      textButton={'Me localiser'}
-      onPress={() => this.enableLocation()}
-    />);
+            <Text style={style.text}>
+              <Text style={fonts.style.mediumBold}>commerces</Text> autour de vous
+            </Text>
+          </View>)}
+          textButton={'Me localiser'}
+          onPress={() => this.setState({ visiblePopup: true })}
+        />
+        <ConfirmPopup
+          visiblePopup={this.state.visiblePopup}
+          message={(<Text style={style.message}>
+            Autoriser <Text style={[
+              fonts.style.mediumBold,
+              { color: colors.darkGray }
+            ]}>CforGood</Text> à accéder
+          à la position de cet appareil ?
+          </Text>)}
+          ignore={() => {
+            this.props.scroll();
+            this.setState({ visiblePopup: false });
+          }}
+          confirm={() => {
+            this.enableLocation()}
+            this.setState({ visiblePopup: false });
+          }}
+        />
+      </View>
+    );
   }
 }
 
@@ -100,4 +126,9 @@ const style = {
     ...fonts.style.t22,
     textAlign: 'center',
   },
+  message: {
+    ...fonts.style.t16,
+    color: colors.textPoppup,
+    textAlign: 'center',
+  }
 };
