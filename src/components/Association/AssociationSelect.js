@@ -38,7 +38,7 @@ export default class AssociationSelect extends Component {
   changeState() {
     this.setState({ selected: !this.state.selected });
   }
-  
+
   render() {
 
     const {
@@ -77,6 +77,7 @@ export default class AssociationSelect extends Component {
               {
                 flex: 1,
                 justifyContent: 'flex-end',
+                padding: metrics.smallMargin,
               }
             ]}>
               <RadioSelect
@@ -120,14 +121,17 @@ export default class AssociationSelect extends Component {
                 backgroundColor: 'rgba(0,0,0,0.6)',
                 flex: 1,
                 alignItems: 'center',
-                paddingHorizontal: metrics.baseMargin
+                padding: metrics.smallMargin,
               }
             ]}>
               <View style={{ flex: 3 }}>
-                <Text 
+                <Text
                   style={[
                     fonts.style.t13,
-                    { color: colors.white }
+                    {
+                      color: colors.white,
+                      textAlign: 'left',
+                    }
                   ]}
                 >
                   {association.type}
@@ -135,7 +139,7 @@ export default class AssociationSelect extends Component {
               </View>
               <View style={{ flex: 1 }}>
                 <IconImage
-                  onPress={() => this.setState({flip: true})} 
+                  onPress={() => this.setState({ flip: true })}
                   width={20}
                   image={require('../../resources/icons/two-circling-arrows.png')}
                 />
@@ -144,10 +148,8 @@ export default class AssociationSelect extends Component {
           </Image>
 
           {/* Back Association */}
-          <Image
-            resizeMode={"cover"}
-            style={style.image}
-            source={require('../../resources/white.jpg')}
+          <View
+            style={[style.image, {backgroundColor: 'white'}]}
           >
             <View
               style={{
@@ -168,17 +170,16 @@ export default class AssociationSelect extends Component {
                 flex: 1,
                 justifyContent: 'flex-end',
                 alignItems: 'center',
-                paddingHorizontal: metrics.baseMargin
               }
             ]}>
               <IconImage
-                onPress={() => this.setState({flip: false})}
+                onPress={() => this.setState({ flip: false })}
                 width={20}
                 tintColor={colors.darkGray}
                 image={require('../../resources/icons/two-circling-arrows.png')}
               />
             </View>
-          </Image>
+          </View>
         </FlipCard>
       </View>
     );
@@ -188,13 +189,13 @@ export default class AssociationSelect extends Component {
 const style = StyleSheet.create({
   associationContainer: {
     width: metrics.deviceWidth / 2 - metrics.marginApp,
-    height: 229,
+    height: 214,
     marginVertical: metrics.smallMargin,
     backgroundColor: 'transparent',
   },
   image: {
     width: WIDTH_WIDGET,
-    height: 220,
+    height: 214,
   },
   ligne: {
     borderBottomWidth: 4,

@@ -65,7 +65,6 @@ const style = StyleSheet.create({
     width: 25,
     height: 25,
     borderRadius: 25 / 2,
-    margin: metrics.baseMargin,
   },
   checked: {
     backgroundColor: colors.transparent,
