@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { 
+import {
   Text,
   Platform,
   View,
@@ -7,7 +7,10 @@ import {
 import Swiper from 'react-native-swiper';
 
 
-import OnboardingDetail from './OnboardingDetail';
+import Business from './Business';
+import Perk from './Perk';
+import Member from './Member';
+import Association from './Association';
 
 import {
   colors,
@@ -20,100 +23,43 @@ import {
 class OnboardingSwiper extends PureComponent {
 
   state = {
-    index: 0,
+    explication: false,
   };
-  
-  onMomentumScrollEnd = (e, state, context) => {
-    this.setState({index: state.index});
-  }
 
-
-  componentWillUpdate(nextProps, nextState){
-    if(this.state.index === 2 && nextState.index === 3){
-      this.props.setLastPage(true);
+  scroll = (last = null) => {
+    if (last !== null) {
+      this.setState({ explication: true });
     }
-    else if(this.state.index === 3 && nextState.index === 2){
-      this.props.setLastPage(false);
+    else {
+      this.swipe.scrollBy(1);
     }
   }
-
 
   render() {
     return (
       <Swiper
+        ref={swipe => { this.swipe = swipe; }}
         loop={false}
         showsButtons={true}
         onMomentumScrollEnd={this.onMomentumScrollEnd}
         buttonWrapperStyle={
-          styleOnboardingSwiper.buttonWrapperStyle
+          style.buttonWrapperStyle
         }
         nextButton={(
-          <Text 
-            style={[
-              fonts.style.activateText,
-              { fontWeight: 'bold' }
-            ]}
-          >
-            {'Suivant'}
-          </Text>
+          <View />
         )}
         prevButton={(
-          <View/>
+          <View />
         )}
         dotColor={colors.lightGray}
-        activeDotColor={colors.lightBlue}
-        dotStyle={styleOnboardingSwiper.dotStyle}
-        activeDotStyle={styleOnboardingSwiper.activeDotStyle}
+        activeDotColor={colors.grey}
+        dotStyle={style.dotStyle}
+        activeDotStyle={style.activeDotStyle}
       >
-        {/* First screen */} 
-        <OnboardingDetail
-          index={0}
-          styleImage={{
-            width: metrics.deviceWidth
-          }}
-          currentIndex={this.state.index}
-          source={require('../../resources/images/map.png')} 
-          firstText={'Je découvre ma ville autrement en'}
-          firstText1={'localisant les commerces responsables'}
-          firstText2={'autour de moi.'}
-        /> 
-        {/* Second screen */}
-        <OnboardingDetail
-          styleImage={{
-            width: metrics.deviceWidth / 1.802
-          }}
-          index={1}
-          currentIndex={this.state.index}
-          source={require('../../resources/images/plan.png')}
-          firstText={'Je profite de bons plans et réductions'}
-          firstText1={'chez chacun d’eux, grâce à ma carte'}
-          firstText2={'CforGood.'}
-        />
-        {/* Third screen */}
-        <OnboardingDetail
-          styleImage={{
-            width: metrics.deviceWidth / 2.07
-          }}
-          index={2}
-          currentIndex={this.state.index}
-          source={require('../../resources/images/association.png')} 
-          firstText={'Je soutiens l’association de mon choix'}
-          firstText1={'à travers ma participation libre.'}
-        />
-        {/* Four screen */}
-        <OnboardingDetail
-          styleImage={{
-            width: metrics.deviceWidth/2,
-            height: metrics.deviceWidth/2,
-          }}
-          index={3}
-          currentIndex={this.state.index}
-          source={require('../../resources/images/circle.png')} 
-          firstText={'Je participe à une dynamique qui'}
-          firstText1={'profite à tous.'}
-          secondText={'Ensemble, nous sommes une'}
-          thirdText={'Révolution Positive !'}
-        />
+        <Business scroll={this.scroll} />
+        <Perk scroll={this.scroll} />
+        <Member scroll={this.scroll} />
+        <Association scroll={this.scroll} />
       </Swiper>
     );
   }
@@ -121,7 +67,7 @@ class OnboardingSwiper extends PureComponent {
 
 export default OnboardingSwiper;
 
-var styleOnboardingSwiper = {  
+var style = {
   buttonWrapperStyle: {
     backgroundColor: 'transparent',
     flexDirection: 'row',
@@ -131,17 +77,19 @@ var styleOnboardingSwiper = {
     alignItems: 'flex-end',
     paddingBottom: Platform.OS === 'android' ? metrics.doubleBaseMargin + metrics.baseMargin : metrics.baseMargin
   },
-  dotStyle:{
-    marginBottom: (Platform.OS === 'android' ? 2 : 1) * metrics.doubleBaseMargin,
+  dotStyle: {
     marginLeft: metrics.smallMargin,
     marginRight: metrics.smallMargin,
+    top: -metrics.deviceHeight + 80,
+    zIndex: 10,
   },
   activeDotStyle: {
     height: 12,
     width: 12,
     borderRadius: 6,
-    marginBottom: (Platform.OS === 'android' ? 2 : 1) * metrics.doubleBaseMargin ,
     marginLeft: metrics.smallMargin,
     marginRight: metrics.smallMargin,
-  }
+    top: -metrics.deviceHeight + 80,
+    zIndex: 10,
+  },
 };

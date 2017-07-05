@@ -1,15 +1,17 @@
 import React, {
   PureComponent,
   PropTypes,
-}  from 'react';
+} from 'react';
 
-import { 
+import {
   Text,
   View,
   Image,
   StyleSheet,
   Animated,
+  TouchableOpacity,
 } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 import {
   styles,
@@ -19,24 +21,26 @@ import {
 } from '../../themes';
 
 import Separator from '../common/Separator';
+import ButtonGradiant from '../common/ButtonGradiant';
 
 class OnboardingDetail extends PureComponent {
 
-  static propTypes = { 
-    firstText: PropTypes.string.isRequired,
-    secondText: PropTypes.string,
-    thirdText: PropTypes.string,
-    firstText1: PropTypes.string,
-    firstText2: PropTypes.string,
-    source: PropTypes.any.isRequired,
-    index: PropTypes.number.isRequired,
+  static propTypes = {
+    text: PropTypes.element,
+    title: PropTypes.element,
+    source: PropTypes.node.isRequired,
+    textButton: PropTypes.string,
+    cta: PropTypes.func,
+    onPress: PropTypes.func,
   };
 
   static defaultProps = {
-    firstText: '',
-    secondText: '',
-    thirdText: '',
+    text: null,
     index: 0,
+    textButton: null,
+    cta: null,
+    title: null,
+    onPress: () => { }
   };
 
   state = {
@@ -44,150 +48,109 @@ class OnboardingDetail extends PureComponent {
   };
 
   render() {
+    const {
+      textButton,
+      cta,
+      icon,
+      title,
+      onPress, } = this.props;
     return (
       <Animated.View
         style={[
           styles.screen.overlay,
           {
-            justifyContent: 'space-between',
+            alignItems: 'center',
             transform: [
               {
                 translateX: this.state.offset
-              }   
+              }
             ]
           }
         ]}
-      > 
-        <View style={[
-            styleOnboardingDetail.imageContainer,
-            this.props.index === 3  ? 
-            {
-              marginBottom: metrics.deviceHeight/12
-            }
-            :
-            null
-          ]} >
-          <Image
-            resizeMode={'contain'}
-            source={ this.props.source }
-            style={ this.props.styleImage }
-          />
-          {
-            this.props.index === 3 && 
-            <View style={styleOnboardingDetail.textContainer} >
-              <Text style={[
-                  styleOnboardingDetail.text,
-                  { 
-                    fontSize: 14,
-                  }
-                ]}
-              >
-                Associations
-              </Text>
-              <Text style={[
-                  styleOnboardingDetail.text,
-                  {
-                    fontSize: 14,
-                    top: - ( metrics.deviceWidth/2 ) - metrics.smallMargin ,
-                    marginHorizontal: 0,
-                  }
-                ]}
-              >
-                Citoyens
-              </Text>
-              <Text style={[
-                  styleOnboardingDetail.text,
-                  { 
-                    fontSize: 14,
-                  }
-                ]}
-              >
-                Commerces
-              </Text>
-            </View>
-          }
-        </View>
-        { this.props.index === 3 && 
-            <Separator 
-              style={{
-                paddingHorizontal: metrics.doubleBaseMargin*2,
-              }} 
-            /> 
-          }
-        <View style={[
-            {
-              flex: 1,
-              marginTop: 
-              this.props.index === 3 ? 
-              metrics.deviceHeight/12 : 
-              metrics.doubleBaseMargin
-            }
-          ]}
+      >
+        <Image
+          style={{
+            marginTop: metrics.marginApp * 4,
+            marginBottom: metrics.marginApp * 2,
+            height: metrics.deviceHeight - metrics.marginApp * 6,
+          }}
+          source={this.props.source}
+          resizeMode={'contain'}
         >
-          <Text style={styleOnboardingDetail.text}>
-            { this.props.firstText }
-          </Text>
-          <Text style={[
-              styleOnboardingDetail.text,
+          <LinearGradient
+            start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }}
+            colors={['rgba(255,255,255,0)', 'white']}
+            style={{ flex: 1.2 }}
+          />
+          <View style={{
+            flex: 1,
+            backgroundColor: 'white',
+            justifyContent: 'space-between',
+            paddingTop: metrics.doubleBaseMargin,
+          }} >
+            <View style={styles.center}>
               {
-                marginTop: 1,
+                icon &&
+                <Image
+                  style={{
+                    height: 60,
+                  }}
+                  source={icon}
+                  resizeMode={'contain'}
+                />
               }
-            ]}>
-            { this.props.firstText1 }
-          </Text>
-          <Text style={[
-              styleOnboardingDetail.text,
               {
-                marginTop: 1,
+                title
               }
-            ]}>
-            { this.props.firstText2 }
-          </Text>
-          <Text style={[
-              styleOnboardingDetail.text,
+            </View>
+            <View style={styles.center}>
+              {this.props.text}
+            </View>
+            <View style={styles.center}>
               {
-                marginTop: metrics.baseMargin,
+                textButton &&
+                <ButtonGradiant
+                  onPress={onPress}
+                  text={
+                    this.props.textButton
+                  }
+                  styleButton={{
+                    height: 44,
+                    borderRadius: 22,
+                    justifyContent: 'center',
+                    paddingHorizontal: 15,
+                  }}
+                  style={{
+                    height: 44,
+                    borderRadius: 22,
+                    justifyContent: 'center',
+                  }}
+                />
               }
-            ]}>
-            { this.props.secondText }
-          </Text>
-          <Text style={[
-              styleOnboardingDetail.text,
-              fonts.style.bold,
               {
-                marginTop: 0,
+                cta &&
+                <TouchableOpacity
+                  onPress={cta}
+                  style={{
+                    height: 60,
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Image
+                    style={{
+                      height: 60,
+                    }}
+                    source={require('../../resources/onboarding/right-arrow.png')}
+                    resizeMode={'contain'}
+                  />
+                </TouchableOpacity>
               }
-            ]}
-          >
-            { this.props.thirdText }
-          </Text>
-        </View>
+            </View>
+          </View>
+        </Image>
       </Animated.View>
     )
   }
 };
- 
-export default OnboardingDetail;
 
-var styleOnboardingDetail = {  
-  imageContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    paddingTop: metrics.baseMargin,
-  },
-  text: {
-    textAlign: 'center',
-    marginHorizontal: metrics.baseMargin,
-    fontSize: fonts.size.h9,
-    color: colors.textOnboarding
-  },
-  textContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    justifyContent: 'space-between',
-    flexDirection: 'row'
-  },
-};
+export default OnboardingDetail;

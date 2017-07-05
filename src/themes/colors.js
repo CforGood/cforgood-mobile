@@ -5,6 +5,7 @@ const colors = {
   backgroundOpacity: (Platform.OS === 'ios') ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.4)',
   black: 'black',
   
+  grey: '#9B9B9B',
   online: '#7ed321',
   darkGray: '#404040',
   textLightGray: '#676767',
@@ -17,7 +18,7 @@ const colors = {
   orange: '#EDAA05',
   red: '#DE004A',
   lightBlue: '#00c9e5',
-  lightGray: '#d7d7d7',
+  lightGray: '#D8D8D8',
   buttonColor: '#00c9e5',
   facebook: '#3d5a96',
   separator: '#e1e1e1',

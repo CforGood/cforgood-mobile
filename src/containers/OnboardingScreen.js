@@ -7,15 +7,12 @@ import {
   Easing,
   Platform,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 
 import Orientation from 'react-native-orientation';
-import { withNavigation } from 'react-navigation';
-
 
 import Swiper from '../components/onboarding/Swiper';
-import Point from '../components/onboarding/Point';
-import HomeScreen from './HomeScreen';
 
 import {
   colors,
@@ -23,8 +20,6 @@ import {
   styles,
   metrics,
 } from '../themes';
-
-const points = Array.apply(null, { length: 8 });
 
 const marginLeft = (metrics.deviceHeight - metrics.deviceWidth) / 2;
 
@@ -43,14 +38,11 @@ class OnboardingScreen extends PureComponent {
   }
 
   componentDidMount() {
-
-
     this.startAnimate();
     Orientation.lockToPortrait();
   }
 
   animated = () => {
-
     Animated.timing(
       this.state.animatedValue,
       {
@@ -62,7 +54,6 @@ class OnboardingScreen extends PureComponent {
   }
 
   _zoomIn = () => {
-
     Animated.timing(
       this.state.animatedBackground,
       {
@@ -73,7 +64,6 @@ class OnboardingScreen extends PureComponent {
   }
 
   spring = () => {
-
     this.state.scale.setValue(0.01);
     Animated.spring(
       this.state.scale,
@@ -86,10 +76,6 @@ class OnboardingScreen extends PureComponent {
     ).start();
   }
 
-  setLastPage = (flag) => {
-    this.setState({ lastPage: flag });
-  }
-
   startAnimate() {
     setTimeout(() => { this.spring() }, 300);
 
@@ -98,17 +84,14 @@ class OnboardingScreen extends PureComponent {
   }
 
   render() {
-
     const scale = this.state.scale.interpolate({
       inputRange: [0, 0.5, 1],
       outputRange: [0, 1, 0]
     });
-
     const borderRadius = this.state.animatedBackground.interpolate({
       inputRange: [0, 1],
       outputRange: [metrics.deviceHeight / 2, 0]
     });
-
 
     const style = [
       {
@@ -123,10 +106,12 @@ class OnboardingScreen extends PureComponent {
       styles.screen.mainContainer,
       stylesOnboarding.mainContainer,
     ];
+
     return (
       <Animated.View
         style={style}
       >
+        <StatusBar hidden={true} />
         <Animated.View
           style={[
             stylesOnboarding.container,
@@ -144,52 +129,13 @@ class OnboardingScreen extends PureComponent {
             style={style}
             setLastPage={this.setLastPage}
           />
-          {
-            points.map(
-              (marker, key) => <Point key={key} index={key} />
-            )
-          }
-          <TouchableOpacity
-            style={[
-              stylesOnboarding.button,
-              { left: metrics.baseMargin },
-              Platform.OS === 'ios' ? {} : { paddingBottom: metrics.doubleBaseMargin },
-            ]}
-            onPress={() => this.renderHome()}
-          >
-            <Text style={[
-              fonts.style.activateText,
-              { fontSize: fonts.size.regular }
-            ]}>
-              Passer
-            </Text>
-          </TouchableOpacity>
-          {
-            this.state.lastPage &&
-            <TouchableOpacity
-              style={[
-                stylesOnboarding.button,
-                { right: metrics.baseMargin },
-                Platform.OS === 'ios' ? {} : { paddingBottom: metrics.doubleBaseMargin },
-              ]}
-              onPress={() => this.renderHome()}
-            >
-              <Text style={[
-                fonts.style.activateText,
-                fonts.style.bold
-              ]}
-              >
-                Commencer
-              </Text>
-            </TouchableOpacity>
-          }
         </Animated.View>
       </Animated.View>
     );
   }
 };
 
-export default withNavigation(OnboardingScreen);
+export default OnboardingScreen;
 
 const stylesOnboarding = StyleSheet.create({
   mainContainer: {

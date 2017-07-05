@@ -28,23 +28,13 @@ const MODAL_ALIGNMENT = {
 };
 
 export default class Modal extends Component {
-  props: {
-    animationType: 'slide' | 'fade' | 'none',
-    blurAmount: number,
-    blurType: 'dark' | 'light' | 'xlight',
-    onClose: () => mixed,
-    style?: {},
-    children?: React.Element<{ onClose?: () => mixed }>,
-  };
 
   static propTypes = {
-    visible: PropTypes.bool.isRequired
-  };
-
-
-  state = {
-    modalVisible: true,
-    viewRef: 0
+    visible: PropTypes.bool.isRequired,
+    animationType: PropTypes.string,
+    blurType: PropTypes.string,
+    blurAmount: PropTypes.number,
+    onClose: PropTypes.func,
   };
 
   static defaultProps = {
@@ -52,12 +42,17 @@ export default class Modal extends Component {
     blurAmount: 2,
     blurType: 'dark',
     visible: false,
+    onClose: () => { },
+  };
+
+  state = {
+    modalVisible: true,
+    viewRef: 0
   };
 
   onShowModal = () => {
-    this.setState({viewRef: findNodeHandle(this.modal)})
+    this.setState({ viewRef: findNodeHandle(this.modal) })
   }
-
 
   render() {
     const {
@@ -67,7 +62,7 @@ export default class Modal extends Component {
       style,
       viewRef,
       onClose,
-      image
+      image,
     } = this.props;
 
     return (
@@ -79,18 +74,18 @@ export default class Modal extends Component {
         visible={this.props.visible}
         onRequestClose={onClose}
       >
-        <BlurView 
+        <BlurView
           image={
-            image ? {uri: image} : require('../../resources/images/blur.png')
+            image ? { uri: image } : require('../../resources/images/blur.png')
           }
-          overlayColor={blurType === 'dark' ?  'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.3)'}
+          overlayColor={blurType === 'dark' ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.3)'}
           blurRadius={blurAmount}
           downsampleFactor={5}
           blurType={blurType}
           blurAmount={blurAmount}
         >
           <TouchableOpacity style={styles.blur} onPress={onClose}>
-            <View/>
+            <View />
           </TouchableOpacity>
           {
             this.props.children

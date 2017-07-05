@@ -70,7 +70,7 @@ class SplashScreen extends Component {
       }
       
       setTimeout(() => {
-        this.goTo(value !== null ? 'Home' : 'Onboarding');
+        this.goTo(value !== null ? 'Onboarding' : 'Onboarding');
       }, 2000);
     }
 
