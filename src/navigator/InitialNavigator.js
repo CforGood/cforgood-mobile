@@ -23,6 +23,15 @@ import SignUpCodeScreen from '../containers/Auth/SignUpCodeScreen';
 import LikeScreen from '../containers/Auth/LikeScreen';
 import ValidationScreen from '../containers/Auth/ValidationScreen';
 
+
+/* Association */
+import AssociationScreen from '../containers/Association/AssociationListScreen';
+
+/* CreditCard */
+import ProfileCreditCardScreen from '../containers/ProfileCreditCardScreen';
+import ProfilePayementScreen from '../containers/ProfilePayementScreen';
+
+
 const Routes = {
   Splash: {
 
@@ -64,6 +73,15 @@ const Routes = {
   },
   SignUpEmail: {
     screen: SignUpEmailScreen,
+  },
+  Assocation: {
+    screen: AssociationScreen,
+  },
+  CreditCard: {
+    screen: ProfileCreditCardScreen,
+  },
+  Payment: {
+    screen: ProfilePayementScreen,
   },
   WebView: {
     name: 'WebView',

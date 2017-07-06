@@ -18,14 +18,13 @@ import {
 } from '../../themes';
 
 import { updateUserData } from '../../redux/actions/user';
-
-import ButtonGradiantRadius from '../../components/common/ButtonGradiantRadius';
 import Separator from '../../components/common/Separator';
 import ButtonUpdate from '../../components/common/Button';
 
 import Item from './Item';
 import Amount from './Amount';
 import Histories from './Histories';
+import Payement from './Payement';
 
 
 const monthlyMinAmount = 1;
@@ -60,41 +59,7 @@ class Abonnement extends PureComponent {
     }
     return (
       <View style={styles.screen.mainContainer}>
-        <View style={{
-          ...style.center,
-          marginBottom: metrics.doubleBaseMargin
-        }}
-        >
-          <Text
-            style=
-            {[
-              fonts.style.t20,
-              style.boldCenter,
-            ]}
-          >
-            Participation
-          </Text>
-          <Text style={style.title} >
-            Choisissez le rythme et le montant de votre participation, libre et sans engagement.
-          </Text>
-          <Text
-            style={{
-              ...fonts.style.t13, color: colors.textinput
-            }}
-          >
-            "C'est notre seule source de revenu : )"
-          </Text>
-        </View>
-        <Amount
-          setUserData={this.props.setUserData}
-          user={user}
-        />
-        <View style={{ ...styles.center, marginVertical: metrics.baseMargin }}>
-          <ButtonGradiantRadius
-            onPress={() => this.props.navigation.navigate('ProfileCreditCard')}
-            text={'Participer'}
-          />
-        </View>
+        <Payement user={user} />
         <Separator color={colors.separatorLine} />
         <Text
           style={[
