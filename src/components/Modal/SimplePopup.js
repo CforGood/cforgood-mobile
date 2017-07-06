@@ -28,6 +28,7 @@ export default class SimplePopup extends Component {
 
   static defautProps = {
     visiblePopup: false,
+    children: null,
   };
 
   render() {

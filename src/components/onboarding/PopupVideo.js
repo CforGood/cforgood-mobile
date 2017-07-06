@@ -12,6 +12,8 @@ import {
 import Background from '../common/Background';
 import Icon from '../common/Icon';
 import Button from '../common/Button';
+import Video from '../video/videoView';
+
 
 
 import {
@@ -21,16 +23,18 @@ import {
   metrics,
 } from '../../themes';
 
-export default class SimplePopup extends Component {
+export default class PopupVideo extends Component {
 
   static propTypes = {
-    children: PropTypes.array.isRequired,
     visiblePopup: PropTypes.bool,
   };
 
   static defautProps = {
     visiblePopup: false,
+  };
 
+  state = {
+    play: false,
   };
 
   render() {
@@ -51,6 +55,7 @@ export default class SimplePopup extends Component {
               marginHorizontal: metrics.marginApp,
               justifyContent: 'space-between',
               alignItems: 'center',
+              flex: 1,
             }}
           >
             <View style={{ padding: metrics.baseMargin }}>
@@ -79,7 +84,7 @@ export default class SimplePopup extends Component {
 
             <View style={{ padding: metrics.baseMargin }}>
               <Icon
-                onPress={() => { }}
+                onPress={() => this.setState({ play: true })}
                 source={require('../../resources/icons/play.png')}
                 style={{
                   height: 53,
@@ -106,7 +111,7 @@ export default class SimplePopup extends Component {
             </View>
           </View>
         </Background>
-
+        <Video play={this.state.play} stopPlay={() => this.setState({ play: false })} />
       </Modal>
     );
   }
