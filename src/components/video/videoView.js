@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import Video from 'react-native-video';
 import Orientation from 'react-native-orientation';
-import { withNavigation } from 'react-navigation';
 
 import {
   styles,
@@ -139,4 +138,4 @@ const stylesHome = StyleSheet.create({
   },
 });
 
-export default withNavigation(VideoView);
+export default (VideoView);

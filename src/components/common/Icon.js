@@ -17,12 +17,14 @@ export default class Icon extends PureComponent {
   static propTypes = {
     onPress: PropTypes.func.isRequired,
     source: PropTypes.number.isRequired,
-    style: PropTypes.any,
-    styleImage: PropTypes.any
+    style: PropTypes.object,
+    styleImage: PropTypes.object
   };
 
   static defaultProps = {
     onPress: () => { },
+    style: {},
+    styleImage: {}
   };
 
   render() {
@@ -30,16 +32,13 @@ export default class Icon extends PureComponent {
     const {
       onPress,
       style,
-      styleImage
+      styleImage,
     } = this.props;
 
     return (
       <TouchableOpacity
         onPress={onPress}
-        style={[
-          styles.mediumImage,
-          style
-        ]}
+        style={style}
       >
         <Image
           resizeMode={'contain'}

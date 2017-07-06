@@ -3,6 +3,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import { withNavigation } from 'react-navigation';
 
 import OnboardingDetail from './OnboardingDetail';
 import PopupVideo from './PopupVideo';
@@ -14,11 +15,18 @@ import {
 } from '../../themes';
 
 
-export default class Member extends PureComponent {
+class Association extends PureComponent {
 
   state = {
     visiblePopupVideo: false,
   };
+
+  goToNextPage = () => {
+    this.setState(
+      { visiblePopupVideo: false },
+      () => this.props.navigation.navigate('SignUpFirstname')
+    );
+  }
 
   render() {
     return (
@@ -36,9 +44,12 @@ export default class Member extends PureComponent {
               ou <Text style={fonts.style.mediumBold}> invitez vos amis sur l’app ! </Text>
             </Text>
           </View>)}
-          cta={() => this.setState({visiblePopupVideo: true})}
+          cta={() => this.setState({ visiblePopupVideo: true })}
         />
-        <PopupVideo visiblePopup={this.state.visiblePopupVideo} />
+        <PopupVideo
+          visiblePopup={this.state.visiblePopupVideo}
+          goToNextPage={this.goToNextPage}
+        />
 
       </View>);
   }
@@ -46,7 +57,9 @@ export default class Member extends PureComponent {
 
 var style = {
   text: {
-    ...fonts.style.t22,
+    ...fonts.style.t20,
     textAlign: 'center',
   },
 };
+export default withNavigation(Association);
+

@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import IconImage from '../common/IconImage';
+import Icon from '../common/Icon';
 import {
   styles,
   colors,
@@ -47,19 +47,19 @@ export default class Validation extends PureComponent {
         styles.center,
         { flex: 1 }
       ]}>
-        <IconImage
-          width={80}
-          tintColor={colors.white}
-          image={require('../../resources/icons/checked.png')}
+        <Icon
+          styleImage={{
+            width: 100,
+          }}
+          source={require('../../resources/icons/checked.png')}
           onPress={() => { }}
-          borderColor={colors.transparent}
         />
         <Text style={[
           style.textValidation,
           { marginVertical: metrics.doubleBaseMargin }
         ]}>
           {firstText}
-          </Text>
+        </Text>
         <View style={[
           styles.center,
           { flexDirection: 'row' }

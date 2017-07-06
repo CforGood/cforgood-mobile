@@ -27,8 +27,6 @@ import {
 import Button from '../components/common/Button';
 import Icon from '../components/common/Icon';
 import Logo from '../components/common/Logo';
-import LoginScreen from './LoginScreen';
-
 import { URL_VIDEO } from '../constants';
 
 const marginLeft = (metrics.deviceHeight - metrics.deviceWidth) / 2;

@@ -154,7 +154,7 @@ class Business extends PureComponent {
           }
           ignore={this.ignore}
           confirm={this.confirm}
-          image={(
+          source={(
             <Image
               source={require('../../resources/onboarding/map.png')}
               style={{
@@ -178,7 +178,7 @@ export default connect(null, mapDispatchToProps)(Business);
 
 const style = {
   text: {
-    ...fonts.style.t22,
+    ...fonts.style.t20,
     textAlign: 'center',
   },
   message: {

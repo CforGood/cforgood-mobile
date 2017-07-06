@@ -11,17 +11,15 @@ import {
 import SplashScreen from '../containers/SplashScreen';
 import OnboardingScreen from '../containers/OnboardingScreen';
 import HomeScreen from '../containers/HomeScreen';
-import LoginScreen from '../containers/LoginScreen';
-import SignupScreen from '../containers/SignupScreen';
 import WebViewScreen from '../containers/WebViewScreen';
 
 /* Authentification */
-import SingInScreen from '../containers/Auth/SingInScreen';
-import SingUpEmailScreen from '../containers/Auth/SingUpEmailScreen';
-import SingUpFirstnameScreen from '../containers/Auth/SingUpFirstnameScreen';
-import SingUpLastnameScreen from '../containers/Auth/SingUpLastnameScreen';
-import SingUpPasswordScreen from '../containers/Auth/SingUpPasswordScreen';
-import SingUpCodeScreen from '../containers/Auth/SingUpCodeScreen';
+import SignInScreen from '../containers/Auth/SignInScreen';
+import SignUpEmailScreen from '../containers/Auth/SignUpEmailScreen';
+import SignUpFirstnameScreen from '../containers/Auth/SignUpFirstnameScreen';
+import SignUpLastnameScreen from '../containers/Auth/SignUpLastnameScreen';
+import SignUpPasswordScreen from '../containers/Auth/SignUpPasswordScreen';
+import SignUpCodeScreen from '../containers/Auth/SignUpCodeScreen';
 import LikeScreen from '../containers/Auth/LikeScreen';
 import ValidationScreen from '../containers/Auth/ValidationScreen';
 
@@ -50,26 +48,22 @@ const Routes = {
   },
   Login: {
     name: 'Login',
-    navigationOptions: {
-      title: 'Login',
-    },
-    description: 'Login',
-    screen: LoginScreen,
+    screen: SignInScreen,
   },
-  SingUpPassword: {
-    screen: SingUpPasswordScreen,
+  SignUpPassword: {
+    screen: SignUpPasswordScreen,
   },
-  SingUpLastname: {
-    screen: SingUpLastnameScreen,
+  SignUpLastname: {
+    screen: SignUpLastnameScreen,
   },
-  SingUpFirstname: {
-    screen: SingUpFirstnameScreen,
+  SignUpFirstname: {
+    screen: SignUpFirstnameScreen,
   },
-  SingupCode: {
-    screen: SingUpCodeScreen,
+  SignUpCode: {
+    screen: SignUpCodeScreen,
   },
-  SingUpEmail: {
-    screen: SingUpEmailScreen,
+  SignUpEmail: {
+    screen: SignUpEmailScreen,
   },
   WebView: {
     name: 'WebView',

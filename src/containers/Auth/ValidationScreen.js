@@ -6,9 +6,7 @@ import {
 } from 'react-native';
 
 import Background from '../../components/common/Background';
-
 import Validation from '../../components/Modal/Validation';
-import styleLocal from './style';
 
 import {
   styles,

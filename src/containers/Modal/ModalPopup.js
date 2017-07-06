@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 import Popup from '../../components/Modal/Popup';
-import IconImage from '../../components/common/IconImage';
+import Icon from '../../components/common/Icon';
 import Button from '../../components/common/ButtonGradiant';
 
 import {
@@ -54,10 +54,12 @@ class ModalPopup extends Component {
             width={metrics.deviceWidth * 2 / 3}
             height={40}
             borderRadius={20}
-            iconGradient={<IconImage
-              tintColor={colors.white}
-              width={25}
-              image={item.iconButton}
+            iconGradient={<Icon
+              style={{
+                width: 25,
+                tintColor: colors.white
+              }}
+              source={item.iconButton}
             />}
             onPress={() => { }}
           />

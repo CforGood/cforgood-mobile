@@ -48,7 +48,7 @@ class ModalScreen extends Component {
             </View>
             }
             description={'Dans quellle ville êtes-vous actuellement ?'}
-            image={require('../../resources/icons/start.png')}
+            source={require('../../resources/icons/start.png')}
           />
           */
         }
@@ -92,7 +92,7 @@ class ModalScreen extends Component {
               </View>
             }
             description={'Ça vous tente ?'}
-            image={require('../../resources/icons/start.png')}
+            source={require('../../resources/icons/start.png')}
           />
           */
         }

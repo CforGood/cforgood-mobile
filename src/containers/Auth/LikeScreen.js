@@ -8,8 +8,7 @@ import FontMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Kohana } from 'react-native-textinput-effects';
 
 import Background from '../../components/common/Background';
-import IconImage from '../../components/common/IconImage';
-import styleLocal from './style';
+import Icon from '../../components/common/Icon';
 
 import {
   styles,
@@ -32,13 +31,12 @@ export default class LikeScreen extends Component {
         <Text style={style.title}>
           Envoyez du love !
         </Text>
-        <IconImage
-          width={100}
-          tintColor={colors.white}
-          image={require('../../resources/icons/likeSecond.png')}
+        <Icon
+          styleImage={{
+            width: 100,
+          }}
+          source={require('../../resources/icons/likeSecond.png')}
           onPress={() => { }}
-          borderColor={colors.transparent}
-          iconStyle={{ marginVertical: metrics.doubleBaseMargin *2 }}
         />
         <View >
           <Text style={style.title}>

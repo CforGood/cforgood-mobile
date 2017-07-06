@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 import Background from '../../components/common/Background';
-import IconImage from '../../components/common/IconImage';
+import Icon from '../../components/common/Icon';
 import Button from '../../components/common/Button';
 import Header from '../../components/invitation/Header';
 import HeaderTextInput from '../../components/invitation/HeaderTextInput';
@@ -33,15 +33,6 @@ export default class ListInvitationScreen extends Component {
           flex: 1,
         }}>
         <View style={{ height: 80, padding: metrics.baseMargin }}>
-          {
-            /*
-            //Header
-            <Header
-              number={2}
-              offert={2}
-            />
-            */
-          }
           <HeaderTextInput text={"Allan"} />
         </View>
 

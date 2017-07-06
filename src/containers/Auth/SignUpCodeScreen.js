@@ -9,7 +9,7 @@ import { Kohana } from 'react-native-textinput-effects';
 
 import Background from '../../components/common/Background';
 import Container from '../../components/login/Container';
-import IconImage from '../../components/common/IconImage';
+import Icon from '../../components/common/Icon';
 import Button from '../../components/common/Button';
 import TextInput from '../../components/common/TextInput';
 
@@ -20,7 +20,7 @@ import {
   fonts,
 } from '../../themes';
 
-export default class SingUpFirstnameScreen extends Component {
+export default class SignUpScreen extends Component {
 
   render() {
     return (
@@ -31,17 +31,31 @@ export default class SingUpFirstnameScreen extends Component {
         }}>
         <View style={{
           flex: 1,
-        }}/>
+          alignItems: 'flex-start',
+        }}>
+          <Icon
+            styleImage={{
+              width: 20,
+              height: 20,
+              color: colors.white
+            }}
+            source={require('../../resources/icons/arrow-left.png')}
+            onPress={() => { }}
+          />
+        </View>
+
 
         <Container
-          title={"Quel est votre prénom ?"}
-          textInput={"Je m’appelle"}
-          firstText={"ou"}
-          button={"S'inscrire avec Facebook"}
-          secondText={"Déjà membre ? Connexion"}
-          onFirstPress={() => { }}
-          nextStep={() => this.props.navigation.navigate('SignupLastname')}
+          title={"Vous avez un code promo ?"}
+          subtitle={"Office de tourisme, partenaire ou parrainage …"}
+          textInput={'Mon code promo'}
+          subButton={'Passer ou valider'}
+          onPress={() => { }}
+          nextStep={() => this.props.navigation.navigate('SignupPassword')}
+
         />
+
+
 
       </Background>
     );

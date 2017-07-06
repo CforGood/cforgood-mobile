@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import IconImage from './IconImage';
+import Icon from './Icon';
 import {
   metrics,
   colors,
@@ -49,9 +49,9 @@ export default class RadioSelect extends PureComponent {
         >
           {
             checked === true &&
-            <IconImage
-              width={25}
-              image={require('../../resources/icons/tick-inside-a-circle.png')}
+            <Icon
+              style={{ width: 25 }}
+              source={require('../../resources/icons/tick-inside-a-circle.png')}
             />
           }
         </View>

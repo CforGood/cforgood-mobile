@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import IconImage from '../common/IconImage';
+import Icon from '../common/Icon';
 import Button from '../common/Button';
 import {
   styles,
@@ -66,11 +66,10 @@ export default class Header extends PureComponent {
                   styleButton={style.button}
                   styleText={style.text}
                 />
-                <IconImage
-                  width={25}
-                  image={require('../../resources/icons/invitation.png')}
-                  tintColor={colors.white}
-                  onPress={() => { }}
+                <Icon
+                  styleImage={{ width: 25, tintColor: colors.white }}
+                  source={require('../../resources/icons/invitation.png')}
+                   onPress={() => { }}
                 />
               </View>
               :
@@ -92,21 +91,19 @@ export default class Header extends PureComponent {
                 <Text style={style.text}>
                   invitations à envoyer!
               </Text>
-                <IconImage
-                  width={25}
-                  image={require('../../resources/icons/invitation.png')}
-                  tintColor={colors.white}
+                <Icon
+                  styleImage={{width: 25, tintColor: colors.white}}
+                  source={require('../../resources/icons/invitation.png')}
                   onPress={() => { }}
                 />
               </View>
           }
-          
+
         </View>
         <View style={{ flex: 1 }}>
-          <IconImage
-            width={30}
-            image={require('../../resources/icons/search.png')}
-            tintColor={colors.white}
+          <Icon
+            styleImage={{width: 25, tintColor: colors.white}}
+            source={require('../../resources/icons/search.png')}
             onPress={() => { }}
           />
         </View>

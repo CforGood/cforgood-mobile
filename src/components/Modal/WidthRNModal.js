@@ -44,7 +44,7 @@ export default class Modal extends Component {
       visible ?
       <View style={styles.blockout}>
         <BlurView 
-          image={require('../../resources/images/blur.png')}
+          source={require('../../resources/images/blur.png')}
           overlayColor={blurType === 'dark' ?  'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.3)'}
           blurRadius={blurAmount}
           downsampleFactor={5}

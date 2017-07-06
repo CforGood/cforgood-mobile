@@ -83,7 +83,7 @@ export default class Perk extends PureComponent {
             </Text>
             <Text style={style.text}>
               qu’ils proposent ...
-        </Text>
+            </Text>
           </View>)}
           textButton={'M’informer'}
           onPress={() => this.setState({ visiblePopupConfirm: true })}
@@ -106,7 +106,7 @@ export default class Perk extends PureComponent {
 
 var style = {
   text: {
-    ...fonts.style.t22,
+    ...fonts.style.t20,
     textAlign: 'center',
   },
   message: {

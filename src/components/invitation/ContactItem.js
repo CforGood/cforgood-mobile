@@ -16,7 +16,7 @@ import {
   styles,
   fonts,
 } from '../../themes';
-import IconImage from '../common/IconImage';
+import Icon from '../common/Icon';
 import Profile from '../common/Profile';
 
 export default class ContactItem extends Component {
@@ -40,7 +40,7 @@ export default class ContactItem extends Component {
         ]}>
           <Profile
             width={45}
-            image={item.image}
+            source={item.image}
             border={0}
           />
           <Text style={[
@@ -59,10 +59,9 @@ export default class ContactItem extends Component {
         ]}>
           {
             item.invite ?
-              <IconImage
-                width={40}
-                image={require('../../resources/icons/checked.png')}
-                tintColor={colors.white}
+              <Icon
+                styleImage={{width: 40, tintColor: colors.white}}
+                source={require('../../resources/icons/checked.png')}
                 onPress={() => { }}
               />
               :

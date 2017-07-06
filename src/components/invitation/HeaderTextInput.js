@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import IconImage from '../common/IconImage';
+import Icon from '../common/Icon';
 import Button from '../common/Button';
 import TextInput from '../common/TextInput';
 import {
@@ -42,10 +42,9 @@ export default class HeaderTextInput extends PureComponent {
         { alignItems: 'center' }
       ]}>
         <View style={{ flex: 0.5 }}>
-          <IconImage
-            width={20}
-            image={require('../../resources/icons/arrow-left.png')}
-            tintColor={colors.white}
+          <Icon
+            styleImage={{ width: 20, tintColor: colors.white }}
+            source={require('../../resources/icons/arrow-left.png')}
             onPress={() => { }}
           />
         </View>
@@ -60,10 +59,9 @@ export default class HeaderTextInput extends PureComponent {
           />
         </View>
         <View style={{ flex: 0.5 }}>
-          <IconImage
-            width={12}
-            image={require('../../resources/icons/close.png')}
-            tintColor={colors.white}
+          <Icon
+            styleImage={{ width: 12, tintColor: colors.white }}
+            source={require('../../resources/icons/arrow-left.png')}
             onPress={() => { }}
           />
         </View>

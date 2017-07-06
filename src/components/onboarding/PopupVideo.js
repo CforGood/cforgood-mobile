@@ -8,13 +8,10 @@ import {
   Modal,
 } from 'react-native';
 
-
 import Background from '../common/Background';
 import Icon from '../common/Icon';
 import Button from '../common/Button';
 import Video from '../video/videoView';
-
-
 
 import {
   styles,
@@ -23,7 +20,7 @@ import {
   metrics,
 } from '../../themes';
 
-export default class PopupVideo extends Component {
+class PopupVideo extends Component {
 
   static propTypes = {
     visiblePopup: PropTypes.bool,
@@ -106,7 +103,7 @@ export default class PopupVideo extends Component {
                 }}
                 styleButton={{ backgroundColor: 'transparent' }}
                 height={40}
-                onPress={() => { }}
+                onPress={this.props.goToNextPage}
               />
             </View>
           </View>
@@ -116,3 +113,5 @@ export default class PopupVideo extends Component {
     );
   }
 }
+
+export default PopupVideo;

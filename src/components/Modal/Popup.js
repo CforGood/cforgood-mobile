@@ -11,7 +11,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Like from '../../components/common/Like';
 import Modal from '../../components/Modal';
 import Separator from '../../components/common/Separator';
-import IconImage from '../../components/common/IconImage';
+import Icon from '../../components/common/Icon';
 
 import {
   styles,
@@ -100,15 +100,15 @@ class Popup extends Component {
             ]}>
               {
                 close &&
-                <IconImage
-                  width={30}
-                  tintColor={colors.gray}
-                  image={require('../../resources/icons/close-circular.png')}
-                  iconStyle={{
+                <Icon
+                  styleImage={{
+                    width: 30, 
+                    tintColor: colors.gray,
                     position: 'absolute',
                     right: 0,
                     top: 0
                   }}
+                  source={require('../../resources/icons/close-circular.png')}
                   onPress={() => { }}
                 />
               }
@@ -119,9 +119,9 @@ class Popup extends Component {
               }}>
                 {
                   icon !== null &&
-                  <IconImage
-                    width={80}
-                    image={icon}
+                  <Icon
+                    style={{width: 80}}
+                    source={icon}
                   />
                 }
                 {
@@ -137,7 +137,7 @@ class Popup extends Component {
                   <Text style={[
                     fonts.style.t13,
                     {
-                      marginVertical: metrics.baseMargin, 
+                      marginVertical: metrics.baseMargin,
                     }
                   ]}
                   >
@@ -146,17 +146,17 @@ class Popup extends Component {
                 }
                 {
                   iconBottom !== null &&
-                  <IconImage
-                    width={80}
-                    image={iconBottom}
+                  <Icon
+                    style={{width: 80}}
+                    source={iconBottom}
                   />
                 }
-                  {
-                    subTextIcon !== null &&
-                    subTextIcon
-                  }
+                {
+                  subTextIcon !== null &&
+                  subTextIcon
+                }
                 <View style={[
-                  subButton !== null ? {} : styles.row ,
+                  subButton !== null ? {} : styles.row,
                   { marginTop: metrics.doubleBaseMargin }
                 ]}>
 
@@ -166,7 +166,7 @@ class Popup extends Component {
                   {
                     subButton
                   }
-                </View> 
+                </View>
               </View>
             </View>
           </LinearGradient>

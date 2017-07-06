@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import FlipCard from 'react-native-flip-card';
 
-import IconImage from '../common/IconImage';
+import Icon from '../common/Icon';
 import RadioSelect from '../common/RadioSelect';
 import {
   styles,
@@ -138,10 +138,10 @@ export default class AssociationSelect extends Component {
                 </Text>
               </View>
               <View style={{ flex: 1 }}>
-                <IconImage
+                <Icon
                   onPress={() => this.setState({ flip: true })}
-                  width={20}
-                  image={require('../../resources/icons/two-circling-arrows.png')}
+                  styleImage={{ width: 20 }}
+                  source={require('../../resources/icons/two-circling-arrows.png')}
                 />
               </View>
             </View>
@@ -177,11 +177,10 @@ export default class AssociationSelect extends Component {
                 alignItems: 'center',
               }
             ]}>
-              <IconImage
+              <Icon
                 onPress={() => this.setState({ flip: false })}
-                width={20}
-                tintColor={colors.darkGray}
-                image={require('../../resources/icons/two-circling-arrows.png')}
+                styleImage={{width: 20}}
+                source={require('../../resources/icons/two-circling-arrows.png')}
               />
             </View>
           </View>

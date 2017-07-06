@@ -7,11 +7,13 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  TextInput,
 } from 'react-native';
 
-import TextInput from '../common/TextInput';
-import IconImage from '../common/IconImage';
+import Icon from '../common/Icon';
 import Button from '../common/Button';
+import ButtonFacebook from './Facebook';
+import ErrorView from '../common/ErrorView';
 import {
   styles,
   colors,
@@ -22,27 +24,49 @@ import {
 
 export default class Container extends PureComponent {
 
+
+  static defaultProps = {
+    placeholder: '',
+    secureTextEntry: false,
+    returnKeyType: 'done',
+    keyboardType: 'default',
+    onSubmitEditing: () => { },
+    onChangeText: () => { },
+    blurOnSubmit: false,
+    value: '',
+    multiline: false,
+    numberOfLines: 1,
+    styleTextInput: {},
+    textAlign: 'center',
+    textAlignVertical: null,
+    title: null,
+    firstText: null,
+    secondText: null,
+    facebook: false,
+    subtitle: null,
+    subButton: null,
+    onPress: () => { },
+    style: {}
+  };
+
   static propTypes = {
     title: PropTypes.string,
     firstText: PropTypes.string,
-    button: PropTypes.string,
+    facebook: PropTypes.bool,
     textInput: PropTypes.string,
     onPress: PropTypes.func,
     nextStep: PropTypes.func.isRequired,
     subtitle: PropTypes.string,
-    secureTextEntry: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    title: null,
-    firstText: null,
-    secondText: null,
-    textInput: null,
-    button: null,
-    subtitle: null,
-    subButton: null,
-    onPress: () => { },
-    secureTextEntry: false
+    placeholder: PropTypes.string.isRequired,
+    returnKeyType: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    keyboardType: PropTypes.string.isRequired,
+    onChangeText: PropTypes.func.isRequired,
+    onSubmitEditing: PropTypes.func.isRequired,
+    secureTextEntry: PropTypes.bool.isRequired,
+    blurOnSubmit: PropTypes.bool.isRequired,
+    styleTextInput: PropTypes.object,
+    style: PropTypes.object,
   };
 
   render() {
@@ -52,32 +76,70 @@ export default class Container extends PureComponent {
       textInput,
       firstText,
       secondText,
-      button,
-      onFirstPress,
+      facebook,
+      onPress,
       nextStep,
       subtitle,
       subButton,
-      secureTextEntry
+      secureTextEntry,
+      styleTextInput,
+      placeholder,
+      value,
+      onChangeText,
+      returnKeyType,
+      blurOnSubmit,
+      onSubmitEditing,
+      multiline,
+      numberOfLines,
+      textAlign,
+      textAlignVertical,
+      styleContainer,
     } = this.props;
 
     return (
-      <View style={[
-        styles.center,
-        { flex: 8 }
-      ]}>
-        <Text style={style.title}>
-          {title}
-        </Text>
-        <Text style={style.textSub}>
-          {subtitle}
-        </Text>
-        <TextInput
-          placeholder={textInput}
-          styleTextInput={style.textInput}
-          textAlign={'left'}
-          styleText={style.styleText}
-          secureTextEntry={secureTextEntry}
-        />
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          ...styleContainer,
+        }}
+      >
+        <View>
+          <Text style={style.title}>
+            {title}
+          </Text>
+          <Text style={style.textSub}>
+            {subtitle}
+          </Text>
+          <TextInput
+            ref='input'
+            {...this.props}
+            style={[
+              value !== '' ? fonts.style.t18 : fonts.style.t22,
+              {
+                textAlign: textAlign,
+                color: 'white',
+                height: 33,
+              },
+              styleTextInput
+            ]}
+            placeholderTextColor={'rgba(255,255,255,0.3)'}
+            placeholder={placeholder}
+            underlineColorAndroid='transparent'
+            secureTextEntry={secureTextEntry}
+            selectionColor={'white'}
+            value={value}
+            onChangeText={onChangeText}
+            returnKeyType={returnKeyType}
+            blurOnSubmit={blurOnSubmit}
+            onSubmitEditing={onSubmitEditing}
+            ref='input'
+            multiline={multiline}
+            numberOfLines={numberOfLines}
+            textAlignVertical={textAlignVertical}
+          />
+        </View>
         <Text style={[
           style.text,
           { marginVertical: metrics.doubleBaseMargin }
@@ -85,25 +147,21 @@ export default class Container extends PureComponent {
           {firstText}
         </Text>
         {
-          button != null &&
-          <Button
-            styleButton={style.button}
-            styleText={style.textButton}
-            text={button}
-            onPress={onFirstPress}
-          />
+          facebook &&
+          <ButtonFacebook validate={() => { }} />
         }
-        <Text style={[
-          style.text,
-          { marginVertical: metrics.baseMargin }
-        ]}>
-          {secondText}
-        </Text>
-        <View style={{ flex: 1}}>
-          <IconImage
-            width={60}
-            tintColor={'rgba(255,255,255,0.4)'}
-            image={require('../../resources/icons/arrow-right.png')}
+        <TouchableOpacity onPress={onPress}>
+          <Text style={[
+            style.text,
+            { marginVertical: metrics.baseMargin }
+          ]}>
+            {secondText}
+          </Text>
+        </TouchableOpacity>
+        <View>
+          <Icon
+            styleImage={{ width: 60, tintColor: 'rgba(255,255,255,0.4)' }}
+            source={require('../../resources/icons/arrow-right.png')}
             onPress={nextStep}
             borderColor={colors.transparent}
           />
@@ -125,10 +183,8 @@ const style = StyleSheet.create({
     color: colors.white,
   },
   textInput: {
-    width: 200,
     borderRadius: 0,
     backgroundColor: colors.transparent,
-    marginVertical: metrics.baseMargin
   },
   styleText: {
     color: colors.bleu80,
@@ -136,6 +192,7 @@ const style = StyleSheet.create({
   textButton: {
     color: colors.white,
     fontSize: 15,
+    marginHorizontal: metrics.baseMargin,
   },
   button: {
     backgroundColor: colors.transparent,
@@ -145,8 +202,6 @@ const style = StyleSheet.create({
     height: metrics.buttonHeight,
     justifyContent: 'center',
     paddingHorizontal: metrics.baseMargin,
-    marginHorizontal: metrics.doubleBaseMargin * 2,
-    marginVertical: metrics.baseMargin
   },
   textSub: {
     color: colors.white,

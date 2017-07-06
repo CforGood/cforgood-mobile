@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import IconImage from '../../components/common/IconImage';
 import Button from '../../components/common/Button';
 
 import {

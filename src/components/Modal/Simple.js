@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import IconImage from '../common/IconImage';
+import Icon from '../common/Icon';
 import {
   styles,
   colors,
@@ -46,20 +46,18 @@ export default class Simple extends PureComponent {
       <View style={[
         styles.center,
         { flex: 1 }
-      ]}> 
-          {title} 
-        <IconImage
-          width={100}
-          tintColor={colors.white}
-          image={image}
-          iconStyle={{ marginVertical: metrics.doubleBaseMargin *2}}
+      ]}>
+        {title}
+        <Icon
+          styleImage={{ width: 100, tintColor: colors.white }}
+          source={image}
         />
         <Text style={[
           fonts.style.t20,
-          { 
+          {
             color: colors.white,
             textAlign: 'center'
-           }
+          }
         ]}>
           {description}
         </Text>

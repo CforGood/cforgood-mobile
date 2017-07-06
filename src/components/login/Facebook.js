@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import {
   View,
-  Text, 
+  Text,
   StyleSheet,
-  TextInput, 
+  TextInput,
   AsyncStorage,
 } from 'react-native';
 import {
@@ -26,10 +26,10 @@ import {
 } from '../../themes';
 
 class ButtonFacebook extends PureComponent {
-  
-  componentWillReceiveProps(nextProps){
 
-    if(nextProps.LoggedIn === true && this.props.LoggedIn === false){
+  componentWillReceiveProps(nextProps) {
+
+    if (nextProps.LoggedIn === true && this.props.LoggedIn === false) {
       this.props.validate();
     }
 
@@ -56,7 +56,7 @@ class ButtonFacebook extends PureComponent {
                     }
                   }
                 },
-                (error: ?Object, result: ?Object ) => this.storeResponseFacebookData(
+                (error, result) => this.storeResponseFacebookData(
                   error,
                   result,
                   data.accessToken
@@ -66,7 +66,7 @@ class ButtonFacebook extends PureComponent {
               new GraphRequestManager().addRequest(infoRequest).start();
             }
           );
-          
+
         }
       },
       (error) => {
@@ -76,60 +76,41 @@ class ButtonFacebook extends PureComponent {
   }
 
   //Create response callback.
-  storeResponseFacebookData(error: ?Object, result: ?Object, accessToken) {
+  storeResponseFacebookData(error, result, accessToken) {
     if (error) {
       alert('Error fetching data: ' + error.toString());
     } else {
-      if(this.props.signupScreen)
-      {
+      if (this.props.signupScreen) {
         this.props.validate({
           email: result.email,
           last_name: result.last_name,
           first_name: result.first_name,
           city: result.location ? result.location.name : null,
           zipcode: result.location ? result.location.zip : null,
-//          access_token: accessToken
+          //          access_token: accessToken
         })
-      } 
+      }
       else {
         this.props.signin(result.email, accessToken, 'facebook');
-      } 
-      
+      }
+
 
     }
   }
 
   render() {
     return (
-      <View style={styles.screen.container}>
-        <Text style={[
-            fonts.style.textWhite,
-            stylesFacebook.text,
-            fonts.style.h9
-          ]}
-        > 
-          {
-            this.props.signupScreen ?
-            "S'inscrire rapidement avec :"
-            :
-            "Se connecter rapidement avec :"
-          }
-        </Text>  
-        <View style={{
-            marginTop: metrics.smallMargin
-          }}
-        >  
-          <Button
-            styleButton={stylesFacebook.buttonFacebook}
-            text={'Facebook'}
-            onPress={() => this.facebookManager()}
-            styleText={{
-              fontWeight: 'normal',
-              fontSize: fonts.size.regular
-            }}
-          />   
-        </View> 
-      </View>
+      <Button
+        styleButton={style.button}
+        styleText={style.textButton}
+        text={
+          this.props.signupScreen ?
+          "S'inscrire avec Facebook"
+          :
+          "Se connecter avec Facebook"
+        }
+        onPress={() => this.facebookManager()}
+      />
     );
   }
 
@@ -148,16 +129,20 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(ButtonFacebook);
 
 
-const stylesFacebook = StyleSheet.create({ 
-  text: {
-    marginBottom: metrics.smallMargin,
-    textAlign: 'center', 
+
+const style = StyleSheet.create({
+  textButton: {
+    color: colors.white,
+    fontSize: 15,
+    marginHorizontal: metrics.baseMargin,
   },
-  buttonFacebook:{    
-    backgroundColor: colors.facebook, 
-    padding: metrics.baseMargin, 
-    borderRadius: metrics.radius ,
-    height: metrics.buttonHeight ,
-    justifyContent: 'center'
+  button: {
+    backgroundColor: colors.transparent,
+    borderColor: colors.white,
+    borderWidth: 2,
+    borderRadius: metrics.buttonHeight / 2,
+    height: metrics.buttonHeight,
+    justifyContent: 'center',
+    paddingHorizontal: metrics.baseMargin,
   },
-});
+});                               
