@@ -164,10 +164,11 @@ export default class Container extends PureComponent {
             {secondText}
           </Text>
         </TouchableOpacity>
-        <View>
+        <View style={{ alignItems: 'center', height: 100 }}>
           <Icon
             styleImage={{
               width: 60,
+              height: 60,
               tintColor: value !== '' ? 'white' : 'rgba(255,255,255,0.4)'
             }}
             source={require('../../resources/icons/arrow-right.png')}

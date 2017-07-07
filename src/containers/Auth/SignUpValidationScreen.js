@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 
 import Background from '../../components/common/Background';
-import Validation from '../../components/Modal/Validation';
+import Validation from '../../components/login/Validation';
 
 import {
   styles,
@@ -15,7 +15,7 @@ import {
   fonts,
 } from '../../themes';
 
-export default class ValidationScreen extends Component {
+export default class SignUpValidationScreen extends Component {
 
   render() {
     return (
@@ -26,9 +26,8 @@ export default class ValidationScreen extends Component {
         paddingTop: metrics.doubleBaseMargin
       }}>
         <Validation 
-          firstText={'Heureux de vous'}
-          secondText={'retrouver'}
-          name={'Allah'}
+          firstText={'Votre compte est créé.'}
+          secondText={'Bienvenue Allan !'}
         />
       </Background>
     );

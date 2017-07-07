@@ -21,7 +21,7 @@ import SignUpLastnameScreen from '../containers/Auth/SignUpLastnameScreen';
 import SignUpPasswordScreen from '../containers/Auth/SignUpPasswordScreen';
 import SignUpCodeScreen from '../containers/Auth/SignUpCodeScreen';
 import LikeScreen from '../containers/Auth/LikeScreen';
-import ValidationScreen from '../containers/Auth/ValidationScreen';
+import SignUpValidationScreen from '../containers/Auth/SignUpValidationScreen';
 
 
 /* Association */
@@ -73,6 +73,9 @@ const Routes = {
   },
   SignUpEmail: {
     screen: SignUpEmailScreen,
+  },
+  SignUpValidation: {
+    screen: SignUpValidationScreen
   },
   Assocation: {
     screen: AssociationScreen,
