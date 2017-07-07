@@ -30,7 +30,7 @@ export default class SignUpScreen extends Component {
       this.props.navigation.navigate('SignUpPassword', { email });
     }
     else {
-      this.setState({error: ''});
+      this.setState({ error: '' });
     }
   }
   render() {
@@ -40,23 +40,23 @@ export default class SignUpScreen extends Component {
         style={{
           flex: 1,
           paddingTop: metrics.doubleBaseMargin
-        }}>
+        }}
+      >
         <Icon
           styleImage={{
-            width: 20,
-            height: 20,
+            width: 13,
             tintColor: colors.white
           }}
           source={require('../../resources/icons/arrow-left.png')}
-          onPress={() => { }}
+          onPress={() => this.props.navigation.goBack()}
         />
-
         <Container
-          styleContainer={{paddingTop: metrics.base}}
+          styleContainer={{ paddingTop: metrics.base }}
           title={'Quel est votre e-mail ?'}
           onChangeText={(email) => this.setState({ email })}
           value={email}
           placeholder={'Mon e-mail'}
+          keyboardType={'email-address'}
           firstText={""}
           nextStep={this.verify}
         />

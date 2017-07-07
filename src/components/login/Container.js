@@ -46,7 +46,8 @@ export default class Container extends PureComponent {
     subtitle: null,
     subButton: null,
     onPress: () => { },
-    style: {}
+    style: {},
+    typeAuth: 'SignUp'
   };
 
   static propTypes = {
@@ -67,6 +68,7 @@ export default class Container extends PureComponent {
     blurOnSubmit: PropTypes.bool.isRequired,
     styleTextInput: PropTypes.object,
     style: PropTypes.object,
+    typeAuth: PropTypes.string,
   };
 
   render() {
@@ -94,6 +96,7 @@ export default class Container extends PureComponent {
       textAlign,
       textAlignVertical,
       styleContainer,
+      typeAuth,
     } = this.props;
 
     return (
@@ -148,7 +151,10 @@ export default class Container extends PureComponent {
         </Text>
         {
           facebook &&
-          <ButtonFacebook validate={() => { }} />
+          <ButtonFacebook
+            validate={nextStep}
+            typeAuth={typeAuth}
+          />
         }
         <TouchableOpacity onPress={onPress}>
           <Text style={[
@@ -160,7 +166,10 @@ export default class Container extends PureComponent {
         </TouchableOpacity>
         <View>
           <Icon
-            styleImage={{ width: 60, tintColor: 'rgba(255,255,255,0.4)' }}
+            styleImage={{
+              width: 60,
+              tintColor: value !== '' ? 'white' : 'rgba(255,255,255,0.4)'
+            }}
             source={require('../../resources/icons/arrow-right.png')}
             onPress={nextStep}
             borderColor={colors.transparent}
@@ -176,10 +185,12 @@ export default class Container extends PureComponent {
 
 const style = StyleSheet.create({
   title: {
+    ...fonts.style.t15,
     color: colors.white,
     fontSize: 25,
   },
   text: {
+    ...fonts.style.t15,
     color: colors.white,
   },
   textInput: {
@@ -187,11 +198,12 @@ const style = StyleSheet.create({
     backgroundColor: colors.transparent,
   },
   styleText: {
+    ...fonts.style.t15,
     color: colors.bleu80,
   },
   textButton: {
+    ...fonts.style.t15,
     color: colors.white,
-    fontSize: 15,
     marginHorizontal: metrics.baseMargin,
   },
   button: {
@@ -204,8 +216,8 @@ const style = StyleSheet.create({
     paddingHorizontal: metrics.baseMargin,
   },
   textSub: {
+    ...fonts.style.t15,
     color: colors.white,
-    fontSize: 15,
     marginVertical: metrics.baseMargin
   }
 });                               

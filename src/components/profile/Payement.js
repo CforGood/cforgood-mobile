@@ -29,10 +29,6 @@ import Amount from './Amount';
 
 class Payement extends PureComponent {
 
-  updateMember() {
-    this.props.updateUserData(this.props.user.id, { subscription: 'X' });
-  }
-
   render() {
     const { user } = this.props;
 
@@ -66,10 +62,7 @@ class Payement extends PureComponent {
             "C'est notre seule source de revenu : )"
           </Text>
         </View>
-        <Amount
-          setUserData={this.props.setUserData}
-          user={user}
-        />
+        <Amount {...this.props} />
       </View>
 
     );

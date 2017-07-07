@@ -20,43 +20,46 @@ import {
   fonts,
 } from '../../themes';
 
-export default class SignUpScreen extends Component {
-
+export default class SignUpCodeScreen extends Component {
+  state = {
+    code: ''
+  };
   render() {
+    const { code } = this.state;
+
     return (
       <Background
         style={{
           flex: 1,
           paddingTop: metrics.doubleBaseMargin
         }}>
-        <View style={{
-          flex: 1,
-          alignItems: 'flex-start',
-        }}>
+        <View
+          style={{
+            alignItems: 'flex-start',
+          }}
+        >
           <Icon
             styleImage={{
-              width: 20,
-              height: 20,
-              color: colors.white
+              width: 13,
+              tintColor: colors.white
             }}
             source={require('../../resources/icons/arrow-left.png')}
-            onPress={() => { }}
+            onPress={() => this.props.navigation.goBack()}
           />
         </View>
-
-
         <Container
-          title={"Vous avez un code promo ?"}
-          subtitle={"Office de tourisme, partenaire ou parrainage …"}
-          textInput={'Mon code promo'}
+          styleContainer={{ paddingTop: metrics.base }}
+          title={'Vous avez un code promo ?'}
+          onChangeText={(code) => this.setState({ code })}
+          value={code.toUpperCase()}
+          placeholder={'Mon code promo'}
+          firstText={""}
+          nextStep={this.verify}
+          subtitle={'Office de tourisme, partenaire ou parrainage …'}
           subButton={'Passer ou valider'}
           onPress={() => { }}
           nextStep={() => this.props.navigation.navigate('SignupPassword')}
-
         />
-
-
-
       </Background>
     );
   }

@@ -17,17 +17,17 @@ import {
   fonts,
   metrics,
   colors,
-} from '../themes';
-import { updateUserData } from '../redux/actions/user';
+} from '../../themes';
+import { updateUserData } from '../../redux/actions/user';
 
-import Header from '../components/common/Header';
-import Button from '../components/common/ButtonGradiant';
-import ButtonGradiantRadius from '../components/common/ButtonGradiantRadius';
-import CreditCardInput from '../modules/CreditCardInput';
-import ErrorView from '../components/common/ErrorView';
+import Header from '../../components/common/Header';
+import Button from '../../components/common/ButtonGradiant';
+import ButtonGradiantRadius from '../../components/common/ButtonGradiantRadius';
+import CreditCardInput from '../../modules/CreditCardInput';
+import ErrorView from '../../components/common/ErrorView';
 
 //API
-import ApiHandler from '../utils/api';
+import ApiHandler from '../../utils/api';
 
 class ProfileCreditCardScreen extends Component {
 
@@ -43,7 +43,6 @@ class ProfileCreditCardScreen extends Component {
   componentWillMount() {
     stripe.init({
       publishableKey: 'sk_test_UKyzFlg4ttw8q0rN6Wtqz3ni',
-      //merchantId: 'MERCHANT_ID', // Optional
     });
   }
 
@@ -67,7 +66,7 @@ class ProfileCreditCardScreen extends Component {
       };
 
       stripe.createTokenWithCard(params).then(token => {
-        console.log('tokentoken', token);
+        
         //call api to add token
       }).catch(error => this.setState({ error: 'kotti' + error.message }))
     }
@@ -154,8 +153,8 @@ class ProfileCreditCardScreen extends Component {
           <View style={{ flex: 5 }}>
             <CreditCardInput
               onChange={this._onChange}
-              cardImageFront={require('../resources/bg.jpg')}
-              cardImageBack={require('../resources/bg.jpg')}
+              cardImageFront={require('../../resources/bg.jpg')}
+              cardImageBack={require('../../resources/bg.jpg')}
               cardFontFamily={fonts.type.base}
               labelStyle={fonts.style.t16}
               inputStyle={[fonts.style.t15, { color: colors.ignore }]}

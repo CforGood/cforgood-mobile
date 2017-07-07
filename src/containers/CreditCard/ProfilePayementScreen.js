@@ -17,21 +17,19 @@ import {
   fonts,
   metrics,
   colors,
-} from '../themes';
-import { updateUserData } from '../redux/actions/user';
+} from '../../themes';
+import { updateUserData } from '../../redux/actions/user';
 
-import Header from '../components/common/Header';
-import Button from '../components/common/ButtonGradiant';
-import ButtonGradiantRadius from '../components/common/ButtonGradiantRadius';
-import CreditCardInput from '../modules/CreditCardInput';
-import ErrorView from '../components/common/ErrorView';
+import Header from '../../components/common/Header';
+import Button from '../../components/common/ButtonGradiant';
+import ButtonGradiantRadius from '../../components/common/ButtonGradiantRadius';
+import CreditCardInput from '../../modules/CreditCardInput';
+import ErrorView from '../../components/common/ErrorView';
 
 //API
-import ApiHandler from '../utils/api';
+import ApiHandler from '../../utils/api';
 
 class ProfileCreditCardScreen extends Component {
-
-
 
   render() {
     const { user } = this.state;

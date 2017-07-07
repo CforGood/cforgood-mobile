@@ -145,7 +145,6 @@ class ApiHandler {
 
       return fetch(`${API_URL}`, request)
       .then(response => {
-        console.log('response', response)
         return response.json();
       })
       .then(async (responseJson) => {
@@ -174,7 +173,7 @@ class ApiHandler {
       
 
     } catch (e) {
-      return Promise.reject({error: e.message});
+      return Promise.reject({error: 'un problème technique est survenu, veuillez réessayer plus tard ?'});
     }
   };
   
@@ -240,13 +239,11 @@ class ApiHandler {
         
       })
       .catch(error => {
-        console.log('catchAPI', error)
-        return Promise.reject({error: error.message});
+        return Promise.reject({error: 'un problème technique est survenu, veuillez réessayer plus tard ?'});
       })
 
     } catch (e) {
-      console.log('catchAPP', e)
-      return Promise.reject({error: e.message});
+      return Promise.reject({error: 'un problème technique est survenu, veuillez réessayer plus tard ?'});
     }
   }
 

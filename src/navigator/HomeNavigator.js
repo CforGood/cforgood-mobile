@@ -17,7 +17,6 @@ import AssociationFormScreen from '../containers/AssociationFormScreen';
 import BusinessDetailScreen from '../containers/BusinessDetailScreen';
 import MapPerkScreen from '../containers/MapPerkScreen';
 import ProfileScreen from '../containers/ProfileScreen';
-import ProfileCreditCardScreen from '../containers/ProfileCreditCardScreen';
 import PerkDetailScreen from '../containers/PerkDetailScreen';
 import WebViewScreen from '../containers/WebViewScreen';
 
@@ -57,11 +56,6 @@ const Routes = {
     name: 'Profile',
     screen: ProfileScreen,
     path: 'profile',
-  },
-  ProfileCreditCard: {
-    name: 'ProfileCreditCard',
-    screen: ProfileCreditCardScreen,
-    path: 'profileCredit',
   },
   MapPerk: {
     name: 'MapPerk',

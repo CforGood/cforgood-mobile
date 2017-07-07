@@ -43,12 +43,13 @@ export default class SingInScreen extends Component {
         }}
       >
         <Container
-          title={"Quel est votre e-mail ?"}
+          title={'Quel est votre e-mail ?'}
           onChangeText={(email) => this.setState({ email })}
           value={email}
           placeholder={'Mon e-mail'}
           firstText={"ou"}
           facebook={true}
+          typeAuth={'Signin'}
           secondText={"Pas de compte ? Je m’inscris"}
           onPress={() => this.props.navigation.goBack()}
           nextStep={this.verify}

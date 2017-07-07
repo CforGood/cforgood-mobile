@@ -18,7 +18,6 @@ import AssociationFormScreen from '../containers/AssociationFormScreen';
 import BusinessDetailScreen from '../containers/BusinessDetailScreen';
 import MapPerkScreen from '../containers/MapPerkScreen';
 import ProfileScreen from '../containers/ProfileScreen';
-import ProfileCreditCardScreen from '../containers/ProfileCreditCardScreen';
 import PerkDetailScreen from '../containers/PerkDetailScreen';
 import WebViewScreen from '../containers/WebViewScreen';
 import MembreshipCardScreen from '../containers/MembreshipCardScreen';
@@ -102,11 +101,6 @@ const Routes = {
   Promo: {
     name: 'Promo',
     screen: PromoScreen,
-  },
-  ProfileCreditCard: {
-    name: 'ProfileCreditCard',
-    screen: ProfileCreditCardScreen,
-    path: 'profileCredit',
   },
   LoadingContact: {
     name: 'LoadingContact',

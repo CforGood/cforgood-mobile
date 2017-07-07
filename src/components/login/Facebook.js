@@ -15,7 +15,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { signin } from '../../redux/actions/auth';
+import { signin, signup } from '../../redux/actions/auth';
 
 import Button from '../common/Button';
 import {
@@ -35,7 +35,45 @@ class ButtonFacebook extends PureComponent {
 
   }
 
+  connectWithAcessToken = async (verifyToken = false) => {
+
+    const accessToken =  await AsyncStorage.getItem('accessToken');
+    if (accessToken) {
+      const infoRequest = new GraphRequest(
+        '/me',
+        {
+          accessToken: accessToken,
+          parameters: {
+            fields: {
+              string: 'email,last_name,first_name,location'
+            }
+          }
+        },
+        (error, result) => {
+
+          this.storeResponseFacebookData(
+            error,
+            result,
+            data.accessToken
+          );
+
+          if (verifyToken && error) {
+            this.facebookManager();
+          }
+
+        },
+      );
+      // Start the graph request.
+      new GraphRequestManager().addRequest(infoRequest).start();
+    }
+    else if (verifyToken) {
+      this.facebookManager();
+    }
+
+  }
+
   facebookManager() {
+
     LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
       (result) => {
         console.log(result.grantedPermissions.toString());
@@ -43,27 +81,9 @@ class ButtonFacebook extends PureComponent {
           alert('Login cancelled');
         } else {
           AccessToken.getCurrentAccessToken().then(
-            (data) => {
-              AsyncStorage.setItem('accessToken', data.accessToken);
-
-              const infoRequest = new GraphRequest(
-                '/me',
-                {
-                  accessToken: data.accessToken,
-                  parameters: {
-                    fields: {
-                      string: 'email,last_name,first_name,location'
-                    }
-                  }
-                },
-                (error, result) => this.storeResponseFacebookData(
-                  error,
-                  result,
-                  data.accessToken
-                ),
-              );
-              // Start the graph request.
-              new GraphRequestManager().addRequest(infoRequest).start();
+            async (data) => {
+              await AsyncStorage.setItem('accessToken', data.accessToken);
+              this.connectWithAcessToken();
             }
           );
 
@@ -80,15 +100,15 @@ class ButtonFacebook extends PureComponent {
     if (error) {
       alert('Error fetching data: ' + error.toString());
     } else {
-      if (this.props.signupScreen) {
-        this.props.validate({
+      const { typeAuth } = this.props;
+      if (typeAuth === 'SignUp') {
+        this.props.signup({
           email: result.email,
           last_name: result.last_name,
           first_name: result.first_name,
           city: result.location ? result.location.name : null,
           zipcode: result.location ? result.location.zip : null,
-          //          access_token: accessToken
-        })
+        }, 'facebook');
       }
       else {
         this.props.signin(result.email, accessToken, 'facebook');
@@ -99,17 +119,18 @@ class ButtonFacebook extends PureComponent {
   }
 
   render() {
+    const { typeAuth } = this.props;
     return (
       <Button
         styleButton={style.button}
         styleText={style.textButton}
         text={
-          this.props.signupScreen ?
-          "S'inscrire avec Facebook"
-          :
-          "Se connecter avec Facebook"
+          typeAuth === 'SignUp' ?
+            "S'inscrire avec Facebook"
+            :
+            "Se connecter avec Facebook"
         }
-        onPress={() => this.facebookManager()}
+        onPress={() => this.connectWithAcessToken(true)}
       />
     );
   }
@@ -124,6 +145,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
   signin: bindActionCreators(signin, dispatch),
+  signup: bindActionCreators(signup, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ButtonFacebook);

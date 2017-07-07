@@ -28,8 +28,8 @@ import ValidationScreen from '../containers/Auth/ValidationScreen';
 import AssociationScreen from '../containers/Association/AssociationListScreen';
 
 /* CreditCard */
-import ProfileCreditCardScreen from '../containers/ProfileCreditCardScreen';
-import ProfilePayementScreen from '../containers/ProfilePayementScreen';
+import ProfileCreditCardScreen from '../containers/CreditCard/ProfileCreditCardScreen';
+import ProfilePayementScreen from '../containers/CreditCard/ProfilePayementScreen';
 
 
 const Routes = {

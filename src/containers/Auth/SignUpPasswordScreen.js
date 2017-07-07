@@ -21,20 +21,20 @@ import {
 
 export default class SignUpScreen extends Component {
   state = {
-    email: ''
+    password: ''
   };
 
   verify = () => {
-    const { email } = this.state;
-    if (email !== '') {
-      this.props.navigation.navigate('SignUpPassword', { email });
+    const { password } = this.state;
+    if (password !== '') {
+      this.props.navigation.navigate('SignUpCode', { password });
     }
     else {
       this.setState({ error: '' });
     }
   }
   render() {
-    const { email } = this.state;
+    const { password } = this.state;
     return (
       <Background
         style={{
@@ -44,19 +44,18 @@ export default class SignUpScreen extends Component {
       >
         <Icon
           styleImage={{
-            width: 20,
-            height: 20,
-            tintColor: colors.white
+            width: 13,
+            tintColor: colors.white,
           }}
           source={require('../../resources/icons/arrow-left.png')}
-          onPress={() => { }}
+          onPress={() => this.props.navigation.goBack()}
         />
         <Container
           styleContainer={{paddingTop: metrics.base}}
           title={'Choisissez un mot de passe'}
           secureTextEntry={true}
-          onChangeText={(email) => this.setState({ email })}
-          value={email}
+          onChangeText={(password) => this.setState({ password })}
+          value={password}
           placeholder={'Mon mot de passe'}
           firstText={""}
           nextStep={this.verify}
