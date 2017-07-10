@@ -2,13 +2,18 @@ import React, { Component, PropTypes } from 'react';
 import {
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  Keyboard,
 } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import Background from '../../components/common/Background';
 import Container from '../../components/login/Container';
 import Icon from '../../components/common/Icon';
 import ErrorView from '../../components/common/ErrorView';
+import { signup } from '../../redux/actions/auth';
+import { loadUserData } from '../../redux/actions/user';
 
 import {
   styles,
@@ -17,15 +22,34 @@ import {
   fonts,
 } from '../../themes';
 
-export default class SignUpScreen extends Component {
+class SignUpScreen extends Component {
   state = {
-    password: ''
+    password: '',
+    error: '',
   };
+
+  async componentWillReceiveProps(nextProps) {
+
+    if (nextProps.failure === true) {
+      this.setState({ error: nextProps.error });
+    }
+    else {
+      Keyboard.dismiss();
+      //this.props.navigation.navigate('SignUpCode');
+
+    }
+
+  }
 
   verify = () => {
     const { password } = this.state;
     if (password !== '') {
-      this.props.navigation.navigate('SignUpCode', { password });
+      const { params } = this.props.navigation.state;
+
+      this.props.signup({
+        password,
+        ...params.user
+      });
     }
     else {
       this.setState({ error: '' });
@@ -37,9 +61,9 @@ export default class SignUpScreen extends Component {
       <Background
         style={{
           flex: 1,
-          paddingTop: metrics.doubleBaseMargin
         }}
       >
+        <ErrorView message={this.state.error} />
         <Icon
           styleImage={{
             width: 13,
@@ -49,7 +73,7 @@ export default class SignUpScreen extends Component {
           onPress={() => this.props.navigation.goBack()}
         />
         <Container
-          styleContainer={{paddingTop: metrics.base}}
+          styleContainer={{ paddingTop: metrics.base }}
           title={'Choisissez un mot de passe'}
           secureTextEntry={true}
           onChangeText={(password) => this.setState({ password })}
@@ -62,6 +86,24 @@ export default class SignUpScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  LoggedIn: state.auth.LoggedIn,
+  failure: state.auth.failure,
+  error: state.auth.error,
+});
+
+
+const mapDispatchToProps = (dispatch) => ({
+  signup: bindActionCreators(signup, dispatch),
+  loadUserData: bindActionCreators(loadUserData, dispatch),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignUpScreen);
+
 
 
 

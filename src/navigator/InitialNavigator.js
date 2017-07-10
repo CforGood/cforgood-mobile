@@ -10,7 +10,6 @@ import {
 
 import SplashScreen from '../containers/SplashScreen';
 import OnboardingScreen from '../containers/OnboardingScreen';
-import WebViewScreen from '../containers/WebViewScreen';
 
 /* Authentification */
 import SignInEmailScreen from '../containers/Auth/SignInEmailScreen';
@@ -85,10 +84,6 @@ const Routes = {
   Payment: {
     screen: ProfilePayementScreen,
   },
-  WebView: {
-    name: 'WebView',
-    screen: WebViewScreen,
-  }
 };
 
 export default AppNavigator = StackNavigator(

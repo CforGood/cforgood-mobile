@@ -45,6 +45,11 @@ class ErrorView extends PureComponent {
             backgroundColor: '#ec5759',
             alignItems: 'center',
             flexDirection: 'row',
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            left: 0,
+            zIndex: 10,
             paddingVertical: metrics.baseMargin
           },
           Platform.OS === 'ios' ? { paddingTop: 20 } : {}

@@ -27,7 +27,8 @@ export default class SignUpFirstnameScreen extends Component {
     const { lastname } = this.state;
     const { params } = this.props.navigation.state;
     if (lastname !== '') {
-      this.props.navigation.navigate('SignUpEmail', { lastname, ...params });
+      
+      this.props.navigation.navigate('SignUpEmail', { user: { last_name: lastname, ...params.user } });
     }
     else {
       this.setState({ error: '' });

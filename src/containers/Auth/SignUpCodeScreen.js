@@ -20,12 +20,26 @@ import {
   fonts,
 } from '../../themes';
 
-export default class SignUpCodeScreen extends Component {
+class SignUpCodeScreen extends Component {
   state = {
-    code: ''
+    code_partner: ''
   };
+
+  verify = () => {
+    const { code_partner } = this.state;
+    if (code_partner !== '') {
+      this.props.updateUserData(this.props.user.id, { code_partner });
+    }
+    else {
+      this.setState({ error: '' });
+    }
+
+    this.props.navigation.navigate('SignUpValidation');
+  }
+
+
   render() {
-    const { code } = this.state;
+    const { code_partner } = this.state;
 
     return (
       <Background
@@ -50,19 +64,34 @@ export default class SignUpCodeScreen extends Component {
         <Container
           styleContainer={{ paddingTop: metrics.base }}
           title={'Vous avez un code promo ?'}
-          onChangeText={(code) => this.setState({ code })}
-          value={code.toUpperCase()}
+          onChangeText={(code_partner) => this.setState({ code_partner })}
+          value={code_partner.toUpperCase()}
           placeholder={'Mon code promo'}
           firstText={""}
           nextStep={this.verify}
           subtitle={'Office de tourisme, partenaire ou parrainage …'}
           subButton={'Passer ou valider'}
           onPress={() => { }}
-          nextStep={() => this.props.navigation.navigate('SignupPassword')}
+          nextStep={this.verify}
         />
       </Background>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  user: state.user.data,
+});
+
+
+const mapDispatchToProps = (dispatch) => ({
+  updateUserData: bindActionCreators(updateUserData, dispatch),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignUpCodeScreen);
+
 
 

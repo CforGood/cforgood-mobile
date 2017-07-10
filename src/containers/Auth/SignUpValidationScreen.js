@@ -4,9 +4,12 @@ import {
   Text,
   StyleSheet
 } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import Background from '../../components/common/Background';
 import Validation from '../../components/login/Validation';
+import { siginSuccess } from '../../redux/actions/auth';
 
 import {
   styles,
@@ -15,7 +18,7 @@ import {
   fonts,
 } from '../../themes';
 
-export default class SignUpValidationScreen extends Component {
+class SignUpValidationScreen extends Component {
 
   render() {
     return (
@@ -25,13 +28,19 @@ export default class SignUpValidationScreen extends Component {
         paddingVertical: metrics.baseMargin,
         paddingTop: metrics.doubleBaseMargin
       }}>
-        <Validation 
+        <Validation
           firstText={'Votre compte est créé.'}
           secondText={'Bienvenue Allan !'}
+          nextStep={() => this.props.siginSuccess()}
         />
       </Background>
     );
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  siginSuccess: bindActionCreators(siginSuccess, dispatch),
+});
+
+export default connect(null, mapDispatchToProps)(SignUpValidationScreen);
 
 

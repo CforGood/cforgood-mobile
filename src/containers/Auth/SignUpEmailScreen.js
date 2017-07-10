@@ -32,19 +32,20 @@ export default class SignUpScreen extends Component {
       this.setState({ error: 'L\'adresse email n\'est pas valide' });
     }
     else {
-      this.props.navigation.navigate('SignUpPassword', { email });
+      const { params } = this.props.navigation.state;
+      this.props.navigation.navigate('SignUpPassword', { user: { email, ...params.user } });
     }
-    
   }
+
   render() {
     const { email } = this.state;
     return (
       <Background
         style={{
           flex: 1,
-          paddingTop: metrics.doubleBaseMargin
         }}
       >
+        <ErrorView message={this.state.error} />
         <Icon
           styleImage={{
             width: 13,
@@ -54,7 +55,9 @@ export default class SignUpScreen extends Component {
           onPress={() => this.props.navigation.goBack()}
         />
         <Container
-          styleContainer={{ paddingTop: metrics.base }}
+          styleContainer={{
+            paddingTop: metrics.base
+          }}
           title={'Quel est votre e-mail ?'}
           onChangeText={(email) => this.setState({ email })}
           value={email}

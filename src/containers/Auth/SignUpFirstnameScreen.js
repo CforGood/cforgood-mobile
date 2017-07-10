@@ -26,10 +26,10 @@ export default class SignUpFirstnameScreen extends Component {
   verifyFirstname = () => {
     const { firstname } = this.state;
     if (firstname !== '') {
-      this.props.navigation.navigate('SignUpLastname', { firstname });
+      this.props.navigation.navigate('SignUpLastname', { user: { first_name: firstname } });
     }
     else {
-      this.setState({error: ''});
+      this.setState({ error: '' });
     }
   }
 
