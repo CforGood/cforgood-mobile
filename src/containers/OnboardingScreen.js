@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 
 import Orientation from 'react-native-orientation';
-
 import Swiper from '../components/onboarding/Swiper';
 
 import {

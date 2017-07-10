@@ -4,8 +4,6 @@ import {
   Text,
   StyleSheet
 } from 'react-native';
-import FontMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { Kohana } from 'react-native-textinput-effects';
 
 import Background from '../../components/common/Background';
 import Container from '../../components/login/Container';

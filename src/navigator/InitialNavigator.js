@@ -10,11 +10,13 @@ import {
 
 import SplashScreen from '../containers/SplashScreen';
 import OnboardingScreen from '../containers/OnboardingScreen';
-import HomeScreen from '../containers/HomeScreen';
 import WebViewScreen from '../containers/WebViewScreen';
 
 /* Authentification */
-import SignInScreen from '../containers/Auth/SignInScreen';
+import SignInEmailScreen from '../containers/Auth/SignInEmailScreen';
+import SignInPasswordScreen from '../containers/Auth/SignInPasswordScreen';
+import SignInValidationScreen from '../containers/Auth/SignInValidationScreen';
+
 import SignUpEmailScreen from '../containers/Auth/SignUpEmailScreen';
 import SignUpFirstnameScreen from '../containers/Auth/SignUpFirstnameScreen';
 import SignUpLastnameScreen from '../containers/Auth/SignUpLastnameScreen';
@@ -34,7 +36,6 @@ import ProfilePayementScreen from '../containers/CreditCard/ProfilePayementScree
 
 const Routes = {
   Splash: {
-
     name: 'Splash',
     description: 'Splash',
     screen: SplashScreen,
@@ -47,17 +48,15 @@ const Routes = {
     description: 'Onboarding',
     screen: OnboardingScreen,
   },
-  Home: {
-    name: 'Home',
-    navigationOptions: {
-      title: 'Home',
-    },
-    description: 'Home',
-    screen: HomeScreen,
-  },
   Login: {
     name: 'Login',
-    screen: SignInScreen,
+    screen: SignInEmailScreen,
+  },
+  SignInPassword: {
+    screen: SignInPasswordScreen,
+  },
+  SignInValidation: {
+    screen: SignInValidationScreen,
   },
   SignUpPassword: {
     screen: SignUpPasswordScreen,

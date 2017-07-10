@@ -4,13 +4,15 @@ import {
   Text,
   StyleSheet
 } from 'react-native';
-import FontMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { Kohana } from 'react-native-textinput-effects';
 
 import Background from '../../components/common/Background';
 import Container from '../../components/login/Container';
 import Icon from '../../components/common/Icon';
 import ErrorView from '../../components/common/ErrorView';
+
+import {
+  validateEmail,
+} from '../../utils/helpers';
 
 import {
   styles,
@@ -26,12 +28,13 @@ export default class SignUpScreen extends Component {
 
   verify = () => {
     const { email } = this.state;
-    if (email !== '') {
-      this.props.navigation.navigate('SignUpPassword', { email });
+    if (!validateEmail(email)) {
+      this.setState({ error: 'L\'adresse email n\'est pas valide' });
     }
     else {
-      this.setState({ error: '' });
+      this.props.navigation.navigate('SignUpPassword', { email });
     }
+    
   }
   render() {
     const { email } = this.state;
@@ -65,5 +68,3 @@ export default class SignUpScreen extends Component {
     );
   }
 }
-
-

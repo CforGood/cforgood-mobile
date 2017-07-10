@@ -8,7 +8,12 @@ import FontMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Kohana } from 'react-native-textinput-effects';
 
 import Background from '../../components/common/Background';
+import ErrorView from '../../components/common/ErrorView';
 import Container from '../../components/login/Container';
+
+import {
+  validateEmail,
+} from '../../utils/helpers';
 
 import {
   styles,
@@ -25,11 +30,11 @@ export default class SingInScreen extends Component {
 
   verify = () => {
     const { email } = this.state;
-    if (email !== '') {
-      this.props.navigation.navigate('SignupLastname', { email });
+    if (!validateEmail(email)) {
+      this.setState({ error: 'L\'adresse email n\'est pas valide' });
     }
     else {
-      this.setState({error: ''});
+      this.props.navigation.navigate('SignInPassword', { email });
     }
   }
 
@@ -39,9 +44,9 @@ export default class SingInScreen extends Component {
       <Background
         style={{
           flex: 1,
-          paddingTop: metrics.doubleBaseMargin * 2
         }}
       >
+        <ErrorView message={this.state.error} />
         <Container
           title={'Quel est votre e-mail ?'}
           onChangeText={(email) => this.setState({ email })}
@@ -53,6 +58,7 @@ export default class SingInScreen extends Component {
           secondText={"Pas de compte ? Je m’inscris"}
           onPress={() => this.props.navigation.goBack()}
           nextStep={this.verify}
+          styleContainer={{ paddingTop: metrics.doubleBaseMargin * 2 }}
         />
       </Background>
     );
