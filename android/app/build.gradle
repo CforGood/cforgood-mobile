@@ -157,6 +157,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-contacts')
     compile project(':tipsi-stripe')
     compile project(':react-native-mapbox-gl')
     compile project(':react-native-permissions')

@@ -22,7 +22,7 @@ import Profile from '../common/Profile';
 export default class ContactItem extends Component {
   render() {
     const { item } = this.props;
-    return ( 
+    return (
       <TouchableOpacity
         style={[
           styles.marginContainer,
@@ -40,7 +40,7 @@ export default class ContactItem extends Component {
         ]}>
           <Profile
             width={45}
-            source={item.image}
+            source={item.hasThumbnail && item.thumbnailPath}
             border={0}
           />
           <Text style={[
@@ -48,7 +48,7 @@ export default class ContactItem extends Component {
             { marginLeft: metrics.smallMargin }
           ]}>
             {
-              item.name === null ? item.mobile : item.name
+              item.givenName === null ? item.phoneNumbers.number : item.givenName
             }
           </Text>
         </View>
@@ -60,7 +60,7 @@ export default class ContactItem extends Component {
           {
             item.invite ?
               <Icon
-                styleImage={{width: 40, tintColor: colors.white}}
+                styleImage={{ width: 40, tintColor: colors.white }}
                 source={require('../../resources/icons/checked.png')}
                 onPress={() => { }}
               />
@@ -85,7 +85,7 @@ const style = StyleSheet.create({
     marginHorizontal: metrics.baseMargin
   },
   text: {
-    fontSize: 14,
+    ...fonts.style.t15,
     color: colors.white,
   }
 });

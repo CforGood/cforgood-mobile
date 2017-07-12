@@ -5,6 +5,7 @@ import {
   StyleSheet,
   FlatList
 } from 'react-native';
+import Contacts from 'react-native-contacts';
 
 import Background from '../../components/common/Background';
 import Icon from '../../components/common/Icon';
@@ -20,11 +21,42 @@ import {
   metrics,
   fonts,
 } from '../../themes';
-import { Contacts } from '../../dummyData/index';
 
 export default class ListInvitationScreen extends Component {
+  state = {
+    contacts: [],
+  };
 
   _keyExtractor = (item) => item.id;
+
+  componentWillMount() {
+    this.checkPermission();
+  }
+
+  checkPermission = () => {
+    Contacts.checkPermission((err, permission) => {
+      // Contacts.PERMISSION_AUTHORIZED || Contacts.PERMISSION_UNDEFINED || Contacts.PERMISSION_DENIED
+      if (permission === 'undefined') {
+        Contacts.requestPermission((err, permission) => {
+          // ...
+        })
+      }
+      if (permission === 'authorized') {
+        this.getContacts();
+      }
+      if (permission === 'denied') {
+        // x.x
+      }
+    })
+  }
+
+  getContacts = () => {
+    Contacts.getAll((err, contacts) => {
+      //update the first record
+      this.setState({ contacts });
+
+    })
+  }
 
   render() {
     return (
@@ -40,7 +72,7 @@ export default class ListInvitationScreen extends Component {
 
         <View style={{ flex: 1 }}>
           <FlatList
-            data={Contacts}
+            data={this.state.contacts}
             keyExtractor={this._keyExtractor}
             renderItem={({ item }) => (
               <ContactItem item={item} />

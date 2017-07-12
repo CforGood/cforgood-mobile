@@ -75,7 +75,7 @@ const style = StyleSheet.create({
     flex: 1
   },
   text: {
-    fontSize: 15,
+    ...fonts.style.t15,
     color: colors.white
   },
   button: {
