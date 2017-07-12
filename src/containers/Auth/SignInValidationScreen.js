@@ -28,13 +28,12 @@ class SignInValidationScreen extends Component {
     return (
       <Background style={{
         flex: 1,
-        paddingHorizontal: metrics.baseMargin,
-        paddingVertical: metrics.baseMargin,
-        paddingTop: metrics.doubleBaseMargin
+        ...styles.center,
       }}>
         <Validation
           firstText={'Heureux de vous'}
-          secondText={'retrouvez Allan!'}
+          secondText={'retrouver'}
+          name={' Allan ! '}
         />
       </Background>
     );

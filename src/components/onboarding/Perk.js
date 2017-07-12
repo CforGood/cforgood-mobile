@@ -8,6 +8,7 @@ import Permissions from 'react-native-permissions';
 
 import OnboardingDetail from './OnboardingDetail';
 import ConfirmPopup from '../Modal/ConfirmPopup';
+import ErrorView from '../common/ErrorView';
 
 import {
   colors,
@@ -47,13 +48,7 @@ export default class Perk extends PureComponent {
   }
 
   error(e) {
-    Alert.alert(
-      'Erreur',
-      e.message,
-      [
-        { text: 'Fermer', onPress: () => { } },
-      ]
-    );
+    this.setState({error: e});
   }
 
   ignore = () => {
@@ -73,7 +68,8 @@ export default class Perk extends PureComponent {
 
   render() {
     return (
-      <View>
+      <View style={{ flex: 1 }}>
+        <ErrorView message={this.state.error} />
         <OnboardingDetail
           source={require('../../resources/onboarding/2.png')}
           icon={require('../../resources/onboarding/bons_plan.png')}

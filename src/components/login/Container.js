@@ -172,7 +172,7 @@ export default class Container extends PureComponent {
               tintColor: value !== '' ? 'white' : 'rgba(255,255,255,0.4)'
             }}
             source={require('../../resources/icons/arrow-right.png')}
-            onPress={nextStep}
+            onPress={() => nextStep()}
             borderColor={colors.transparent}
           />
           <Text style={style.textSub}>

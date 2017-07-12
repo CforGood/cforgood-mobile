@@ -23,7 +23,8 @@ export default class Validation extends PureComponent {
     firstText: PropTypes.string,
     secondText: PropTypes.string,
     name: PropTypes.string,
-    onPress: PropTypes.func
+    onPress: PropTypes.func,
+    nextStep: PropTypes.func,
   };
 
   static defaultProps = {
@@ -31,7 +32,10 @@ export default class Validation extends PureComponent {
     secondText: '',
     name: '',
     onPress: () => { },
+    autoRedirect: true,
+    nextStep: null,
   };
+
 
   render() {
 
@@ -39,51 +43,69 @@ export default class Validation extends PureComponent {
       firstText,
       secondText,
       name,
-      onPress
+      onPress,
+      nextStep,
     } = this.props;
 
     return (
-      <View style={[
-        styles.center,
-        { flex: 1 }
-      ]}>
-        <Icon
-          styleImage={{
-            width: 100,
-          }}
-          source={require('../../resources/icons/checked.png')}
-          onPress={() => { }}
-        />
-        <Text style={[
-          style.textValidation,
-          { marginVertical: metrics.doubleBaseMargin }
-        ]}>
-          {firstText}
-        </Text>
-        <View style={[
-          styles.center,
-          { flexDirection: 'row' }
-        ]}>
-          <Text style={style.textValidation}>
-            {secondText}
-          </Text>
+      <View style={{ flex: 1 }}>
+        <View style={{ flex: 1 }} />
+        <View style={{ flex: 2, ...styles.center }}>
+          <Icon
+            styleImage={{
+              width: 100,
+              height: 100,
+            }}
+            source={require('../../resources/icons/checked.png')}
+            onPress={() => { }}
+          />
           <Text style={[
-            style.textValidation,
-            fonts.style.bold,
-            { marginLeft: metrics.smallMargin }
+            fonts.style.t22,
+            {
+              marginVertical: metrics.doubleBaseMargin,
+              color: 'white',
+            }
           ]}>
-            {name}
+            {firstText}
           </Text>
+          <View style={[
+            styles.center,
+            { flexDirection: 'row' }
+          ]}>
+            <Text style={[
+              fonts.style.t22,
+              {
+                marginVertical: metrics.doubleBaseMargin,
+                color: 'white',
+              }
+            ]}
+            >
+              {secondText}
+              <Text style={fonts.style.bold}>
+                {name}
+              </Text>
+            </Text>
+          </View>
+          <View>
+            {
+              nextStep &&
+              <Icon
+                style={{
+                  marginVertical: 50
+                }}
+                styleImage={{
+                  width: 60,
+                  height: 60,
+                  tintColor: 'white'
+                }}
+                source={require('../../resources/icons/arrow-right.png')}
+                onPress={nextStep}
+                borderColor={colors.transparent}
+              />
+            }
+          </View>
         </View>
-      </View>
+      </View >
     );
   }
 }
-
-const style = StyleSheet.create({
-  textValidation: {
-    color: colors.white,
-    fontSize: 16,
-  },
-
-});                               

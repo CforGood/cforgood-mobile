@@ -23,15 +23,18 @@ class ErrorView extends PureComponent {
 
   static propTypes = {
     message: PropTypes.string,
+    removeError: PropTypes.func,
   };
 
   static defaultProps = {
     message: '',
+    removeError: () => {},
   };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.message !== "") {
       this.setState({ showError: true });
+      this.props.removeError();
     }
   }
   render() {

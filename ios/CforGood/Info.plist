@@ -77,6 +77,8 @@
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>CforGood souhaite accéder à vos photos</string>
+  <key>NSContactsUsageDescription</key>
+  <string>CforGood souhaite accéder à vos contacts</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Avenir.ttc</string>

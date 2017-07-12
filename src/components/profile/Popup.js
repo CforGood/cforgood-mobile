@@ -29,8 +29,8 @@ const days  = (date) => {
 class PopupProfile extends PureComponent { 
   
   static propTypes = {
-    visible: PropTypes.bool.isRequired,
-    type: PropTypes.string.isRequired,
+    visible: PropTypes.bool,
+    type: PropTypes.string,
     onValidate: PropTypes.func
   };
 

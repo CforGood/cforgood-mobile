@@ -24,11 +24,6 @@ import MembreshipCardScreen from '../containers/MembreshipCardScreen';
 import PromoScreen from '../containers/PromoScreen';
 import ReservedSpaceScreen from '../containers/ReservedSpaceScreen';
 
-
-/* Invitations*/
-import LoadingContactScreen from '../containers/Invitations/LoadingContactScreen';
-import ListInvitationScreen from '../containers/Invitations/ListInvitationScreen';
-
 /* Modal */
 import ModalPopup from '../containers/Modal/ModalPopup';
 import ModalScreen from '../containers/Modal/ModalScreen';
@@ -101,16 +96,6 @@ const Routes = {
   Promo: {
     name: 'Promo',
     screen: PromoScreen,
-  },
-  LoadingContact: {
-    name: 'LoadingContact',
-    screen: LoadingContactScreen,
-    path: 'LoadingContact',
-  },
-  ListInvitation: {
-    name: 'ListInvitation',
-    screen: ListInvitationScreen,
-    path: 'ListInvitation',
   },
   Modal: {
     name: 'Modal',

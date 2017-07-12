@@ -31,7 +31,7 @@ class Association extends PureComponent {
   render() {
     return (
       <View style={{ flex: 1 }}>
-
+        <ErrorView message={this.state.error} />
         <OnboardingDetail
           index={3}
           source={require('../../resources/onboarding/4.png')}

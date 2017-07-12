@@ -21,16 +21,20 @@ import SignUpFirstnameScreen from '../containers/Auth/SignUpFirstnameScreen';
 import SignUpLastnameScreen from '../containers/Auth/SignUpLastnameScreen';
 import SignUpPasswordScreen from '../containers/Auth/SignUpPasswordScreen';
 import SignUpCodeScreen from '../containers/Auth/SignUpCodeScreen';
-import LikeScreen from '../containers/Auth/LikeScreen';
 import SignUpValidationScreen from '../containers/Auth/SignUpValidationScreen';
 
 
 /* Association */
 import AssociationScreen from '../containers/Association/AssociationListScreen';
 
+
 /* CreditCard */
 import ProfileCreditCardScreen from '../containers/CreditCard/ProfileCreditCardScreen';
 import ProfilePayementScreen from '../containers/CreditCard/ProfilePayementScreen';
+
+/* Invitations */
+import LoveScreen from '../containers/Invitations/LoveScreen';
+import ListInvitationScreen from '../containers/Invitations/ListInvitationScreen';
 
 
 const Routes = {
@@ -74,6 +78,12 @@ const Routes = {
   },
   SignUpValidation: {
     screen: SignUpValidationScreen
+  },
+  InvitationLove: {
+    screen: LoveScreen
+  },
+  ListInvitation: {
+    screen: ListInvitationScreen,
   },
   Assocation: {
     screen: AssociationScreen,

@@ -4,8 +4,6 @@ import {
   Text,
   StyleSheet
 } from 'react-native';
-import FontMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { Kohana } from 'react-native-textinput-effects';
 
 import Background from '../../components/common/Background';
 import Container from '../../components/login/Container';
@@ -20,12 +18,16 @@ import {
 export default class SignUpFirstnameScreen extends Component {
   state = {
     firstname: '',
+    step: 1,
     error: '',
   };
 
   verifyFirstname = () => {
-    const { firstname } = this.state;
-    if (firstname !== '') {
+    const { firstname, step } = this.state;
+    if (firstname !== ''  && step === 1) {
+      this.setState({
+        step: 2
+      });
       this.props.navigation.navigate('SignUpLastname', { user: { first_name: firstname } });
     }
     else {
@@ -51,7 +53,7 @@ export default class SignUpFirstnameScreen extends Component {
           facebook={true}
           secondText={"Déjà membre ? Connexion"}
           onPress={() => this.props.navigation.navigate('Login')}
-          nextStep={this.verifyFirstname}
+          nextStep={() => this.verifyFirstname()}
         />
       </Background>
     );

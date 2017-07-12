@@ -59,7 +59,7 @@ export const updateUserData = (id, data) => {
         dispatch(successUpdate(data));
       }
       else{
-        console.log('error Update Server', response)
+        dispatch(failure(response.error[0]));
       }
     })
     .catch(message => {
@@ -84,7 +84,7 @@ export const loadUserData = () => {
       }
       else
       {
-        dispatch(failure('error'));
+        dispatch(failure(response.error[0]));
       }
     })
     .catch(message => {

@@ -34,9 +34,8 @@ class SignUpScreen extends Component {
       this.setState({ error: nextProps.error });
     }
     else {
-      Keyboard.dismiss();
-      //this.props.navigation.navigate('SignUpCode');
-
+      await this.props.loadUserData();
+      this.props.navigation.navigate('SignUpCode');
     }
 
   }
@@ -66,8 +65,11 @@ class SignUpScreen extends Component {
         <ErrorView message={this.state.error} />
         <Icon
           styleImage={{
-            width: 13,
-            tintColor: colors.white,
+            marginTop: metrics.marginApp + (Platform.OS === 'ios' ? 20 : 0),
+            height: 20,
+            width: 20,
+            resizeMode: 'contain',
+            tintColor: colors.white
           }}
           source={require('../../resources/icons/arrow-left.png')}
           onPress={() => this.props.navigation.goBack()}

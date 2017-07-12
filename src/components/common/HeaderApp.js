@@ -23,7 +23,7 @@ import Icon from './Icon';
 import ProfileImage from './ProfileImage';
 
 class Header extends PureComponent {
-  
+
   static propTypes = {
     module: PropTypes.string.isRequired
   };
@@ -33,20 +33,20 @@ class Header extends PureComponent {
   };
 
   render() {
-   
+
     return (
       <Image
-          source={require('../../resources/images/navbar.png')}
-          style={style.headerImage}
-        >
+        source={require('../../resources/images/navbar.png')}
+        style={style.headerImage}
+      >
         <View style={style.headerContainer}>
           <Icon
-            onPress={() => this.props.navigation.navigate('Search', {module: this.props.module})}
+            onPress={() => this.props.navigation.navigate('Search', { module: this.props.module })}
             source={require('../../resources/icons/search.png')}
             style={[
               {
-                height: metrics.deviceWidth/22.06,
-                width: metrics.deviceWidth/2,
+                height: metrics.deviceWidth / 22.06,
+                width: metrics.deviceWidth / 2,
               }
             ]}
             styleImage={{
@@ -65,28 +65,26 @@ class Header extends PureComponent {
 
             {
               this.props.user && this.props.user.picture ?
-              <ProfileImage   
-                picture={ this.props.user.picture } 
-                styleBorder={style.styleBorder}
-                stylePicture={style.stylePicture}
-              />
-              :
-              <Image 
-                source={require('../../resources/icons/profile.png')}
-                style={style.styleBorder}
-              />
+                <ProfileImage
+                  picture={this.props.user.picture}
+                  styleBorder={style.styleBorder}
+                  stylePicture={style.stylePicture}
+                />
+                :
+                <Image
+                  source={require('../../resources/icons/profile.png')}
+                  style={style.styleBorder}
+                />
             }
-            
+
             <Icon
               onPress={() => this.props.navigation.navigate('Profile')}
               source={require('../../resources/icons/arrow-bottom.png')}
-              style={[
-                {
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  width: 13.36
-                }
-              ]}
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: 13.36
+              }}
               styleImage={{
                 height: 7.17,
                 width: 13.36,
@@ -96,7 +94,7 @@ class Header extends PureComponent {
           </TouchableOpacity>
         </View>
       </Image>
-      
+
     );
   }
 }
@@ -109,27 +107,27 @@ export default connect(mapStateToProps)(withNavigation(Header));
 
 
 const style = StyleSheet.create({
-  headerContainer:{       
+  headerContainer: {
     flex: 1,
-    paddingTop: Platform.OS ==='ios' ? 20 : 0,
+    paddingTop: Platform.OS === 'ios' ? 20 : 0,
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
     paddingHorizontal: metrics.marginApp,
   },
-  headerImage:{ 
-    height: Platform.OS ==='ios' ? 70 : 50,
+  headerImage: {
+    height: Platform.OS === 'ios' ? 70 : 50,
     width: metrics.deviceWidth,
     backgroundColor: 'white',
   },
-  stylePicture:{
+  stylePicture: {
     width: 35,
-    height: 35, 
-    borderRadius: 17.5 ,  
-  }, 
-  styleBorder:{  
+    height: 35,
+    borderRadius: 17.5,
+  },
+  styleBorder: {
     justifyContent: 'center',
-    alignItems: 'center',  
+    alignItems: 'center',
     width: 35,
     height: 35,
     marginRight: 5
