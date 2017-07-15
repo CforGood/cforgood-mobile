@@ -109,7 +109,10 @@ class Business extends PureComponent {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <ErrorView message={this.state.error} />
+        <ErrorView
+          message={this.state.error}
+          removeError={() => this.setState({error: ''})}
+        />
         <OnboardingDetail
           source={require('../../resources/onboarding/1.png')}
           icon={require('../../resources/onboarding/commerce.png')}
@@ -154,7 +157,7 @@ class Business extends PureComponent {
           }
           ignore={this.ignore}
           confirm={this.confirm}
-          source={(
+          image={(
             <Image
               source={require('../../resources/onboarding/map.png')}
               style={{

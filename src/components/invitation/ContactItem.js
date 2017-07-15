@@ -20,12 +20,24 @@ import Icon from '../common/Icon';
 import Profile from '../common/Profile';
 
 export default class ContactItem extends Component {
+  state = {
+    selected: false,
+  };
+
+  sendInvitation = () => {
+    const { item } = this.props;
+    if (!this.state.selected) {
+      this.props.sendInvitation(item);
+      this.setState({ selected: true });
+
+    }
+  }
+
   render() {
     const { item } = this.props;
     return (
-      <TouchableOpacity
+      <View
         style={[
-          styles.marginContainer,
           styles.row,
           style.container,
         ]}
@@ -53,24 +65,28 @@ export default class ContactItem extends Component {
           </Text>
         </View>
 
-        <View style={[
-          styles.center,
-          { flex: 1 }
-        ]}>
+        <TouchableOpacity
+          style={[
+            styles.center,
+            { flex: 1 }
+          ]}
+          onPress={this.sendInvitation}
+        >
           {
-            item.invite ?
-              <Icon
-                styleImage={{ width: 40, tintColor: colors.white }}
-                source={require('../../resources/icons/checked.png')}
-                onPress={() => { }}
-              />
+            this.state.selected ?
+              <Text style={[
+                style.text,
+                { color: '#F8E71C' }
+              ]}>
+                envoyé !
+              </Text>
               :
               <Text style={style.text}>
                 + inviter
               </Text>
           }
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View >
     );
   }
 }
@@ -82,10 +98,11 @@ const style = StyleSheet.create({
     paddingVertical: metrics.baseMargin,
     borderBottomWidth: 1,
     borderBottomColor: colors.white,
-    marginHorizontal: metrics.baseMargin
+    marginHorizontal: metrics.marginApp,
   },
   text: {
-    ...fonts.style.t15,
+    ...fonts.style.t16,
+    ...fonts.style.mediumBold,
     color: colors.white,
   }
 });

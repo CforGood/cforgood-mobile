@@ -12,6 +12,7 @@ const colors = {
   info: '#B3B3B3',
   ignore: '#9B9B9B',
   gray: '#818181',
+  gray90: '#DADADA',
   grayDate: '#666666',
   transparent: 'transparent',
   white: 'white',

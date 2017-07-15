@@ -54,7 +54,7 @@ class ButtonFacebook extends PureComponent {
           this.storeResponseFacebookData(
             error,
             result,
-            data.accessToken
+            accessToken
           );
 
           if (verifyToken && error) {

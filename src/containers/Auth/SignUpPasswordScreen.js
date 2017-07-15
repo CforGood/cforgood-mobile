@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   Keyboard,
+  Platform,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -31,7 +32,7 @@ class SignUpScreen extends Component {
   async componentWillReceiveProps(nextProps) {
 
     if (nextProps.failure === true) {
-      this.setState({ error: nextProps.error });
+      this.setState({ error: nextProps.error[0] });
     }
     else {
       await this.props.loadUserData();
@@ -62,10 +63,14 @@ class SignUpScreen extends Component {
           flex: 1,
         }}
       >
-        <ErrorView message={this.state.error} />
+        <ErrorView 
+          message={this.state.error}
+          removeError={() => this.setState({error: ''})}
+        />
         <Icon
           styleImage={{
             marginTop: metrics.marginApp + (Platform.OS === 'ios' ? 20 : 0),
+            marginLeft: metrics.baseMargin,
             height: 20,
             width: 20,
             resizeMode: 'contain',

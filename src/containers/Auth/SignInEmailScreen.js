@@ -46,7 +46,10 @@ export default class SingInScreen extends Component {
           flex: 1,
         }}
       >
-        <ErrorView message={this.state.error} />
+        <ErrorView
+          message={this.state.error}
+          removeError={() => this.setState({error: ''})}
+        />
         <Container
           title={'Quel est votre e-mail ?'}
           onChangeText={(email) => this.setState({ email })}

@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import {
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  Platform,
 } from 'react-native';
 
 import Background from '../../components/common/Background';
@@ -45,10 +46,14 @@ export default class SignUpScreen extends Component {
           flex: 1,
         }}
       >
-        <ErrorView message={this.state.error} />
+        <ErrorView
+          message={this.state.error}
+          removeError={() => this.setState({error: ''})}
+        />
         <Icon
           styleImage={{
             marginTop: metrics.marginApp + (Platform.OS === 'ios' ? 20 : 0),
+            marginLeft: metrics.baseMargin,
             height: 20,
             width: 20,
             resizeMode: 'contain',

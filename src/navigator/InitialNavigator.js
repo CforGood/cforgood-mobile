@@ -34,25 +34,21 @@ import ProfilePayementScreen from '../containers/CreditCard/ProfilePayementScree
 
 /* Invitations */
 import LoveScreen from '../containers/Invitations/LoveScreen';
-import ListInvitationScreen from '../containers/Invitations/ListInvitationScreen';
+import ContactsScreen from '../containers/Invitations/ContactsScreen';
 
 
 const Routes = {
+
+  InvitationContacts: {
+    screen: ContactsScreen,
+  },
   Splash: {
-    name: 'Splash',
-    description: 'Splash',
     screen: SplashScreen,
   },
   Onboarding: {
-    name: 'Onboarding',
-    navigationOptions: {
-      title: 'Onboarding',
-    },
-    description: 'Onboarding',
     screen: OnboardingScreen,
   },
   Login: {
-    name: 'Login',
     screen: SignInEmailScreen,
   },
   SignInPassword: {
@@ -81,9 +77,6 @@ const Routes = {
   },
   InvitationLove: {
     screen: LoveScreen
-  },
-  ListInvitation: {
-    screen: ListInvitationScreen,
   },
   Assocation: {
     screen: AssociationScreen,

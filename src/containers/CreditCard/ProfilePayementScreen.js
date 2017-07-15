@@ -35,7 +35,10 @@ class ProfileCreditCardScreen extends Component {
     const { user } = this.state;
     return (
       <View style={styles.screen.mainContainer}>
-        <ErrorView message={this.state.error} />
+        <ErrorView
+          message={this.state.error}
+          removeError={() => this.setState({error: ''})}
+        />
         <Payement user={user} />
 
         <View

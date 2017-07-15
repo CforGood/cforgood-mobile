@@ -23,21 +23,24 @@ export default class ButtonGradiantRadius extends PureComponent {
   static propTypes = {
     onPress: PropTypes.func.isRequired,
     text: PropTypes.string.isRequired,
-    styleButton: PropTypes.any,
+    styleButton: PropTypes.object,
+    styleText: PropTypes.object,
   };
 
   static defaultProps = {
     onPress: () => { },
     text: 'Appliquer',
-    styleButton: {}
+    styleButton: {},
+    styleText: {},
   };
 
   render() {
-    
+
     const {
       onPress,
       text,
-      styleButton
+      styleButton,
+      styleText,
     } = this.props;
 
     return (
@@ -66,10 +69,14 @@ export default class ButtonGradiantRadius extends PureComponent {
             marginHorizontal: 1,
             marginTop: 1,
             marginBottom: 1.5,
+            backgroundColor: 'white',
+            borderRadius: 22,
           }}
           styleText={{
-            marginHorizontal: metrics.doubleBaseMargin*1.5,
+            ...styleText,
+            marginHorizontal: metrics.doubleBaseMargin,
           }}
+          type={'simple'}
         />
       </LinearGradient>
     );

@@ -4,6 +4,8 @@ import {
   View,
 } from 'react-native';
 
+import LinearGradient from 'react-native-linear-gradient';
+
 import {
   colors,
   metrics,
@@ -11,26 +13,39 @@ import {
 
 class SeparatorInvitation extends PureComponent {
 
-  static propTypes = {  
+  static propTypes = {
+    number: PropTypes.number,
+    numberInvitaion: PropTypes.number,
   };
 
-  static defaultProps = { 
+  static defaultProps = {
+    number: 0,
+    numberInvitaion: 5,
   };
 
   render() {
+    const { number, numberInvitaion } = this.props;
     return (
-      <View style={{
-        height: 3, 
-        backgroundColor: colors.green80
-      }}
+
+      <LinearGradient
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
+        colors={['rgba(0,0,0,0.2)', 'rgba(0,0,0,0.01)']}
+        style={{
+          height: 5,
+          flexDirection: 'row',
+        }}
       >
         <View style={{
-          flex: 1,
           backgroundColor: colors.yellow,
-          width: 200
-        }}
-        />
-      </View>
+          flex: number
+        }} />
+        <View style={{
+          backgroundColor: number === 0 ? 'transparent' : 'rgba(248,231,28, 0.3)',
+          flex: numberInvitaion - number
+        }} />
+
+      </LinearGradient >
     );
   }
 }

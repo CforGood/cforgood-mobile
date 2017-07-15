@@ -7,6 +7,7 @@ import { withNavigation } from 'react-navigation';
 
 import OnboardingDetail from './OnboardingDetail';
 import PopupVideo from './PopupVideo';
+import ErrorView from '../common/ErrorView';
 
 import {
   colors,
@@ -31,7 +32,10 @@ class Association extends PureComponent {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <ErrorView message={this.state.error} />
+        <ErrorView 
+          message={this.state.error}
+          removeError={() => this.setState({error: ''})}
+        />
         <OnboardingDetail
           index={3}
           source={require('../../resources/onboarding/4.png')}

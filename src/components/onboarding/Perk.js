@@ -69,7 +69,10 @@ export default class Perk extends PureComponent {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <ErrorView message={this.state.error} />
+        <ErrorView 
+          message={this.state.error}
+          removeError={() => this.setState({error: ''})}
+        />
         <OnboardingDetail
           source={require('../../resources/onboarding/2.png')}
           icon={require('../../resources/onboarding/bons_plan.png')}

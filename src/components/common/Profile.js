@@ -21,17 +21,19 @@ export default class Profile extends Component {
 
   static propTypes = {
     width: PropTypes.number,
-    image: PropTypes.any, 
+    image: PropTypes.any,
     styleProfile: PropTypes.any,
-    onPress: PropTypes.func, 
+    onPress: PropTypes.func,
+    borderWidth: PropTypes.number,
+    borderColor: PropTypes.string,
   };
 
   static defaultProps = {
     image: null,
-    width: 50, 
-    border: 1,
+    width: 50,
+    borderWidth: 1,
     borderColor: colors.gray90,
-    styleProfile: {}, 
+    styleProfile: {},
   };
 
   render() {
@@ -39,10 +41,11 @@ export default class Profile extends Component {
     const {
       image,
       onPress,
-      width, 
+      width,
       border,
       borderColor,
-      styleProfile, 
+      borderWidth,
+      styleProfile,
     } = this.props;
 
     return (
@@ -50,25 +53,38 @@ export default class Profile extends Component {
         style={[
           style.container,
           styles.center,
-          styleProfile
-        ]}
-        onPress={onPress}
-      > 
-        <Image
-          style={{
-            borderColor: borderColor,
-            borderWidth: border,
+          styleProfile,
+          {
+            borderColor,
+            borderWidth,
             width: width,
             height: width,
             borderRadius: width / 2,
-          }}
-          source={image !== null ? {uri:image}: require('../../resources/images/profile.jpg') }
+            backgroundColor: 'white',
+          }
+        ]}
+        onPress={onPress}
+      >
+        <Image
+          style={
+            image !== null ?
+              {
+                flex: 1
+              }
+              :
+              {
+                width: 30,
+                height: 30,
+              }
+          }
+          resizeMode={image !== null ? 'cover' : 'contain'}
+          source={image !== null ? { uri: image } : require('../../resources/profile/profile.png')}
         />
       </TouchableOpacity>
     );
   }
 }
- 
+
 const style = StyleSheet.create({
   container: {
     justifyContent: 'center',

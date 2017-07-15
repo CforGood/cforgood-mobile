@@ -13,7 +13,6 @@ import {
 import Icon from '../common/Icon';
 import Button from '../common/Button';
 import ButtonFacebook from './Facebook';
-import ErrorView from '../common/ErrorView';
 import {
   styles,
   colors,

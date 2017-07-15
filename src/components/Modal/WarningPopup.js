@@ -24,7 +24,9 @@ class ConfirmPopup extends Component {
     message: PropTypes.element.isRequired,
     image: PropTypes.element,
     visiblePopup: PropTypes.bool.isRequired,
+    popupStyle: PropTypes.object,
     confirmText: PropTypes.string,
+    buttomText: PropTypes.string,
     confirm: PropTypes.func,
     ignore: PropTypes.func,
   };
@@ -34,6 +36,8 @@ class ConfirmPopup extends Component {
     confirm: null,
     ignore: null,
     confirmText: '',
+    buttomText: null,
+    popupStyle: {},
   };
 
   render() {
@@ -46,6 +50,8 @@ class ConfirmPopup extends Component {
       confirm,
       visiblePopup,
       confirmText,
+      buttomText,
+      popupStyle,
     } = this.props;
 
     return (
@@ -53,42 +59,47 @@ class ConfirmPopup extends Component {
         <View />
         <View
           style={{
-            margin: metrics.baseMargin,
+            ...popupStyle,
+            paddingHorizontal: metrics.baseMargin,
+            paddingVertical: metrics.doubleBaseMargin,
             justifyContent: 'space-between',
             alignItems: 'center',
-            maxWidth: metrics.deviceWidth * 4 / 5
+            maxWidth: metrics.deviceWidth * 4 / 5,
           }}
         >
-          <Text style={[
-            fonts.style.t24,
-            fonts.style.mediumBold,
-            { textAlign: 'center' }
-          ]}>
-            {title}
-          </Text>
-          <Text style={[
-            fonts.style.t15,
-            fonts.style.mediumBold,
-            { textAlign: 'center' }
-          ]}>
-            {message}
-          </Text>
+          <View>
+            <Text style={[
+              fonts.style.t24,
+              fonts.style.bold,
+              { textAlign: 'center' }
+            ]}>
+              {title}
+            </Text>
+            <Text style={[
+              fonts.style.t20,
+              fonts.style.mediumBold,
+              { textAlign: 'center' }
+            ]}>
+              {message}
+            </Text>
+          </View>
           <View style={{ padding: metrics.baseMargin }}>
             {
               image
             }
           </View>
 
-          {
-            confirm
-            &&
-            <ButtonGradiantRadius
-              text={confirmText}
-              onPress={confirm}
-              style={{ margin: metrics.baseMargin }}
-            />
-          }
+
           <View>
+            {
+              confirm
+              &&
+              <ButtonGradiantRadius
+                text={confirmText}
+                onPress={confirm}
+                style={{ margin: metrics.baseMargin }}
+              />
+            }
             {
               ignore &&
               <Button
@@ -104,6 +115,20 @@ class ConfirmPopup extends Component {
               />
             }
           </View>
+          {
+            buttomText &&
+            <Text style={[
+              fonts.style.t24,
+              fonts.style.bold,
+              {
+                textAlign: 'center',
+                marginBottom: metrics.doubleBaseMargin,
+              }
+            ]}>
+              {buttomText}
+            </Text>
+          }
+
         </View>
       </SimplePopup>
     );

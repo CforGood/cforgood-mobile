@@ -61,7 +61,10 @@ class SignInPassword extends Component {
           flex: 1,
         }}
       >
-        <ErrorView message={this.state.error} />
+        <ErrorView
+          message={this.state.error}
+          removeError={() => this.setState({error: ''})}
+        />
         <Container
           title={"Entrez votre mot de passe"}
           onChangeText={(password) => this.setState({ password })}

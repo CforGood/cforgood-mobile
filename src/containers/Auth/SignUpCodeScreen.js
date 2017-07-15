@@ -68,6 +68,7 @@ class SignUpCodeScreen extends Component {
         <Icon
           styleImage={{
             marginTop: metrics.marginApp + (Platform.OS === 'ios' ? 20 : 0),
+            marginLeft: metrics.baseMargin,
             height: 20,
             width: 20,
             resizeMode: 'contain',
@@ -76,7 +77,10 @@ class SignUpCodeScreen extends Component {
           source={require('../../resources/icons/arrow-left.png')}
           onPress={() => this.props.navigation.goBack()}
         />
-        <ErrorView message={this.state.error} />
+        <ErrorView
+          message={this.state.error}
+          removeError={() => this.setState({error: ''})}
+        />
         <Container
           styleContainer={{ 
             paddingTop: metrics.base,

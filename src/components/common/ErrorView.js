@@ -44,7 +44,7 @@ class ErrorView extends PureComponent {
       <View
         style={[
           {
-            minHeight: 60,
+            minHeight: (Platform.OS === 'ios' ? 80 : 60),
             backgroundColor: '#ec5759',
             alignItems: 'center',
             flexDirection: 'row',

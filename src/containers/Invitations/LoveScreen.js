@@ -24,17 +24,27 @@ export default class LikeScreen extends Component {
   state = {
     visiblePopupConfirm: false,
     visiblePopupWarning: false,
+    authorized: false,
     error: '',
   };
 
-  enableNotification() {
+  componentWillMount() {
+    Permissions.getPermissionStatus('contacts')
+      .then(response => {
+        if (response === 'authorized') {
+          this.setState({ authorized: true });
+        }
+      });
+  }
+
+  enableContacts() {
     Permissions.getPermissionStatus('contacts')
       .then(response => {
         if (response !== 'authorized') {
           this._requestPermission();
         }
-        else{
-          //next Step 
+        else {
+          this.props.navigation.navigate('InvitationContacts');
         }
       }).catch(e => this.error(e));
   }
@@ -46,7 +56,7 @@ export default class LikeScreen extends Component {
           Permissions.openSettings
         }
         else {
-          // next StepNSPhotoLibraryUsageDescription
+          this.props.navigation.navigate('InvitationContacts');
         }
       }).catch(e => this.error(e))
   }
@@ -56,9 +66,14 @@ export default class LikeScreen extends Component {
   }
 
   openConfirm = () => {
-    this.setState({ visiblePopupWarning: false }, this.setState({
-      visiblePopupConfirm: true
-    }));
+    if (!this.state.authorized) {
+      this.setState({ visiblePopupWarning: false }, this.setState({
+        visiblePopupConfirm: true
+      }));
+    }
+    else {
+      this.props.navigation.navigate('InvitationContacts');
+    }
   }
 
   ignoreConfirm = () => {
@@ -76,7 +91,7 @@ export default class LikeScreen extends Component {
   }
 
   confirm = () => {
-    this.enableNotification();
+    this.enableContacts();
     this.setState({
       visiblePopupConfirm: false,
     });
@@ -89,7 +104,10 @@ export default class LikeScreen extends Component {
           flex: 1,
         }}
       >
-        <ErrorView message={this.state.error} />
+        <ErrorView
+          message={this.state.error}
+          removeError={() => this.setState({error: ''})}
+        />
         <View style={{
           flex: 1,
           paddingVertical: metrics.base * 2,

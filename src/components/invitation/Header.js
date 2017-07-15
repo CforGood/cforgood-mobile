@@ -22,36 +22,39 @@ export default class Header extends PureComponent {
 
   static propTypes = {
     number: PropTypes.number,
-    offert: PropTypes.number,
+    numberInvitaion: PropTypes.number,
   };
 
   static defaultProps = {
     number: 0,
-    offert: 0,
+    numberInvitaion: 5,
   };
 
   render() {
 
     const {
       number,
-      offert
+      numberInvitaion,
     } = this.props;
 
     return (
       <View style={[
         style.container,
         styles.row,
-        { alignItems: 'center' }
+        {
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }
       ]}>
         <View style={{ flex: 4 }}>
           <View >
-            <Text style={style.text}>
+            <Text style={style.title}>
               Invitez vos amis
             </Text>
           </View>
 
           {
-            number !== 0 ?
+            number >= numberInvitaion ?
               <View style={[
                 styles.row,
                 {
@@ -60,16 +63,17 @@ export default class Header extends PureComponent {
               ]}>
                 <Text style={style.text}>
                   Génial!
-              </Text>
-                <Button
-                  text={'3 mois offert'}
-                  styleButton={style.button}
-                  styleText={style.text}
-                />
+                </Text>
+                <View style={style.button}>
+                  <Text style={style.text}>
+                    3 mois offert
+                  </Text>
+                </View>
+
                 <Icon
                   styleImage={{ width: 25, tintColor: colors.white }}
-                  source={require('../../resources/icons/invitation.png')}
-                   onPress={() => { }}
+                  source={require('../../resources/icons/start.png')}
+                  onPress={() => { }}
                 />
               </View>
               :
@@ -79,34 +83,40 @@ export default class Header extends PureComponent {
                   alignItems: 'center',
                 }
               ]}>
-                <Text style={style.text}>
-                  Plus que
-              </Text>
+                {
+                  number > 0 &&
+                  <Text style={style.smallText}>
+                    Plus que
+                  </Text>
+                }
                 <Text style={[
                   style.text,
                   { marginHorizontal: metrics.smallMargin }
                 ]}>
-                  2
-              </Text>
-                <Text style={style.text}>
-                  invitations à envoyer!
-              </Text>
+                  {numberInvitaion - number} invitations
+                </Text>
+                <Text style={style.smallText}>
+                  à envoyer!
+                </Text>
                 <Icon
-                  styleImage={{width: 25, tintColor: colors.white}}
-                  source={require('../../resources/icons/invitation.png')}
+                  styleImage={{
+                    marginLeft: 10,
+                    width: 31,
+                    height: 32,
+                    tintColor: colors.white,
+                  }}
+                  source={require('../../resources/icons/flay.png')}
                   onPress={() => { }}
                 />
               </View>
           }
 
         </View>
-        <View style={{ flex: 1 }}>
-          <Icon
-            styleImage={{width: 25, tintColor: colors.white}}
-            source={require('../../resources/icons/search.png')}
-            onPress={() => { }}
-          />
-        </View>
+        <Icon
+          styleImage={{ width: 23, height: 23 }}
+          source={require('../../resources/icons/magnifying-glass.png')}
+          onPress={() => { }}
+        />
       </View>
     );
   }
@@ -116,16 +126,26 @@ const style = StyleSheet.create({
   container: {
     flex: 1
   },
+  title: {
+    ...fonts.style.t24,
+    ...fonts.style.mediumBold,
+    color: colors.white
+  },
+  smallText: {
+    ...fonts.style.t13,
+    ...fonts.style.bold,
+    color: colors.white
+  },
   text: {
     ...fonts.style.t15,
+    ...fonts.style.bold,
     color: colors.white
   },
   button: {
-    backgroundColor: colors.transparent,
-    borderRadius: 0,
     borderColor: colors.white,
     borderWidth: 2,
-    height: 25,
-    marginLeft: metrics.baseMargin
+    paddingVertical: 3,
+    paddingHorizontal: metrics.smallMargin,
+    marginHorizontal: metrics.smallMargin,
   }
 });                               
