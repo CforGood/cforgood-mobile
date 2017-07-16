@@ -17,7 +17,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { onUpdateUserLocation } from '../../redux/actions/user';
-import { loadPopupNearMe } from '../../redux/actions/popup';
+import {
+  loadPopupNearMe,
+  noPermissionLocation,
+  checkLocation,
+} from '../../redux/actions/popup';
 
 import { loadBusiness } from '../../redux/actions/business';
 import { loadAssociation } from '../../redux/actions/association';
@@ -25,6 +29,7 @@ import { maximumDistance } from '../../helpers/distance';
 
 import Marker from './Marker';
 import MapDirection from './MapDirection';
+import AuthorizeLocation from '../authorize/Location';
 
 Mapbox.setAccessToken(accessTokenMapBox);
 
@@ -52,7 +57,7 @@ class MapView extends Component {
     legs: {},
     direction: [],
     showsUserLocation: true,
-    regionUser: this.props.location,
+    regionUser: {},
     zoom: 12,
     userTrackingMode: Mapbox.userTrackingMode.followWithHeading,
     annotations: [],
@@ -62,12 +67,16 @@ class MapView extends Component {
     mode: 'walking',
     loadedDirection: true,
     nearMe: false,
+    verifyLocation: false,
+    activateLocation: false,
     //findRegionUser: true
   };
 
   shouldComponentUpdate(nextProps, nextState) {
 
     if (
+      nextState.verifyLocation !== this.state.verifyLocation
+      ||
       nextState.annotations !== this.state.annotations
       ||
       nextState.direction !== this.state.direction
@@ -76,7 +85,9 @@ class MapView extends Component {
       ||
       nextState.userTrackingMode !== this.state.userTrackingMode
       ||
-      nextProps.changedLocation !== nextProps.changedLocation
+      nextProps.changedLocation !== this.props.changedLocation
+      ||
+      nextProps.check_location !== this.props.check_location
     ) {
       return true;
     }
@@ -86,6 +97,9 @@ class MapView extends Component {
 
   componentWillMount() {
 
+    if (this.props.location) {
+      this.setState({ regionUser: this.props.location });
+    }
 
     this.checkAuthorizedLocation();
 
@@ -100,25 +114,7 @@ class MapView extends Component {
     });
   }
 
-  checkAuthorizedLocation() {
 
-    Permissions.requestPermission('location')
-      .then(response => {
-        if (response !== 'authorized') {
-          this.load();
-        }
-      }).catch(e => console.log(e));
-
-    navigator.geolocation.getCurrentPosition((position) => {
-      if (position && position.coords) {
-        //this.setCenterCoordinate(position.coords);
-        //const location = {latlng : { latitude: 44.8460252, longitude: -0.5736973}};
-        //this.props.onUpdateUserLocation(location);
-      }
-    }, (error) => {
-
-    });
-  }
 
   componentWillUpdate(nextProps, nextState) {
     if (
@@ -140,12 +136,9 @@ class MapView extends Component {
 
   componentDidMount() {
 
-
-    if (this.props.businesses) {
-      this.generateMarkers(this.props.businesses);
-      if (this.props.businesses[0]) {
-        this.fetchAnnotation(this.props.businesses[0], this.props.businesses[0].addresses[0]);
-      }
+    this.loadmarkers(this.props);
+    if (this.props.businesses[0]) {
+      this.fetchAnnotation(this.props.businesses[0], this.props.businesses[0].addresses[0]);
     }
 
     if (this.props.address) {
@@ -172,46 +165,65 @@ class MapView extends Component {
 
   componentWillReceiveProps(nextProps) {
 
-
     if (nextProps.businesses !== this.props.businesses) {
-
-      this.generateMarkers(nextProps.businesses);
-      if (
-        nextProps.businesses && nextProps.businesses[0]
-      ) {
-
-        let business = null;
-        let address = null;
-
-        if (!this.state.nearMe) {
-
-          if (nextProps.businesses[0].addresses[0]) {
-            business = nextProps.businesses[0];
-            address = nextProps.businesses[0].addresses[0];
-          }
-
-          if (business && address) {
-
-            this.setState({ nearMe: true });
-            this.maximumDistance(business, address);
-          }
-
-        }
-      }
-      else {
-        this.props.showBusiness(null, null)
-        this.setState({ nearMe: false, direction: [] });
-      }
-
+      this.loadmarkers(nextProps);
     }
-    else if (nextProps.changedLocation !== this.props.changedLocation) {
 
+    if (nextProps.changedLocation !== this.props.changedLocation) {
       this.load();
     }
   }
 
+  checkAuthorizedLocation() {
+    Permissions.requestPermission('location')
+      .then(response => {
+        if (response === 'authorized') {
+          this.load();
+        }
+        else {
+          this.props.noPermissionLocation();
+        }
+      }).catch(e => {
+        this.props.noPermissionLocation();
+      });
+
+    navigator.geolocation.getCurrentPosition((position) => {
+
+    }, (error) => {
+      this.props.noPermissionLocation();
+    });
+  }
+
+  loadmarkers(props) {
+    this.generateMarkers(props.businesses);
+    if (
+      props.businesses && props.businesses[0]
+    ) {
+
+      let business = null;
+      let address = null;
+
+      if (!this.state.nearMe) {
+
+        if (props.businesses[0].addresses[0]) {
+          business = props.businesses[0];
+          address = props.businesses[0].addresses[0];
+        }
+
+        if (business && address) {
+          this.setState({ nearMe: true });
+          this.maximumDistance(business, address);
+        }
+
+      }
+    }
+    else {
+      props.showBusiness(null, null)
+      this.setState({ nearMe: false, direction: [] });
+    }
+  }
+
   maximumDistance(business, address) {
-    //alert(JSON.stringify(this.props.location))
     const verify = maximumDistance(this.props.location, address);
 
     if (verify) {
@@ -233,7 +245,6 @@ class MapView extends Component {
   };
 
   onUpdateUserLocation = (location) => {
-    //const location = {latlng : { latitude: 44.8460252, longitude: -0.5736973}};
     const regionUser = {
       latitude: location.latitude,
       longitude: location.longitude,
@@ -241,8 +252,10 @@ class MapView extends Component {
 
     this.setState({ regionUser });
 
-
-    if (!this.props.changedLocation) {
+    if (!this.props.location.latitude !== regionUser.latitude
+      &&
+      this.props.location.longitude !== regionUser.longitude
+    ) {
       this.setCenterCoordinate(regionUser);
       this.props.onUpdateUserLocation(regionUser);
     }
@@ -250,7 +263,6 @@ class MapView extends Component {
   };
 
   load() {
-
     this.props.loadBusiness();
     this.props.loadAssociation();
   }
@@ -384,7 +396,6 @@ class MapView extends Component {
     });
 
     if (gps && address) {
-      //const startPosition = LATITUDE + ',' + LONGITUDE;
 
       const startPosition = this.state.regionUser.latitude + ',' + this.state.regionUser.longitude;
       const endPosition = address.latitude + ',' + address.longitude;
@@ -469,6 +480,11 @@ class MapView extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <AuthorizeLocation
+          nextStep={() => this.props.checkLocation(false)}
+          verify={this.props.check_location}
+          handleError={() => { }}
+        />
         {
           this.props.mapDirection &&
           <MapDirection
@@ -576,6 +592,7 @@ class MapView extends Component {
 const mapStateToProps = state => ({
   location: state.location.latlng,
   changedLocation: state.location.changed,
+  check_location: state.popup.check_location,
 });
 
 
@@ -584,6 +601,8 @@ const mapDispatchToProps = (dispatch) => ({
   loadBusiness: bindActionCreators(loadBusiness, dispatch),
   loadAssociation: bindActionCreators(loadAssociation, dispatch),
   loadPopupNearMe: bindActionCreators(loadPopupNearMe, dispatch),
+  noPermissionLocation: bindActionCreators(noPermissionLocation, dispatch),
+  checkLocation: bindActionCreators(checkLocation, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapView);

@@ -11,14 +11,14 @@ import {
   styles,
   colors,
   fonts,
-  metrics, 
+  metrics,
 } from '../../themes';
 
 
-class PerkFilter extends PureComponent { 
+class PerkFilter extends PureComponent {
 
   state = {
-    filter: 'nearme' 
+    filter: 'nearme'
   };
 
   setFilter(filter) {
@@ -27,59 +27,89 @@ class PerkFilter extends PureComponent {
   }
 
   render() {
+    const { filter } = this.state;
     return (
       <View style={style.container}
       >
         <ButtonGradiant
-          type={this.state.filter !== 'nearme' ? 'simple' : ''}
-          style={[
-            style.button,
-            style.borderLeft,
-            this.state.filter === 'nearme' ? style.selectedButton : {},
-          ]}
-          styleButton={
-            this.state.filter === 'nearme' ?
-            [ 
-              style.borderLeft,
-              style.buttonContainer,
-              
-            ]
-            :
-            style.borderLeft
+          type={filter !== 'nearme' ? 'simple' : ''}
+          style={
+            filter === 'nearme'
+              ?
+              {
+                ...style.button,
+                ...style.borderLeft,
+                ...style.selectedButton
+              }
+              :
+              {
+                ...style.button,
+                ...style.borderLeft,
+              }
           }
-          styleText={[
-            style.text,
-            this.state.filter === 'nearme' ? {color: 'white'} : {}
-          ]}
+          styleButton={
+            filter === 'nearme' ?
+              {
+                ...style.borderLeft,
+                ...style.buttonContainer,
+              }
+              :
+              style.borderLeft
+          }
+          styleText={
+            filter === 'nearme' ?
+              {
+                ...style.text,
+                color: 'white'
+              }
+              :
+              {
+                ...style.text,
+              }
+          }
           onPress={() => this.setFilter('nearme')}
           text={'Autour de moi'}
-        /> 
+        />
         <ButtonGradiant
-          type={this.state.filter !== 'mostPopular' ? 'simple' : ''}
-          style={[
-            style.button,
-            style.borderRight,
-            this.state.filter === 'mostPopular' ? 
-            [
-              style.selectedButton,
-              {alignItems: 'flex-end'}
-            ]  
-            : 
-            {},
-          ]}
-          styleButton={
-            this.state.filter === 'mostPopular' ?
-            [ 
-              style.borderRight,
-              style.buttonContainer,
-            ]
-            :
-            style.borderRight
+          type={filter !== 'mostPopular' ? 'simple' : ''}
+          style={
+            filter === 'mostPopular' ?
+              {
+                ...style.button,
+                ...style.borderRight,
+                ...style.selectedButton,
+                alignItems: 'flex-end',
+              }
+              :
+              {
+                ...style.button,
+                ...style.borderRight,
+              }
           }
-          styleText={[
-            style.text,
-            this.state.filter === 'mostPopular' ? {color: 'white'} : {}
-          ]}
+          styleButton={
+            filter === 'mostPopular' ?
+              {
+                ...style.borderRight,
+                ...style.buttonContainer,
+                ...style.borderRight
+              }
+              :
+              {
+                ...style.borderRight,
+                ...style.buttonContainer,
+              }
+          }
+          styleText={
+            filter === 'nearme' ?
+              {
+                ...style.text,
+              }
+              :
+              {
+                ...style.text,
+                color: 'white'
+              }
+          }
           text={'Les + populaires'}
           onPress={() => this.setFilter('mostPopular')}
         />
@@ -94,7 +124,7 @@ const style = {
   container: {
     height: 73,
     width: metrics.deviceWidth,
-    paddingVertical: (73-44)/2,
+    paddingVertical: (73 - 44) / 2,
     paddingHorizontal: metrics.marginApp,
     flexDirection: 'row',
   },
@@ -113,7 +143,7 @@ const style = {
   text: {
     color: colors.darkGray,
     fontSize: fonts.size.regular,
-    width: (metrics.deviceWidth- metrics.marginApp)/2,
+    width: (metrics.deviceWidth - metrics.marginApp) / 2,
   },
   borderRight: {
     borderTopRightRadius: 22,
@@ -126,7 +156,7 @@ const style = {
   },
   buttonContainer: {
     height: 44,
-    width:  Platform.OS === 'ios' ? metrics.deviceWidth/2 : (metrics.deviceWidth- metrics.marginApp)/2,
+    width: Platform.OS === 'ios' ? metrics.deviceWidth / 2 : (metrics.deviceWidth - metrics.marginApp) / 2,
     borderRadius: Platform.OS === 'ios' ? 22 : 0,
   }
 }; 

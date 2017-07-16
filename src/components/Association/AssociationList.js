@@ -63,12 +63,14 @@ class AssociationList extends Component {
             this.props.associations &&
             this.props.associations.map((association, key) =>
               association.picture &&
-              <View style={[
-                style.associationContainer,
-                {
-                  alignItems: key % 2 ? 'flex-end' : 'flex-start'
-                }
-              ]}
+              <View
+                style={[
+                  style.associationContainer,
+                  {
+                    alignItems: key % 2 ? 'flex-end' : 'flex-start'
+                  }
+                ]}
+                key={key}
               >
                 <AssociationItem association={association} />
               </View>

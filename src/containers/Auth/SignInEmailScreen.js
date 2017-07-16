@@ -26,14 +26,20 @@ export default class SingInScreen extends Component {
   state = {
     email: '',
     error: '',
+    step: 1,
   };
 
   verify = () => {
-    const { email } = this.state;
+
+    const { email, step } = this.state;
     if (!validateEmail(email)) {
       this.setState({ error: 'L\'adresse email n\'est pas valide' });
     }
-    else {
+
+    else if (step === 1) {
+      this.setState({
+        step: 2
+      });
       this.props.navigation.navigate('SignInPassword', { email });
     }
   }
@@ -48,7 +54,7 @@ export default class SingInScreen extends Component {
       >
         <ErrorView
           message={this.state.error}
-          removeError={() => this.setState({error: ''})}
+          removeError={() => this.setState({ error: '' })}
         />
         <Container
           title={'Quel est votre e-mail ?'}

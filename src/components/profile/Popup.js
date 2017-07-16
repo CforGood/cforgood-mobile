@@ -6,13 +6,13 @@ import moment from 'moment';
 import {
   View,
   Text,
-  Image, 
+  Image,
   StyleSheet,
 } from 'react-native';
 
-import Modal from '../Modal'; 
+import Modal from '../Modal';
 import Popup from '../common/Popup';
- 
+
 import {
   styles,
   colors,
@@ -20,96 +20,124 @@ import {
   metrics,
 } from '../../themes';
 
-const days  = (date) => {
+const days = (date) => {
   const start = moment();
   const end = moment(date);
-  return end.diff(start, 'days')  
+  return end.diff(start, 'days')
 }
 
-class PopupProfile extends PureComponent { 
-  
+class PopupProfile extends PureComponent {
+
   static propTypes = {
     visible: PropTypes.bool,
     type: PropTypes.string,
     onValidate: PropTypes.func
   };
 
-  static defaultProps ={
+  static defaultProps = {
     visible: false,
     type: ''
   };
 
-  shouldComponentUpdate(nextProps){
+  shouldComponentUpdate(nextProps) {
 
-    if(
+    if (
       nextProps.visible != this.props.visible
-    ){
+    ) {
       return true;
 
     }
     return false;
   }
-  
+
   renderPopup() {
     switch (this.props.type) {
-      case 'user' : 
-        return (
-          <Popup 
-            icon={require('../../resources/profile/checked.png')}
-            bigtitle={'Modifications à jour !'} 
-            description= {'Vos modifications sont maintenant\nà jour sur l’application.'}
-            onClose={this.props.onClose}
-          /> 
-        )
-        break;
-      case 'M' || 'Y': 
+      case 'user':
         return (
           <Popup
-            icon={require('../../resources/profile/claping-hands.png')}
-            bigtitle={'Bravo et merci !'} 
-            description= {(<Text>Votre participation <Text>
-              {
-                this.props.type === 'M'
-                ?
-                'mensuelle'
-                :
-                'annuelle'
-              }
-              </Text> a bien été prise en compte.</Text>)}
+            icon={require('../../resources/profile/checked.png')}
+            bigtitle={'Modifications à jour !'}
+            description={'Vos modifications sont maintenant\nà jour sur l’application.'}
             onClose={this.props.onClose}
           />
         )
         break;
-      case 'businesses_around': 
+      case 'M' || 'Y':
         return (
           <Popup
-            bgImage={
-              <Image 
-                style={{
-                  width: 264,
-                  height: 173,
-                  opacity: 0.2,
-                }}
-                resizeMode={'contain'}
-                source={require('../../resources/images/map.png')}
-              />
-            }
             icon={require('../../resources/profile/claping-hands.png')}
+            bigtitle={'Bravo et merci !'}
+            description={(<Text>Votre participation <Text>
+              {
+                this.props.type === 'M'
+                  ?
+                  'mensuelle'
+                  :
+                  'annuelle'
+              }
+            </Text> a bien été prise en compte.</Text>)}
+            onClose={this.props.onClose}
+          />
+        )
+        break;
+      case 'businesses_around':
+        return (
+          <Popup
+            icon={require('../../resources/icons/Capa.png')}
             bigtitle={'Hey ... :-)'}
-            smalltitle={'Il n’y a pas de partenaire\nautour de vous !'}
-            description= {'CforGood n’est pas encore dans\nvotre ville, mais ça peut s’arranger …'}
-            textButton={'Faites-nous signe !'}
-            iconButton={require('../../resources/icons/message.png')}
+            smalltitle={'Il n’y a pas de commerce référencé autour de vous !'}
+            description={'CforGood n’est pas encore dans votre ville, mais ça peut s’arranger …'}
+            textButton={'Génial, on arrive !'}
+            iconButton={require('../../resources/icons/rocket.png')}
             onClose={this.props.onClose}
             onValidate={() => this.props.onValidate()}
           />
         )
         break;
+      case 'no_permission_location':
+        return (
+          <Popup
+            icon={require('../../resources/icons/location.png')}
+            bigtitle={'Hey ... :-)'}
+            smalltitle={'Pas de commerce sur la carte ?'}
+            description={'Vous devez activer la localisation \n pour découvrir les commerces \n autour de vous ;-)'}
+            textButton={'Activer la localisation !'}
+            iconButton={require('../../resources/icons/Capa_1.png')}
+            onClose={this.props.onClose}
+            onValidate={this.props.onValidate}
+          />
+        )
+        break;
+      // case 'businesses_around':
+      //   return (
+      //     <Popup
+      //       bgImage={
+      //         <Image
+      //           style={{
+      //             width: 264,
+      //             height: 173,
+      //             opacity: 0.2,
+      //           }}
+      //           resizeMode={'contain'}
+      //           source={require('../../resources/images/map.png')}
+      //         />
+      //       }
+      //       icon={require('../../resources/profile/claping-hands.png')}
+      //       bigtitle={'Hey ... :-)'}
+      //       smalltitle={'Il n’y a pas de partenaire\nautour de vous !'}
+      //       description={'CforGood n’est pas encore dans\nvotre ville, mais ça peut s’arranger …'}
+      //       textButton={'Faites-nous signe !'}
+      //       iconButton={require('../../resources/icons/message.png')}
+      //       onClose={this.props.onClose}
+      //       onValidate={() => this.props.onValidate()}
+      //     />
+      //   )
+      //   break;
       case 'partner':
         return (
           <Popup
             bgImage={
-              <Image 
+              <Image
                 style={{
                   width: 173,
                   height: 173,
@@ -120,28 +148,28 @@ class PopupProfile extends PureComponent {
               />
             }
             icon={require('../../resources/profile/Shape.png')}
-            bigtitle={'Excellent !'} 
-            description= {
+            bigtitle={'Excellent !'}
+            description={
               this.props.trial_attributes.user_offering_first_name + ' ' +
-              this.props.trial_attributes.user_offering_last_name + 
+              this.props.trial_attributes.user_offering_last_name +
               ' vous a offert ' +
               this.props.trial_attributes.nb_month_beneficiary +
-              ' mois\nd’accès à l’application CforGood'+
-             '\npour une consommation positive !'
+              ' mois\nd’accès à l’application CforGood' +
+              '\npour une consommation positive !'
             }
             iconButton={require('../../resources/icons/hand-like.png')}
             textButton={'A vous de jouer !'}
             onClose={this.props.onClose}
             onValidate={() => this.props.onValidate()}
-            
+
           />
         )
         break;
-      case 'not_partner': 
+      case 'not_partner':
         return (
-          <Popup  
+          <Popup
             bgImage={
-              <Image 
+              <Image
                 style={{
                   width: 173,
                   height: 173,
@@ -152,11 +180,11 @@ class PopupProfile extends PureComponent {
               />
             }
             icon={require('../../resources/profile/Shape.png')}
-            bigtitle={'Waouu génial !'} 
-            description= {
-              'Profitez bien des '+
-              days( this.props.trial_attributes.date_end_partner) +
-              ' jours OFFERTS\npar '+
+            bigtitle={'Waouu génial !'}
+            description={
+              'Profitez bien des ' +
+              days(this.props.trial_attributes.date_end_partner) +
+              ' jours OFFERTS\npar ' +
               (this.props.trial_attributes.partner_name || 'Cforgood') +
               +'\n pour découvrir l’application.'
             }
@@ -167,11 +195,11 @@ class PopupProfile extends PureComponent {
           />
         )
         break;
-      case 'not_member': 
+      case 'not_member':
         return (
-          <Popup  
+          <Popup
             bgImage={
-              <Image 
+              <Image
                 style={{
                   width: 264,
                   height: 173,
@@ -183,8 +211,8 @@ class PopupProfile extends PureComponent {
               />
             }
             icon={require('../../resources/profile/pop_1.png')}
-            bigtitle={'Ha Ha … :-)'} 
-            smalltitle= {'Vous êtes bien inscrit,\nmais pas encore membre !'}
+            bigtitle={'Ha Ha … :-)'}
+            smalltitle={'Vous êtes bien inscrit,\nmais pas encore membre !'}
             description={'Encore quelques clics et c’est bon.'}
             textButton={'Je deviens membre'}
             iconButton={require('../../resources/icons/pencil.png')}
@@ -193,50 +221,50 @@ class PopupProfile extends PureComponent {
           />
         )
         break;
-        case 'first_perk_offer': 
-          return (
-            <Popup  
-              bgImage={
-                <Image 
-                  style={{
-                    width: 264,
-                    height: 173,
-                    tintColor: 'gray',
-                    opacity: 0.2,
-                  }}
-                  resizeMode={'contain'}
-                  source={require('../../resources/images/handshake.png')}
-                />
-              }
-              icon={require('../../resources/profile/pop_1.png')}
-              bigtitle={'C\'est parti !'} 
-              smalltitle= {'Bon plan offert'}
-              description={'Pour bien commencer,\nnous vous offrons un bon plan chez l\'un de nos commerçants.'}
-              textButton={'J\'en profite'}
-              iconButton={require('../../resources/icons/hand-like.png')}
-              onClose={this.props.onClose}
-              onValidate={() => this.props.onValidate()}
-            />
-          )
-          break;
-      default: 
-        break;  
+      case 'first_perk_offer':
+        return (
+          <Popup
+            bgImage={
+              <Image
+                style={{
+                  width: 264,
+                  height: 173,
+                  tintColor: 'gray',
+                  opacity: 0.2,
+                }}
+                resizeMode={'contain'}
+                source={require('../../resources/images/handshake.png')}
+              />
+            }
+            icon={require('../../resources/profile/pop_1.png')}
+            bigtitle={'C\'est parti !'}
+            smalltitle={'Bon plan offert'}
+            description={'Pour bien commencer,\nnous vous offrons un bon plan chez l\'un de nos commerçants.'}
+            textButton={'J\'en profite'}
+            iconButton={require('../../resources/icons/hand-like.png')}
+            onClose={this.props.onClose}
+            onValidate={() => this.props.onValidate()}
+          />
+        )
+        break;
+      default:
+        break;
     }
   }
 
   render() {
-    return ( 
-      <Modal 
+    return (
+      <Modal
         animationType={'fade'}
         blurType={'dark'}
         blurAmount={1}
         visible={this.props.visible}
         onClose={this.props.onClose}
-      > 
-        <View style={{alignItems: 'center'}}>
-          { this.renderPopup() }
+      >
+        <View style={{ alignItems: 'center' }}>
+          {this.renderPopup()}
         </View>
-      </Modal>    
+      </Modal>
     );
   }
 }

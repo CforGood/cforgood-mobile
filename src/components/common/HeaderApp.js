@@ -43,12 +43,10 @@ class Header extends PureComponent {
           <Icon
             onPress={() => this.props.navigation.navigate('Search', { module: this.props.module })}
             source={require('../../resources/icons/search.png')}
-            style={[
-              {
-                height: metrics.deviceWidth / 22.06,
-                width: metrics.deviceWidth / 2,
-              }
-            ]}
+            style={{
+              height: metrics.deviceWidth / 22.06,
+              width: metrics.deviceWidth / 2,
+            }}
             styleImage={{
               tintColor: colors.darkGray,
               height: 17,

@@ -27,6 +27,7 @@ class SignUpValidationScreen extends Component {
 
   load() {
     this.props.loadAssociation();
+    this.props.loadBusiness();
   }
 
   render() {

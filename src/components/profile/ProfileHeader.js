@@ -1,17 +1,17 @@
 import React, { PureComponent, PropTypes } from 'react';
 import {
   View,
-  Text,  
+  Text,
   StyleSheet,
   Platform,
-} from 'react-native'; 
+} from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 import Intercom from 'react-native-intercom';
 import { withNavigation } from 'react-navigation';
 
 import {
-  styles, 
+  styles,
   fonts,
   metrics,
   colors,
@@ -23,72 +23,74 @@ import Back from '../common/Back';
 
 
 class ProfileHeader extends PureComponent {
- 
+
   render() {
     const { ambassador } = this.props;
-    return ( 
+    return (
       <LinearGradient
-        start={{x: 0, y:0}} end={{x: 1, y:0}}
+        start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
         colors={colors.gradientColor}
         style={[
           styles.spaceBetween,
-          styles.row, 
+          styles.row,
           {
-            paddingTop: Platform.OS === 'ios' ? 20: 0,
+            paddingTop: Platform.OS === 'ios' ? 20 : 0,
             paddingHorizontal: metrics.marginApp
-          }, 
+          },
         ]}
-      > 
-        <View style={{justifyContent: 'center'}}>
+      >
+        <View style={{ justifyContent: 'center' }}>
           <Back
-            styleImage={{tintColor: colors.white}}
+            styleImage={{ tintColor: colors.white }}
             rotate={true}
           />
         </View>
-        <View 
+        <View
           style={{
             flexDirection: 'row',
             alignItems: 'center'
           }}
-        > 
+        >
           {
             ambassador &&
             <Icon
               source={require('../../resources/icons/ambassadeur.png')}
-              style={style.icon}
-              styleImage={style.image}
+              style={{
+                marginLeft: metrics.baseMargin,
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+              styleImage={{
+                height: 36,
+                width: 36,
+              }}
               onPress={() => this.props.navigation.navigate(
                 'WebView',
-                { 
-                  url: 'https://app.cforgood.com/member/users/8/ambassador', 
-                  title: 'Ambassadeur' 
+                {
+                  url: 'https://app.cforgood.com/member/users/8/ambassador',
+                  title: 'Ambassadeur'
                 }
               )}
             />
           }
-          
+
           <Icon
             onPress={() => Intercom.displayMessageComposer()}
             source={require('../../resources/icons/intercom.png')}
-            style={style.icon}
-            styleImage={style.image}
+            style={{
+              marginLeft: metrics.baseMargin,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+            styleImage={{
+              height: 36,
+              width: 36,
+            }}
           />
-        </View> 
+        </View>
       </LinearGradient>
     );
   }
 }
 
-export default  withNavigation(ProfileHeader);
-
-const style = StyleSheet.create({
-  image:{
-    height: 36,
-    width: 36,
-  },
-  icon: {
-    marginLeft: metrics.baseMargin,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-});
+export default withNavigation(ProfileHeader);
