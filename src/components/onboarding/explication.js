@@ -34,8 +34,7 @@ export default class Modal extends Component {
         onRequestClose={() => { }}
       >
         <View style={{ flex: 1 }} />
-        
-
+      
       </RNModal>
     );
   }

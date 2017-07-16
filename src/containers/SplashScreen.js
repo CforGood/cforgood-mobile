@@ -66,7 +66,7 @@ class SplashScreen extends Component {
       }
 
       setTimeout(() => {
-        this.goTo(value !== null ? 'Home' : 'Onboarding');
+        this.goTo(value !== null ? 'Onboarding' : 'Onboarding');
       }, 2000);
     }
 
@@ -153,8 +153,6 @@ class SplashScreen extends Component {
         }
       ).start(this.animate(i + 1));
     }
-
-
   }
 
   animateOpacity() {

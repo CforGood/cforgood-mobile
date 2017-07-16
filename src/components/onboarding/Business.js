@@ -38,6 +38,11 @@ class Business extends PureComponent {
           message={this.state.error}
           removeError={() => this.setState({ error: '' })}
         />
+        <AuthorizeLocation
+          nextStep={() => this.props.scroll()}
+          verify={this.state.verify}
+          handleError={this.handleError}
+        />
         <OnboardingDetail
           source={require('../../resources/onboarding/1.png')}
           icon={require('../../resources/onboarding/commerce.png')}
@@ -50,13 +55,9 @@ class Business extends PureComponent {
             </Text>
           </View>)}
           textButton={'Me localiser'}
-          onPress={this.setState({ verify: true })}
+          onPress={() => this.setState({ verify: true })}
         />
-        <AuthorizeLocation
-          nextStep={() => this.props.scroll()}
-          verify={this.state.verify}
-          handleError={this.handleError}
-        />
+
       </View>
     );
   }

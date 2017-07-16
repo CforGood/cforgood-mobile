@@ -25,16 +25,16 @@ class Association extends PureComponent {
   goToNextPage = () => {
     this.setState(
       { visiblePopupVideo: false },
-      () => this.props.navigation.navigate('SignUpFirstname')
+      () => this.props.navigation.navigate('Home')
     );
   }
 
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <ErrorView 
+        <ErrorView
           message={this.state.error}
-          removeError={() => this.setState({error: ''})}
+          removeError={() => this.setState({ error: '' })}
         />
         <OnboardingDetail
           index={3}
