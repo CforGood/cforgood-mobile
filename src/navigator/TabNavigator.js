@@ -9,9 +9,9 @@ import {
 
 import TabNavigator from '../modules/TabView/TabNavigator';
 
-import PerksScreen from '../containers/PerksScreen';
-import AssociationScreen from '../containers/AssociationScreen';
-import MapScreen from '../containers/MapScreen';
+import PerksScreen from '../containers/Perk/PerksScreen';
+import AssociationScreen from '../containers/Association/AssociationScreen';
+import MapScreen from '../containers/Business/MapScreen';
 
 const { height, width } = Dimensions.get('window');
 

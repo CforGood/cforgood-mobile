@@ -117,7 +117,7 @@ export default class LikeScreen extends Component {
         >
           <Text style={[style.title, fonts.style.bold]}>
             Envoyez du love !
-        </Text>
+          </Text>
           <Icon
             styleImage={{
               width: 100,
@@ -151,7 +151,6 @@ export default class LikeScreen extends Component {
             borderColor={colors.transparent}
           />
         </View>
-
         <ConfirmPopup
           visiblePopup={this.state.visiblePopupConfirm}
           message={(<Text style={style.message}>

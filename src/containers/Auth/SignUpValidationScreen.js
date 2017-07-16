@@ -4,7 +4,11 @@ import {
   Text,
   StyleSheet
 } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
 
+import { loadBusiness } from '../../redux/actions/business';
+import { loadAssociation } from '../../redux/actions/association';
 import Background from '../../components/common/Background';
 import Validation from '../../components/login/Validation';
 
@@ -17,6 +21,14 @@ import {
 
 class SignUpValidationScreen extends Component {
 
+  componentWillMount() {
+    this.load();
+  }
+
+  load() {
+    this.props.loadAssociation();
+  }
+
   render() {
     return (
       <Background style={{
@@ -28,8 +40,8 @@ class SignUpValidationScreen extends Component {
         <Validation
           firstText={'Votre compte est créé.'}
           secondText={''}
-          name={'Bienvenue Allan !'}
-          nextStep={() => this.props.navigation.navigate('InvitationLove')}
+          name={`Bienvenue  ${this.props.user.first_name} !`}
+          nextStep={() => this.props.navigation.navigate('ChooseAssociation')}
         />
       </Background>
     );
@@ -37,6 +49,13 @@ class SignUpValidationScreen extends Component {
 }
 
 
-export default SignUpValidationScreen;
+const mapStateToProps = state => ({
+  user: state.user.data,
+});
 
+const mapDispatchToProps = (dispatch) => ({
+  loadBusiness: bindActionCreators(loadBusiness, dispatch),
+  loadAssociation: bindActionCreators(loadAssociation, dispatch),
+});
 
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpValidationScreen);

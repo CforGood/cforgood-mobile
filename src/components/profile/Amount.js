@@ -95,12 +95,9 @@ export default class Amount extends PureComponent {
         amount = this.state.maxAmount;
       }
     }
-    this.setState({ amount: parseInt(amount), left }, () => {
-      //      this.props.setUserData({
-      //        ...user, amount
-      //      });
-      if (update) {
 
+    this.setState({ amount: parseInt(amount), left }, () => {
+      if (update) {
         const { subscription } = this.state;
         const { user } = this.props;
         this.props.setUserData({
@@ -173,89 +170,94 @@ export default class Amount extends PureComponent {
   render() {
     const { subscription } = this.state;
     return (
-      <View>
-        {
-          subscription !== 'X' &&
-          <View style={[
-            styles.row,
-            {
-              marginVertical: metrics.baseMargin,
-              justifyContent: 'space-around',
-              marginHorizontal: metrics.baseMargin
-            }
-          ]}
-          >
-            <Text style={[
-              fonts.style.t17,
-              subscription === 'M' ?
-                fonts.style.bold
-                :
-                style.disable
-            ]} >
-              Mensuel
-            </Text>
-            <Switch
-              checked={subscription === 'Y'}
-              onChange={(checked) => this.setSubscription(checked)}
-            />
-            <Text
-              style={[
+      <View
+        style={{
+          flex: 1,
+          marginHorizontal: metrics.marginApp
+        }}
+      >
+        <View style={{ height: 80 }}>
+          {
+            subscription !== 'X' &&
+            <View style={[
+              styles.row,
+              {
+                marginVertical: metrics.baseMargin,
+                justifyContent: 'space-around',
+                marginHorizontal: metrics.baseMargin
+              }
+            ]}
+            >
+              <Text style={[
                 fonts.style.t17,
-                subscription === 'Y' ?
+                subscription === 'M' ?
                   fonts.style.bold
                   :
                   style.disable
-              ]}
-            >
-              Annuel
-            </Text>
-          </View>
-        }
-
-        {
-          subscription === 'Y' &&
-          <View style={[styles.row, styles.center]}>
-            <Text
-              style={[
-                fonts.style.t16,
-                fonts.style.bold,
-                style.offert,
-              ]}
-            >
-              2 mois
-            </Text>
-            <Text
-              style={[
-                fonts.style.t16,
-                style.offert,
-              ]}
-            >
-              d'utilisation offerts !
-            </Text>
-          </View>
-
-        }
-        <View style={styles.center}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <View style={style.center} >
-              <Text style={[
-                fonts.style.t16,
-                fonts.style.mediumBold,
-                {
-                  paddingRight: metrics.baseMargin,
-                  textAlign: 'center'
-                }
-              ]}
+              ]} >
+                Mensuel
+              </Text>
+              <Switch
+                checked={subscription === 'Y'}
+                onChange={(checked) => this.setSubscription(checked)}
+              />
+              <Text
+                style={[
+                  fonts.style.t17,
+                  subscription === 'Y' ?
+                    fonts.style.bold
+                    :
+                    style.disable
+                ]}
               >
-                Ma participation
+                Annuel
             </Text>
             </View>
-
-            <Box text={String(Math.floor(this.state.amount)) + ' €'} />
-          </View>
+          }
+          {
+            subscription === 'Y' &&
+            <View style={[styles.row, styles.center]}>
+              <Text
+                style={[
+                  fonts.style.t16,
+                  fonts.style.bold,
+                  style.offert,
+                ]}
+              >
+                2 mois
+                </Text>
+              <Text
+                style={[
+                  fonts.style.t16,
+                  style.offert,
+                ]}
+              >
+                d'utilisation offerts !
+                </Text>
+            </View>
+          }
+        </View>
+        <View style={[styles.row, styles.center]}>
+          <Text style={[
+            fonts.style.t16,
+            fonts.style.mediumBold,
+            {
+              paddingRight: metrics.baseMargin,
+              textAlign: 'center'
+            }
+          ]}
+          >
+            Ma participation
+          </Text>
+          <Box
+            text={String(Math.floor(this.state.amount)) + ' €'}
+          />
+        </View>
+        <View style={[styles.row, styles.center]}>
           <Text
             style={{
-              ...fonts.style.t13, color: colors.textinput
+              ...fonts.style.t13,
+              color: colors.textinput
             }}
           >
             Nos membres donnent en moyenne 7 €
@@ -263,7 +265,7 @@ export default class Amount extends PureComponent {
         </View>
         {
           subscription !== 'X' &&
-          <View style={style.SlideContainer}>
+          <View style={style.slideContainer}>
             <Slider
               setPosition={(left) => this.setAmount(left)}
               updatePosition={this.updatePosition}
@@ -292,16 +294,13 @@ export default class Amount extends PureComponent {
             text={'Coût réel de votre participation après déduction fiscale.'}
           />
         </View>
-
-
-
       </View>
     );
   }
 };
 
 const style = StyleSheet.create({
-  SlideContainer: {
+  slideContainer: {
     flex: 1,
     alignItems: 'stretch',
     justifyContent: 'center',

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import stripe from 'tipsi-stripe'
+import stripe from 'tipsi-stripe';
 
 import {
   styles,
@@ -66,9 +66,11 @@ class ProfileCreditCardScreen extends Component {
       };
 
       stripe.createTokenWithCard(params).then(token => {
-        
+        this.props.navigation.navigate('InvitationLove');
         //call api to add token
-      }).catch(error => this.setState({ error: 'kotti' + error.message }))
+      }).catch(error => this.setState({
+        error: error.message
+      }))
     }
     else {
       const message = '';
@@ -87,9 +89,7 @@ class ProfileCreditCardScreen extends Component {
       if (message !== '') {
         this.setState({ error: message });
       }
-
     }
-
   }
 
   _onChange = (form) => {
@@ -102,25 +102,23 @@ class ProfileCreditCardScreen extends Component {
         cvc: values.cvc,
         valid: true,
       });
-
-      console.log('values.expiry.substr(0, 2)', values.expiry.substr(0, 2))
-
     }
     else {
       this.setState({
         status,
         valid: false,
       });
-
     }
-
   }
 
   render() {
     const { user } = this.state;
     return (
       <View style={styles.screen.mainContainer}>
-        <ErrorView message={this.state.error} />
+        <ErrorView
+          message={this.state.error}
+          removeError={() => this.setState({ error: '' })}
+        />
         <Header
           back={'-90deg'}
           text={'Ajouter une CB'}
@@ -193,21 +191,20 @@ class ProfileCreditCardScreen extends Component {
           </View>
         </ScrollView>
         <View style={[{ height: 60 }, styles.center]}>
-
           <ButtonGradiantRadius
             onPress={this.createToken}
             text={'Valider'}
           />
         </View>
         <Button
-          onPress={() => { }}
+          onPress={() => this.props.navigation.navigate('InvitationLove')}
           type={'simple'}
           style={{
             backgroundColor: 'white'
           }}
           styleText={{
-            color: colors.ignore,
             ...fonts.style.t15,
+            color: colors.ignore,
           }}
           text={'Passer'}
         />
@@ -218,6 +215,8 @@ class ProfileCreditCardScreen extends Component {
 
 const mapStateToProps = state => ({
   user: state.user.data,
+  failure: state.user.failure,
+  error: state.user.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({

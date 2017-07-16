@@ -8,6 +8,8 @@ import {
   Image,
 } from 'react-native';
 import Contacts from 'react-native-contacts';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Background from '../../components/common/Background';
 import Icon from '../../components/common/Icon';
@@ -17,6 +19,7 @@ import Header from '../../components/invitation/Header';
 import HeaderTextInput from '../../components/invitation/HeaderTextInput';
 import ContactItem from '../../components/invitation/ContactItem';
 import SeparatorInvitation from '../../components/invitation/SeparatorInvitation';
+import { siginSuccess } from '../../redux/actions/auth';
 
 import {
   styles,
@@ -27,12 +30,12 @@ import {
 
 const NUMBER_INVITATION = 5;
 
-export default class ListInvitationScreen extends Component {
+class ContactsScreen extends Component {
   state = {
     contacts: [],
     invitations: [],
     visiblePopupConfirm: false,
-    visiblePopupWarning: true,
+    visiblePopupWarning: false,
   };
 
   _keyExtractor = (item) => item.recordID;
@@ -77,8 +80,18 @@ export default class ListInvitationScreen extends Component {
     }));
   }
 
-  vallidate = () => {
+  validate = () => {
+    if (this.state.invitations.length < NUMBER_INVITATION) {
+      this.setState({ visiblePopupWarning: true });
+    } else {
+      this.setState({ visiblePopupConfirm: true });
+      setTimeout(() => {
+        this.setState({ visiblePopupConfirm: false },
+          () => this.props.siginSuccess()
+        );
+      }, 1000);
 
+    }
   }
 
   confirm = () => {
@@ -86,7 +99,9 @@ export default class ListInvitationScreen extends Component {
   }
 
   ignore = () => {
-
+    this.setState({ visiblePopupWarning: false },
+      () => this.props.siginSuccess()
+    );
   }
 
   render() {
@@ -96,7 +111,6 @@ export default class ListInvitationScreen extends Component {
           flex: 1,
         }}
       >
-
         <View style={{
           position: 'absolute',
           left: 0,
@@ -114,7 +128,7 @@ export default class ListInvitationScreen extends Component {
             styleText={{
               color: colors.darkGray,
             }}
-            onPress={this.vallidate}
+            onPress={this.validate}
           />
         </View>
 
@@ -189,7 +203,10 @@ export default class ListInvitationScreen extends Component {
           title={
             (
               <Text>
-                Plus que 2 invitations à envoyer !
+                {
+                  this.state.invitations.length !== 0 &&
+                  'Plus que '
+                } {NUMBER_INVITATION - this.state.invitations.length} invitations à envoyer !
               </Text>
             )
           }
@@ -201,7 +218,7 @@ export default class ListInvitationScreen extends Component {
             )
           }
           ignore={this.ignore}
-          confirm={this.confirm}
+          confirm={() => this.setState({ visiblePopupWarning: false })}
           image={(
             <Image
               source={require('../../resources/icons/flay.png')}
@@ -218,10 +235,12 @@ export default class ListInvitationScreen extends Component {
   }
 }
 
-const style = StyleSheet.create({
-  title: {
-    color: colors.white,
-    fontSize: 18,
-    textAlign: 'center'
-  },
-});   
+const mapStateToProps = state => ({
+  user: state.user.data,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  siginSuccess: bindActionCreators(siginSuccess, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactsScreen);  

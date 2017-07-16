@@ -28,13 +28,12 @@ class ErrorView extends PureComponent {
 
   static defaultProps = {
     message: '',
-    removeError: () => {},
+    removeError: () => { },
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.message !== "") {
+    if (nextProps.message !== '') {
       this.setState({ showError: true });
-      this.props.removeError();
     }
   }
   render() {
@@ -61,35 +60,37 @@ class ErrorView extends PureComponent {
         <View style={{ flex: 1 }} />
         <View
           style={{
-            flex: 5,
-            justifyContent: 'center'
+            flex: 10,
+            ...styles.center,
           }}
         >
           <Text
             style={[
               fonts.style.t17,
               fonts.style.textWhite,
+              {
+                textAlign: 'center',
+              }
             ]}
           >
-            {
-              this.props.message
-            }
+            {this.props.message}
           </Text>
         </View>
-        <View style={[{ flex: 1 }, styles.center]}>
-          <Close
-            source={require('../../resources/icons/close-white.png')}
-            onPress={() => this.setState({ showError: false })}
-            style={{
-              height: 15,
-              width: 15,
-            }}
-            styleImage={{
-              height: 15,
-              width: 15
-            }}
-          />
-        </View>
+
+        <Close
+          source={require('../../resources/icons/close-white.png')}
+          onPress={() => {
+            this.props.removeError();
+            this.setState({ showError: false });
+          }}
+          styleImage={{
+            height: 15,
+            width: 15
+          }}
+          style={{
+            padding: metrics.baseMargin,
+          }}
+        />
       </View>
     );
   }

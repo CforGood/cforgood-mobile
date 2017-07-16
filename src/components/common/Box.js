@@ -1,7 +1,7 @@
-import 
-  React, 
-  { PureComponent, PropTypes } 
-from 'react';
+import
+React,
+{ PureComponent, PropTypes }
+  from 'react';
 
 import {
   View,
@@ -21,48 +21,48 @@ import LinearGradient from 'react-native-linear-gradient';
 export default class Box extends PureComponent {
 
   static propTypes = {
-  	text: PropTypes.string,  
+    text: PropTypes.string,
   };
 
   static defaultProps = {
     text: '0 €',
   }
-    
+
   render() {
     return (
       <LinearGradient
-        start={{x: 0, y:0}} end={{x: 1, y:0}}
+        start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
         colors={colors.gradientColor}
         style={[
-            styleBox.box, 
-            styles.center,
-          ]}
+          styleBox.box,
+          styles.center,
+        ]}
       >
         <View style={[
-        	  styleBox.boxText,
-        	  styles.center,
-          ]} 
+          styleBox.boxText,
+          styles.center,
+        ]}
         >
-          <Text style={fonts.style.h2} >
+          <Text style={[fonts.style.t26, fonts.style.bold]} >
             {this.props.text}
-          </Text> 
-        </View> 
-      </LinearGradient>   
+          </Text>
+        </View>
+      </LinearGradient>
     );
   }
 };
 
-const styleBox = StyleSheet.create({  
+const styleBox = StyleSheet.create({
   box: {
     width: 128,
     height: 50,
-    borderRadius: 5, 
+    borderRadius: 5,
   },
   boxText: {
     width: 125,
     height: 47,
     borderRadius: 5,
-    backgroundColor: colors.white,    
+    backgroundColor: colors.white,
   },
-}); 
+});
 

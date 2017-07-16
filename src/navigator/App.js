@@ -9,7 +9,7 @@ import {
 import AppNavigator from './AppNavigator';
 
 import PopupProfile from '../components/profile/PopupProfile';
-import ReviewsScreen from '../containers/ReviewsScreen';
+import ReviewsScreen from '../containers/Perk/ReviewsScreen';
 import PushController from  "../PushController";
 
 class App extends Component {

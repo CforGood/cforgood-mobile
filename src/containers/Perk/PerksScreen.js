@@ -12,27 +12,27 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import ApiHandler from '../utils/api';
-import Filter from '../components/common/Filter';
-import Separator from '../components/common/Separator';
-import ButtonGradiant from '../components/common/ButtonGradiant';
-import SeparatorColor from '../components/common/SeparatorColor';
-import Header from '../components/common/HeaderApp';
-import PerkAddressRow from '../components/perk/PerkAddressRow';
-import PerkFilter from '../components/perk/PerkFilter';
+import ApiHandler from '../../utils/api';
+import Filter from '../../components/common/Filter';
+import Separator from '../../components/common/Separator';
+import ButtonGradiant from '../../components/common/ButtonGradiant';
+import SeparatorColor from '../../components/common/SeparatorColor';
+import Header from '../../components/common/HeaderApp';
+import PerkAddressRow from '../../components/perk/PerkAddressRow';
+import PerkFilter from '../../components/perk/PerkFilter';
 import ReviewsScreen from './ReviewsScreen';
 
-import { distance } from '../helpers/distance';
+import { distance } from '../../helpers/distance';
 import {
   styles,
   colors,
   fonts,
   metrics,
-} from '../themes';
+} from '../../themes';
 
 import {
   getCategory,
-} from '../constants/categories';
+} from '../../constants/categories';
 
 
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });

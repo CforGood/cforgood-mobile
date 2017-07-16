@@ -3,7 +3,7 @@ import {
 } from '../constants/user.js';
 
 const initialState = {
-  latlng: {latitude: 44.840412, longitude: -0.5703524},
+  latlng: null,
   changed: false
 };
 

@@ -15,22 +15,22 @@ import FontMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Kohana } from 'react-native-textinput-effects';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import Separator from '../components/common/Separator';
-import Button from '../components/common/ButtonGradiant';
-import Header from '../components/common/Header';
-import Back from '../components/common/Back';
+import Separator from '../../components/common/Separator';
+import Button from '../../components/common/ButtonGradiant';
+import Header from '../../components/common/Header';
+import Back from '../../components/common/Back';
 
-import Gender from '../components/Association/Gender';
-import ModalCategories from '../components/Association/ModalCategories';
+import Gender from '../../components/Association/Gender';
+import ModalCategories from '../../components/Association/ModalCategories';
 
-import ApiHandler from '../utils/api';
+import ApiHandler from '../../utils/api';
 
 import {
   styles,
   colors,
   fonts,
   metrics,
-} from '../themes';
+} from '../../themes';
 
 const HEADER_SCROLL_DISTANCE = metrics.marginApp;
 
@@ -266,7 +266,7 @@ class AssociationFormScreen extends PureComponent {
                   height: 7.17,
                   width: 13.36,
                 }}
-                source={require('../resources/icons/arrow-bottom.png')}
+                source={require('../../resources/icons/arrow-bottom.png')}
               />
             </TouchableOpacity>
             <Separator />

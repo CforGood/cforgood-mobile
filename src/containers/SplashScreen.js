@@ -10,13 +10,12 @@ import {
   NetInfo,
   Alert,
 } from 'react-native';
-import Permissions from 'react-native-permissions';
 import Orientation from 'react-native-orientation';
 import { NavigationActions } from 'react-navigation';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { 
+import {
   styles,
   metrics,
   fonts
@@ -25,16 +24,14 @@ import {
 import { loadUserData, onUpdateUserLocation } from '../redux/actions/user';
 import { siginSuccess } from '../redux/actions/auth';
 
-
-
 import Marker from '../components/splash/Marker';
 import CircleAnimate from '../components/splash/CircleAnimate';
 
 class SplashScreen extends Component {
-  
+
   state = {
     scale: new Animated.Value(0.5),
-    opacity:  new Animated.Value(1),
+    opacity: new Animated.Value(1),
     isConnected: true,
     verify: false,
   };
@@ -47,38 +44,37 @@ class SplashScreen extends Component {
     );
 
     NetInfo.isConnected.fetch().done(
-      (isConnected) => { this.setState({isConnected}); }
+      (isConnected) => { this.setState({ isConnected }); }
     );
-    
+
     this.animate(0);
 
     auth = await AsyncStorage.getItem('@CfoorGoodStore:auth');
 
-    if( auth !== null ){
-      //alert(JSON.stringify(auth))
-      if(this.state.isConnected){
+    if (auth !== null) {
+      if (this.state.isConnected) {
         this.loadData();
       }
     }
-    else{
+    else {
 
-      setTimeout(() => {  this.animateOpacity(); }, 2000);
-      
+      setTimeout(() => { this.animateOpacity(); }, 2000);
+
       const value = await AsyncStorage.getItem('@CfoorGoodStore:firstOpen');
-      if (value === null){
+      if (value === null) {
         await AsyncStorage.setItem('@CfoorGoodStore:firstOpen', '1');
       }
-      
+
       setTimeout(() => {
-        this.goTo(value !== null ? 'SignUpFirstname' : 'Onboarding');
+        this.goTo(value !== null ? 'Home' : 'Onboarding');
       }, 2000);
     }
 
   }
-  
+
   componentWillMount() {
     Orientation.lockToPortrait();
-    this._requestPermission();
+    this.onUpdateUserLocation();
   }
 
   componentWillUnmount() {
@@ -89,59 +85,64 @@ class SplashScreen extends Component {
 
   }
 
+  onUpdateUserLocation() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      if (position && position.coords) {
+        this.props.onUpdateUserLocation(position, true);
+      }
+    }, () => { },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 3000,
+      }
+    );
+  }
+
   _handleConnectivityChange = (isConnected) => {
     this.setState({
       isConnected,
     });
   };
 
-  goTo(action){
+  goTo(action) {
     const resetAction = NavigationActions.reset({
       index: 0,
       actions: [
-        NavigationActions.navigate({ routeName: action})
+        NavigationActions.navigate({ routeName: action })
       ]
     });
 
-    this.props.navigation.dispatch(resetAction); 
+    this.props.navigation.dispatch(resetAction);
   }
 
-  async loadData(){
+  async loadData() {
     await this.props.loadUserData();
 
     auth = await AsyncStorage.getItem('@CfoorGoodStore:auth');
-    
-    if(auth !== null){
-      
+
+    if (auth !== null) {
+
       this.loadApp();
     }
-    else{
-      setTimeout(() => {  this.animateOpacity(); }, 1000);
+    else {
+      setTimeout(() => { this.animateOpacity(); }, 1000);
 
-      setTimeout(() => { 
+      setTimeout(() => {
         this.goTo('Home');
       }, 2300);
     }
   }
 
   loadApp() {
-    setTimeout(() => {  this.animateOpacity(); }, 800);
+    setTimeout(() => { this.animateOpacity(); }, 800);
     setTimeout(() => { this.props.siginSuccess(); }, 1000);
   }
 
-  _requestPermission = () => {
-    Permissions.requestPermission('location', 'always')
-      .then(response => {
-        if (response !== 'authorized') {
-          Permissions.openSettings
-        }
-      }).catch(e => console.log(e))
-  }
-  
   animate(i) {
     this.state.scale.setValue(0.2);
 
-    if(i<50){
+    if (i < 50) {
       Animated.spring(
         this.state.scale,
         {
@@ -150,10 +151,10 @@ class SplashScreen extends Component {
           tension: 1,
           duration: 1000,
         }
-      ).start(this.animate(i+1));
+      ).start(this.animate(i + 1));
     }
-    
-    
+
+
   }
 
   animateOpacity() {
@@ -182,14 +183,14 @@ class SplashScreen extends Component {
   render() {
     return (
       <View style={[
-          styles.screen.mainContainer,
-          styles.center
-        ]}
+        styles.screen.mainContainer,
+        styles.center
+      ]}
       >
         <Animated.Image
           resizeMode='contain'
           style={[
-            styles.logo, 
+            styles.logo,
             {
               height: metrics.images.logo,
               width: metrics.images.logo,
@@ -205,12 +206,12 @@ class SplashScreen extends Component {
           source={require('../resources/images/logo_2.png')}
         />
         {
-          !this.state.isConnected && 
+          !this.state.isConnected &&
           <Text style={fonts.style.t26}>
             Vous êtes hors connexion
           </Text>
         }
-        
+
       </View>
     );
   }

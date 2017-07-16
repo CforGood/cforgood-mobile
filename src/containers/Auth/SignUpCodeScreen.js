@@ -37,7 +37,6 @@ class SignUpCodeScreen extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    console.log('nextPropsKotti', nextProps.failed, nextProps.error);
     if (nextProps.failure || nextProps.error !== '') {
       this.setState({ error: nextProps.error });
     } else {

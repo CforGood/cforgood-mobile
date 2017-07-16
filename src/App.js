@@ -27,7 +27,7 @@ connect(state => ({
 class AppWithNavigationState extends React.Component {
 
   componentDidMount() {
-    persistStore(store, { whitelist: ['review', 'filters'], storage: AsyncStorage });
+    persistStore(store, { whitelist: ['review', 'filters', 'location'], storage: AsyncStorage });
   }
 
   render() {

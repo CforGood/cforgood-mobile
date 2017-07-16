@@ -13,13 +13,13 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import ApiHandler from '../utils/api';
-import { setBusiness } from '../redux/actions/business';
-import Separator from '../components/common/Separator';
-import Button from '../components/common/ButtonGradiant';
-import PerkFullRow from '../components/perk/PerkFullRow';
-import PerkHeader from '../components/perk/PerkHeader';
-import Header from '../components/common/Header';
+import ApiHandler from '../../utils/api';
+import { setBusiness } from '../../redux/actions/business';
+import Separator from '../../components/common/Separator';
+import Button from '../../components/common/ButtonGradiant';
+import PerkFullRow from '../../components/perk/PerkFullRow';
+import PerkHeader from '../../components/perk/PerkHeader';
+import Header from '../../components/common/Header';
 import ReviewsScreen from './ReviewsScreen';
 
 import {
@@ -27,7 +27,7 @@ import {
   colors,
   fonts,
   metrics,
-} from '../themes';
+} from '../../themes';
 
 const HEADER_SCROLL_DISTANCE = metrics.marginApp;
 

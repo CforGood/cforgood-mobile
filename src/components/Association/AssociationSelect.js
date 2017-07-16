@@ -23,21 +23,15 @@ const WIDTH_WIDGET = (metrics.deviceWidth) / 2
 
 export default class AssociationSelect extends Component {
 
-  state = {
-    selected: false,
-    flip: false
-  };
-
   static propTypes = {
-    association: PropTypes.any,
+    association: PropTypes.object,
+    selected: PropTypes.number,
+    onSelect: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
+    selected: null,
   };
-
-  changeState() {
-    this.setState({ selected: !this.state.selected });
-  }
 
   render() {
 
@@ -50,61 +44,68 @@ export default class AssociationSelect extends Component {
       <View style={[
         style.associationContainer,
         {
-          alignItems: index % 2 ? 'flex-end' : 'flex-start'
+          alignItems: index % 2 ? 'flex-end' : 'flex-end'
         }
       ]}
       >
-        <FlipCard
-          flip={this.state.flip}
-          friction={6}
-          perspective={1000}
-          flipHorizontal={true}
-          flipVertical={false}
-          clickable={false}
-          style={style.card}
-          alignHeight={true}
-          // alignWidth={true}
-          onFlipped={(isFlipped) => { console.log('isFlipped', isFlipped) }}
+        <Image
+          resizeMode={"cover"}
+          style={style.image}
+          source={{ uri: association.picture }}
         >
-          {/* Face Association */}
-          <Image
-            resizeMode={"cover"}
-            style={style.image}
-            source={{ uri: association.picture }}
-          >
-            <View style={[
-              styles.row,
-              {
-                flex: 1,
-                justifyContent: 'flex-end',
-                padding: metrics.smallMargin,
-              }
-            ]}>
+          <View style={{
+            flex: 1,
+            backgroundColor: 'rgba(0,0,0,0.3)'
+          }}>
+            <View
+              style={{
+                alignItems: 'flex-end',
+                paddingHorizontal: metrics.smallMargin,
+                paddingTop: metrics.smallMargin,
+              }}
+            >
               <RadioSelect
-                checked={this.state.selected}
-                onPress={() => this.changeState()}
+                checked={this.props.selected === association.id}
+                onPress={this.props.onSelect}
               />
             </View>
             <View
               style={{
                 flex: 3,
-                alignItems: 'center',
                 justifyContent: 'space-between',
                 padding: metrics.baseMargin
               }}
             >
-              <View>
+              <View
+                style={{
+                  alignItems: 'center',
+                }}
+              >
                 <Text style={[
                   fonts.style.t16,
                   fonts.style.bold,
                   style.text,
                 ]}
+                  numberOfLines={2}
                 >
                   {association.name}
                 </Text>
                 <View style={style.ligne} />
               </View>
-              <View>
+              <Text style={[
+                fonts.style.t13,
+                fonts.style.mediumBold,
+                style.text,
+              ]}
+                numberOfLines={4}
+              >
+                {association.impact}
+              </Text>
+              <View
+                style={{
+                  alignItems: 'center',
+                }}
+              >
                 <Text style={[
                   fonts.style.t16,
                   fonts.style.mediumBold,
@@ -115,76 +116,8 @@ export default class AssociationSelect extends Component {
                 </Text>
               </View>
             </View>
-            <View style={[
-              styles.row,
-              {
-                backgroundColor: 'rgba(0,0,0,0.6)',
-                flex: 1,
-                alignItems: 'center',
-                padding: metrics.smallMargin,
-              }
-            ]}>
-              <View style={{ flex: 3 }}>
-                <Text
-                  style={[
-                    fonts.style.t13,
-                    {
-                      color: colors.white,
-                      textAlign: 'left',
-                    }
-                  ]}
-                >
-                  {association.type}
-                </Text>
-              </View>
-              <View style={{ flex: 1 }}>
-                <Icon
-                  onPress={() => this.setState({ flip: true })}
-                  styleImage={{ width: 20 }}
-                  source={require('../../resources/icons/two-circling-arrows.png')}
-                />
-              </View>
-            </View>
-          </Image>
-
-          {/* Back Association */}
-          <View
-            style={[style.image, {
-              backgroundColor: 'white',
-              padding: metrics.baseMargin
-            }]}
-          >
-            <View
-              style={{
-                flex: 4,
-              }}
-            >
-              <Text style={[
-                fonts.style.t15,
-                fonts.style.mediumBold,
-              ]}>
-                {association.name}
-              </Text>
-              <Text style={fonts.style.t13}>
-                {association.description}
-              </Text>
-            </View>
-            <View style={[
-              styles.row,
-              {
-                flex: 1,
-                justifyContent: 'flex-end',
-                alignItems: 'center',
-              }
-            ]}>
-              <Icon
-                onPress={() => this.setState({ flip: false })}
-                styleImage={{width: 20}}
-                source={require('../../resources/icons/two-circling-arrows.png')}
-              />
-            </View>
           </View>
-        </FlipCard>
+        </Image>
       </View>
     );
   }

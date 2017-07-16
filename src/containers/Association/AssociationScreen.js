@@ -14,12 +14,12 @@ import {
   colors,
   fonts,
   metrics,
-} from '../themes';
+} from '../../themes';
 
 
-import AssociationList from '../components/Association/AssociationList';
-import Header from '../components/common/HeaderApp';
-import ButtonAdd from '../components/common/ButtonAdd';
+import AssociationList from '../../components/Association/AssociationList';
+import Header from '../../components/common/HeaderApp';
+import ButtonAdd from '../../components/common/ButtonAdd';
 
 
 const HEADER_SCROLL_DISTANCE = metrics.marginApp;

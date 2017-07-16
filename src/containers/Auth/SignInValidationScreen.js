@@ -33,17 +33,21 @@ class SignInValidationScreen extends Component {
         <Validation
           firstText={'Heureux de vous'}
           secondText={'retrouver'}
-          name={' Allan ! '}
+          name={` ${this.props.user.first_name} ! `}
         />
       </Background>
     );
   }
 }
 
+const mapStateToProps = state => ({
+  user: state.user.data,
+});
+
 
 const mapDispatchToProps = (dispatch) => ({
   siginSuccess: bindActionCreators(siginSuccess, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(SignInValidationScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignInValidationScreen);
 

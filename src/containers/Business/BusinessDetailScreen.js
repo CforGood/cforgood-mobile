@@ -13,33 +13,33 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import ApiHandler from '../utils/api';
+import ApiHandler from '../../utils/api';
 
-import Back from '../components/common/Icon';
-import Share from '../components/common/Share';
-import Separator from '../components/common/Separator';
-import Detail from '../components/common/Detail';
+import Back from '../../components/common/Icon';
+import Share from '../../components/common/Share';
+import Separator from '../../components/common/Separator';
+import Detail from '../../components/common/Detail';
 
-import Commitment from '../components/business/Commitment';
-import Social from '../components/business/Social';
-import BusinessContact from '../components/business/BusinessContact';
-import BusinessLeader from '../components/business/BusinessLeader';
-import BusinessHeader from '../components/business/BusinessHeader';
+import Commitment from '../../components/business/Commitment';
+import Social from '../../components/business/Social';
+import BusinessContact from '../../components/business/BusinessContact';
+import BusinessLeader from '../../components/business/BusinessLeader';
+import BusinessHeader from '../../components/business/BusinessHeader';
 
-import Modal from '../components/Modal';
-import Button from '../components/common/ButtonGradiant';
-import { setBusiness } from '../redux/actions/business';
+import Modal from '../../components/Modal';
+import Button from '../../components/common/ButtonGradiant';
+import { setBusiness } from '../../redux/actions/business';
 
 import {
   styles,
   colors,
   fonts,
   metrics,
-} from '../themes';
+} from '../../themes';
 
 import {
   getCategory,
-} from '../constants/categories';
+} from '../../constants/categories';
 
 
 
@@ -289,7 +289,7 @@ class BusinessScreen extends PureComponent {
                     transform: [{ rotate: '-90deg' }],
                   }
                 ]}
-                source={require('../resources/icons/back-arrow-circular-symbol.png')}
+                source={require('../../resources/icons/back-arrow-circular-symbol.png')}
               />
             </TouchableOpacity>
           </Animated.View>

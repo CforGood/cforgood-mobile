@@ -12,21 +12,19 @@ import Permissions from 'react-native-permissions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import ApiHandler from '../utils/api';
-import { goToAssociations } from '../redux/actions/association';
+import ApiHandler from '../../utils/api';
+import { goToAssociations } from '../../redux/actions/association';
 import {
   styles,
   colors,
   metrics
-} from '../themes';
+} from '../../themes';
 
-import Filter from '../components/common/Filter';
-import Header from '../components/common/HeaderApp';
-import BusinessRow from '../components/business/BusinessRow';
-import MapV from '../components/business/MapView';
-import MapView from '../components/map/MapView';
-
-import PerkDetailScreen from './PerkDetailScreen';
+import Filter from '../../components/common/Filter';
+import Header from '../../components/common/HeaderApp';
+import BusinessRow from '../../components/business/BusinessRow';
+import MapV from '../../components/business/MapView';
+import MapView from '../../components/map/MapView';
 
 class MapScreen extends Component {
 

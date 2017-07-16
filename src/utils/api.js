@@ -1,7 +1,7 @@
 
 import { AsyncStorage, Alert } from 'react-native';
 import FirebaseCrash from 'react-native-firebase-crash-report';
-import  CryptoJS from 'crypto-js';
+import CryptoJS from 'crypto-js';
 import {
   API_URL,
   cloudinary,
@@ -9,23 +9,23 @@ import {
 
 class ApiHandler {
 
-  businesses (online, position) {
+  businesses(online, position) {
     return this.api(`businesses?online=${online}&lat=${position.latitude}&lng=${position.longitude}`);
   }
 
-  associations (position) {
+  associations(position) {
     return this.api(`causes?lat=${position.latitude}&lng=${position.longitude}`);
   }
 
-  businessDetail (id, address_id) {
+  businessDetail(id, address_id) {
     return this.api(`businesses/${id}?address_id=${address_id}`);
   }
 
-  associationDetail (id) {
+  associationDetail(id) {
     return this.api(`causes/${id}`);
   }
 
-  perkDetail (id) {
+  perkDetail(id) {
     return this.api(`perks/${id}`);
   }
 
@@ -34,22 +34,22 @@ class ApiHandler {
   }
 
   createCause(cause) {
-    return this.api(`causes`, {cause}, 'POST');
+    return this.api(`causes`, { cause }, 'POST');
   }
 
   updateProfile(id, params) {
     return this.api(`users/${id}`, params, 'PATCH');
   }
 
-  uses (perk_id: number) {
-    return this.api(`uses`, {use: {perk_id}}, 'POST');
+  uses(perk_id: number) {
+    return this.api(`uses`, { use: { perk_id } }, 'POST');
   }
 
-  feedback (id: number, feedback: string) {
-    return this.api(`uses/${id}`, {use: {feedback}}, 'PATCH');
+  feedback(id: number, feedback: string) {
+    return this.api(`uses/${id}`, { use: { feedback } }, 'PATCH');
   }
-  
-  async loadUserData () {
+
+  async loadUserData() {
     let user = null;
     await AsyncStorage.getItem('@CfoorGoodStore:auth', (err, result) => { user = JSON.parse(result) });
     return this.api(`users/${user.id}`);
@@ -59,7 +59,7 @@ class ApiHandler {
   async supportAssociation(id) {
     let user = null;
     await AsyncStorage.getItem('@CfoorGoodStore:auth', (err, result) => { user = JSON.parse(result) });
-    return this.api(`users/${user.id}`, { user: {cause_id: id} }, 'PATCH');
+    return this.api(`users/${user.id}`, { user: { cause_id: id } }, 'PATCH');
 
   }
 
@@ -70,7 +70,7 @@ class ApiHandler {
   uploadPicture(uri, prevPicture = null) {
 
 
-    const fileName = uri.split('/').slice(-1)[0];  
+    const fileName = uri.split('/').slice(-1)[0];
 
     const timestamp = (Date.now() / 1000 | 0).toString();
     const apiKey = cloudinary.api_key;
@@ -78,14 +78,14 @@ class ApiHandler {
     let hashString = 'timestamp=' + timestamp + apiSecret;
 
     const uploadUrl = 'https://api.cloudinary.com/v1_1/' + cloudinary.cloud + '/image/upload';
-    
+
     let formdata = new FormData();
-    formdata.append('file', {uri: uri, type: `image/${fileName.split('.').slice(-1)[0]}`, name: fileName});
+    formdata.append('file', { uri: uri, type: `image/${fileName.split('.').slice(-1)[0]}`, name: fileName });
     formdata.append('timestamp', timestamp);
     formdata.append('api_key', apiKey);
-    
 
-    if(prevPicture){
+
+    if (prevPicture) {
       let public_id = prevPicture.split('/').slice(-1)[0];//
 
       public_id = public_id.split('.')[0];//
@@ -94,9 +94,9 @@ class ApiHandler {
       formdata.append('public_id', public_id);
 
       hashString = hashString + '&public_id=' + public_id;
-      
+
     }
-    
+
     const signature = CryptoJS.SHA1(hashString).toString();
     formdata.append('signature', signature);
 
@@ -107,19 +107,19 @@ class ApiHandler {
       method: "POST",
       body: formdata
     })
-    .then(response => {
-      return response.json();
-    })
-    .then(responseJson => {
-      console.log("uploaded", responseJson);
-      return Promise.resolve(responseJson);
-    }).catch(error => {
-      console.log(error);
-      return Promise.reject({error: error.message});
-    });
+      .then(response => {
+        return response.json();
+      })
+      .then(responseJson => {
+        console.log("uploaded", responseJson);
+        return Promise.resolve(responseJson);
+      }).catch(error => {
+        console.log(error);
+        return Promise.reject({ error: error.message });
+      });
   }
-  
-  signin(email, password , type) {
+
+  signin(email, password, type) {
 
 
     let request = {
@@ -130,8 +130,8 @@ class ApiHandler {
       },
     };
 
-    if(type=== 'facebook'){
-      
+    if (type === 'facebook') {
+
       request = {
         method: 'POST',
         headers: {
@@ -140,43 +140,43 @@ class ApiHandler {
         }
       };
     }
-    
+
     try {
 
       return fetch(`${API_URL}`, request)
-      .then(response => {
-        return response.json();
-      })
-      .then(async (responseJson) => {
-        if(responseJson.errors || responseJson.error) {
+        .then(response => {
+          return response.json();
+        })
+        .then(async (responseJson) => {
+          if (responseJson.errors || responseJson.error) {
 
-          if(responseJson.errors && type=== 'facebook'){
-            Alert.alert(
-              'Erreur',
-              responseJson.errors,
-              [
-                {text: 'Fermer', onPress: () => {}},
-              ]
-            );
+            if (responseJson.errors && type === 'facebook') {
+              Alert.alert(
+                'Erreur',
+                responseJson.errors,
+                [
+                  { text: 'Fermer', onPress: () => { } },
+                ]
+              );
+            }
+
+            return Promise.reject({ error: responseJson.errors || responseJson.error });
           }
+          else {
+            await AsyncStorage.setItem('@CfoorGoodStore:auth', JSON.stringify(responseJson));
+            return Promise.resolve(responseJson);
+          }
+        })
+        .catch(error => {
+          return Promise.reject({ error: error.message });
+        })
 
-          return Promise.reject({error: responseJson.errors || responseJson.error});
-        }
-        else {
-          await AsyncStorage.setItem('@CfoorGoodStore:auth', JSON.stringify(responseJson));
-          return Promise.resolve(responseJson);
-        }
-      })
-      .catch(error => {
-        return Promise.reject({error: error.message});
-      })
-      
 
     } catch (e) {
-      return Promise.reject({error: 'un problème technique est survenu, veuillez réessayer plus tard ?'});
+      return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard ?' });
     }
   };
-  
+
   signup(user) {
 
     const request = {
@@ -184,32 +184,32 @@ class ApiHandler {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({user: user})
+      body: JSON.stringify({ user: user })
     };
 
     return fetch(`${API_URL}/users`, request)
-    .then(response => {
-      return response.json();
-    })
-    .then((responseJson) => {
-      return Promise.resolve(responseJson); 
-      
-    })
-    .catch(error => {
-      console.log('catchAPI', error)
-      return Promise.reject({error: error.message});
-    })
+      .then(response => {
+        return response.json();
+      })
+      .then((responseJson) => {
+        return Promise.resolve(responseJson);
+
+      })
+      .catch(error => {
+        console.log('catchAPI', error)
+        return Promise.reject({ error: error.message });
+      })
   }
 
-  async api( endpoint, params = null, method = 'get' ) {
-    
+  async api(endpoint, params = null, method = 'get') {
+
     try {
-      
+
       let user = null;
       await AsyncStorage.getItem('@CfoorGoodStore:auth', (err, result) => {
-        user = JSON.parse(result) 
+        user = JSON.parse(result)
       });
-      
+
       let request = {
         method,
         headers: {
@@ -219,31 +219,31 @@ class ApiHandler {
       };
 
 
-      if( params && method !== 'get' ) {
+      if (params && method !== 'get') {
         request.body = JSON.stringify(params);
-        if(method !== 'get') {
+        if (method !== 'get') {
           request.headers['Content-Type'] = 'application/json';
         }
       }
-        
+
 
       return fetch(`${API_URL}/${endpoint}`, request)
-      .then(response => {
-        if(response.status === 401) {
-          AsyncStorage.removeItem('@CfoorGoodStore:auth');
-        }
-        return response.json();
-      })
-      .then((responseJson) => {
-        return responseJson;
-        
-      })
-      .catch(error => {
-        return Promise.reject({error: 'un problème technique est survenu, veuillez réessayer plus tard ?'});
-      })
+        .then(response => {
+          if (response.status === 401) {
+            AsyncStorage.removeItem('@CfoorGoodStore:auth');
+          }
+          return response.json();
+        })
+        .then((responseJson) => {
+          return responseJson;
+
+        })
+        .catch(error => {
+          return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard ?' });
+        })
 
     } catch (e) {
-      return Promise.reject({error: 'un problème technique est survenu, veuillez réessayer plus tard ?'});
+      return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard ?' });
     }
   }
 

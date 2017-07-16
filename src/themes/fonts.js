@@ -48,7 +48,6 @@ const style = {
     fontFamily: type.base,
     fontSize: 13,
     color: colors.darkGray,
-    textAlign: 'center',
   },
   normal: {
     fontFamily: type.base,
@@ -102,6 +101,11 @@ const style = {
   t26: {
     fontFamily: type.base,
     fontSize: 26,
+    color: colors.darkGray,
+  },
+  t27: {
+    fontFamily: type.base,
+    fontSize: 27,
     color: colors.darkGray,
   },
   small: {

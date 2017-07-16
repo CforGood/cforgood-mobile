@@ -1,7 +1,7 @@
-import 
-  React, 
-  { PureComponent, PropTypes } 
-from 'react';
+import
+React,
+{ PureComponent, PropTypes }
+  from 'react';
 
 import {
   View,
@@ -13,7 +13,7 @@ import {
   fonts,
   colors,
   metrics
-} from '../../themes'; 
+} from '../../themes';
 
 export default class Item extends PureComponent {
 
@@ -30,16 +30,16 @@ export default class Item extends PureComponent {
   render() {
     return (
       <View style={style.container}>
-        <Text style={fonts.style.t25} >
+        <Text style={fonts.style.t27} >
           {this.props.number}
         </Text>
         <Text style={[
-            fonts.style.t16,
-            {textAlign: 'center'}
-          ]} 
+          fonts.style.t13,
+          { textAlign: 'center' }
+        ]}
         >
           {this.props.text}
-        </Text>   
+        </Text>
       </View>
     );
   }
@@ -47,9 +47,9 @@ export default class Item extends PureComponent {
 
 const style = StyleSheet.create({
   container: {
-    flex:1, 
+    flex: 1,
     alignItems: 'center',
     marginVertical: metrics.baseMargin,
-  }, 
-}); 
+  },
+});
 

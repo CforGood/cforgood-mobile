@@ -11,20 +11,24 @@ import {
 import App from './App';
 
 import TabNavigator from './TabNavigator';
-import PerkListScreen from '../containers/PerkListScreen';
-import AssociationDetailScreen from '../containers/AssociationDetailScreen';
-import AssociationFormScreen from '../containers/AssociationFormScreen';
-import BusinessDetailScreen from '../containers/BusinessDetailScreen';
-import MapPerkScreen from '../containers/MapPerkScreen';
+
+/** Association **/
+import AssociationDetailScreen from '../containers/Association/AssociationDetailScreen';
+import AssociationFormScreen from '../containers/Association/AssociationFormScreen';
+
+import BusinessDetailScreen from '../containers/Business/BusinessDetailScreen';
+
+/** Per **/
+import PerkListScreen from '../containers/Perk/PerkListScreen';
+import PerkDetailScreen from '../containers/Perk/PerkDetailScreen';
+import MapPerkScreen from '../containers/Perk/MapPerkScreen';
+import PromoScreen from '../containers/Perk/PromoScreen';
+import MembreshipCardScreen from '../containers/Perk/MembreshipCardScreen';
+import ReservedSpaceScreen from '../containers/Perk/ReservedSpaceScreen';
+
+
 import ProfileScreen from '../containers/ProfileScreen';
-import PerkDetailScreen from '../containers/PerkDetailScreen';
 import WebViewScreen from '../containers/WebViewScreen';
-
-import PromoScreen from '../containers/PromoScreen';
-import MembreshipCardScreen from '../containers/MembreshipCardScreen';
-import ReservedSpaceScreen from '../containers/ReservedSpaceScreen';
-
-
 
 
 const Routes = {

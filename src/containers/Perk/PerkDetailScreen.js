@@ -16,32 +16,32 @@ import { bindActionCreators } from 'redux';
 import Communications from 'react-native-communications';
 import moment from 'moment';
 
-import ApiHandler from '../utils/api';
-import { use } from '../redux/actions/review';
-import { setBusiness } from '../redux/actions/business';
+import ApiHandler from '../../utils/api';
+import { use } from '../../redux/actions/review';
+import { setBusiness } from '../../redux/actions/business';
 
-import Separator from '../components/common/Separator';
-import Button from '../components/common/ButtonGradiant';
-import PerkFullRow from '../components/perk/PerkFullRow';
-import Header from '../components/common/Header';
-import Modal from '../components/Modal';
+import Separator from '../../components/common/Separator';
+import Button from '../../components/common/ButtonGradiant';
+import PerkFullRow from '../../components/perk/PerkFullRow';
+import Header from '../../components/common/Header';
+import Modal from '../../components/Modal';
 
 import ReservedSpaceScreen from './ReservedSpaceScreen';
 import MembreshipCardScreen from './MembreshipCardScreen';
 import MapPerkScreen from './MapPerkScreen';
 
-import PopupProfile from '../components/profile/Popup';
+import PopupProfile from '../../components/profile/Popup';
 
 import {
   getCategory,
-} from '../constants/categories';
+} from '../../constants/categories';
 
 import {
   styles,
   colors,
   fonts,
   metrics,
-} from '../themes';
+} from '../../themes';
 
 const HEADER_SCROLL_DISTANCE = metrics.marginApp;
 
@@ -266,7 +266,7 @@ class PerkDetailScreen extends Component {
                 height: 50,
                 width: 50,
               }}
-              source={require('../resources/icons/gps_activate.png')}
+              source={require('../../resources/icons/gps_activate.png')}
             />
             <Text
               style={[
@@ -333,7 +333,7 @@ class PerkDetailScreen extends Component {
                 width: 12,
                 height: 12
               }}
-              source={require('../resources/icons/available.png')}
+              source={require('../../resources/icons/available.png')}
             />
           </View>
           <View

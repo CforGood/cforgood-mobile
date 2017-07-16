@@ -59,7 +59,11 @@ class Abonnement extends PureComponent {
     }
     return (
       <View style={styles.screen.mainContainer}>
-        <Payement user={user} />
+        <Payement 
+          user={user}
+          title={'Participation'}
+          setUserData={this.props.setUserData}
+        />
         <Separator color={colors.separatorLine} />
         <Text
           style={[

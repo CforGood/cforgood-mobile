@@ -52,36 +52,33 @@ export const loadBusiness = () => {
     //location
     //const location = { latlng: { latitude: 44.8460252, longitude: -0.5736973 } };
     dispatch(load());
+    if (location.latlng) {
+      ApiHandler.businesses(false, location.latlng)
+        .then(response => {
+          if (response && !response.error) {
+            dispatch(success(response, false));
+          }
+          else {
+            //dispatch(failure('error', false));
+          }
+        })
+        .catch(message => {
+          //dispatch(failure(message.error, false));
+        });
 
-    ApiHandler.businesses(false, location.latlng)
-      .then(response => {
-        if (response && !response.error) {
-          dispatch(success(response, false));
-        }
-        else {
-          //dispatch(failure('error', false));
-        }
-      })
-      .catch(message => {
-        //dispatch(failure(message.error, false));
-      });
-
-    ApiHandler.businesses(true, location.latlng)
-      .then(response => {
-        if (response && !response.error) {
-          dispatch(success(response, true));
-        }
-        else {
-          //dispatch(failure('error', true));
-        }
-      })
-      .catch(message => {
-        //dispatch(failure(message.error, true));
-      });
-
-
-
-
+      ApiHandler.businesses(true, location.latlng)
+        .then(response => {
+          if (response && !response.error) {
+            dispatch(success(response, true));
+          }
+          else {
+            //dispatch(failure('error', true));
+          }
+        })
+        .catch(message => {
+          //dispatch(failure(message.error, true));
+        });
+    }
 
 
     return true;

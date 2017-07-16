@@ -6,15 +6,15 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import Button from '../components/common/ButtonGradiant';
-import Header from '../components/common/Header';
+import Button from '../../components/common/ButtonGradiant';
+import Header from '../../components/common/Header';
 
 import {
   styles,
   colors,
   fonts,
   metrics,
-} from '../themes';
+} from '../../themes';
 
 class ReservedSpaceScreen extends Component {
 
@@ -42,7 +42,7 @@ class ReservedSpaceScreen extends Component {
                 height: metrics.images.logo * 0.9,
                 width: metrics.images.logo * 0.9,
               }}
-              source={require('../resources/images/logo.png')}
+              source={require('../../resources/images/logo.png')}
             />
             <Text style={[
               fonts.style.h9,

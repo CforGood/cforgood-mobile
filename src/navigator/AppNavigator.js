@@ -12,25 +12,21 @@ import {
 import TabNavigator from './TabNavigator';
 import FilterScreen from '../containers/FiltersScreen';
 import SearchScreen from '../containers/SearchScreen';
-import PerkListScreen from '../containers/PerkListScreen';
-import AssociationDetailScreen from '../containers/AssociationDetailScreen';
-import AssociationFormScreen from '../containers/AssociationFormScreen';
-import BusinessDetailScreen from '../containers/BusinessDetailScreen';
-import MapPerkScreen from '../containers/MapPerkScreen';
+
+import AssociationDetailScreen from '../containers/Association/AssociationDetailScreen';
+import AssociationFormScreen from '../containers/Association/AssociationFormScreen';
+
+import BusinessDetailScreen from '../containers/Business/BusinessDetailScreen';
+
+import PerkListScreen from '../containers/Perk/PerkListScreen';
+import MapPerkScreen from '../containers/Perk/MapPerkScreen';
+import MembreshipCardScreen from '../containers/Perk/MembreshipCardScreen';
+import PromoScreen from '../containers/Perk/PromoScreen';
+import PerkDetailScreen from '../containers/Perk/PerkDetailScreen';
+import ReservedSpaceScreen from '../containers/Perk/ReservedSpaceScreen';
+
 import ProfileScreen from '../containers/ProfileScreen';
-import PerkDetailScreen from '../containers/PerkDetailScreen';
 import WebViewScreen from '../containers/WebViewScreen';
-import MembreshipCardScreen from '../containers/MembreshipCardScreen';
-import PromoScreen from '../containers/PromoScreen';
-import ReservedSpaceScreen from '../containers/ReservedSpaceScreen';
-
-/* Modal */
-import ModalPopup from '../containers/Modal/ModalPopup';
-import ModalScreen from '../containers/Modal/ModalScreen';
-
-/* Association */
-import AssociationListScreen from '../containers/Association/AssociationListScreen';
-
 
 const Routes = {
 
@@ -97,21 +93,6 @@ const Routes = {
     name: 'Promo',
     screen: PromoScreen,
   },
-  Modal: {
-    name: 'Modal',
-    screen: ModalPopup,
-    path: 'Modal',
-  },
-  Modal2: {
-    name: 'Modal2',
-    screen: ModalScreen,
-    path: 'Modal2',
-  }, 
-  AssociationList: {
-    name: 'AssociationList',
-    screen: AssociationListScreen,
-    path: 'AssociationList',
-  }, 
 };
 
 export default AppNavigator = StackNavigator(

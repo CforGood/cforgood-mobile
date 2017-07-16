@@ -39,28 +39,28 @@ export const goToAssociations = (go) => {
 export const loadAssociation = () => {
 
   return (dispatch, getState) => {
-    //const { location, auth } = getState();
-    const location = {latlng : { latitude: 44.8460252, longitude: -0.5736973}};
-    
+    const { location, auth } = getState();
+    //const location = {latlng : { latitude: 44.8460252, longitude: -0.5736973}};
+
     dispatch(load());
+    if (location.latlng) {
+      return ApiHandler.associations(location.latlng)
+        .then(response => {
 
-    return ApiHandler.associations(location.latlng)
-    .then(response => {
+          if (response && !response.error) {
 
-      if(response && !response.error){
-        
-        if(response.length !== 0){
-          dispatch(success(response));
-        }
-      }
-      else
-      {
-        dispatch(failure('error'));
-      }
-    })
-    .catch(message => {
-      dispatch(failure(message.error));
-    });
-    
+            if (response.length !== 0) {
+              dispatch(success(response));
+            }
+          }
+          else {
+            dispatch(failure('error'));
+          }
+        })
+        .catch(message => {
+          dispatch(failure(message.error));
+        });
+    }
+
   }
 };

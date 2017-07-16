@@ -11,36 +11,31 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import ApiHandler from '../utils/api';
+import ApiHandler from '../../utils/api';
 
-import Heart from '../components/common/Heart';
-import Close from '../components/common/Icon';
-import Share from '../components/common/Share';
-import Detail from '../components/common/Detail';
+import Heart from '../../components/common/Heart';
+import Close from '../../components/common/Icon';
+import Share from '../../components/common/Share';
+import Detail from '../../components/common/Detail';
 
-import Separator from '../components/common/Separator';
-import Video from '../components/common/Video';
+import Separator from '../../components/common/Separator';
+import Video from '../../components/common/Video';
 
-import AssociationContact from '../components/Association/AssociationContact';
-import AssociationLeader from '../components/Association/AssociationLeader';
-import Button from '../components/common/ButtonGradiant';
+import AssociationContact from '../../components/Association/AssociationContact';
+import AssociationLeader from '../../components/Association/AssociationLeader';
+import Button from '../../components/common/ButtonGradiant';
 
-import PopupValidation from '../components/Association/PopupValidation';
-import PopupThanks from '../components/Association/PopupThanks';
+import PopupValidation from '../../components/Association/PopupValidation';
+import PopupThanks from '../../components/Association/PopupThanks';
 
-import { updateAssociation } from '../redux/actions/user';
-
+import { updateAssociation } from '../../redux/actions/user';
 
 import {
   styles,
   colors,
   fonts,
   metrics,
-} from '../themes';
-
-import {
-  detailsAssociation,
-} from '../dummyData';
+} from '../../themes';
 
 const HEADER_MAX_HEIGHT = 221;
 const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 70 : 50;
@@ -317,7 +312,7 @@ class AssociationDetailScreen extends Component {
                   style.back,
                   { tintColor: colorOpacity }
                 ]}
-                source={require('../resources/icons/close-circular-button-of-a-cross-white.png')}
+                source={require('../../resources/icons/close-circular-button-of-a-cross-white.png')}
               />
             </TouchableOpacity>
           </Animated.View>

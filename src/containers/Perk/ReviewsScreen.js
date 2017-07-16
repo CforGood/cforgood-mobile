@@ -14,19 +14,19 @@ import { bindActionCreators } from 'redux';
 import { 
   cancelReview,
   feedback,
-} from '../redux/actions/review';
+} from '../../redux/actions/review';
 
-import Button from '../components/common/ButtonGradiant';
-import Like from '../components/common/Like';
-import Modal from '../components/Modal/WidthRNModal';
-import Separator from '../components/common/Separator';
+import Button from '../../components/common/ButtonGradiant';
+import Like from '../../components/common/Like';
+import Modal from '../../components/Modal/WidthRNModal';
+import Separator from '../../components/common/Separator';
 
 import {
   styles,
   colors,
   fonts,
   metrics,
-} from '../themes';
+} from '../../themes';
 
 class PerkReviewsScreen extends Component { 
   
@@ -48,7 +48,7 @@ class PerkReviewsScreen extends Component {
       >
         <Image 
           style={stylePerkReviewsScreen.popup}
-          source={require('../resources/images/popup.png')}    
+          source={require('../../resources/images/popup.png')}    
         >
           <LinearGradient
             start={{x: 0, y:0}} end={{x: 0, y:1}}

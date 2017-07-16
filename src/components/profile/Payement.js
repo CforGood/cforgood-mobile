@@ -6,9 +6,6 @@ import {
   TextInput,
   TouchableOpacity
 } from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { withNavigation } from 'react-navigation';
 
 import {
   styles,
@@ -27,53 +24,66 @@ import Amount from './Amount';
 
 
 
-class Payement extends PureComponent {
-
+export default class Payement extends PureComponent {
+  static propTypes = {
+    title: PropTypes.string,
+  };
+  
+  static defaultProps = {
+    title: null,
+  };
   render() {
     const { user } = this.props;
 
-    if (user.supervisor_attributes && user.supervisor_attributes.supervisor_name) {
+    if (
+      user.supervisor_attributes
+      && user.supervisor_attributes.supervisor_name
+    ) {
       return null;
     }
+
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <View style={{
           ...style.center,
           marginBottom: metrics.doubleBaseMargin
         }}
         >
-          <Text
-            style=
-            {[
-              fonts.style.t20,
-              style.boldCenter,
-            ]}
-          >
-            Participation
-          </Text>
+          {
+            this.props.title &&
+            <Text
+              style=
+              {[
+                fonts.style.t20,
+                style.boldCenter,
+              ]}
+            >
+              {this.props.title}
+            </Text>
+          }
+
           <Text style={style.title} >
             Choisissez le rythme et le montant de votre participation, libre et sans engagement.
           </Text>
           <Text
             style={{
-              ...fonts.style.t13, color: colors.textinput
+              ...fonts.style.t13,
+              color: colors.textinput,
+              textAlign: 'center',
             }}
           >
             "C'est notre seule source de revenu : )"
           </Text>
         </View>
-        <Amount {...this.props} />
+        <Amount
+          user={this.props.user}
+          setUserData={this.props.setUserData}
+        />
       </View>
 
     );
   }
 };
-
-const mapDispatchToProps = (dispatch) => ({
-  updateUserData: bindActionCreators(updateUserData, dispatch),
-});
-
-export default connect(null, mapDispatchToProps)(withNavigation(Payement));
 
 const style = StyleSheet.create({
   title: {

@@ -307,11 +307,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);
 
 const style = StyleSheet.create({
   profileheader: {
-    //height: 85,
-    //paddingTop: Platform.OS === 'ios' ? 20: 0,
     height: metrics.navBarHeight,
     justifyContent: 'center',
-    //position: 'absolute'
   },
   info: {
     height: 200,

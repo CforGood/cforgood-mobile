@@ -7,15 +7,15 @@ import {
   ScrollView
 } from 'react-native';
 
-import BusinessDistance from '../components/business/BusinessDistance';
-import MapView from '../components/map/MapView';
+import BusinessDistance from '../../components/business/BusinessDistance';
+import MapView from '../../components/map/MapView';
 
 import {
   styles,
   colors,
   fonts,
   metrics,
-} from '../themes';
+} from '../../themes';
 
 class MapPerkScreen extends Component {
 

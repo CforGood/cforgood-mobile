@@ -25,6 +25,9 @@ class MyApp extends Component {
     return (
       <View style={{flex: 1}}>
         {
+          this.props.isLoggedIn ?
+          <HomeNavigator />
+          :
           <LoginNavigator />
         }
         <Branch />

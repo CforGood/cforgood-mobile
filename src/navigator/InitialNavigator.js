@@ -25,7 +25,7 @@ import SignUpValidationScreen from '../containers/Auth/SignUpValidationScreen';
 
 
 /* Association */
-import AssociationScreen from '../containers/Association/AssociationListScreen';
+import ChooseAssociationScreen from '../containers/Association/ChooseAssociationScreen';
 
 
 /* CreditCard */
@@ -38,10 +38,6 @@ import ContactsScreen from '../containers/Invitations/ContactsScreen';
 
 
 const Routes = {
-
-  InvitationContacts: {
-    screen: ContactsScreen,
-  },
   Splash: {
     screen: SplashScreen,
   },
@@ -63,7 +59,7 @@ const Routes = {
   SignUpLastname: {
     screen: SignUpLastnameScreen,
   },
-  SignUpFirstname: {
+  Home: {
     screen: SignUpFirstnameScreen,
   },
   SignUpCode: {
@@ -72,20 +68,23 @@ const Routes = {
   SignUpEmail: {
     screen: SignUpEmailScreen,
   },
-  SignUpValidation: {
-    screen: SignUpValidationScreen
-  },
   InvitationLove: {
     screen: LoveScreen
   },
-  Assocation: {
-    screen: AssociationScreen,
+  InvitationContacts: {
+    screen: ContactsScreen,
+  },
+  ChooseAssociation: {
+    screen: ChooseAssociationScreen,
   },
   CreditCard: {
     screen: ProfileCreditCardScreen,
   },
   Payment: {
     screen: ProfilePayementScreen,
+  },
+  SignUpValidation: {
+    screen: SignUpValidationScreen
   },
 };
 

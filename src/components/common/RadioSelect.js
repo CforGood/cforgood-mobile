@@ -50,7 +50,7 @@ export default class RadioSelect extends PureComponent {
           {
             checked === true &&
             <Icon
-              style={{ width: 25 }}
+              styleImage={{ width: 25, height: 25 }}
               source={require('../../resources/icons/tick-inside-a-circle.png')}
             />
           }

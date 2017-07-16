@@ -12,19 +12,19 @@ import { bindActionCreators } from 'redux';
 
 import { NavigationActions } from 'react-navigation';
 
-import Button from '../components/common/ButtonGradiant';
-import Card from '../components/profile/Card';
-import Modal from '../components/Modal';
+import Button from '../../components/common/ButtonGradiant';
+import Card from '../../components/profile/Card';
+import Modal from '../../components/Modal';
 
-import { use } from '../redux/actions/review';
-import { setBusiness } from '../redux/actions/business';
+import { use } from '../../redux/actions/review';
+import { setBusiness } from '../../redux/actions/business';
 
 import {
   styles,
   colors,
   fonts,
   metrics,
-} from '../themes';
+} from '../../themes';
 
 class MembreshipCardScreen extends PureComponent {
 
@@ -116,7 +116,6 @@ class MembreshipCardScreen extends PureComponent {
     );
   }
 }
-
 
 const mapDispatchToProps = (dispatch) => ({
   use: bindActionCreators(use, dispatch),
