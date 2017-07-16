@@ -171,7 +171,12 @@ class ContactsScreen extends Component {
           title={
             (
               <Text>
-                Félicitations Allan ;-)
+                Félicitations {
+                  this.props.user.first_name.length > 10 ?
+                    '\n' + this.props.user.first_name
+                    :
+                    this.props.user.first_name
+                } ;-)
               </Text>
             )
           }
