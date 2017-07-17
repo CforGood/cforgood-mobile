@@ -88,7 +88,7 @@ const Routes = {
   },
 };
 
-export default AppNavigator = StackNavigator(
+export default StackNavigator(
   {
     ...Routes,
   },

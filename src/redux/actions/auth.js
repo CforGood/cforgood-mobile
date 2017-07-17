@@ -10,7 +10,7 @@ import {
 } from '../constants/auth';
 
 
-import { sucrityData, loadUserData } from './user'; 
+import { sucrityData, loadUserData } from './user';
 
 export const load = () => {
   return {
@@ -38,25 +38,25 @@ export const siginSuccess = () => {
 }
 
 
-export const signup = (user, type= 'email') => {
-  return async (dispatch)  => {
+export const signup = (user, type = 'email') => {
+  return async (dispatch) => {
 
     dispatch(load());
-    
+
     ApiHandler.signup(user)
-    .then(response => {
-      if(response.id){
-        dispatch(signin(user.email, user.password, type));
-      }
-      else if(response.error) {
-        dispatch(failure(response.error));
-      }
-      
-    })
-    .catch(message => {
-      dispatch(failure(message.error));
-    });
-      
+      .then(response => {
+        if (response.id) {
+          dispatch(signin(user.email, user.password, type));
+        }
+        else if (response.error) {
+          dispatch(failure(response.error));
+        }
+
+      })
+      .catch(message => {
+        dispatch(failure(message.error));
+      });
+
   }
 }
 
@@ -66,26 +66,27 @@ export const sigin = () => {
   };
 }
 
-export const signin = (email, password, type= 'email') => {
+export const signin = (email, password, type = 'email') => {
 
   return (dispatch) => {
     dispatch(load());
-    
-    ApiHandler.signin(email, password, type)
-    .then(response => {
 
-      if(response.authentication_token){
-        dispatch(sigin());
-        dispatch(sucrityData(response));
-      }
-      else{
-        dispatch(failure(response.error));
-      }
-      
-    })
-    .catch(message => {
-      dispatch(failure(message.error));
-      
-    });
+    ApiHandler.signin(email, password, type)
+      .then(response => {
+
+        if (response.authentication_token) {
+          dispatch(sigin());
+          dispatch(sucrityData(response));
+        }
+        else {
+          alert(response.error);
+          dispatch(failure(response.error));
+        }
+
+      })
+      .catch(message => {
+        dispatch(failure(message.error));
+
+      });
   }
 };

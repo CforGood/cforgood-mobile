@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Background from '../../components/common/Background';
+import Loading from '../../components/common/Loading';
 import Container from '../../components/login/Container';
 import Icon from '../../components/common/Icon';
 import Button from '../../components/common/Button';
@@ -76,6 +77,7 @@ class SignUpCodeScreen extends Component {
           source={require('../../resources/icons/arrow-left.png')}
           onPress={() => this.props.navigation.goBack()}
         />
+        <Loading loading={!this.props.loaded} />
         <ErrorView
           message={this.state.error}
           removeError={() => this.setState({error: ''})}
@@ -105,6 +107,7 @@ const mapStateToProps = state => ({
   user: state.user.data,
   error: state.user.error,
   failed: state.user.failed,
+  loaded: state.user.loaded,
 });
 
 

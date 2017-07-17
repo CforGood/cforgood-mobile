@@ -59,7 +59,7 @@ export default class SingInScreen extends Component {
         <Container
           title={'Quel est votre e-mail ?'}
           onChangeText={(email) => this.setState({ email })}
-          value={email}
+          value={email.toLowerCase()}
           placeholder={'Mon e-mail'}
           firstText={"ou"}
           facebook={true}

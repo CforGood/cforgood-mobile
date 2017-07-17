@@ -10,6 +10,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Background from '../../components/common/Background';
+import Loading from '../../components/common/Loading';
 import Container from '../../components/login/Container';
 import Icon from '../../components/common/Icon';
 import ErrorView from '../../components/common/ErrorView';
@@ -67,6 +68,7 @@ class SignUpScreen extends Component {
           message={this.state.error}
           removeError={() => this.setState({error: ''})}
         />
+        <Loading loading={!this.props.loaded} />
         <Icon
           styleImage={{
             marginTop: metrics.marginApp + (Platform.OS === 'ios' ? 20 : 0),
@@ -97,6 +99,7 @@ class SignUpScreen extends Component {
 const mapStateToProps = state => ({
   LoggedIn: state.auth.LoggedIn,
   failure: state.auth.failure,
+  loaded: state.auth.loaded,
   error: state.auth.error,
 });
 

@@ -21,6 +21,7 @@ import {
 import { updateUserData } from '../../redux/actions/user';
 
 import Header from '../../components/common/Header';
+import Loading from '../../components/common/Loading';
 import Button from '../../components/common/ButtonGradiant';
 import ButtonGradiantRadius from '../../components/common/ButtonGradiantRadius';
 import CreditCardInput from '../../modules/CreditCardInput';
@@ -119,6 +120,7 @@ class ProfileCreditCardScreen extends Component {
           message={this.state.error}
           removeError={() => this.setState({ error: '' })}
         />
+        <Loading loading={!this.props.loaded} />
         <Header
           back={'-90deg'}
           text={'Ajouter une CB'}
@@ -217,6 +219,7 @@ const mapStateToProps = state => ({
   user: state.user.data,
   failure: state.user.failure,
   error: state.user.error,
+  loaded: state.user.loaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({

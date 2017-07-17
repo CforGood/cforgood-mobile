@@ -50,7 +50,7 @@ export const updateUserData = (id, data) => {
 
   return (dispatch, getState) => {
 
-
+    dispatch(load());
     return ApiHandler.updateUserData(id, data)
       .then(response => {
 

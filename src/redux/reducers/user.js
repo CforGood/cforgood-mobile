@@ -25,7 +25,7 @@ export default function reducer(state = initialState, action = {}) {
       const data = action.data;
       return {
         ...state,
-        loaded: true,
+        loaded: false,
         failed: false,
         data,
       };
@@ -34,7 +34,7 @@ export default function reducer(state = initialState, action = {}) {
       const data = action.data;
       return {
         ...state,
-        loaded: true,
+        loaded: false,
         failed: false,
         data: {
           ...state.data,
@@ -45,13 +45,14 @@ export default function reducer(state = initialState, action = {}) {
     case LOAD_FAIL:
       return {
         ...state,
-        loaded: true,
+        loaded: false,
         failed: true,
         error: action.error,
       };
     case LOAD_SECURITY:
       return {
         ...state,
+        loaded: false,
         security: action.data,
       };
     default:

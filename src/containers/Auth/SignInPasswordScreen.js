@@ -10,6 +10,7 @@ import { bindActionCreators } from 'redux';
 
 import Background from '../../components/common/Background';
 import ErrorView from '../../components/common/ErrorView';
+import Loading from '../../components/common/Loading';
 import Container from '../../components/login/Container';
 import { signin } from '../../redux/actions/auth';
 import { loadUserData } from '../../redux/actions/user';
@@ -63,8 +64,9 @@ class SignInPassword extends Component {
       >
         <ErrorView
           message={this.state.error}
-          removeError={() => this.setState({error: ''})}
+          removeError={() => this.setState({ error: '' })}
         />
+        <Loading loading={!this.props.loaded} />
         <Container
           title={"Entrez votre mot de passe"}
           onChangeText={(password) => this.setState({ password })}
@@ -84,6 +86,7 @@ class SignInPassword extends Component {
 
 const mapStateToProps = state => ({
   LoggedIn: state.auth.LoggedIn,
+  loaded: state.auth.loaded,
   failure: state.auth.failure,
   error: state.auth.error,
 });

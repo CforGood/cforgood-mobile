@@ -20,7 +20,7 @@ import {
 } from '../../themes';
 import { updateUserData } from '../../redux/actions/user';
 
-
+import Loading from '../../components/common/Loading';
 import Payement from '../../components/profile/Payement';
 import Header from '../../components/common/Header';
 import Button from '../../components/common/ButtonGradiant';
@@ -75,6 +75,7 @@ class ProfilePaymentScreen extends Component {
           message={this.state.error}
           removeError={() => this.setState({ error: '' })}
         />
+        <Loading loading={!this.props.loaded} />
         <Header
           text={'Choisissez un montant'}
           type={'gradiant'}
@@ -125,6 +126,7 @@ const mapStateToProps = state => ({
   user: state.user.data,
   failure: state.user.failure,
   error: state.user.error,
+  loaded: state.user.loaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({

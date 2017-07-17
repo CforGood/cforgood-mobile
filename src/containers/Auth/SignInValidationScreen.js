@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Background from '../../components/common/Background';
+import Loading from '../../components/common/Loading';
 import Validation from '../../components/login/Validation';
 import { siginSuccess } from '../../redux/actions/auth';
 

@@ -149,17 +149,6 @@ class ApiHandler {
         })
         .then(async (responseJson) => {
           if (responseJson.errors || responseJson.error) {
-
-            if (responseJson.errors && type === 'facebook') {
-              Alert.alert(
-                'Erreur',
-                responseJson.errors,
-                [
-                  { text: 'Fermer', onPress: () => { } },
-                ]
-              );
-            }
-
             return Promise.reject({ error: responseJson.errors || responseJson.error });
           }
           else {
@@ -168,7 +157,7 @@ class ApiHandler {
           }
         })
         .catch(error => {
-          return Promise.reject({ error: error.message });
+          return Promise.reject({ error: error.errors || error.error || error.message });
         })
 
 

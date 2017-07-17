@@ -8,7 +8,7 @@ import FirebaseCrash from 'react-native-firebase-crash-report';
 import { connect } from 'react-redux';
 
 import HomeNavigator from './navigator/HomeNavigator';
-import LoginNavigator from './navigator/InitialNavigator';
+import AuthNavigator from './navigator/AuthNavigator';
 import Intercom from './Intercom';
 import Branch from './branch';
 import { 
@@ -28,7 +28,7 @@ class MyApp extends Component {
           this.props.isLoggedIn ?
           <HomeNavigator />
           :
-          <LoginNavigator />
+          <AuthNavigator />
         }
         <Branch />
         <Intercom />
