@@ -126,7 +126,7 @@ export default class Container extends PureComponent {
               {
                 textAlign: textAlign,
                 color: 'white',
-                height: 33,
+                height: 50,
               },
               styleTextInput
             ]}

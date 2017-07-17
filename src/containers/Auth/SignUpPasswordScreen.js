@@ -64,11 +64,6 @@ class SignUpScreen extends Component {
           flex: 1,
         }}
       >
-        <ErrorView 
-          message={this.state.error}
-          removeError={() => this.setState({error: ''})}
-        />
-        <Loading loading={!this.props.loaded} />
         <Icon
           styleImage={{
             marginTop: metrics.marginApp + (Platform.OS === 'ios' ? 20 : 0),
@@ -91,6 +86,12 @@ class SignUpScreen extends Component {
           firstText={""}
           nextStep={this.verify}
         />
+        <ErrorView
+          message={this.state.error}
+          removeError={() => this.setState({ error: '' })}
+        />
+        <Loading loading={!this.props.loaded} />
+
       </Background>
     );
   }

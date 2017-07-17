@@ -77,13 +77,9 @@ class SignUpCodeScreen extends Component {
           source={require('../../resources/icons/arrow-left.png')}
           onPress={() => this.props.navigation.goBack()}
         />
-        <Loading loading={!this.props.loaded} />
-        <ErrorView
-          message={this.state.error}
-          removeError={() => this.setState({error: ''})}
-        />
+
         <Container
-          styleContainer={{ 
+          styleContainer={{
             paddingTop: metrics.base,
             paddingBottom: metrics.doubleBaseMargin,
           }}
@@ -97,6 +93,11 @@ class SignUpCodeScreen extends Component {
           onPress={() => { }}
           nextStep={() => this.verify()}
           canHandleNextStep={true}
+        />
+        <Loading loading={!this.props.loaded} />
+        <ErrorView
+          message={this.state.error}
+          removeError={() => this.setState({ error: '' })}
         />
       </Background>
     );

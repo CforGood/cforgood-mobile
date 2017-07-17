@@ -40,6 +40,7 @@ class ErrorView extends PureComponent {
 
     return (
       this.state.showError &&
+      this.props.message !== '' &&
       <View
         style={[
           {
@@ -51,7 +52,6 @@ class ErrorView extends PureComponent {
             top: 0,
             right: 0,
             left: 0,
-            zIndex: 30,
             paddingVertical: metrics.baseMargin,
           },
           Platform.OS === 'ios' ? { paddingTop: 20 } : {}

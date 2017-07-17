@@ -52,10 +52,6 @@ export default class SingInScreen extends Component {
           flex: 1,
         }}
       >
-        <ErrorView
-          message={this.state.error}
-          removeError={() => this.setState({ error: '' })}
-        />
         <Container
           title={'Quel est votre e-mail ?'}
           onChangeText={(email) => this.setState({ email })}
@@ -68,6 +64,10 @@ export default class SingInScreen extends Component {
           onPress={() => this.props.navigation.goBack()}
           nextStep={this.verify}
           styleContainer={{ paddingTop: metrics.doubleBaseMargin * 2 }}
+        />
+        <ErrorView
+          message={this.state.error}
+          removeError={() => this.setState({ error: '' })}
         />
       </Background>
     );

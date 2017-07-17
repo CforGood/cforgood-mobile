@@ -62,11 +62,6 @@ class SignInPassword extends Component {
           flex: 1,
         }}
       >
-        <ErrorView
-          message={this.state.error}
-          removeError={() => this.setState({ error: '' })}
-        />
-        <Loading loading={!this.props.loaded} />
         <Container
           title={"Entrez votre mot de passe"}
           onChangeText={(password) => this.setState({ password })}
@@ -79,6 +74,13 @@ class SignInPassword extends Component {
           nextStep={this.verify}
           styleContainer={{ paddingTop: metrics.doubleBaseMargin * 2 }}
         />
+        <ErrorView
+          message={this.state.error}
+          removeError={() => this.setState({ error: '' })}
+        />
+
+        <Loading loading={!this.props.loaded} />
+
       </Background>
     );
   }

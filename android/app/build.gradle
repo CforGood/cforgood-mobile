@@ -161,36 +161,37 @@ dependencies {
     compile project(':tipsi-stripe')
     compile project(':react-native-mapbox-gl')
     compile project(':react-native-permissions')
-    compile project(':react-native-fcm')
     compile project(':react-native-code-push')
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.google.firebase:firebase-core:10.0.1'
     compile 'io.intercom.android:intercom-sdk-base:3.+'
     compile('io.intercom.android:intercom-sdk-fcm:3.+') {
         exclude group: 'io.intercom.android', module: 'intercom-sdk-base'
     }
-    compile ('com.mapbox.mapboxsdk:mapbox-android-sdk:4.2.2@aar'){
-        transitive=true
-    }
+
+    compile project(':react-native-fcm')
+    compile project(':react-native-firebase-crash-report')
+    compile 'com.google.firebase:firebase-core:11.0.2'
+    compile 'com.google.firebase:firebase-crash:11.0.2'
     
     compile project(':react-native-intercom')
     compile project(':react-native-branch')
     compile project(':react-native-image-picker')
-    compile project(':react-native-firebase-crash-report')
     compile project(':react-native-share')
     compile project(':react-native-blur')
     compile project(':react-native-linear-gradient')
     compile project(':react-native-vector-icons')
     compile project(':react-native-orientation')
-    compile(project(':react-native-fbsdk')){
-      exclude(group: 'com.facebook.android', module: 'facebook-android-sdk')
-    }
-    compile "com.facebook.android:facebook-android-sdk:4.22.1"
+    compile(project(':react-native-fbsdk'))
     compile project(':react-native-video')
 
-
+    compile ('com.android.support:appcompat-v7:25.3.1') {
+        exclude group: 'com.google.android', module: 'support-v4'
+    }
+    compile ('com.google.android.gms:play-services-gcm:11.0.2') {
+        force = true;
+    }
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:25.2.5"
+    // compile "com.android.support:appcompat-v7:25.2.5"
     compile "com.facebook.react:react-native:+"  // From node_modules
 }
 
