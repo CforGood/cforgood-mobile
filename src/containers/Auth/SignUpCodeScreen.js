@@ -94,6 +94,7 @@ class SignUpCodeScreen extends Component {
           subButton={'Passer ou valider'}
           onPress={() => { }}
           nextStep={() => this.verify()}
+          canHandleNextStep={true}
         />
       </Background>
     );

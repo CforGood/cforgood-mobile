@@ -8,6 +8,7 @@ import { withNavigation } from 'react-navigation';
 import OnboardingDetail from './OnboardingDetail';
 import PopupVideo from './PopupVideo';
 import ErrorView from '../common/ErrorView';
+import Background from '../../components/common/Background';
 
 import {
   colors,
@@ -39,7 +40,11 @@ class Association extends PureComponent {
         <OnboardingDetail
           index={3}
           source={require('../../resources/onboarding/4.png')}
-          title={(<Text style={[style.text, fonts.style.mediumBold]}>Pour devenir membre ?</Text>)}
+          title={(<Background
+            style={{
+              padding: 3,
+            }}
+          ><Text style={[style.text, fonts.style.mediumBold]}>Pour devenir membre ?</Text></Background>)}
           text={(<View>
             <Text style={style.text}>
               Faites un <Text style={fonts.style.mediumBold}> don </Text> à une association
@@ -63,6 +68,9 @@ var style = {
   text: {
     ...fonts.style.t20,
     textAlign: 'center',
+    backgroundColor: 'white',
+    paddingVertical: 4,
+    paddingHorizontal: metrics.baseMargin,
   },
 };
 export default withNavigation(Association);

@@ -68,7 +68,7 @@ export default class SignUpScreen extends Component {
           }}
           title={'Quel est votre e-mail ?'}
           onChangeText={(email) => this.setState({ email })}
-          value={email}
+          value={email.toLowerCase()}
           placeholder={'Mon e-mail'}
           keyboardType={'email-address'}
           firstText={""}

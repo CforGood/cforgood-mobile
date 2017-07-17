@@ -61,16 +61,6 @@ class MapScreen extends Component {
     return false;
   }
 
-  componentDidMount() {
-    Permissions.getPermissionStatus('location')
-      .then(response => {
-        if (response !== 'authorized') {
-          this._requestPermission();
-        }
-      }).catch(e => this.notifyAutorize());
-
-  }
-
   componentWillMount() {
     this.updateListBusiness(this.props.businesses, this.props.categories);
   }
@@ -94,29 +84,6 @@ class MapScreen extends Component {
     ) {
       this.updateListBusiness(nextProps.businesses, nextProps.categories);
     }
-
-  }
-
-  _requestPermission = () => {
-
-    Permissions.requestPermission('location')
-      .then(response => {
-
-        if (String(response) !== 'authorized') {
-          Permissions.openSettings
-          this.notifyAutorize();
-        }
-      }).catch(e => this.notifyAutorize())
-  }
-
-  notifyAutorize() {
-    Alert.alert(
-      'Erreur',
-      "la géolocalisation n'est pas activée, malheureusement sans elle aucun commerce ne peut apparaître !",
-      [
-        { text: 'Fermer', onPress: () => { } },
-      ]
-    );
   }
 
   showBusiness = (business, address) => {

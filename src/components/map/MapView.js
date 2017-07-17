@@ -495,41 +495,46 @@ class MapView extends Component {
             onClose={this.props.onClose}
           />
         }
-        <RNMapView
-          ref={map => { this._map = map; }}
-          style={styles.map}
-          initialCenterCoordinate={this.state.regionUser}
-          initialZoomLevel={this.state.zoom}
-          initialDirection={0}
-          rotateEnabled={true}
-          scrollEnabled={true}
-          zoomEnabled={true}
-          showsUserLocation={this.state.showsUserLocation}
-          styleURL={styleMapBox}
-          annotations={[{
-            type: 'polyline',
-            fillAlpha: 1,
-            strokeColor: this.state.color,
-            strokeAlpha: 3,
-            strokeWidth: 3,
-            id: 'polyline',
-            coordinates: this.state.direction
-          }, ...this.state.annotations]}
-          userTrackingMode={this.state.userTrackingMode}
-          annotationsAreImmutable={true}
-          annotationsPopUpEnabled={false}
-          onChangeUserTrackingMode={this.onChangeUserTrackingMode}
-          onRegionDidChange={this.onRegionDidChange}
-          onRegionWillChange={this.onRegionWillChange}
-          onUpdateUserLocation={this.onUpdateUserLocation}
-          onLongPress={this.onLongPress}
-          onTap={this.onTap}
-          logoIsHidden={true}
-          compassIsHidden={true}
+        {
+          this.state.regionUser &&
+          this.state.regionUser.latitude &&
+          <RNMapView
+            ref={map => { this._map = map; }}
+            style={styles.map}
+            initialCenterCoordinate={this.state.regionUser}
+            initialZoomLevel={this.state.zoom}
+            initialDirection={0}
+            rotateEnabled={true}
+            scrollEnabled={true}
+            zoomEnabled={true}
+            showsUserLocation={this.state.showsUserLocation}
+            styleURL={styleMapBox}
+            annotations={[{
+              type: 'polyline',
+              fillAlpha: 1,
+              strokeColor: this.state.color,
+              strokeAlpha: 3,
+              strokeWidth: 3,
+              id: 'polyline',
+              coordinates: this.state.direction
+            }, ...this.state.annotations]}
+            userTrackingMode={this.state.userTrackingMode}
+            annotationsAreImmutable={true}
+            annotationsPopUpEnabled={false}
+            onChangeUserTrackingMode={this.onChangeUserTrackingMode}
+            onRegionDidChange={this.onRegionDidChange}
+            onRegionWillChange={this.onRegionWillChange}
+            onUpdateUserLocation={this.onUpdateUserLocation}
+            onLongPress={this.onLongPress}
+            onTap={this.onTap}
+            logoIsHidden={true}
+            compassIsHidden={true}
 
-          onRightAnnotationTapped={this.onRightAnnotationTapped}
-          onOpenAnnotation={this.onOpenAnnotation}
-        />
+            onRightAnnotationTapped={this.onRightAnnotationTapped}
+            onOpenAnnotation={this.onOpenAnnotation}
+          />
+
+        }
 
         <View style={styles.rightContainer}>
           <TouchableOpacity
@@ -610,7 +615,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(MapView);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'stretch'
+    alignItems: 'stretch',
+    backgroundColor: 'white',
   },
   map: {
     flex: 5

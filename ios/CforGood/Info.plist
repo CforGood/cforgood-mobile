@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.3.0</string>
+	<string>1.3.3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -44,7 +44,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.3.0</string>
+	<string>1.3.3</string>
 	<key>CodePushDeploymentKey</key>
 	<string>m5YPZ209_t9gAymSMXkjhFERLVc0E1hsPAnnb</string>
 	<key>FacebookAppID</key>
@@ -73,12 +73,12 @@
 	<string>$(PRODUCT_NAME) Calender use.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>CforGood souhaite accéder à votre appareil photo</string>
+	<key>NSContactsUsageDescription</key>
+	<string>CforGood souhaite accéder à vos contacts</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>CforGood souhaite accéder à vos photos</string>
-  <key>NSContactsUsageDescription</key>
-  <string>CforGood souhaite accéder à vos contacts</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Avenir.ttc</string>

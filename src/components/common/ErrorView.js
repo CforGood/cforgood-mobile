@@ -51,8 +51,8 @@ class ErrorView extends PureComponent {
             top: 0,
             right: 0,
             left: 0,
-            zIndex: 10,
-            paddingVertical: metrics.baseMargin
+            zIndex: 30,
+            paddingVertical: metrics.baseMargin,
           },
           Platform.OS === 'ios' ? { paddingTop: 20 } : {}
         ]}

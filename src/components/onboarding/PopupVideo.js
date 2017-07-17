@@ -48,14 +48,16 @@ class PopupVideo extends Component {
         <Background style={{ flex: 5 }}>
           <View
             style={{
-              margin: metrics.baseMargin,
+              marginVertical: metrics.doubleBaseMargin,
               marginHorizontal: metrics.marginApp,
               justifyContent: 'space-between',
               alignItems: 'center',
               flex: 1,
             }}
           >
-            <View style={{ padding: metrics.baseMargin }}>
+            <View style={{ 
+              paddingTop: metrics.baseMargin,
+            }}>
               <Image
                 source={require('../../resources/onboarding/light-bulb.png')}
                 style={{
@@ -65,14 +67,14 @@ class PopupVideo extends Component {
               />
             </View>
             <Text style={[
-              fonts.style.t24,
+              fonts.style.t25,
               fonts.style.mediumBold,
               { textAlign: 'center', color: 'white' }
             ]}>
               C’est compris ?
             </Text>
             <Text style={[
-              fonts.style.t15,
+              fonts.style.t20,
               fonts.style.mediumBold,
               { textAlign: 'center', color: 'white' }
             ]}>

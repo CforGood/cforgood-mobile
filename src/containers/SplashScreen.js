@@ -66,7 +66,7 @@ class SplashScreen extends Component {
       }
 
       setTimeout(() => {
-        this.goTo(value !== null ? 'Home' : 'Onboarding');
+        this.goTo(value !== null ? 'Onboarding' : 'Onboarding');
       }, 2000);
     }
 
@@ -86,17 +86,17 @@ class SplashScreen extends Component {
   }
 
   onUpdateUserLocation() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      if (position && position.coords) {
-        this.props.onUpdateUserLocation(position, true);
-      }
-    }, () => { },
-      {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 3000,
-      }
-    );
+    // navigator.geolocation.getCurrentPosition((position) => {
+    //   if (position && position.coords) {
+    //     this.props.onUpdateUserLocation(position, true);
+    //   }
+    // }, () => { },
+    //   {
+    //     enableHighAccuracy: true,
+    //     timeout: 10000,
+    //     maximumAge: 3000,
+    //   }
+    // );
   }
 
   _handleConnectivityChange = (isConnected) => {

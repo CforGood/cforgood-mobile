@@ -27,7 +27,7 @@ class Business extends PureComponent {
     verify: false,
   };
 
-  handleError(error) {
+  handleError = (error) => {
     this.setState({ error });
   }
 

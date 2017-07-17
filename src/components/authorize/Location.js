@@ -33,9 +33,7 @@ class AuthorizeLocation extends PureComponent {
       this.props.verify !== nextProps.verify
       && nextProps.verify
     ) {
-      this.setState({
-        visiblePopupConfirm: true
-      });
+      this.confirm();
     }
   }
 
@@ -55,7 +53,11 @@ class AuthorizeLocation extends PureComponent {
     Permissions.requestPermission('location')
       .then(response => {
         if (String(response) !== 'authorized') {
-          Permissions.openSettings
+          if (response === 'denied') {
+            this.verify();
+          }
+          else
+            Permissions.openSettings;
         }
         else {
           this.verify();
@@ -80,8 +82,8 @@ class AuthorizeLocation extends PureComponent {
     );
   }
 
-  notifyAutorize(error) {
-    this.props.handleError(error.message);
+  notifyAutorize = (error) => {
+    this.props.handleError('Vous avez réfuser l\'accès . on peut pas accéder au settings');
   }
 
   ignoreConfirm = () => {
@@ -118,18 +120,6 @@ class AuthorizeLocation extends PureComponent {
   render() {
     return (
       <View style={styles.screen.overlay}>
-        <ConfirmPopup
-          visiblePopup={this.state.visiblePopupConfirm}
-          message={(<Text style={style.message}>
-            Autoriser <Text style={[
-              fonts.style.mediumBold,
-              { color: colors.darkGray }
-            ]}>CforGood</Text> à accéder
-          à la position de cet appareil ?
-          </Text>)}
-          ignore={this.ignoreConfirm}
-          confirm={this.confirm}
-        />
         <WarningPopup
           visiblePopup={this.state.visiblePopupWarning}
           title={

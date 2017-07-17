@@ -1,7 +1,7 @@
-import 
-  React, 
-  { PureComponent, PropTypes } 
-from 'react';
+import
+React,
+{ PureComponent, PropTypes }
+  from 'react';
 
 import {
   View,
@@ -24,12 +24,14 @@ import Circle from './Circle'
 export default class Switch extends PureComponent {
 
   static propTypes = {
-    checked: PropTypes.bool.isRequired,
-    onChange: PropTypes.func.isRequired
+    checked: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    style: PropTypes.object,
   };
 
   static defaultProps = {
-    checked: false
+    checked: false,
+    style: {},
   };
 
   state = {
@@ -37,7 +39,7 @@ export default class Switch extends PureComponent {
   };
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.checked !== this.props.checked){
+    if (nextProps.checked !== this.props.checked) {
       this.animate(nextProps.checked);
     }
   }
@@ -52,12 +54,12 @@ export default class Switch extends PureComponent {
         easing: Easing.linear
       }
     ).start();
-      
+
   }
-  
+
 
   render() {
-    return ( 
+    return (
       <TouchableOpacity
         style={[
           styles.center,
@@ -68,10 +70,10 @@ export default class Switch extends PureComponent {
         ]}
         activeOpacity={1}
         onPress={() => this.props.onChange(!this.props.checked)}
-      > 
-        <Circle 
-          bigCircle={styleCircle.baseBig} 
-          smallCircle={styleCircle.baseSmall} 
+      >
+        <Circle
+          bigCircle={styleCircle.baseBig}
+          smallCircle={styleCircle.baseSmall}
         />
         <Animated.View
           style={[
@@ -83,7 +85,7 @@ export default class Switch extends PureComponent {
         >
           <Circle />
         </Animated.View>
-      </TouchableOpacity> 
+      </TouchableOpacity>
     );
   }
 };
@@ -92,14 +94,14 @@ const styleCircle = StyleSheet.create({
   baseBig: {
     width: 74,
     height: 23,
-    borderRadius: 23 /2,
+    borderRadius: 23 / 2,
   },
   baseSmall: {
     width: 70,
     height: 20,
-    borderRadius: 20 /2,
+    borderRadius: 20 / 2,
     backgroundColor: colors.white,
   }
 
-}); 
+});
 

@@ -20,7 +20,7 @@ import {
 export default class Perk extends PureComponent {
 
   state = {
-    visiblePopupConfirm: false,
+    error: '',
   };
 
   enableNotification() {
@@ -47,36 +47,29 @@ export default class Perk extends PureComponent {
       }).catch(e => this.error(e))
   }
 
-  error(e) {
-    this.setState({error: e});
+  error = (e) => {
+    this.setState({ error: e });
   }
 
   ignore = () => {
     this.props.scroll();
-    this.setState({
-      visiblePopupConfirm: false,
-    });
   }
 
   confirm = () => {
     this.enableNotification();
-    this.setState({
-      visiblePopupConfirm: false,
-    });
   }
-
 
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <ErrorView 
+        <ErrorView
           message={this.state.error}
-          removeError={() => this.setState({error: ''})}
+          removeError={() => this.setState({ error: '' })}
         />
         <OnboardingDetail
           source={require('../../resources/onboarding/2.png')}
           icon={require('../../resources/onboarding/bons_plan.png')}
-          text={(<View>
+          text={(<View style={{ width: metrics.deviceWidth * 3 / 4 }}>
             <Text style={style.text}>
               Bénéficiez des <Text style={fonts.style.mediumBold}>bons plans</Text>
             </Text>
@@ -85,18 +78,7 @@ export default class Perk extends PureComponent {
             </Text>
           </View>)}
           textButton={'M’informer'}
-          onPress={() => this.setState({ visiblePopupConfirm: true })}
-        />
-        <ConfirmPopup
-          visiblePopup={this.state.visiblePopupConfirm}
-          message={(<Text style={style.message}>
-            Autoriser <Text style={[
-              fonts.style.mediumBold,
-              { color: colors.darkGray }
-            ]}>CforGood</Text> à vous envoyer des notifications ?
-          </Text>)}
-          ignore={this.ignore}
-          confirm={this.confirm}
+          onPress={() => this.confirm()}
         />
       </View>
     );

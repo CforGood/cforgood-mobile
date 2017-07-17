@@ -64,9 +64,12 @@ class PopupProfileMap extends Component {
 
   onValidate = async (type) => {
 
-    if (type === 'partner' || type === 'not_partner') {
-      //this.props.updateUserData(this.props.user.id, {trial_done: false});
+    if (type === 'no_permission_location') {
+      this.props.checkLocation(true);
     }
+    // if (type === 'partner' || type === 'not_partner') {
+    //   //this.props.updateUserData(this.props.user.id, {trial_done: false});
+    // }
     else if (type === 'businesses_around') {
       this.props.navigation.navigate(
         'WebView',
@@ -100,10 +103,6 @@ class PopupProfileMap extends Component {
         });
 
     }
-    else if (type === 'no_permission_location') {
-      this.props.checkLocation(true);
-    }
-
 
     this.closePopup();
   }
@@ -119,12 +118,16 @@ class PopupProfileMap extends Component {
       no_permission_location,
     } = props;
     const businesses_around = businesses ? businesses.length : 0;
-
+    
     if (user && !this.state.visible && (loadedBusinesses || no_permission_location)) {
       let visible = false;
       let type = '';
-
-      if (user.first_perk_offer_attributes) {
+      
+      if (no_permission_location) {
+        visible = true;
+        type = 'no_permission_location';
+      }
+      else if (user.first_perk_offer_attributes) {
         visible = true;
         type = 'first_perk_offer';
       }
@@ -140,10 +143,6 @@ class PopupProfileMap extends Component {
         else {
           type = 'not_partner';
         }
-      }
-      else if (no_permission_location) {
-        visible = true;
-        type = 'no_permission_location';
       }
       else if (!nearme) {
         visible = true;

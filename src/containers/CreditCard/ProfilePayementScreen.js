@@ -83,7 +83,10 @@ class ProfilePaymentScreen extends Component {
           }}
           onClose={null}
         />
-        <ScrollView contentContainerStyle={{ flex: 1 }}>
+        <ScrollView contentContainerStyle={{
+          flex: 1,
+          marginHorizontal: metrics.marginApp
+        }}>
           <Payement
             user={this.props.user}
             setUserData={(user) => this.setState({ user })}

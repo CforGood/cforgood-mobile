@@ -9,6 +9,7 @@ import {
   StyleSheet,
   TextInput,
 } from 'react-native';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 import Icon from '../common/Icon';
 import Button from '../common/Button';
@@ -46,7 +47,8 @@ export default class Container extends PureComponent {
     subButton: null,
     onPress: () => { },
     style: {},
-    typeAuth: 'SignUp'
+    typeAuth: 'SignUp',
+    canHandleNextStep: false,
   };
 
   static propTypes = {
@@ -68,6 +70,7 @@ export default class Container extends PureComponent {
     styleTextInput: PropTypes.object,
     style: PropTypes.object,
     typeAuth: PropTypes.string,
+    canHandleNextStep: PropTypes.bool,
   };
 
   render() {
@@ -96,6 +99,7 @@ export default class Container extends PureComponent {
       textAlignVertical,
       styleContainer,
       typeAuth,
+      canHandleNextStep,
     } = this.props;
 
     return (
@@ -168,7 +172,7 @@ export default class Container extends PureComponent {
             styleImage={{
               width: 60,
               height: 60,
-              tintColor: value !== '' ? 'white' : 'rgba(255,255,255,0.4)'
+              tintColor: value !== '' || canHandleNextStep ? 'white' : 'rgba(255,255,255,0.4)'
             }}
             source={require('../../resources/icons/arrow-right.png')}
             onPress={() => nextStep()}
@@ -178,6 +182,9 @@ export default class Container extends PureComponent {
             {subButton}
           </Text>
         </View>
+        <KeyboardSpacer
+          onToggle={() => null}
+        />
       </View>
     );
   }

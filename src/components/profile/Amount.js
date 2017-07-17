@@ -35,12 +35,14 @@ export default class Amount extends PureComponent {
     maxAmount: yearlyMaxAmount,
     left: minLeft,
     subscription: 'Y',
-    amount: 0,
+    amount: 5,
   };
 
   componentWillMount() {
-    const { amount, subscription } = this.props.user;
+    let { amount, subscription } = this.props.user;
 
+    amount = amount || 5;
+    subscription = subscription || 'M';
     if (subscription === 'Y') {
       minAmount = yearlyMinAmount;
       maxAmount = yearlyMaxAmount;
@@ -52,17 +54,26 @@ export default class Amount extends PureComponent {
     const ratio = (minAmount + maxAmount) / amount;
     const left = (minLeft + maxLeft) / ratio;
 
-    console.log('leftAmount', left);
 
     this.setState({
-      subscription, amount, minAmount, maxAmount, left
+      subscription,
+      amount,
+      minAmount,
+      maxAmount,
+      left
     });
+
+    if (amount === null) {
+      this.props.setUserData({
+        ...this.props.user, subscription: 'M', amount: 5,
+      });
+    }
+
   }
 
 
   setSubscription(checked) {
     let { subscription } = this.state;
-    const { user } = this.props;
 
     let minAmount;
     let maxAmount;
@@ -154,6 +165,7 @@ export default class Amount extends PureComponent {
     }
     return 0;
   }
+
   getAmountAfter() {
 
     const amountAssoc = this.state.amount * (this.getPercentAsso() / 100);
@@ -163,6 +175,7 @@ export default class Amount extends PureComponent {
     return amountAfter;
 
   }
+
   getFlooredFixed(v, d) {
     return (Math.floor(v * Math.pow(10, d)) / Math.pow(10, d)).toFixed(d);
   }
@@ -173,7 +186,6 @@ export default class Amount extends PureComponent {
       <View
         style={{
           flex: 1,
-          marginHorizontal: metrics.marginApp
         }}
       >
         <View style={{ height: 80 }}>
@@ -182,8 +194,8 @@ export default class Amount extends PureComponent {
             <View style={[
               styles.row,
               {
-                marginVertical: metrics.baseMargin,
                 justifyContent: 'space-around',
+                alignItems: 'center',
                 marginHorizontal: metrics.baseMargin
               }
             ]}
@@ -273,8 +285,6 @@ export default class Amount extends PureComponent {
             />
           </View>
         }
-
-
         <View style={[
           styles.row,
           styles.spaceBetween,

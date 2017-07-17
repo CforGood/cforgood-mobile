@@ -46,7 +46,7 @@ export default class Payement extends PureComponent {
       <View style={{ flex: 1 }}>
         <View style={{
           ...style.center,
-          marginBottom: metrics.doubleBaseMargin
+          marginBottom: metrics.baseMargin
         }}
         >
           {
