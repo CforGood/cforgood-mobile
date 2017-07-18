@@ -73,6 +73,10 @@ export default class Container extends PureComponent {
     canHandleNextStep: PropTypes.bool,
   };
 
+  componentDidMount() {
+    this.input.focus();
+  }
+
   render() {
 
     const {
@@ -119,8 +123,7 @@ export default class Container extends PureComponent {
             {subtitle}
           </Text>
           <TextInput
-            ref='input'
-            {...this.props}
+            ref={(input) => { this.input = input; }}
             style={[
               value !== '' ? fonts.style.t18 : fonts.style.t22,
               {
@@ -140,10 +143,11 @@ export default class Container extends PureComponent {
             returnKeyType={returnKeyType}
             blurOnSubmit={blurOnSubmit}
             onSubmitEditing={onSubmitEditing}
-            ref='input'
             multiline={multiline}
             numberOfLines={numberOfLines}
             textAlignVertical={textAlignVertical}
+            returnKeyType='done'
+            onSubmitEditing={this.nextStep}
           />
         </View>
         <Text style={[
