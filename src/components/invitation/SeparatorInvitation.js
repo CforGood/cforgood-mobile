@@ -36,14 +36,18 @@ class SeparatorInvitation extends PureComponent {
           flexDirection: 'row',
         }}
       >
-        <View style={{
-          backgroundColor: colors.yellow,
-          flex: number
-        }} />
-        <View style={{
-          backgroundColor: number === 0 ? 'transparent' : 'rgba(248,231,28, 0.3)',
-          flex: numberInvitaion - number
-        }} />
+        <View 
+          style={{
+            backgroundColor: colors.yellow,
+            flex: number
+          }} 
+        />
+        <View 
+          style={{
+            backgroundColor: number === 0 ? 'transparent' : 'rgba(248,231,28, 0.3)',
+            flex: numberInvitaion - number
+          }}
+        />
 
       </LinearGradient >
     );

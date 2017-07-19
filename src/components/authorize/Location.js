@@ -24,7 +24,6 @@ import { onUpdateUserLocation } from '../../redux/actions/user';
 class AuthorizeLocation extends PureComponent {
 
   state = {
-    visiblePopupConfirm: false,
     visiblePopupWarning: false,
   };
 
@@ -54,7 +53,9 @@ class AuthorizeLocation extends PureComponent {
       .then(response => {
         if (String(response) !== 'authorized') {
           if (response === 'denied') {
-            this.verify();
+            this.setState({
+              visiblePopupWarning: true
+            });
           }
           else
             Permissions.openSettings;
@@ -87,31 +88,25 @@ class AuthorizeLocation extends PureComponent {
   }
 
   ignoreConfirm = () => {
-    this.setState({ visiblePopupConfirm: false }, () => {
-      this.setState({
-        visiblePopupWarning: true
-      });
+    this.setState({
+      visiblePopupWarning: true
     });
   }
 
   ignore = () => {
     this.props.nextStep();
     this.setState({
-      visiblePopupConfirm: false,
       visiblePopupWarning: false,
     });
   }
 
   openConfirm = () => {
-    this.setState({ visiblePopupWarning: false }, this.setState({
-      visiblePopupConfirm: true
-    }));
+    this.setState({ visiblePopupWarning: false });
   }
 
   confirm = () => {
     this.enableLocation();
     this.setState({
-      visiblePopupConfirm: false,
       visiblePopupWarning: false,
     });
   }

@@ -76,7 +76,6 @@ export const loadUserData = () => {
 
     return ApiHandler.loadUserData()
       .then(response => {
-
         if (response && !response.error) {
           dispatch(success(response));
         }

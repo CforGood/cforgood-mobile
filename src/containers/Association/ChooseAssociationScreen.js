@@ -18,6 +18,7 @@ import {
 import Header from '../../components/common/Header';
 import Background from '../../components/common/Background';
 import ErrorView from '../../components/common/ErrorView';
+import Loading from '../../components/common/Loading';
 
 import Button from '../../components/common/ButtonGradiant';
 import ButtonGradiantRadius from '../../components/common/ButtonGradiantRadius'
@@ -36,7 +37,11 @@ class AssociationListScreen extends Component {
     if (nextProps.failure === true) {
       this.setState({ error: nextProps.error[0] });
     }
-    else if (nextProps.user.cause_id !== null) {
+    else if (
+      nextProps.user.cause_id !== null
+      &&
+      nextProps.loaded
+    ) {
       this.props.navigation.navigate('Payment');
     }
 
@@ -62,6 +67,7 @@ class AssociationListScreen extends Component {
           message={this.state.error}
           removeError={() => this.setState({ error: '' })}
         />
+        <Loading loading={!this.props.loaded} />
         <Header
           text={'Séléctinnez une association'}
           type={'gradiant'}
@@ -137,6 +143,7 @@ const mapStateToProps = state => ({
   user: state.user.data,
   failure: state.user.failure,
   error: state.user.error,
+  loaded: state.user.loaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -7,11 +7,12 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  Platform,
+  TextInput,
 } from 'react-native';
 
 import Icon from '../common/Icon';
 import Button from '../common/Button';
-import TextInput from '../common/TextInput';
 import {
   styles,
   colors,
@@ -22,47 +23,70 @@ import {
 export default class HeaderTextInput extends PureComponent {
 
   static propTypes = {
-    text: PropTypes.string,
+    value: PropTypes.string,
+    onClose: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    text: "",
+    value: "",
   };
 
   render() {
-
-    const {
-      text,
-    } = this.props;
-
     return (
       <View style={[
         style.container,
         styles.row,
-        { alignItems: 'center' }
+        { 
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }
       ]}>
-        <View style={{ flex: 0.5 }}>
+        <View>
           <Icon
-            styleImage={{ width: 20, tintColor: colors.white }}
+            styleImage={{ 
+              width: 20,
+              height: 20,
+              tintColor: colors.white,
+              marginRight: metrics.baseMargin,
+            }}
             source={require('../../resources/icons/arrow-left.png')}
             onPress={() => { }}
           />
         </View>
-        <View style={{ flex: 4 }}>
+        <View style={[
+          style.containerTextInput,
+          {
+            borderBottomColor: this.props.value ? 'white' : 'rgba(255,255,255,0.3)'
+          }
+
+        ]}>
           <TextInput
-            placeholder={text}
+            placeholder={'Chercher par nom …'}
             selectionColor={colors.white}
-            placeholderTextColor={colors.white}
-            textAlign={'left'}
-            styleTextInput={style.containerTextInput}
-            styleText={{ fontSize: 18 }}
+            placeholderTextColor={'rgba(255,255,255,0.4)'}
+            underlineColorAndroid='transparent'
+            value={this.props.value}
+            onChangeText={(text) => this.props.onChangeText(text)}
+            style={[
+              this.props.value !== '' ? fonts.style.t18 : fonts.style.t22,
+              {
+                color: this.props.value !== '' ? 'white' : 'rgba(255,255,255,0.3)',
+              },
+              Platform.OS === 'android' ? { height: 50 } : { height: 20 },
+            ]}
           />
+
         </View>
-        <View style={{ flex: 0.5 }}>
+        <View>
           <Icon
-            styleImage={{ width: 12, tintColor: colors.white }}
-            source={require('../../resources/icons/arrow-left.png')}
-            onPress={() => { }}
+            styleImage={{ 
+              width: 12,
+              height: 12,
+              tintColor: colors.white,
+              marginLeft: metrics.baseMargin,
+            }}
+            source={require('../../resources/icons/close.png')}
+            onPress={() => this.props.onClose()}
           />
         </View>
       </View>
@@ -89,6 +113,8 @@ const style = StyleSheet.create({
   containerTextInput: {
     backgroundColor: colors.transparent,
     borderBottomWidth: 2,
-    borderBottomColor: colors.white
+    flex: 1,
+    borderBottomColor: colors.white,
+    paddingBottom: metrics.baseMargin,
   }
 });                               

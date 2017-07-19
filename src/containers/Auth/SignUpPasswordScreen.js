@@ -35,11 +35,10 @@ class SignUpScreen extends Component {
     if (nextProps.failure === true) {
       this.setState({ error: nextProps.error[0] });
     }
-    else {
+    else if (nextProps.loaded) {
       await this.props.loadUserData();
       this.props.navigation.navigate('SignUpCode');
     }
-
   }
 
   verify = () => {
@@ -76,6 +75,8 @@ class SignUpScreen extends Component {
           source={require('../../resources/icons/arrow-left.png')}
           onPress={() => this.props.navigation.goBack()}
         />
+
+
         <Container
           styleContainer={{ paddingTop: metrics.base }}
           title={'Choisissez un mot de passe'}
@@ -86,12 +87,11 @@ class SignUpScreen extends Component {
           firstText={""}
           nextStep={this.verify}
         />
+        <Loading loading={!this.props.loaded} />
         <ErrorView
           message={this.state.error}
           removeError={() => this.setState({ error: '' })}
         />
-        <Loading loading={!this.props.loaded} />
-
       </Background>
     );
   }

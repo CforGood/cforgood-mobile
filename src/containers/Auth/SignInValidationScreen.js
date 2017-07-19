@@ -11,6 +11,8 @@ import Background from '../../components/common/Background';
 import Loading from '../../components/common/Loading';
 import Validation from '../../components/login/Validation';
 import { siginSuccess } from '../../redux/actions/auth';
+import { loadBusiness } from '../../redux/actions/business';
+import { loadAssociation } from '../../redux/actions/association';
 
 import {
   styles,
@@ -22,6 +24,9 @@ import {
 class SignInValidationScreen extends Component {
 
   async componentWillMount() {
+    // this.props.loadAssociation();
+    // this.props.loadBusiness();
+    // this.props.navigation.navigate('InvitationContacts')
     setTimeout(() => { this.props.siginSuccess(); }, 1000);
   }
 
@@ -48,6 +53,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
   siginSuccess: bindActionCreators(siginSuccess, dispatch),
+  loadBusiness: bindActionCreators(loadBusiness, dispatch),
+  loadAssociation: bindActionCreators(loadAssociation, dispatch),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignInValidationScreen);

@@ -14,7 +14,6 @@ import Container from '../../components/login/Container';
 import Icon from '../../components/common/Icon';
 import Button from '../../components/common/Button';
 import ErrorView from '../../components/common/ErrorView';
-import TextInput from '../../components/common/TextInput';
 import { updateUserData } from '../../redux/actions/user';
 
 import {
@@ -40,7 +39,7 @@ class SignUpCodeScreen extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.failure || nextProps.error !== '') {
       this.setState({ error: nextProps.error });
-    } else {
+    } else if(nextProps.loaded) {
       this.props.navigation.navigate('SignUpValidation');
 
     }

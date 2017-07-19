@@ -497,7 +497,6 @@ class MapView extends Component {
         }
         {
           this.state.regionUser &&
-          this.state.regionUser.latitude &&
           <RNMapView
             ref={map => { this._map = map; }}
             style={styles.map}

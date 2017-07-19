@@ -11,7 +11,6 @@ import {
 import Background from '../common/Background';
 import Icon from '../common/Icon';
 import Button from '../common/Button';
-import Video from '../video/videoView';
 
 import {
   styles,
@@ -24,14 +23,11 @@ class PopupVideo extends Component {
 
   static propTypes = {
     visiblePopup: PropTypes.bool,
+    play: PropTypes.func.isRequired,
   };
 
   static defautProps = {
     visiblePopup: false,
-  };
-
-  state = {
-    play: false,
   };
 
   render() {
@@ -83,7 +79,7 @@ class PopupVideo extends Component {
 
             <View style={{ padding: metrics.baseMargin }}>
               <Icon
-                onPress={() => this.setState({ play: true })}
+                onPress={() => this.props.play()}
                 source={require('../../resources/icons/play.png')}
                 style={{
                   height: 53,
@@ -110,7 +106,6 @@ class PopupVideo extends Component {
             </View>
           </View>
         </Background>
-        <Video play={this.state.play} stopPlay={() => this.setState({ play: false })} />
       </Modal>
     );
   }

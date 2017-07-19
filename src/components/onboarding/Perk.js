@@ -39,7 +39,12 @@ export default class Perk extends PureComponent {
     Permissions.requestPermission('notification')
       .then(response => {
         if (String(response) !== 'authorized') {
-          Permissions.openSettings
+          if (response === 'denied') {
+            this.props.scroll();
+          }
+          else
+            Permissions.openSettings;
+
         }
         else {
           this.props.scroll();

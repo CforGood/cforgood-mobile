@@ -40,12 +40,15 @@ export default class ContactItem extends Component {
         style={[
           styles.row,
           style.container,
+          {
+            justifyContent: 'space-between',
+          }
         ]}
       >
         <View style={[
           styles.row,
           {
-            flex: 4,
+            
             justifyContent: 'flex-start',
             alignItems: 'center',
           }
@@ -60,15 +63,14 @@ export default class ContactItem extends Component {
             { marginLeft: metrics.smallMargin }
           ]}>
             {
-              item.givenName === null ? item.phoneNumbers.number : item.givenName
+              item.givenName === null ? item.phoneNumbers.number : (item.familyName + ' ' + item.givenName)
             }
           </Text>
         </View>
 
         <TouchableOpacity
           style={[
-            styles.center,
-            { flex: 1 }
+            styles.center
           ]}
           onPress={this.sendInvitation}
         >

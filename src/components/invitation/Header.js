@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  Image,
 } from 'react-native';
 
 import Icon from '../common/Icon';
@@ -23,6 +24,7 @@ export default class Header extends PureComponent {
   static propTypes = {
     number: PropTypes.number,
     numberInvitaion: PropTypes.number,
+    onPressSearch: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -98,15 +100,15 @@ export default class Header extends PureComponent {
                 <Text style={style.smallText}>
                   à envoyer!
                 </Text>
-                <Icon
-                  styleImage={{
+                <Image
+                  style={{
                     marginLeft: 10,
                     width: 31,
                     height: 32,
                     tintColor: colors.white,
                   }}
+                  resizeMode={'contain'}
                   source={require('../../resources/icons/flay.png')}
-                  onPress={() => { }}
                 />
               </View>
           }
@@ -115,7 +117,7 @@ export default class Header extends PureComponent {
         <Icon
           styleImage={{ width: 23, height: 23 }}
           source={require('../../resources/icons/magnifying-glass.png')}
-          onPress={() => { }}
+          onPress={() => this.props.onPressSearch()}
         />
       </View>
     );

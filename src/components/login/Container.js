@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   TextInput,
+  Platform,
 } from 'react-native';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
@@ -129,8 +130,8 @@ export default class Container extends PureComponent {
               {
                 textAlign: textAlign,
                 color: 'white',
-                height: 50,
               },
+              Platform.OS === 'android' ? { height: 50 } : { height: 20 },
               styleTextInput
             ]}
             placeholderTextColor={'rgba(255,255,255,0.3)'}

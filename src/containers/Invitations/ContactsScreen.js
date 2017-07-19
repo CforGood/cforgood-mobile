@@ -3,7 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
-  FlatList,
+  ScrollView,
   Platform,
   Image,
 } from 'react-native';
@@ -33,12 +33,13 @@ const NUMBER_INVITATION = 5;
 class ContactsScreen extends Component {
   state = {
     contacts: [],
+    allContacts: [],
     invitations: [],
     visiblePopupConfirm: false,
     visiblePopupWarning: false,
+    searchText: '',
+    visibleSearch: false,
   };
-
-  _keyExtractor = (item) => item.recordID;
 
   componentWillMount() {
     this.checkPermission();
@@ -62,22 +63,53 @@ class ContactsScreen extends Component {
   }
 
   getContacts = () => {
-    Contacts.getAll((err, contacts) => {
+    Contacts.getAll((err, allContacts) => {
       //update the first record
-      console.log('contacts', contacts);
-      this.setState({ contacts });
+      this.setState({
+        allContacts,
+        contacts: allContacts,
+      });
 
     })
   }
 
   sendInvitation = (item) => {
+    //API INVITATION
 
-    this.setState((oldState) => ({
-      invitations: [
-        ...oldState.invitations, // copy old data
-        item // toggle
-      ]
-    }));
+    const data = [
+      'user_login=""',
+      'api_key=""',
+      'sms_recipients=""',
+      'sms_text=""',
+      'sms_type=""',
+      'sms_sender=""',
+    ];
+
+    const url = `http://www.octopush-dm.com/api/sms/?` + data.join('&');
+
+    return fetch(url)
+      .then(response => {
+        console.log('responseresponse', response);
+        if (response.status === 200) {
+          return response.json();
+        }
+        else {
+
+        }
+      })
+      .then((responseJson) => {
+        this.setState((oldState) => ({
+          invitations: [
+            ...oldState.invitations, // copy old data
+            item // toggle
+          ]
+        }));
+      })
+      .catch(error => {
+
+      })
+
+
   }
 
   validate = () => {
@@ -104,7 +136,30 @@ class ContactsScreen extends Component {
     );
   }
 
+  setSearchText = (searchText) => {
+    if (searchText !== '') {
+      const contacts = this.state.allContacts.filter(contact =>
+        contact.familyName.toLowerCase().includes(searchText.toLowerCase())
+        ||
+        contact.givenName.toLowerCase().includes(searchText.toLowerCase())
+      );
+      this.setState({
+        contacts,
+        searchText,
+      });
+
+    }
+    else {
+      this.setState({
+        contacts: this.state.allContacts,
+        searchText,
+      });
+    }
+
+  }
+
   render() {
+    const { searchText } = this.state;
     return (
       <Background
         style={{
@@ -140,10 +195,26 @@ class ContactsScreen extends Component {
             paddingBottom: 10,
           }}
         >
-          <Header
-            number={this.state.invitations.length}
-            numberInvitaion={NUMBER_INVITATION}
-          />
+          {
+            this.state.visibleSearch ?
+              <HeaderTextInput
+                onChangeText={(searchText) => this.setSearchText(searchText)}
+                onClose={() => this.setState({
+                  searchText: '',
+                  visibleSearch: false,
+                  contacts: this.state.allContacts,
+                })
+                }
+                value={this.state.searchText}
+              />
+              :
+              <Header
+                number={this.state.invitations.length}
+                numberInvitaion={NUMBER_INVITATION}
+                onPressSearch={() => this.setState({ visibleSearch: true })}
+              />
+
+          }
         </View>
 
         <SeparatorInvitation
@@ -152,15 +223,17 @@ class ContactsScreen extends Component {
         />
 
         <View style={{ flex: 1 }}>
-          <FlatList
-            data={this.state.contacts}
-            keyExtractor={this._keyExtractor}
-            renderItem={({ item }) => (
-              <ContactItem
-                item={item}
-                sendInvitation={this.sendInvitation}
-              />)}
-          />
+          <ScrollView keyboardShouldPersistTaps='always'>
+            {
+              this.state.contacts.map(contact =>
+                <ContactItem
+                  key={contact.recordID}
+                  item={contact}
+                  sendInvitation={this.sendInvitation}
+                />
+              )
+            }
+          </ScrollView>
         </View>
         <WarningPopup
           popupStyle={{
@@ -169,15 +242,15 @@ class ContactsScreen extends Component {
           }}
           visiblePopup={this.state.visiblePopupConfirm}
           title={
-            (
-              <Text>
-                Félicitations {
-                  this.props.user.first_name.length > 10 ?
-                    '\n' + this.props.user.first_name
-                    :
-                    this.props.user.first_name
-                } ;-)
-              </Text>
+            (<View />
+              // <Text>
+              //   Félicitations {
+              //     this.props.user.first_name.length > 10 ?
+              //       '\n' + this.props.user.first_name
+              //       :
+              //       this.props.user.first_name
+              //   } ;-)
+              // </Text>
             )
           }
           message={
@@ -248,4 +321,4 @@ const mapDispatchToProps = (dispatch) => ({
   siginSuccess: bindActionCreators(siginSuccess, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactsScreen);  
+export default connect(null, mapDispatchToProps)(ContactsScreen);  

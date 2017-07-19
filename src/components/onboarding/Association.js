@@ -8,7 +8,8 @@ import { withNavigation } from 'react-navigation';
 import OnboardingDetail from './OnboardingDetail';
 import PopupVideo from './PopupVideo';
 import ErrorView from '../common/ErrorView';
-import Background from '../../components/common/Background';
+import Background from '../common/Background';
+import Video from '../video/videoView';
 
 import {
   colors,
@@ -21,6 +22,7 @@ class Association extends PureComponent {
 
   state = {
     visiblePopupVideo: false,
+    play: false,
   };
 
   goToNextPage = () => {
@@ -56,10 +58,18 @@ class Association extends PureComponent {
           cta={() => this.setState({ visiblePopupVideo: true })}
         />
         <PopupVideo
-          visiblePopup={this.state.visiblePopupVideo}
+          visiblePopup={
+            this.state.visiblePopupVideo
+            &&
+            !this.state.play
+          }
           goToNextPage={this.goToNextPage}
+          play={() => this.setState({ play: true })}
         />
-
+        <Video
+          play={this.state.play}
+          stopPlay={() => this.setState({ play: false })}
+        />
       </View>);
   }
 }

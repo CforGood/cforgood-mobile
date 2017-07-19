@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   failed: false,
-  loaded: false,
+  loaded: true,
   data: null,
   security: {}
 };
@@ -18,14 +18,14 @@ export default function reducer(state = initialState, action = {}) {
     case LOAD:
       return {
         ...state,
-        loaded: true,
+        loaded: false,
         failed: false,
       };
     case LOAD_SUCCESS: {
       const data = action.data;
       return {
         ...state,
-        loaded: false,
+        loaded: true,
         failed: false,
         data,
       };
@@ -34,7 +34,7 @@ export default function reducer(state = initialState, action = {}) {
       const data = action.data;
       return {
         ...state,
-        loaded: false,
+        loaded: true,
         failed: false,
         data: {
           ...state.data,
@@ -45,14 +45,14 @@ export default function reducer(state = initialState, action = {}) {
     case LOAD_FAIL:
       return {
         ...state,
-        loaded: false,
+        loaded: true,
         failed: true,
         error: action.error,
       };
     case LOAD_SECURITY:
       return {
         ...state,
-        loaded: false,
+        loaded: true,
         security: action.data,
       };
     default:

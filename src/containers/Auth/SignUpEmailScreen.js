@@ -48,7 +48,7 @@ export default class SignUpScreen extends Component {
       >
         <ErrorView
           message={this.state.error}
-          removeError={() => this.setState({error: ''})}
+          removeError={() => this.setState({ error: '' })}
         />
         <Icon
           styleImage={{
