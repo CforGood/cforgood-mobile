@@ -34,6 +34,7 @@ class VideoView extends PureComponent {
     played: true,
     canPlay: false,
     loaded: false,
+    paused: false,
     topVideo: 0,
     widthVideo: metrics.deviceWidth,
 
@@ -53,11 +54,9 @@ class VideoView extends PureComponent {
   }
 
   _orientationDidChange = (orientation) => {
-    //alert(orientation)
     if (orientation == 'LANDSCAPE') {
-
       this.setState({
-        topVideo: - ((metrics.deviceHeight) / 2),
+        topVideo: 0,
         widthVideo: metrics.deviceHeight
       })
     } else {
@@ -75,13 +74,16 @@ class VideoView extends PureComponent {
 
 
   onEnd = () => {
-   
+
     this.loadStart();
   }
 
   stopPlay = () => {
-    this.props.stopPlay();
-    Orientation.lockToPortrait();
+    this.setState({ paused: true }, () => {
+      this.props.stopPlay();
+      Orientation.lockToPortrait();
+    });
+
   }
 
   render() {
@@ -120,7 +122,7 @@ class VideoView extends PureComponent {
               top: this.state.topVideo,
             }
           ]}
-          paused={false}
+          paused={this.state.paused}
           repeat={true}
           onLoadStart={this.loadStart}     // Callback when video starts to load
           onLoad={this.loadStart}          // Callback when video loads

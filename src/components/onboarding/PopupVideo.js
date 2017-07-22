@@ -11,6 +11,7 @@ import {
 import Background from '../common/Background';
 import Icon from '../common/Icon';
 import Button from '../common/Button';
+import Video from '../video/videoView';
 
 import {
   styles,
@@ -20,6 +21,9 @@ import {
 } from '../../themes';
 
 class PopupVideo extends Component {
+  state = {
+    play: false
+  };
 
   static propTypes = {
     visiblePopup: PropTypes.bool,
@@ -40,6 +44,10 @@ class PopupVideo extends Component {
         visible={this.props.visiblePopup}
         onRequestClose={() => { }}
       >
+        <Video
+          play={this.state.play}
+          stopPlay={() => this.setState({ play: false })}
+        />
         <View style={{ flex: 1 }} />
         <Background style={{ flex: 5 }}>
           <View
@@ -51,7 +59,7 @@ class PopupVideo extends Component {
               flex: 1,
             }}
           >
-            <View style={{ 
+            <View style={{
               paddingTop: metrics.baseMargin,
             }}>
               <Image
@@ -79,7 +87,7 @@ class PopupVideo extends Component {
 
             <View style={{ padding: metrics.baseMargin }}>
               <Icon
-                onPress={() => this.props.play()}
+                onPress={() => this.setState({ play: true })}
                 source={require('../../resources/icons/play.png')}
                 style={{
                   height: 53,

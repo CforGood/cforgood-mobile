@@ -9,7 +9,6 @@ import OnboardingDetail from './OnboardingDetail';
 import PopupVideo from './PopupVideo';
 import ErrorView from '../common/ErrorView';
 import Background from '../common/Background';
-import Video from '../video/videoView';
 
 import {
   colors,
@@ -65,10 +64,6 @@ class Association extends PureComponent {
           }
           goToNextPage={this.goToNextPage}
           play={() => this.setState({ play: true })}
-        />
-        <Video
-          play={this.state.play}
-          stopPlay={() => this.setState({ play: false })}
         />
       </View>);
   }
