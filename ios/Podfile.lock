@@ -1,19 +1,12 @@
 PODS:
-  - Branch (0.12.24):
-    - Branch/Core (= 0.12.24)
-    - Branch/without-IDFA (= 0.12.24)
-  - Branch/Core (0.12.24)
-  - Branch/without-IDFA (0.12.24)
   - Stripe (10.1.0)
 
 DEPENDENCIES:
-  - Branch
   - Stripe (~> 10.1.0)
 
 SPEC CHECKSUMS:
-  Branch: 91bd039aab277cffce763662050d0b4a12b5d196
   Stripe: 1c7aa951a075cced500a919d92b687b35d410705
 
-PODFILE CHECKSUM: 096ba773e5021825f228bdd8e8e4498ed84451a1
+PODFILE CHECKSUM: 6b8a17d8055dabda15b255fdb6d750d6a355564c
 
 COCOAPODS: 1.2.1

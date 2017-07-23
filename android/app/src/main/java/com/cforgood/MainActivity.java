@@ -1,7 +1,7 @@
 package com.cforgood;
 
-import android.content.Intent;
 import io.branch.rnbranch.*;
+import android.content.Intent;
 
 import android.content.res.Configuration; 
 import com.facebook.react.ReactActivity;

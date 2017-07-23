@@ -157,9 +157,9 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-mapbox-gl')
     compile project(':react-native-contacts')
     compile project(':tipsi-stripe')
-    compile project(':react-native-mapbox-gl')
     compile project(':react-native-permissions')
     compile project(':react-native-code-push')
     compile 'com.android.support:multidex:1.0.1'
@@ -172,6 +172,7 @@ dependencies {
     compile project(':react-native-firebase-crash-report')
     compile 'com.google.firebase:firebase-core:11.0.2'
     compile 'com.google.firebase:firebase-crash:11.0.2'
+    compile 'com.google.firebase:firebase-messaging:11.0.2'
     
     compile project(':react-native-intercom')
     compile project(':react-native-branch')

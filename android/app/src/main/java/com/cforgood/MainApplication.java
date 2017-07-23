@@ -14,9 +14,9 @@ import io.intercom.android.sdk.Intercom;
 //import com.mapbox.mapboxsdk.MapboxAccountManager;
 
 import com.facebook.react.ReactApplication;
+import com.mapbox.reactnativemapboxgl.ReactNativeMapboxGLPackage;
 import com.rt2zz.reactnativecontacts.ReactNativeContacts;
 import com.gettipsi.stripe.StripeReactPackage;
-import com.mapbox.reactnativemapboxgl.ReactNativeMapboxGLPackage;
 import com.joshblour.reactnativepermissions.ReactNativePermissionsPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.microsoft.codepush.react.CodePush;
@@ -77,6 +77,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativeMapboxGLPackage(),
             new ReactNativeContacts(),
             new StripeReactPackage(),
           new ReactNativePermissionsPackage(),
@@ -88,7 +89,6 @@ public class MainApplication extends Application implements ReactApplication {
           new ImagePickerPackage(),
           new RNSharePackage(),
           new BlurViewPackage(),
-          new ReactNativeMapboxGLPackage(),
           new LinearGradientPackage(),
           new VectorIconsPackage(),
           new OrientationPackage(),
