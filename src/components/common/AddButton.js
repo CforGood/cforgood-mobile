@@ -1,7 +1,4 @@
-import React, { 
-  PropTypes, 
-  PureComponent,
-} from 'react';
+import PropTypes from 'prop-types'; import React, {  PureComponent, } from 'react';
 import {
   View,
   Text,
@@ -21,13 +18,13 @@ export default class AddButton extends PureComponent {
   };
 
   static defaultProps = {
-    onPress: () => {},
+    onPress: () => { },
   };
 
   render() {
     const { mode } = this.props;
     return (
-      <TouchableOpacity 
+      <TouchableOpacity
         style={[
           styles.screen.container,
         ]}

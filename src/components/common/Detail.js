@@ -1,61 +1,62 @@
-import React, { PureComponent, PropTypes } from 'react';
+import React, { PureComponent, } from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
-  Text, 
+  Text,
   StyleSheet
 } from 'react-native';
- 
-import {  
-  fonts, 
+
+import {
+  fonts,
   colors,
   metrics
 } from '../../themes';
 
- 
+
 export default class Detail extends PureComponent {
 
   static propTypes = {
-    title:  PropTypes.string,
-    description:  PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
     colorTitle: PropTypes.string,
   };
 
-  static defaultProps = { 
+  static defaultProps = {
     colorTitle: colors.darkGray,
   };
 
   render() {
     return (
-      <View style={{flex:1}} >  
-        <Text 
+      <View style={{ flex: 1 }} >
+        <Text
           style={[
 
             fonts.style.t17,
             fonts.style.bold,
-            {  
-              color: this.props.colorTitle, 
+            {
+              color: this.props.colorTitle,
               marginBottom: metrics.doubleBaseMargin,
-            }, 
+            },
           ]}
           numberOfLines={2}
         >
-          {this.props.title} 
+          {this.props.title}
         </Text>
         {
-          this.props.description && 
-          <Text 
-            style={[ 
-              {  
+          this.props.description &&
+          <Text
+            style={[
+              {
                 color: this.props.color,
-                lineHeight: 20, 
+                lineHeight: 20,
               },
-              fonts.style.normal,  
+              fonts.style.normal,
             ]}
           >
-            {this.props.description} 
-          </Text>  
+            {this.props.description}
+          </Text>
         }
-      </View> 
+      </View>
     );
   }
 };

@@ -1,12 +1,9 @@
-import React, {
-  PropTypes,
-  Component,
-} from 'react';
+import PropTypes from 'prop-types'; import React, {  Component, } from 'react';
 
 import {
   View,
   Text,
-  Image, 
+  Image,
   StyleSheet,
   TouchableOpacity,
   DatePickerIOS
@@ -14,15 +11,15 @@ import {
 
 import Modal from '../Modal';
 
- 
+
 import {
   colors,
   fonts,
   metrics,
 } from '../../themes';
 
-class ModalDatePicker extends Component { 
-  
+class ModalDatePicker extends Component {
+
   static propTypes = {
     mode: PropTypes.string,
     minimumDate: PropTypes.any,
@@ -42,37 +39,37 @@ class ModalDatePicker extends Component {
   };
 
   chooseDate = () => {
-    if(this.props.onDateChange){
+    if (this.props.onDateChange) {
       this.props.onDateChange(this.state.date);
     }
-    
+
   };
 
   onDateChange = (date) => {
     this.setState({ date });
   };
 
-  render() { 
-    return ( 
+  render() {
+    return (
       <Modal
         visible={this.props.visible}
         animationType={'slide'}
         blurType={'dark'}
         blurAmount={3}
-        onClose={() =>{}}
-      > 
-        <TouchableOpacity onPress={this.props.onClose} style={{flex: 1}}>
-          <View/>
+        onClose={() => { }}
+      >
+        <TouchableOpacity onPress={this.props.onClose} style={{ flex: 1 }}>
+          <View />
         </TouchableOpacity>
-        <View style={{flex: 1, backgroundColor: 'white'}}>
-          
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+
           <TouchableOpacity
             onPress={() => this.chooseDate()}
-            style={style.row} 
+            style={style.row}
           >
-            <Text style={style.title}>{ this.props.text }</Text>
+            <Text style={style.title}>{this.props.text}</Text>
           </TouchableOpacity>
-            
+
           <DatePickerIOS
             textColor={colors.darkGray}
             date={this.state.date}
@@ -83,8 +80,8 @@ class ModalDatePicker extends Component {
             onDateChange={(value) => this.onDateChange(value)}
             style={{ height: 200 }}
           />
-        </View> 
-      </Modal>    
+        </View>
+      </Modal>
     );
   }
 }
@@ -92,16 +89,16 @@ class ModalDatePicker extends Component {
 export default ModalDatePicker;
 
 
-const style = StyleSheet.create({  
-  row:{
+const style = StyleSheet.create({
+  row: {
     height: 44,
     justifyContent: 'center',
-    borderBottomColor:  colors.separatorText,
+    borderBottomColor: colors.separatorText,
     borderBottomWidth: 1,
   },
   title: {
     fontSize: fonts.size.t17,
-    fontWeight: '500', 
+    fontWeight: '500',
     marginHorizontal: metrics.marginApp,
   },
 }); 

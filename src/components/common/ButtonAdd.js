@@ -1,7 +1,5 @@
-import React, {
-  PropTypes,
-  PureComponent,
-} from 'react';
+import PropTypes from 'prop-types';
+import React, { PureComponent, } from 'react';
 import {
   View,
   Text,
@@ -27,7 +25,7 @@ export default class ButtonAdd extends PureComponent {
   };
 
   static defaultProps = {
-    onPress: () => {},
+    onPress: () => { },
     styleButtonAdd: {},
     styleText: {},
   };
@@ -38,52 +36,52 @@ export default class ButtonAdd extends PureComponent {
       <TouchableOpacity
         activeOpacity={0.63}
         onPress={onPress}
-        style={[ 
+        style={[
           styles.spaceBetween,
-          stylesButtonAdd.buttonContainer, 
-          this.props.styleButton,  
+          stylesButtonAdd.buttonContainer,
+          this.props.styleButton,
         ]}
-      > 
-        <View style={{flex: 1}} />
+      >
+        <View style={{ flex: 1 }} />
         <View style={styles.center} >
           <Text
             style={[
               fonts.style.textButton,
-              this.props.styleText, 
+              this.props.styleText,
             ]}
           >
             {this.props.text}
           </Text>
         </View>
-        <View style={[styles.center, {flex: 1}]} >
+        <View style={[styles.center, { flex: 1 }]} >
           <Image
             source={require('../../resources/icons/big-plus-sign.png')}
             style={[
-              stylesButtonAdd.icon, 
+              stylesButtonAdd.icon,
               {
                 tintColor: colors.blueAssociation
               }
             ]}
-          /> 
+          />
         </View>
       </TouchableOpacity>
     );
   }
 }
 
-const stylesButtonAdd = StyleSheet.create({ 
-  buttonContainer:{    
+const stylesButtonAdd = StyleSheet.create({
+  buttonContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.buttonColor, 
+    backgroundColor: colors.buttonColor,
     borderRadius: metrics.radius,
-    height: metrics.buttonHeight, 
+    height: metrics.buttonHeight,
   },
   icon: {
     width: 25,
     height: 25,
     resizeMode: 'contain',
     marginTop: 2,
-    marginHorizontal: metrics.baseMargin, 
+    marginHorizontal: metrics.baseMargin,
   },
 });                               

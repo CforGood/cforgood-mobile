@@ -1,7 +1,4 @@
-import React, {
-  PropTypes,
-  PureComponent,
-} from 'react';
+import PropTypes from 'prop-types'; import React, {  PureComponent, } from 'react';
 
 import {
   Text,
@@ -22,12 +19,12 @@ import {
 
 export default class Filter extends PureComponent {
 
-  static propTypes = { 
+  static propTypes = {
     onPress: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    onPress: () => {}, 
+    onPress: () => { },
   };
 
   render() {
@@ -40,13 +37,13 @@ export default class Filter extends PureComponent {
           stylesButton.buttonContainer,
           this.props.styleButton
         ]}
-      >  
+      >
         <Image
           resizeMode='contain'
           source={require('../../resources/images/FlashButton.png')}
           style={stylesButton.filterButton}
         >
-          <View 
+          <View
             style={{
               flexDirection: 'row',
               justifyContent: 'center',
@@ -56,21 +53,21 @@ export default class Filter extends PureComponent {
             }}
           >
             <Text style={[
-                fonts.style.textButton,
-                { 
-                  fontSize: 18,
-                  fontWeight: 'bold',
-                  marginRight: metrics.baseMargin,
-                  marginTop: -2
-                }
-              ]}
+              fonts.style.textButton,
+              {
+                fontSize: 18,
+                fontWeight: 'bold',
+                marginRight: metrics.baseMargin,
+                marginTop: -2
+              }
+            ]}
             >
               Filtres
             </Text>
             <Image
               resizeMode={'contain'}
               style={{
-                width: 22, 
+                width: 22,
                 height: 23
               }}
               source={require('../../resources/icons/settings.png')}
@@ -82,11 +79,11 @@ export default class Filter extends PureComponent {
   }
 }
 
-const stylesButton = StyleSheet.create({ 
-  buttonContainer:{       
+const stylesButton = StyleSheet.create({
+  buttonContainer: {
     position: 'absolute',
     bottom: metrics.smallMargin,
-    left: (metrics.deviceWidth- 125)/2 ,
+    left: (metrics.deviceWidth - 125) / 2,
   },
   filterButton: {
     flex: 1,

@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react'
-import { Modal, Dimensions, Animated } from 'react-native'
+import React, { Component, } from 'react';
+import PropTypes from 'prop-types';
+import { Modal, Dimensions, Animated } from 'react-native';
 const { width, height } = Dimensions.get('window')
 
 const EXPAND = 1
@@ -7,7 +8,7 @@ const SHRINK = 0
 
 class CircleTransition extends Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       modalVisible: false,
@@ -15,14 +16,14 @@ class CircleTransition extends Component {
     }
   }
 
-  start (callback) {
+  start(callback) {
     const { expand } = this.props
     this.setModalVisible(true, expand, () => {
       this.animate(expand, callback)
     })
   }
 
-  animate (expand, callback) {
+  animate(expand, callback) {
     let toValue = expand ? EXPAND : SHRINK
     Animated.timing(this.state.scale, {
       toValue: toValue,
@@ -33,7 +34,7 @@ class CircleTransition extends Component {
     })
   }
 
-  setModalVisible (visible, expand, callback) {
+  setModalVisible(visible, expand, callback) {
     let fromValue = expand ? SHRINK : EXPAND
     this.setState({
       modalVisible: visible,
@@ -41,7 +42,7 @@ class CircleTransition extends Component {
     }, callback);
   }
 
-  getMarginHorizontal (position) {
+  getMarginHorizontal(position) {
     const { size, customLeftMargin } = this.props
     const halfSize = size / 2
     const halfWidth = width / 2
@@ -62,7 +63,7 @@ class CircleTransition extends Component {
     }
   }
 
-  getMarginVertical (position) {
+  getMarginVertical(position) {
     const { size, customTopMargin } = this.props
     const halfSize = size / 2
     const halfHeight = height / 2
@@ -83,13 +84,13 @@ class CircleTransition extends Component {
     }
   }
 
-  render () {
+  render() {
     const { scale, modalVisible } = this.state
     const { size, color, position } = this.props
     let marginVertical = this.getMarginVertical(position)
     let marginHorizontal = this.getMarginHorizontal(position)
     return (
-      <Animated.View 
+      <Animated.View
         style={{
           backgroundColor: color,
           marginVertical,
@@ -111,7 +112,7 @@ class CircleTransition extends Component {
             borderRadius: size / 2,
           }}
         >
-         {this.props.children}
+          {this.props.children}
         </Animated.View>
       </Animated.View>
     )

@@ -1,7 +1,4 @@
-import React, {
-  PropTypes,
-  PureComponent,
-} from 'react';
+import PropTypes from 'prop-types'; import React, {  PureComponent, } from 'react';
 import {
   View,
   Text,
@@ -36,14 +33,14 @@ export default class HeaderTextInput extends PureComponent {
       <View style={[
         style.container,
         styles.row,
-        { 
+        {
           alignItems: 'center',
           justifyContent: 'space-between',
         }
       ]}>
         <View>
           <Icon
-            styleImage={{ 
+            styleImage={{
               width: 20,
               height: 20,
               tintColor: colors.white,
@@ -79,7 +76,7 @@ export default class HeaderTextInput extends PureComponent {
         </View>
         <View>
           <Icon
-            styleImage={{ 
+            styleImage={{
               width: 12,
               height: 12,
               tintColor: colors.white,

@@ -1,7 +1,5 @@
-import React, {
-  PropTypes,
-  PureComponent,
-} from 'react';
+import PropTypes from 'prop-types';
+import React, { PureComponent, } from 'react';
 
 import {
   Text,
@@ -33,7 +31,7 @@ export default class ButtonGradiantRadius extends PureComponent {
   };
 
   render() {
-    
+
     const {
       onPress,
       text,
@@ -68,7 +66,7 @@ export default class ButtonGradiantRadius extends PureComponent {
             marginBottom: 1.5,
           }}
           styleText={{
-            marginHorizontal: metrics.doubleBaseMargin*1.5,
+            marginHorizontal: metrics.doubleBaseMargin * 1.5,
           }}
         />
       </LinearGradient>

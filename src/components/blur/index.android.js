@@ -2,7 +2,8 @@
  *  Android  / react-native-blur
  */
 'use strict';
-import React, { Component , PropTypes } from 'react';
+import React, { Component, } from 'react';
+import PropTypes from 'prop-types';
 import {
   Image,
   findNodeHandle,
@@ -12,7 +13,7 @@ import {
 import { BlurView } from 'react-native-blur';
 
 class BlurAndroid extends Component {
-  
+
   static propTypes = {
     image: PropTypes.any.isRequired,
     blurBlurType: PropTypes.string.isRequired,
@@ -28,7 +29,7 @@ class BlurAndroid extends Component {
   }
 
   imageLoaded = () => {
-    this.setState({viewRef: findNodeHandle(this.refs.backgroundImage)})
+    this.setState({ viewRef: findNodeHandle(this.refs.backgroundImage) })
   }
 
   render() {
@@ -40,7 +41,7 @@ class BlurAndroid extends Component {
         onLoadEnd={this.imageLoaded}
       >
         <BlurView
-          blurAmount={10000 }
+          blurAmount={10000}
           blurRadius={25}
           downsampleFactor={5}
           overlayColor={this.props.overlayColor}

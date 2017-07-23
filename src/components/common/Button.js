@@ -1,7 +1,5 @@
-import React, {
-  PropTypes,
-  PureComponent,
-} from 'react';
+import PropTypes from 'prop-types';
+import React, { PureComponent, } from 'react';
 import {
   View,
   Text,
@@ -26,7 +24,7 @@ export default class Button extends PureComponent {
   };
 
   static defaultProps = {
-    onPress: () => {},
+    onPress: () => { },
     styleButton: {},
     styleText: {},
   };
@@ -55,9 +53,9 @@ export default class Button extends PureComponent {
   }
 }
 
-const stylesButton = StyleSheet.create({ 
-  buttonContainer:{    
-    backgroundColor: colors.buttonColor, 
+const stylesButton = StyleSheet.create({
+  buttonContainer: {
+    backgroundColor: colors.buttonColor,
     borderRadius: metrics.radius,
     height: metrics.buttonHeight,
     justifyContent: 'center',

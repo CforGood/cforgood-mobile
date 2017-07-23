@@ -1,7 +1,4 @@
-import React, {
-  PropTypes,
-  PureComponent,
-} from 'react';
+import PropTypes from 'prop-types'; import React, {  PureComponent, } from 'react';
 
 import {
   View,
@@ -72,7 +69,7 @@ class Header extends PureComponent {
         style={{ ...style.container, ...this.props.style }}
         type={type}
       >
-        {  (leftElement || back || close) &&
+        {(leftElement || back || close) &&
           <View style={{ flex: 1 }}>
             {
               back &&

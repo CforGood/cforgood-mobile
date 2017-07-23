@@ -2,7 +2,8 @@
  *  Android  / react-native-blur
  */
 'use strict';
-import React, { PureComponent, PropTypes} from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import {
   Image,
   View,
@@ -27,8 +28,8 @@ class Blur extends PureComponent {
 
   render() {
     return (
-       
-      <BlurView 
+
+      <BlurView
         blurType={this.props.blurType}
         overlayColor={this.props.overlayColor}
         blurAmount={this.props.blurAmount}

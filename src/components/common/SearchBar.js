@@ -1,7 +1,4 @@
-import React, {
-  PropTypes,
-  PureComponent
-} from 'react';
+import PropTypes from 'prop-types'; import React, {  PureComponent } from 'react';
 import {
   StyleSheet,
   ActivityIndicator,
@@ -30,14 +27,14 @@ class SearchBar extends PureComponent {
   };
 
   static defaultProps = {
-    filter: () => {},
+    filter: () => { },
   };
 
   state = {
     textSearch: this.props.textSearch
   };
 
-  filter = ( textSearch ) => {
+  filter = (textSearch) => {
     this.setState({ textSearch });
     this.props.filter(textSearch);
   }
@@ -45,16 +42,16 @@ class SearchBar extends PureComponent {
   render() {
     return (
       <View style={[
-          styleSearch.container,
-          styles.spaceBetween,
-        ]} 
+        styleSearch.container,
+        styles.spaceBetween,
+      ]}
       >
         <View style={[
-            styles.row,
-            {
-              alignItems: 'center',
-            } 
-          ]}
+          styles.row,
+          {
+            alignItems: 'center',
+          }
+        ]}
         >
           <View style={styles.center}>
             <Icon
@@ -62,26 +59,26 @@ class SearchBar extends PureComponent {
               source={require('../../resources/icons/back-arrow-circular-symbol.png')}
               style={[
                 {
-                  justifyContent: 'center', 
-                  flex: 1, 
-                  marginHorizontal: metrics.baseMargin, 
+                  justifyContent: 'center',
+                  flex: 1,
+                  marginHorizontal: metrics.baseMargin,
                 }
               ]}
               styleImage={{
                 height: 36,
-                width: 36, 
+                width: 36,
               }}
             />
           </View>
-          <View 
+          <View
             style={styleSearch.textContainer}
           >
             <TextInput
               underlineColorAndroid={'transparent'}
-              onChangeText={ this.filter }
+              onChangeText={this.filter}
               placeholderTextColor={'#959595'}
-              placeholder={ 'Recherche ... ' }
-              value={ this.state.textSearch }
+              placeholder={'Recherche ... '}
+              value={this.state.textSearch}
               style={[
                 styleSearch.searchInput,
               ]}
@@ -89,7 +86,7 @@ class SearchBar extends PureComponent {
           </View>
           <View style={styles.center}>
             <Icon
-              onPress={() => this.filter('') }
+              onPress={() => this.filter('')}
               source={require('../../resources/icons/close.png')}
               style={{
                 justifyContent: 'center',
@@ -105,7 +102,7 @@ class SearchBar extends PureComponent {
           </View>
         </View>
         <LinearGradient
-          start={{x: 0, y:0}} end={{x: 1, y:0}}
+          start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
           colors={colors.gradientColor}
           style={[
             {
@@ -121,15 +118,15 @@ export default SearchBar;
 
 const styleSearch = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS === 'ios' ? 20: 0,
-    height: Platform.OS === 'ios' ? 70: 50,
+    paddingTop: Platform.OS === 'ios' ? 20 : 0,
+    height: Platform.OS === 'ios' ? 70 : 50,
   },
   searchInput: {
     color: colors.darkGray,
-    width: metrics.deviceWidth * 3/4,
+    width: metrics.deviceWidth * 3 / 4,
     flex: 1,
     fontSize: 18,
-   // bottom: à
+    // bottom: à
   },
   textContainer: {
     borderBottomColor: '#CDCDCD',

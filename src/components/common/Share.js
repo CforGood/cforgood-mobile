@@ -1,7 +1,4 @@
-import React, {
-  PropTypes,
-  PureComponent,
-} from 'react';
+import PropTypes from 'prop-types'; import React, {  PureComponent, } from 'react';
 
 import {
   TouchableOpacity,
@@ -24,7 +21,7 @@ import {
 export default class Share extends PureComponent {
 
   static propTypes = {
-    onPress: PropTypes.func.isRequired, 
+    onPress: PropTypes.func.isRequired,
     style: PropTypes.any,
     url: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -32,7 +29,7 @@ export default class Share extends PureComponent {
   };
 
   static defaultProps = {
-    onPress: () => {},
+    onPress: () => { },
   };
 
   render() {
@@ -40,9 +37,9 @@ export default class Share extends PureComponent {
       onPress,
       style, styleImage, url, title, message } = this.props;
     return (
-      <TouchableOpacity 
+      <TouchableOpacity
         onPress={() => RNShare.open({
-          url: (site+url),
+          url: (site + url),
           title: title,
           message: message
         })}
@@ -50,9 +47,9 @@ export default class Share extends PureComponent {
           styles.row,
           style
         ]}
-      > 
+      >
         <Text style={styleShare.text}>
-          Partager sur 
+          Partager sur
         </Text>
         <Image
           resizeMode='contain'
@@ -67,17 +64,17 @@ export default class Share extends PureComponent {
 
 const styleShare = {
   text: {
-    fontSize: metrics.deviceWidth/23,
+    fontSize: metrics.deviceWidth / 23,
     fontFamily: fonts.type.base,
     color: colors.white,
     fontWeight: 'bold',
     backgroundColor: 'transparent'
   },
-  icon:{  
+  icon: {
     width: 25,
-    height: 25,  
+    height: 25,
     tintColor: colors.white,
     marginHorizontal: metrics.baseMargin,
   },
-}; 
+};
 

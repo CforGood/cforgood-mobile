@@ -1,5 +1,5 @@
 
-import { PropTypes } from 'react';
+import {  } from 'react'; import PropTypes from 'prop-types';
 
 import categoryType from './categoryType';
 import perkType from './perkType';

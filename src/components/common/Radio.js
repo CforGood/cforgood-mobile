@@ -1,27 +1,24 @@
-import React, {
-  PropTypes,
-  PureComponent,
-} from 'react';
+import PropTypes from 'prop-types'; import React, {  PureComponent, } from 'react';
 import {
-  View, 
+  View,
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
 
-import { 
+import {
   metrics,
   colors,
 } from '../../themes';
 
 export default class Radio extends PureComponent {
 
-  static propTypes = {   
+  static propTypes = {
     onPress: PropTypes.func.isRequired,
     checked: PropTypes.any,
   };
 
   static defaultProps = {
-    onPress: () => {}, 
+    onPress: () => { },
     checked: false,
   };
 
@@ -30,31 +27,31 @@ export default class Radio extends PureComponent {
     return (
       <TouchableOpacity
         activeOpacity={0.63}
-        onPress={onPress} 
+        onPress={onPress}
       >
         <View style={[
-            stylesRadio.radio,
-            this.props.checked === true ? stylesRadio.checked :stylesRadio.deChecked
-          ]} 
-        /> 
+          stylesRadio.radio,
+          this.props.checked === true ? stylesRadio.checked : stylesRadio.deChecked
+        ]}
+        />
       </TouchableOpacity>
     );
   }
 }
 
-const stylesRadio = StyleSheet.create({ 
+const stylesRadio = StyleSheet.create({
   radio: {
-    width:metrics.buttonHeight/2.5, 
-    height:metrics.buttonHeight/2.5,
-    borderRadius: metrics.buttonHeight/5,
+    width: metrics.buttonHeight / 2.5,
+    height: metrics.buttonHeight / 2.5,
+    borderRadius: metrics.buttonHeight / 5,
     marginHorizontal: metrics.baseMargin,
   },
-  checked:{     
-    backgroundColor: colors.lightBlue,   
+  checked: {
+    backgroundColor: colors.lightBlue,
   },
-  deChecked:{ 
-    backgroundColor: colors.white, 
+  deChecked: {
+    backgroundColor: colors.white,
     borderColor: colors.gray,
-    borderWidth:1,  
-  } 
+    borderWidth: 1,
+  }
 });                               

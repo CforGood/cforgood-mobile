@@ -1,7 +1,6 @@
-import React, {
-  PureComponent,
-  PropTypes,
-} from 'react';
+import React, { PureComponent, } from 'react';
+import PropTypes from 'prop-types';
+
 import {
   ListView,
   ActivityIndicator,
@@ -28,7 +27,7 @@ List View For Rest API With state local data
  }
  */
 
- const exampleResult = {
+const exampleResult = {
   pagination: {
     page: 1,
     perPage: 10,
@@ -69,7 +68,7 @@ List View For Rest API With state local data
     { title: 'Title ...', description: 'Description ...' },
     { title: 'Title ...', description: 'Description ...' },
   ]
- }
+}
 
 class ListViewApi extends PureComponent {
 
@@ -80,7 +79,7 @@ class ListViewApi extends PureComponent {
   };
 
   static defaultProps = {
-    renderRow: () => {},
+    renderRow: () => { },
     params: null,
   };
 
@@ -102,7 +101,7 @@ class ListViewApi extends PureComponent {
   componentWillMount() {
     this._loadData(1);
   }
-  
+
 
   _onRefresh = () => {
     this.setState({
@@ -119,11 +118,11 @@ class ListViewApi extends PureComponent {
     const lastPage = totalCount <= (page - 1) * perPage + pageCount
 
     //if (!pagination.loading && !lastPage) {
-    if(true){
+    if (true) {
       this._loadData(page + 1);
     }
   }
-  
+
   _getDataRequest = () => {
     const pagination = { ...this.state.pagination, loading: true };
     this._update(pagination);
@@ -131,19 +130,19 @@ class ListViewApi extends PureComponent {
 
   _getDataSuccess = (result) => {
     const pagination = { ...result.pagination, loading: false };
-    const data = pagination.page === 1 ? result.records : [ ...this.state.data, ...result.records ];
+    const data = pagination.page === 1 ? result.records : [...this.state.data, ...result.records];
 
     this._update(pagination, data);
   }
 
-  _getDataFailure = (error)  => {
+  _getDataFailure = (error) => {
     const pagination = { ...this.state.pagination, loading: false };
     this._update(pagination, this.state.data);
   }
 
   _loadData = async (page) => {
     this._getDataRequest();
-    
+
     // await
     /*API
       .getPosts(page)
@@ -163,14 +162,14 @@ class ListViewApi extends PureComponent {
       pagination: pagination,
       //data: data,
       refreshing: false,
-      ds: this.state.ds.cloneWithRows([ ...dataItems, loadingItem ]),
+      ds: this.state.ds.cloneWithRows([...dataItems, loadingItem]),
     });
   }
 
   _renderRow(row) {
     console.log('rowrow', row);
     if (row.type === 'Loading') {
-      return <LoadingIndicator loading={ row.loading } />
+      return <LoadingIndicator loading={row.loading} />
     } else {
       return this.props.renderRow(row);
     }
@@ -180,28 +179,28 @@ class ListViewApi extends PureComponent {
   render() {
     return (
       <ListView
-        style={ styles.container }
-        refreshControl={ 
-          <RefreshControl 
+        style={styles.container}
+        refreshControl={
+          <RefreshControl
             tintColor={'black'}
-            title="Loading..." 
+            title="Loading..."
             titleColor={'white'}
-            colors={['#ff0000', 'white']} 
+            colors={['#ff0000', 'white']}
             progressBackgroundColor={'gray'}
-            refreshing={this.state.refreshing} 
-            onRefresh={this._onRefresh} 
-          /> 
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh}
+          />
         }
-        dataSource={ this.state.ds }
-        renderRow={ row => this._renderRow(row) }
+        dataSource={this.state.ds}
+        renderRow={row => this._renderRow(row)}
         automaticallyAdjustContentInsets={false}
         keyboardShouldPersistTaps={"always"}
         showsVerticalScrollIndicator={false}
         enableEmptySections={true}
         onEndReached={this._onEndReached}
       />
-    ); 
-  } 
+    );
+  }
 }
 
 export default ListViewApi;

@@ -1,7 +1,4 @@
-import React, {
-  PropTypes,
-  Component,
-} from 'react';
+import PropTypes from 'prop-types'; import React, {  Component, } from 'react';
 import {
   View,
   Text,
@@ -24,7 +21,7 @@ export default class ChangePicture extends Component {
     console.log(this.props.setPrictureSource);
     this.SelectPicture = new SelectPicture({ setPrictureSource: (pictureSource) => this.props.setPrictureSource(pictureSource) });
   }
-  
+
   launchImage = () => {
     this.SelectPicture.launchImage();
   };
@@ -32,13 +29,13 @@ export default class ChangePicture extends Component {
   render() {
     const { onPress } = this.props;
     return (
-      <TouchableOpacity 
-        onPress={() => { this.launchImage(); }} 
+      <TouchableOpacity
+        onPress={() => { this.launchImage(); }}
         style={[
-            styles.row,
-            styles.center,
-            style.container,
-          ]}
+          styles.row,
+          styles.center,
+          style.container,
+        ]}
       >
         <Image
           source={require('../../resources/icons/upload.png')}
@@ -47,7 +44,7 @@ export default class ChangePicture extends Component {
         <Text
           style={[
             fonts.style.t10,
-            {marginLeft:5}
+            { marginLeft: 5 }
           ]}
         >
           Changer la photo
@@ -58,9 +55,9 @@ export default class ChangePicture extends Component {
   }
 }
 
-const style = StyleSheet.create({ 
+const style = StyleSheet.create({
   container: {
-    position: 'absolute', 
+    position: 'absolute',
     left: 80,
     top: 70,
   },

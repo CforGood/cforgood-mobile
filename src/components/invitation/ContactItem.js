@@ -1,7 +1,4 @@
-import React, {
-  PropTypes,
-  Component,
-} from 'react';
+import PropTypes from 'prop-types'; import React, {  Component, } from 'react';
 import {
   TouchableOpacity,
   StyleSheet,
@@ -48,7 +45,7 @@ export default class ContactItem extends Component {
         <View style={[
           styles.row,
           {
-            
+
             justifyContent: 'flex-start',
             alignItems: 'center',
           }

@@ -1,7 +1,5 @@
-import React, {
-  PropTypes,
-  PureComponent,
-} from 'react';
+import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 
 import {
   Text,
@@ -20,7 +18,7 @@ import {
 
 export default class ButtonGradient extends PureComponent {
 
-  static propTypes = { 
+  static propTypes = {
     onPress: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired,
     style: PropTypes.object,
@@ -35,12 +33,12 @@ export default class ButtonGradient extends PureComponent {
   };
 
   static defaultProps = {
-    onPress: () => {},
+    onPress: () => { },
     type: '',
     text: 'Appliquer',
     icon: null,
     iconGradient: null,
-    borderRadius:0,
+    borderRadius: 0,
     height: 60,
     width: null
   };
@@ -67,62 +65,62 @@ export default class ButtonGradient extends PureComponent {
             width: width
           },
           this.props.type === 'simple' ?
-          {
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: icon === null ? 'column' : 'row'
-          }
-          :
-          null,
+            {
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: icon === null ? 'column' : 'row'
+            }
+            :
+            null,
           this.props.style,
         ]}
-      > 
+      >
         {
           icon
         }
         {
           type === 'simple' ?
-          <Text style={[
+            <Text style={[
               fonts.style.textButton,
               this.props.styleText,
             ]}
-          >
-            {this.props.text}
-          </Text>
-          :
-          <LinearGradient
-            start={{x: 0, y:0}} end={{x: 1, y:0}}
-            colors={colors.gradientColor}
-            style={[
-              {
-                flex: 1,
-                justifyContent: 'space-around',
-                alignItems: 'center',
-                height: height,
-                flexDirection: 'row',
-                borderRadius: borderRadius,
-              },
-              this.props.styleButton
-            ]}
-          >
-            <Text style={[
-                fonts.style.textButton,
-                this.props.styleText,
-              ]}
             >
               {this.props.text}
             </Text>
-            {
-              iconGradient
-            }
+            :
+            <LinearGradient
+              start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+              colors={colors.gradientColor}
+              style={[
+                {
+                  flex: 1,
+                  justifyContent: 'space-around',
+                  alignItems: 'center',
+                  height: height,
+                  flexDirection: 'row',
+                  borderRadius: borderRadius,
+                },
+                this.props.styleButton
+              ]}
+            >
+              <Text style={[
+                fonts.style.textButton,
+                this.props.styleText,
+              ]}
+              >
+                {this.props.text}
+              </Text>
+              {
+                iconGradient
+              }
 
-          </LinearGradient> 
-        } 
+            </LinearGradient>
+        }
       </TouchableOpacity>
     );
   }
 }
 
-const stylesButton = StyleSheet.create({ 
- 
+const stylesButton = StyleSheet.create({
+
 });                               

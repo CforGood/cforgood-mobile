@@ -1,7 +1,4 @@
-import React, {
-  PropTypes,
-  PureComponent
-} from 'react';
+import PropTypes from 'prop-types'; import React, {  PureComponent } from 'react';
 import {
   StyleSheet,
   ActivityIndicator,
@@ -13,16 +10,16 @@ class LoadingIndicator extends PureComponent {
     const { loading } = this.props;
     return (
       loading ? (
-        <View style={ styles.loading }>
+        <View style={styles.loading}>
           <ActivityIndicator
-            animating={ true }
-            style={ styles.loading }
+            animating={true}
+            style={styles.loading}
             size="large"
           />
         </View>
       )
-      : 
-      null
+        :
+        null
     )
   }
 }

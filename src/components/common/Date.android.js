@@ -1,13 +1,14 @@
 
-import  React, { Component, PropTypes } from 'react';
-import { 
-  View, 
-  TextInput, 
-  DatePickerAndroid, 
-  TimePickerAndroid, 
-  TouchableOpacity, 
-  Image, 
-  Dimensions, 
+import React, { Component, } from 'react';
+import PropTypes from 'prop-types';
+import {
+  View,
+  TextInput,
+  DatePickerAndroid,
+  TimePickerAndroid,
+  TouchableOpacity,
+  Image,
+  Dimensions,
   Text,
   StyleSheet,
 } from 'react-native';
@@ -37,16 +38,16 @@ export default class DateTimePicker extends Component {
     date: new Date()
   };
 
-  componentWillMount(){
-    if(this.props.date){
-      this.setState({date: typeof this.props.date === 'string' ? new Date(this.props.date) : this.props.date });
+  componentWillMount() {
+    if (this.props.date) {
+      this.setState({ date: typeof this.props.date === 'string' ? new Date(this.props.date) : this.props.date });
     }
-    
+
   }
 
-  ComponentWillReceiveProps(nextProps){
-    if(nextProps.date != this.state.date){
-      this.setState({date: typeof nextProps.date === 'string' ? new Date(nextProps.date) : nextProps.date});
+  ComponentWillReceiveProps(nextProps) {
+    if (nextProps.date != this.state.date) {
+      this.setState({ date: typeof nextProps.date === 'string' ? new Date(nextProps.date) : nextProps.date });
     }
   }
 
@@ -58,43 +59,43 @@ export default class DateTimePicker extends Component {
       date: this.state.date,
     };
 
-    if(this.props.maximumDate){
+    if (this.props.maximumDate) {
       objDate.maxDate = this.props.maximumDate;
     }
 
-    if(this.props.minimumDate){
+    if (this.props.minimumDate) {
       objDate.minDate = this.props.minimumDate;
     };
 
     await DatePickerAndroid.open({
       objDate
     })
-    .then(function (date) {
-      if (date.action !== DatePickerAndroid.dismissedAction) {
-        newDate = new Date(date.year, date.month, date.day);
-      }
-    });
-    
-    
-      this.showTimePicker(newDate);
-       
+      .then(function (date) {
+        if (date.action !== DatePickerAndroid.dismissedAction) {
+          newDate = new Date(date.year, date.month, date.day);
+        }
+      });
+
+
+    this.showTimePicker(newDate);
+
   }
 
   showTimePicker = async (date) => {
-    let newTime =  date;
-    if(this.props.mode === 'datetime'){
-      await  TimePickerAndroid.open({is24Hour: true})
-      .then(function (time) {
-        if (time.action !== TimePickerAndroid.dismissedAction) {
-          
-          newTime.setHours(time.hour);
-          newTime.setMinutes(time.minute);
-          
-        }
-      });
+    let newTime = date;
+    if (this.props.mode === 'datetime') {
+      await TimePickerAndroid.open({ is24Hour: true })
+        .then(function (time) {
+          if (time.action !== TimePickerAndroid.dismissedAction) {
+
+            newTime.setHours(time.hour);
+            newTime.setMinutes(time.minute);
+
+          }
+        });
     }
-      
-    this.onDateChange( newTime );
+
+    this.onDateChange(newTime);
   }
 
   onDateChange = (date) => {
@@ -105,17 +106,17 @@ export default class DateTimePicker extends Component {
 
   renderDate(text) {
     return (
-      <View style={[styles.row,styles.center]}>
+      <View style={[styles.row, styles.center]}>
         <Text style={fonts.style.DateInput} >
-        {
-          this.state.date.getDate() + ' / '
-        }
-        {
-          (this.state.date.getMonth() + 1) + ' / '
-        }
-        {
-          this.state.date.getFullYear() 
-        } 
+          {
+            this.state.date.getDate() + ' / '
+          }
+          {
+            (this.state.date.getMonth() + 1) + ' / '
+          }
+          {
+            this.state.date.getFullYear()
+          }
         </Text>
       </View>
     )
@@ -123,7 +124,7 @@ export default class DateTimePicker extends Component {
 
   render() {
     return (
-      <View 
+      <View
         style={{
           height: metrics.inputHeight,
           marginVertical: metrics.smallMargin
@@ -131,14 +132,14 @@ export default class DateTimePicker extends Component {
       >
         <TouchableOpacity
           onPress={() => this.showDatePicker()}
-          style={styles.row} 
+          style={styles.row}
         >
-          <View style={[styles.row,styles.center]}>
-            <Text style={fonts.style.DateInput}>{ this.props.text }</Text>
+          <View style={[styles.row, styles.center]}>
+            <Text style={fonts.style.DateInput}>{this.props.text}</Text>
           </View>
-          <Separator type={'v'} margin={metrics.smallMargin}/>
-          <View 
-            style={[styles.row,styles.center]}
+          <Separator type={'v'} margin={metrics.smallMargin} />
+          <View
+            style={[styles.row, styles.center]}
           >
             {this.renderDate()}
           </View>

@@ -1,13 +1,14 @@
-import React, { PureComponent, PropTypes } from 'react';
+import React, { PureComponent, } from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
   Image,
   StyleSheet,
 } from 'react-native';
- 
+
 import {
-  styles, 
+  styles,
   fonts,
   metrics,
   colors,
@@ -46,30 +47,30 @@ export default class Commitment extends PureComponent {
         return require('../../resources/labels/action_locale.png');
       default:
         return require('../../resources/labels/action_locale.png');
-    } 
+    }
   }
- 
+
   render() {
     return (
       <View style={[
-          styleCommitment.container,
-          {justifyContent: this.props.index%2 ? 'flex-end' : 'flex-start'}
-        ]}
-      > 
+        styleCommitment.container,
+        { justifyContent: this.props.index % 2 ? 'flex-end' : 'flex-start' }
+      ]}
+      >
         <Image
           resizeMode='contain'
-          style={styleCommitment.image} 
+          style={styleCommitment.image}
           source={this.renderImage(this.props.picture)}
-        />  
-        <Text 
+        />
+        <Text
           style={[
             fonts.style.bold,
             fonts.style.normal,
           ]}
         >
-          {this.props.name} 
-        </Text> 
-      </View> 
+          {this.props.name}
+        </Text>
+      </View>
     );
   }
 };
@@ -78,13 +79,13 @@ const styleCommitment = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: (metrics.deviceWidth )/2  - metrics.marginApp,
+    width: (metrics.deviceWidth) / 2 - metrics.marginApp,
     marginVertical: metrics.smallMargin,
     paddingLeft: metrics.smallMargin,
   },
   image: {
-    height: metrics.deviceWidth/20,
-    width: metrics.deviceWidth/20, 
+    height: metrics.deviceWidth / 20,
+    width: metrics.deviceWidth / 20,
     marginRight: metrics.smallMargin,
     tintColor: colors.darkGray
   }

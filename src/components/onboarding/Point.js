@@ -1,4 +1,4 @@
-import React, { PropTypes, PureComponent } from 'react';
+import React, { PureComponent } from 'react'; import PropTypes from 'prop-types';
 import {
   StyleSheet,
   ActivityIndicator,
