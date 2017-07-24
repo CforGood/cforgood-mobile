@@ -57,7 +57,7 @@ class MapView extends Component {
     legs: {},
     direction: [],
     showsUserLocation: true,
-    regionUser: {},
+    regionUser: { latitude: 0, longitude: 0 },
     zoom: 12,
     userTrackingMode: Mapbox.userTrackingMode.followWithHeading,
     annotations: [],
@@ -97,7 +97,7 @@ class MapView extends Component {
 
   componentWillMount() {
 
-    if (this.props.location) {
+    if (this.props.location && this.props.location.latitude) {
       this.setState({ regionUser: this.props.location });
     }
 
@@ -168,6 +168,7 @@ class MapView extends Component {
     if (nextProps.businesses !== this.props.businesses) {
       this.loadmarkers(nextProps);
     }
+
 
     if (nextProps.changedLocation !== this.props.changedLocation) {
       this.load();
@@ -245,19 +246,26 @@ class MapView extends Component {
   };
 
   onUpdateUserLocation = (location) => {
-    const regionUser = {
-      latitude: location.latitude,
-      longitude: location.longitude,
-    }
 
-    this.setState({ regionUser });
 
-    if (!this.props.location.latitude !== regionUser.latitude
-      &&
-      this.props.location.longitude !== regionUser.longitude
+    if (
+      !this.props.location ||
+      (
+        this.props.location.latitude !== location.latitude
+        &&
+        this.props.location.longitude !== location.longitude
+      )
     ) {
-      this.setCenterCoordinate(regionUser);
+
+      const regionUser = {
+        latitude: location.latitude,
+        longitude: location.longitude,
+      }
+
+      this.setState({ regionUser });
+
       this.props.onUpdateUserLocation(regionUser);
+      this.setCenterCoordinate(regionUser);
     }
 
   };
@@ -286,13 +294,10 @@ class MapView extends Component {
   };
 
   fetchAnnotation = (business, address) => {
-
     const category = getCategory(business.business_category_id);
     this.fetchDirection(address, category.color, this.state.gps_activate);
     this.props.showBusiness(business, address);
   }
-
-
 
   onRightAnnotationTapped = (e) => {
     console.log('onRightAnnotationTapped', e);
@@ -308,12 +313,10 @@ class MapView extends Component {
 
   onChangeUserTrackingMode = (userTrackingMode) => {
     this.setState({ userTrackingMode });
-    //console.log('onChangeUserTrackingMode', userTrackingMode);
   };
 
 
   setDirection = () => {
-    //this.fetchDirection(this.state.annotation);
     this.setState({
       gps_activate: !this.state.gps_activate,
       userTrackingMode:
@@ -496,7 +499,6 @@ class MapView extends Component {
           />
         }
         {
-          this.state.regionUser &&
           <RNMapView
             ref={map => { this._map = map; }}
             style={styles.map}

@@ -25,6 +25,7 @@ import Social from '../../components/business/Social';
 import BusinessContact from '../../components/business/BusinessContact';
 import BusinessLeader from '../../components/business/BusinessLeader';
 import BusinessHeader from '../../components/business/BusinessHeader';
+import Loading from '../../components/common/Loading';
 
 import Modal from '../../components/Modal';
 import Button from '../../components/common/ButtonGradiant';
@@ -96,11 +97,11 @@ class BusinessScreen extends PureComponent {
     if (Platform.OS === 'android') {
       this.props.setBusiness(businessId);
     }
-
+    this.setState({ loaded: false });
     ApiHandler.businessDetail(businessId, addressId)
       .then(response => {
         if (!response.error) {
-          this.setState({ business: response });
+          this.setState({ business: response, loaded: true });
         }
       }).
       catch(error => {
@@ -294,6 +295,7 @@ class BusinessScreen extends PureComponent {
             </TouchableOpacity>
           </Animated.View>
         </Animated.View>
+        <Loading loading={!this.state.loaded} />
         <Button
           type={'simple'}
           onPress={() => this.props.navigation.navigate('PerkList', { business: detailsBusiness, category })}
@@ -309,7 +311,7 @@ class BusinessScreen extends PureComponent {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  perk: state.review.perk
+  perk: state.review.perk,
 });
 
 const mapDispatchToProps = (dispatch) => ({

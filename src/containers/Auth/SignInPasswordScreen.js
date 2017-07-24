@@ -26,7 +26,7 @@ class SignInPassword extends Component {
 
   state = {
     email: '',
-    password: '',
+    password: 'cforgood',
     error: '',
   };
 

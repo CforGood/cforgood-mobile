@@ -90,7 +90,7 @@ export const loadUserData = () => {
   }
 };
 
-export const onUpdateUserLocation = (location, authorize = false) => {
+export const onUpdateUserLocation = (location) => {
   return {
     type: UPDATE,
     location,

@@ -1,4 +1,5 @@
-import PropTypes from 'prop-types'; import React, {  PureComponent, } from 'react';
+import PropTypes from 'prop-types';
+import React, { PureComponent, } from 'react';
 import {
   TouchableOpacity,
   StyleSheet,
@@ -7,23 +8,23 @@ import {
   Text,
 } from 'react-native';
 
-import { 
-  colors, 
+import {
+  colors,
   metrics,
   styles,
   fonts,
 } from '../../themes';
 
-const WIDTH_WIDGET = (metrics.deviceWidth) /3;
+const WIDTH_WIDGET = (metrics.deviceWidth) / 3;
 let WIDTH_CIRCLE = metrics.deviceWidth / 5;
 
 const HEIGHT_CONTAINER = metrics.deviceHeight
-  - 
+  -
   60 // Hight Button
-  - 
+  -
   metrics.navBarHeight
   -
-  metrics.doubleBaseMargin*3;
+  metrics.doubleBaseMargin * 3;
 
 //WIDTH_CIRCLE = Math.min(HEIGHT_CONTAINER/4, WIDTH_CIRCLE);
 
@@ -31,64 +32,64 @@ const HEIGHT_CONTAINER = metrics.deviceHeight
 import { categoryType } from '../../types';
 
 export default class CategoryItem extends PureComponent {
-  render(){
-    const { category:{ icon, name, color }, selectCategory , index, selected} = this.props;
+  render() {
+    const { category: { icon, name, color }, selectCategory, index, selected } = this.props;
     return (
       <TouchableOpacity onPress={selectCategory}>
         <View style={[
-            CategoryItemCircleStyle.container,
-            { opacity: selected ? 1 : 0.4 }
-          ]}
+          CategoryItemCircleStyle.container,
+          { opacity: selected ? 1 : 0.4 }
+        ]}
         >
           <View style={[
-              CategoryItemCircleStyle.imageContainer,
-              {
-                borderColor: selected 
-                ? 
-                color 
-                : 
+            CategoryItemCircleStyle.imageContainer,
+            {
+              borderColor: selected
+                ?
+                color
+                :
                 CategoryItemCircleStyle.inactif
-              }
-            ]}
+            }
+          ]}
           >
             <Image
               resizeMode='contain'
-              style={styles.imageContain} 
+              style={styles.imageContain}
               source={icon}
             />
-          </View> 
+          </View>
           <Text style={CategoryItemCircleStyle.textCategory}>
             {name}
-          </Text>  
+          </Text>
         </View>
-      </TouchableOpacity> 
+      </TouchableOpacity>
     )
   }
 };
 
-CategoryItem.propTypes = {  
+CategoryItem.propTypes = {
   category: categoryType.isRequired,
 };
 
 
-const CategoryItemCircleStyle = StyleSheet.create({ 
+const CategoryItemCircleStyle = StyleSheet.create({
   container: {
     width: WIDTH_WIDGET,
-    height: HEIGHT_CONTAINER/ 4,
-    justifyContent: 'center', 
+    height: HEIGHT_CONTAINER / 4,
+    justifyContent: 'center',
     alignItems: 'center',
   },
   imageContainer: {
-    borderRadius: (WIDTH_CIRCLE)/2 ,
+    borderRadius: (WIDTH_CIRCLE) / 2,
     borderColor: colors.lightGray,
     borderWidth: 2,
-    width: WIDTH_CIRCLE , 
+    width: WIDTH_CIRCLE,
     height: WIDTH_CIRCLE,
     padding: 15,
-    justifyContent: 'center', 
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  textCategory:{
+  textCategory: {
     fontFamily: fonts.type.base,
     fontSize: fonts.size.tiny,
     color: colors.darkGray,

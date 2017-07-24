@@ -1,4 +1,4 @@
-import React, { Component,  } from 'react'; import PropTypes from 'prop-types';
+import React, { Component, } from 'react'; import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -11,6 +11,7 @@ import Contacts from 'react-native-contacts';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import Loading from '../../components/common/Loading';
 import Background from '../../components/common/Background';
 import Icon from '../../components/common/Icon';
 import WarningPopup from '../../components/Modal/WarningPopup';
@@ -39,6 +40,7 @@ class ContactsScreen extends Component {
     visiblePopupWarning: false,
     searchText: '',
     visibleSearch: false,
+    loaded: true,
   };
 
   componentWillMount() {
@@ -63,11 +65,13 @@ class ContactsScreen extends Component {
   }
 
   getContacts = () => {
+    this.setState({ loaded: false });
     Contacts.getAll((err, allContacts) => {
       //update the first record
       this.setState({
         allContacts,
         contacts: allContacts,
+        loaded: true,
       });
 
     })
@@ -308,6 +312,7 @@ class ContactsScreen extends Component {
           )}
           confirmText={'Envoyer'}
         />
+        <Loading loading={!this.state.loaded} />
       </Background>
     );
   }

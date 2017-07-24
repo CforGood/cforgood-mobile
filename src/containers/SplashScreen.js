@@ -21,7 +21,7 @@ import {
   fonts
 } from '../themes';
 
-import { loadUserData, onUpdateUserLocation } from '../redux/actions/user';
+import { loadUserData } from '../redux/actions/user';
 import { siginSuccess } from '../redux/actions/auth';
 
 import Marker from '../components/splash/Marker';
@@ -74,7 +74,6 @@ class SplashScreen extends Component {
 
   componentWillMount() {
     Orientation.lockToPortrait();
-    this.onUpdateUserLocation();
   }
 
   componentWillUnmount() {
@@ -83,20 +82,6 @@ class SplashScreen extends Component {
       this._handleConnectivityChange
     );
 
-  }
-
-  onUpdateUserLocation() {
-    // navigator.geolocation.getCurrentPosition((position) => {
-    //   if (position && position.coords) {
-    //     this.props.onUpdateUserLocation(position, true);
-    //   }
-    // }, () => { },
-    //   {
-    //     enableHighAccuracy: true,
-    //     timeout: 10000,
-    //     maximumAge: 3000,
-    //   }
-    // );
   }
 
   _handleConnectivityChange = (isConnected) => {
@@ -222,7 +207,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loadUserData: bindActionCreators(loadUserData, dispatch),
-  onUpdateUserLocation: bindActionCreators(onUpdateUserLocation, dispatch),
   siginSuccess: bindActionCreators(siginSuccess, dispatch),
 });
 

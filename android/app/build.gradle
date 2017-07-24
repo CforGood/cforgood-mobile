@@ -157,22 +157,23 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-spinkit')
     compile project(':react-native-mapbox-gl')
     compile project(':react-native-contacts')
     compile project(':tipsi-stripe')
     compile project(':react-native-permissions')
     compile project(':react-native-code-push')
+    
     compile 'com.android.support:multidex:1.0.1'
     compile 'io.intercom.android:intercom-sdk-base:3.+'
-    compile('io.intercom.android:intercom-sdk-fcm:3.+') {
-        exclude group: 'io.intercom.android', module: 'intercom-sdk-base'
-    }
+    compile 'io.intercom.android:intercom-sdk-fcm:3.+'
 
-    compile project(':react-native-fcm')
-    compile project(':react-native-firebase-crash-report')
     compile 'com.google.firebase:firebase-core:11.0.2'
     compile 'com.google.firebase:firebase-crash:11.0.2'
     compile 'com.google.firebase:firebase-messaging:11.0.2'
+
+    compile project(':react-native-fcm')
+    compile project(':react-native-firebase-crash-report')
     
     compile project(':react-native-intercom')
     compile project(':react-native-branch')

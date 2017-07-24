@@ -19,6 +19,7 @@ import Separator from '../../components/common/Separator';
 import Button from '../../components/common/ButtonGradiant';
 import Header from '../../components/common/Header';
 import Back from '../../components/common/Back';
+import Loading from '../../components/common/Loading';
 
 import Gender from '../../components/Association/Gender';
 import ModalCategories from '../../components/Association/ModalCategories';
@@ -65,8 +66,11 @@ class AssociationFormScreen extends PureComponent {
   }
 
   propose() {
+    this.setState({ loaded: false });
     ApiHandler.createCause(this.state.cause)
       .then(response => {
+
+        this.setState({ loaded: true });
         if (!response.error) {
           Alert.alert(
             'Proposition association',
@@ -406,6 +410,7 @@ class AssociationFormScreen extends PureComponent {
           text={'Valider'}
           onPress={() => this.propose()}
         />
+        <Loading loading={!this.state.loaded} />
       </View>
     );
   }

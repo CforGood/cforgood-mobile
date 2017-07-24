@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   Platform,
+  Keyboard,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -49,6 +50,7 @@ class SignUpCodeScreen extends Component {
     const { code_partner } = this.state;
     if (code_partner !== '') {
       this.props.updateUserData(this.props.user.id, { code_partner });
+      Keyboard.dismiss();
     }
     else {
       this.props.navigation.navigate('SignUpValidation');

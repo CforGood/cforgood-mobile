@@ -1,10 +1,12 @@
-import PropTypes from 'prop-types'; import React, {  PureComponent, } from 'react';
+import PropTypes from 'prop-types';
+import React, { PureComponent, } from 'react';
 
 import {
   View,
   Modal,
   ActivityIndicator
 } from 'react-native';
+import Spinner from 'react-native-spinkit';
 
 import {
   styles,
@@ -35,10 +37,14 @@ export default class ModalLoading extends PureComponent {
           alignItems: 'center',
           backgroundColor: 'rgba(0,0,0,0.3)',
         }}>
-          <ActivityIndicator
-            animating={loading}
-            style={styles.activityIndicator}
-            size="large"
+          <Spinner
+            style={{
+              marginBottom: 40,
+            }}
+            isVisible={loading}
+            size={100}
+            type={'ThreeBounce'}
+            color={'#FFFFFF'}
           />
         </View>
       </Modal>

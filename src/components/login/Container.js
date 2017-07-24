@@ -145,7 +145,7 @@ export default class Container extends PureComponent {
             numberOfLines={numberOfLines}
             textAlignVertical={textAlignVertical}
             returnKeyType='done'
-            onSubmitEditing={this.nextStep}
+            onSubmitEditing={() => nextStep()}
           />
         </View>
         <Text style={[

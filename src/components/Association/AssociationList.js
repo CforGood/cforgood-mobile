@@ -1,4 +1,5 @@
-import React, { Component,  } from 'react'; import PropTypes from 'prop-types';
+import React, { Component, } from 'react'; 
+import PropTypes from 'prop-types';
 import {
   View,
   StyleSheet,
@@ -63,7 +64,7 @@ class AssociationList extends Component {
             this.props.associations &&
             this.props.associations.map((association, key) =>
               association.picture &&
-              <View
+              <TouchableOpacity
                 style={[
                   style.associationContainer,
                   {
@@ -71,9 +72,10 @@ class AssociationList extends Component {
                   }
                 ]}
                 key={key}
+                onPress={() => this.goToAssociation(association)}
               >
                 <AssociationItem association={association} />
-              </View>
+              </TouchableOpacity>
             )
           }
         </Animated.ScrollView>

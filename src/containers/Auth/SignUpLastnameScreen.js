@@ -2,7 +2,8 @@ import React, { Component,  } from 'react'; import PropTypes from 'prop-types';
 import {
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  Keyboard,
 } from 'react-native';
 
 import Background from '../../components/common/Background';
@@ -25,7 +26,7 @@ export default class SignUpLastnameScreen extends Component {
     const { lastname } = this.state;
     const { params } = this.props.navigation.state;
     if (lastname !== '') {
-
+       Keyboard.dismiss();
       this.props.navigation.navigate('SignUpEmail', { user: { last_name: lastname, ...params.user } });
     }
     else {

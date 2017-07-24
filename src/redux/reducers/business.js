@@ -10,7 +10,7 @@ import {
 
 const initialState = {
   failed: false,
-  loaded: false,
+  loaded: true,
   loading: false,
   entities: [],
   entities_perk: [],

@@ -18,12 +18,7 @@ class BusinessAddress extends Component {
 
   static propTypes = {
     color: PropTypes.string.isRequired,
-    address: PropTypes.any,
-    distance: PropTypes.string
-  };
-
-  defaultProps = {
-    distance: null
+    address: PropTypes.object,
   };
 
   state = {

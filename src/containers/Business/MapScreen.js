@@ -12,6 +12,8 @@ import Permissions from 'react-native-permissions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+
+import Loading from '../../components/common/Loading';
 import ApiHandler from '../../utils/api';
 import { goToAssociations } from '../../redux/actions/association';
 import {
@@ -191,12 +193,14 @@ class MapScreen extends Component {
             />
           </View>
         }
+        <Loading loading={!this.props.loaded} />
       </View>
     );
   }
 }
 
 const mapStateToProps = state => ({
+  loaded: state.business.loaded,
   businesses: state.business.entities,
   categories: state.filters.categories,
   goAssocation: state.association.go,

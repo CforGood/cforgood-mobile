@@ -41,6 +41,7 @@ class BlurAndroid extends Component {
         onLoadEnd={this.imageLoaded}
       >
         <BlurView
+          image={this.props.image}
           blurAmount={10000}
           blurRadius={25}
           downsampleFactor={5}

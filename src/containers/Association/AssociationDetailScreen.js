@@ -17,6 +17,7 @@ import Heart from '../../components/common/Heart';
 import Close from '../../components/common/Icon';
 import Share from '../../components/common/Share';
 import Detail from '../../components/common/Detail';
+import Loading from '../../components/common/Loading';
 
 import Separator from '../../components/common/Separator';
 import Video from '../../components/common/Video';
@@ -66,7 +67,7 @@ class AssociationDetailScreen extends Component {
   }
 
   getDetail(associationId) {
-
+    this.setState({ loaded: false });
     ApiHandler.associationDetail(associationId)
       .then(response => {
         if (!response.error) {
@@ -339,6 +340,7 @@ class AssociationDetailScreen extends Component {
           onValidate={() => this.onValidate(true)}
           onClose={() => this.setValidationPopup(false)}
         />
+        <Loading loading={!this.state.loaded} />
       </View>
     );
   }

@@ -1,8 +1,9 @@
-import React, { Component,  } from 'react'; import PropTypes from 'prop-types';
+import React, { Component, } from 'react'; import PropTypes from 'prop-types';
 import {
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  Keyboard,
 } from 'react-native';
 import FontMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Kohana } from 'react-native-textinput-effects';
@@ -24,7 +25,7 @@ import {
 
 export default class SingInScreen extends Component {
   state = {
-    email: '',
+    email: 'kottianouar@gmail.com',
     error: '',
     step: 1,
   };
@@ -34,12 +35,11 @@ export default class SingInScreen extends Component {
     const { email, step } = this.state;
     if (!validateEmail(email)) {
       this.setState({ error: 'L\'adresse email n\'est pas valide' });
-    }
-
-    else if (step === 1) {
+    } else if (step === 1) {
       this.setState({
         step: 2
       });
+      Keyboard.dismiss();
       this.props.navigation.navigate('SignInPassword', { email });
     }
   }

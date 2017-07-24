@@ -37,7 +37,7 @@ class ButtonFacebook extends PureComponent {
 
   connectWithAcessToken = async (verifyToken = false) => {
 
-    const accessToken =  await AsyncStorage.getItem('accessToken');
+    const accessToken = await AsyncStorage.getItem('accessToken');
     if (accessToken) {
       const infoRequest = new GraphRequest(
         '/me',
@@ -76,7 +76,6 @@ class ButtonFacebook extends PureComponent {
 
     LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
       (result) => {
-        console.log(result.grantedPermissions.toString());
         if (result.isCancelled) {
           alert('Login cancelled');
         } else {
@@ -98,7 +97,7 @@ class ButtonFacebook extends PureComponent {
   //Create response callback.
   storeResponseFacebookData(error, result, accessToken) {
     if (error) {
-      alert('Error fetching data: ' + error.toString());
+      //alert('Error fetching data: ' + error.toString());
     } else {
       const { typeAuth } = this.props;
       if (typeAuth === 'SignUp') {

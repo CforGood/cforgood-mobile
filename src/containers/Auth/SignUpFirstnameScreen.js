@@ -2,7 +2,8 @@ import React, { Component,  } from 'react'; import PropTypes from 'prop-types';
 import {
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  Keyboard,
 } from 'react-native';
 
 import Background from '../../components/common/Background';
@@ -28,6 +29,7 @@ export default class SignUpFirstnameScreen extends Component {
       this.setState({
         step: 2
       });
+      Keyboard.dismiss();
       this.props.navigation.navigate('SignUpLastname', { user: { first_name: firstname } });
     }
     else {

@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'; import React, {  PureComponent, } from 'react';
+import PropTypes from 'prop-types'; import React, {  Component, } from 'react';
 import moment from 'moment';
 import {
   View,
@@ -23,7 +23,7 @@ const days = (date) => {
   return end.diff(start, 'days')
 }
 
-class PopupProfile extends PureComponent {
+class PopupProfile extends Component {
 
   static propTypes = {
     visible: PropTypes.bool,

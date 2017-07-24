@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   Platform,
+  Keyboard,
 } from 'react-native';
 
 import Background from '../../components/common/Background';
@@ -34,6 +35,7 @@ export default class SignUpScreen extends Component {
     }
     else {
       const { params } = this.props.navigation.state;
+      Keyboard.dismiss();
       this.props.navigation.navigate('SignUpPassword', { user: { email, ...params.user } });
     }
   }

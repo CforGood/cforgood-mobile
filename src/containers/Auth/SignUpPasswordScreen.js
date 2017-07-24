@@ -1,10 +1,10 @@
-import React, { Component,  } from 'react'; import PropTypes from 'prop-types';
+import React, { Component, } from 'react'; import PropTypes from 'prop-types';
 import {
   View,
   Text,
   StyleSheet,
-  Keyboard,
   Platform,
+  Keyboard,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -36,6 +36,7 @@ class SignUpScreen extends Component {
       this.setState({ error: nextProps.error[0] });
     }
     else if (nextProps.loaded) {
+      Keyboard.dismiss();
       await this.props.loadUserData();
       this.props.navigation.navigate('SignUpCode');
     }

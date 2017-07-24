@@ -39,11 +39,12 @@ class AuthorizeLocation extends PureComponent {
   enableLocation = () => {
     Permissions.getPermissionStatus('location')
       .then(response => {
-        if (response !== 'authorized') {
-          this._requestPermission();
+        if (response === 'authorized') {
+          this.props.nextStep();
+          this.updateLocation();
         }
         else {
-          this.verify();
+          this._requestPermission();
         }
       }).catch(e => this.notifyAutorize(e));
   }
@@ -57,23 +58,26 @@ class AuthorizeLocation extends PureComponent {
               visiblePopupWarning: true
             });
           }
-          else
+          else {
             Permissions.openSettings;
+          }
         }
         else {
-          this.verify();
+          this.props.nextStep();
+          this.updateLocation();
         }
       }).catch(e => this.notifyAutorize(e))
   }
 
-  verify() {
+  updateLocation() {
     navigator.geolocation.getCurrentPosition((position) => {
       if (position && position.coords) {
-        this.props.onUpdateUserLocation(position, true);
-        this.props.nextStep();
+        this.props.onUpdateUserLocation(position);
+        //this.props.nextStep();
       }
     }, (error) => {
-      this.notifyAutorize(error);
+      //this.props.nextStep();
+      //this.notifyAutorize(error);
     },
       {
         enableHighAccuracy: true,

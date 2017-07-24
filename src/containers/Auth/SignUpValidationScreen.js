@@ -5,10 +5,7 @@ import {
   StyleSheet
 } from 'react-native';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
 
-import { loadBusiness } from '../../redux/actions/business';
-import { loadAssociation } from '../../redux/actions/association';
 import Background from '../../components/common/Background';
 import Validation from '../../components/login/Validation';
 
@@ -20,15 +17,6 @@ import {
 } from '../../themes';
 
 class SignUpValidationScreen extends Component {
-
-  componentWillMount() {
-    this.load();
-  }
-
-  load() {
-    this.props.loadAssociation();
-    this.props.loadBusiness();
-  }
 
   render() {
     return (
@@ -54,9 +42,4 @@ const mapStateToProps = state => ({
   user: state.user.data,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  loadBusiness: bindActionCreators(loadBusiness, dispatch),
-  loadAssociation: bindActionCreators(loadAssociation, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpValidationScreen);
+export default connect(mapStateToProps)(SignUpValidationScreen);

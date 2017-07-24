@@ -3,6 +3,8 @@ import {
   Text,
   View,
   Alert,
+  PermissionsAndroid,
+  Platform,
 } from 'react-native';
 import Permissions from 'react-native-permissions';
 
@@ -24,15 +26,21 @@ export default class Perk extends PureComponent {
   };
 
   enableNotification() {
-    Permissions.getPermissionStatus('notification')
-      .then(response => {
-        if (response !== 'authorized') {
-          this._requestPermission();
-        }
-        else {
-          this.props.scroll();
-        }
-      }).catch(e => this.error(e));
+    if (Platform.OS === 'ios') {
+
+      Permissions.getPermissionStatus('notification')
+        .then(response => {
+          if (response !== 'authorized') {
+            this._requestPermission();
+          }
+          else {
+            this.props.scroll();
+          }
+        }).catch(e => this.error(e));
+    } else {
+      this.props.scroll();
+    }
+
   }
 
   _requestPermission = () => {
@@ -42,8 +50,9 @@ export default class Perk extends PureComponent {
           if (response === 'denied') {
             this.props.scroll();
           }
-          else
+          else {
             Permissions.openSettings;
+          }
 
         }
         else {
