@@ -22,7 +22,6 @@ import {
 
 export default class LikeScreen extends Component {
   state = {
-    visiblePopupConfirm: false,
     visiblePopupWarning: false,
     authorized: false,
     error: '',
@@ -53,7 +52,14 @@ export default class LikeScreen extends Component {
     Permissions.requestPermission('contacts')
       .then(response => {
         if (String(response) !== 'authorized') {
-          Permissions.openSettings
+          if (response === 'denied') {
+            this.setState({
+              visiblePopupWarning: true
+            });
+          }
+          else {
+            Permissions.openSettings;
+          }
         }
         else {
           this.props.navigation.navigate('InvitationContacts');

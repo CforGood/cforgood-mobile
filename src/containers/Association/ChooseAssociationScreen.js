@@ -65,7 +65,7 @@ class AssociationListScreen extends Component {
       <View style={styles.screen.mainContainer} >
         <ErrorView
           message={this.state.error}
-          removeError={() => this.setState({ error: '' })}
+          color={'#29b6f6'}
         />
         <Loading
           loading={!this.props.loaded}

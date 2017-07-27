@@ -1,4 +1,4 @@
-import React, { PureComponent,  } from 'react'; import PropTypes from 'prop-types';
+import React, { PureComponent, } from 'react'; import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -24,11 +24,13 @@ class ErrorView extends PureComponent {
   static propTypes = {
     message: PropTypes.string,
     removeError: PropTypes.func,
+    color: PropTypes.string,
   };
 
   static defaultProps = {
     message: '',
-    removeError: () => { },
+    removeError: null,
+    color: '#ec5759',
   };
 
   componentWillReceiveProps(nextProps) {
@@ -45,7 +47,7 @@ class ErrorView extends PureComponent {
         style={[
           {
             minHeight: (Platform.OS === 'ios' ? 80 : 60),
-            backgroundColor: '#ec5759',
+            backgroundColor: this.props.color,
             alignItems: 'center',
             flexDirection: 'row',
             position: 'absolute',
@@ -58,7 +60,7 @@ class ErrorView extends PureComponent {
           Platform.OS === 'ios' ? { paddingTop: 20 } : {}
         ]}
       >
-        <View style={{ flex: 1 }} />
+        {this.props.removeError && <View style={{ flex: 1 }} />}
         <View
           style={{
             flex: 10,
@@ -77,21 +79,24 @@ class ErrorView extends PureComponent {
             {this.props.message}
           </Text>
         </View>
+        {
+          this.props.removeError &&
+          <Close
+            source={require('../../resources/icons/close-white.png')}
+            onPress={() => {
+              this.props.removeError();
+              this.setState({ showError: false });
+            }}
+            styleImage={{
+              height: 15,
+              width: 15
+            }}
+            style={{
+              padding: metrics.baseMargin,
+            }}
+          />
+        }
 
-        <Close
-          source={require('../../resources/icons/close-white.png')}
-          onPress={() => {
-            this.props.removeError();
-            this.setState({ showError: false });
-          }}
-          styleImage={{
-            height: 15,
-            width: 15
-          }}
-          style={{
-            padding: metrics.baseMargin,
-          }}
-        />
       </View>
     );
   }
