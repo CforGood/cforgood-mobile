@@ -119,6 +119,36 @@ class ApiHandler {
       });
   }
 
+  check(email) {
+
+
+    let request = {
+      method: 'GET',
+      headers: {
+        'email': email,
+      },
+    };
+    try {
+
+      return fetch(`${API_URL}/check`, request)
+        .then(response => {
+          if (response.status === 200) {
+            return Promise.resolve({ exist: true });
+          }
+          else {
+            return Promise.resolve({ exist: false });
+          }
+        })
+        .catch(error => {
+          Promise.resolve({ exist: false });
+        })
+
+
+    } catch (e) {
+      return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard ?' });
+    }
+  };
+
   signin(email, password, type) {
 
 

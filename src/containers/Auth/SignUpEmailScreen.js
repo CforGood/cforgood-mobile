@@ -1,4 +1,4 @@
-import React, { Component,  } from 'react'; import PropTypes from 'prop-types';
+import React, { Component, } from 'react'; import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -11,6 +11,8 @@ import Background from '../../components/common/Background';
 import Container from '../../components/login/Container';
 import Icon from '../../components/common/Icon';
 import ErrorView from '../../components/common/ErrorView';
+import ApiHandler from '../../utils/api';
+import Loading from '../../components/common/Loading';
 
 import {
   validateEmail,
@@ -25,7 +27,8 @@ import {
 
 export default class SignUpScreen extends Component {
   state = {
-    email: ''
+    email: '',
+    loaded: true,
   };
 
   verify = () => {
@@ -34,9 +37,22 @@ export default class SignUpScreen extends Component {
       this.setState({ error: 'L\'adresse email n\'est pas valide' });
     }
     else {
-      const { params } = this.props.navigation.state;
-      Keyboard.dismiss();
-      this.props.navigation.navigate('SignUpPassword', { user: { email, ...params.user } });
+      //this.setState({ loaded: false });
+      ApiHandler.check(email)
+        .then(response => {
+          if (!response.exist) {
+            const { params } = this.props.navigation.state;
+            Keyboard.dismiss();
+            setTimeout(() => this.props.navigation.navigate('SignUpPassword', { user: { email, ...params.user } }), 300);
+
+            this.setState({ loaded: true });
+          } else {
+            this.setState({ error: 'Oups ! ce compte existe déjà', loaded: true });
+          }
+        })
+        .catch(message => {
+          this.setState({ error: 'Oups ! ce compte existe déjà', loaded: true });
+        });
     }
   }
 
@@ -51,6 +67,10 @@ export default class SignUpScreen extends Component {
         <ErrorView
           message={this.state.error}
           removeError={() => this.setState({ error: '' })}
+        />
+        <Loading
+          loading={!this.state.loaded}
+          title={'Vérification Email'}
         />
         <Icon
           styleImage={{

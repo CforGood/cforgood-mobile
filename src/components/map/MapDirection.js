@@ -96,7 +96,7 @@ class MapDirection extends Component {
           ]}
         >
           <Distance 
-            text={'En voiture'} 
+            text={''} 
             icon={'drive-eta'}
             active={this.props.mode === 'driving'}
             onPress={() => this.props.setMode('driving')}
@@ -108,25 +108,25 @@ class MapDirection extends Component {
             onPress={() => this.props.setMode('walking')}
           />
           <Distance 
-            text={'A vélo'} 
+            text={''} 
             icon={'directions-bike'}
             active={this.props.mode === 'bicycling'}
             onPress={() => this.props.setMode('bicycling')}
           />        
           <Distance 
-            text={'Bus'} 
+            text={''} 
             icon={'directions-bus'}
             active={this.props.mode === 'bus'}
             onPress={() => this.props.setMode('bus')}
           />
           <Distance 
-            text={'Train'} 
+            text={''} 
             icon={'train'}
             active={this.props.mode === 'train'}
             onPress={() => this.props.setMode('train')}
           />
           <Distance 
-            text={'Subway'} 
+            text={''} 
             icon={'directions-subway'}
             active={this.props.mode === 'subway'}
             onPress={() => this.props.setMode('subway')}

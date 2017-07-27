@@ -137,10 +137,6 @@ class MapView extends Component {
   componentDidMount() {
 
     this.loadmarkers(this.props);
-    if (this.props.businesses[0]) {
-      this.fetchAnnotation(this.props.businesses[0], this.props.businesses[0].addresses[0]);
-    }
-
     if (this.props.address) {
 
       let category = {};
@@ -160,6 +156,10 @@ class MapView extends Component {
         this.fetchDirection(this.props.address, category.color, true);
       }
 
+    }
+
+    if (this.props.businesses && this.props.businesses[0]) {
+      this.fetchAnnotation(this.props.businesses[0], this.props.businesses[0].addresses[0]);
     }
   }
 
@@ -217,8 +217,7 @@ class MapView extends Component {
         }
 
       }
-    }
-    else {
+    } else {
       props.showBusiness(null, null)
       this.setState({ nearMe: false, direction: [] });
     }
@@ -468,7 +467,7 @@ class MapView extends Component {
 
             this.setState({
               direction: coordinates,
-              legs
+              legs,
             });
           }
 

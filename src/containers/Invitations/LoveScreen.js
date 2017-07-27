@@ -1,4 +1,4 @@
-import React, { Component,  } from 'react'; import PropTypes from 'prop-types';
+import React, { Component, } from 'react'; import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -67,9 +67,7 @@ export default class LikeScreen extends Component {
 
   openConfirm = () => {
     if (!this.state.authorized) {
-      this.setState({ visiblePopupWarning: false }, this.setState({
-        visiblePopupConfirm: true
-      }));
+      this.enableContacts();
     }
     else {
       this.props.navigation.navigate('InvitationContacts');
@@ -77,25 +75,9 @@ export default class LikeScreen extends Component {
   }
 
   ignoreConfirm = () => {
-    this.setState({ visiblePopupConfirm: false }, () => {
-      this.setState({
-        visiblePopupWarning: true
-      });
-    });
+    this.setState({ visiblePopupWarning: true });
   }
 
-  ignore = () => {
-    this.setState({
-      visiblePopupConfirm: false,
-    });
-  }
-
-  confirm = () => {
-    this.enableContacts();
-    this.setState({
-      visiblePopupConfirm: false,
-    });
-  }
 
   render() {
     return (
@@ -106,7 +88,7 @@ export default class LikeScreen extends Component {
       >
         <ErrorView
           message={this.state.error}
-          removeError={() => this.setState({error: ''})}
+          removeError={() => this.setState({ error: '' })}
         />
         <View style={{
           flex: 1,
@@ -151,18 +133,6 @@ export default class LikeScreen extends Component {
             borderColor={colors.transparent}
           />
         </View>
-        <ConfirmPopup
-          visiblePopup={this.state.visiblePopupConfirm}
-          message={(<Text style={style.message}>
-            Autoriser <Text style={[
-              fonts.style.mediumBold,
-              { color: colors.darkGray }
-            ]}>CforGood</Text> à accéder
-          à vos contacts ?
-          </Text>)}
-          ignore={this.ignoreConfirm}
-          confirm={this.confirm}
-        />
         <WarningPopup
           visiblePopup={this.state.visiblePopupWarning}
           title={
@@ -176,7 +146,7 @@ export default class LikeScreen extends Component {
             (
               <Text>
                 Ne vous privez pas de faire plaisir et d’envoyer
-des bonnes nouvelles !
+                des bonnes nouvelles !
               </Text>
             )
           }

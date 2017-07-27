@@ -25,7 +25,7 @@ import {
 
 export default class SingInScreen extends Component {
   state = {
-    email: 'kottianouar@gmail.com',
+    email: '',
     error: '',
     step: 1,
   };
@@ -63,7 +63,7 @@ export default class SingInScreen extends Component {
           secondText={"Pas de compte ? Je m’inscris"}
           onPress={() => this.props.navigation.goBack()}
           nextStep={this.verify}
-          styleContainer={{ paddingTop: metrics.doubleBaseMargin * 2 }}
+          styleContainer={{ paddingTop: metrics.doubleBaseMargin }}
         />
         <ErrorView
           message={this.state.error}

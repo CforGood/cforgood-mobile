@@ -30,7 +30,7 @@ export default class SignUpFirstnameScreen extends Component {
         step: 2
       });
       Keyboard.dismiss();
-      this.props.navigation.navigate('SignUpLastname', { user: { first_name: firstname } });
+      setTimeout(() => this.props.navigation.navigate('SignUpLastname', { user: { first_name: firstname } }), 300);
     }
     else {
       this.setState({ error: '' });
@@ -43,7 +43,7 @@ export default class SignUpFirstnameScreen extends Component {
       <Background
         style={{
           flex: 1,
-          paddingTop: metrics.doubleBaseMargin * 2
+          paddingTop: metrics.doubleBaseMargin
         }}
       >
         <Container

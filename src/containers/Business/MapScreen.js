@@ -193,7 +193,10 @@ class MapScreen extends Component {
             />
           </View>
         }
-        <Loading loading={!this.props.loaded} />
+        <Loading
+          loading={!this.props.loaded}
+          title={'Chargement des commerces'}
+        />
       </View>
     );
   }

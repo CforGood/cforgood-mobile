@@ -32,7 +32,7 @@ class MapPerkScreen extends Component {
     const { business, perk, category } = this.props.navigation.state.params;
 
     const address = business.address || business.addresses[0]
-    console.log('addressaddress', address)
+    
     return (
       <View style={styles.screen.mainContainer}>
         <View style={{ flex: 1 }} >
@@ -43,6 +43,7 @@ class MapPerkScreen extends Component {
             userTrackingMode={true}
             mapDirection={true}
             setDistance={this.setDistance}
+            showBusiness={() => {}}
           />
         </View>
         <View

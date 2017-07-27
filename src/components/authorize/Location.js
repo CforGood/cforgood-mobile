@@ -78,13 +78,7 @@ class AuthorizeLocation extends PureComponent {
     }, (error) => {
       //this.props.nextStep();
       //this.notifyAutorize(error);
-    },
-      {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 3000,
-      }
-    );
+    });
   }
 
   notifyAutorize = (error) => {

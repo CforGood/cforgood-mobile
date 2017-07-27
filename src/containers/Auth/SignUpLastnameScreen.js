@@ -27,7 +27,8 @@ export default class SignUpLastnameScreen extends Component {
     const { params } = this.props.navigation.state;
     if (lastname !== '') {
        Keyboard.dismiss();
-      this.props.navigation.navigate('SignUpEmail', { user: { last_name: lastname, ...params.user } });
+
+      setTimeout(() => this.props.navigation.navigate('SignUpEmail', { user: { last_name: lastname, ...params.user } }), 300);
     }
     else {
       this.setState({ error: '' });
@@ -43,7 +44,7 @@ export default class SignUpLastnameScreen extends Component {
         }}
       >
         <Container
-          styleContainer={{ paddingTop: metrics.doubleBaseMargin * 2 }}
+          styleContainer={{ paddingTop: metrics.doubleBaseMargin }}
           title={"Quel est votre nom ?"}
           onChangeText={(lastname) => this.setState({ lastname })}
           value={lastname}

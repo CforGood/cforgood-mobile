@@ -9,7 +9,7 @@ import {
   Linking,
   TouchableOpacity,
   Platform,
-  BackAndroid,
+  BackHandler,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -66,11 +66,11 @@ class PerkDetailScreen extends Component {
   };
 
   componentDidMount() {
-    BackAndroid.addEventListener('hardwareBackPress', this.backHandler);
+    BackHandler.addEventListener('hardwareBackPress', this.backHandler);
   }
 
   componentWillUnmount() {
-    BackAndroid.removeEventListener('hardwareBackPress', this.backHandler);
+    BackHandler.removeEventListener('hardwareBackPress', this.backHandler);
   }
 
   backHandler = () => {

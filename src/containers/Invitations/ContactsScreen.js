@@ -78,40 +78,13 @@ class ContactsScreen extends Component {
   }
 
   sendInvitation = (item) => {
-    //API INVITATION
 
-    const data = [
-      'user_login=""',
-      'api_key=""',
-      'sms_recipients=""',
-      'sms_text=""',
-      'sms_type=""',
-      'sms_sender=""',
-    ];
-
-    const url = `http://www.octopush-dm.com/api/sms/?` + data.join('&');
-
-    return fetch(url)
-      .then(response => {
-        console.log('responseresponse', response);
-        if (response.status === 200) {
-          return response.json();
-        }
-        else {
-
-        }
-      })
-      .then((responseJson) => {
-        this.setState((oldState) => ({
-          invitations: [
-            ...oldState.invitations, // copy old data
-            item // toggle
-          ]
-        }));
-      })
-      .catch(error => {
-
-      })
+    this.setState((oldState) => ({
+      invitations: [
+        ...oldState.invitations, // copy old data
+        item // toggle
+      ]
+    }));
 
 
   }
@@ -121,6 +94,7 @@ class ContactsScreen extends Component {
       this.setState({ visiblePopupWarning: true });
     } else {
       this.setState({ visiblePopupConfirm: true });
+
       setTimeout(() => {
         this.setState({ visiblePopupConfirm: false },
           () => this.props.siginSuccess()
@@ -246,15 +220,16 @@ class ContactsScreen extends Component {
           }}
           visiblePopup={this.state.visiblePopupConfirm}
           title={
-            (<View />
-              // <Text>
-              //   Félicitations {
-              //     this.props.user.first_name.length > 10 ?
-              //       '\n' + this.props.user.first_name
-              //       :
-              //       this.props.user.first_name
-              //   } ;-)
-              // </Text>
+            (
+              this.props.user &&
+              <Text>
+                Félicitations {
+                  this.props.user.first_name.length > 10 ?
+                    '\n' + this.props.user.first_name
+                    :
+                    this.props.user.first_name
+                } ;-)
+              </Text>
             )
           }
           message={
@@ -312,7 +287,10 @@ class ContactsScreen extends Component {
           )}
           confirmText={'Envoyer'}
         />
-        <Loading loading={!this.state.loaded} />
+        <Loading
+          loading={!this.state.loaded}
+          title={'Chargement des contacts'}
+        />
       </Background>
     );
   }

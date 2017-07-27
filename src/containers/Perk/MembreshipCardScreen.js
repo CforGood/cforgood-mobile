@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   Platform,
-  BackAndroid,
+  BackHandler,
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -47,14 +47,14 @@ class MembreshipCardScreen extends PureComponent {
   }
 
   componentDidMount() {
-    BackAndroid.addEventListener('hardwareBackPress', this.handleBackAndroid);
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackHandler);
   }
 
   componentWillUnmount() {
-    BackAndroid.removeEventListener('hardwareBackPress', this.handleBackAndroid);
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackHandler);
   }
 
-  handleBackAndroid = () => {
+  handleBackHandler = () => {
     return true;
   }
 

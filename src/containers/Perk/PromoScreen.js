@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   Platform,
-  BackAndroid,
+  BackHandler,
   TextInput,
   Linking,
   Clipboard
@@ -70,14 +70,14 @@ class PromoScreen extends PureComponent {
   };
 
   componentDidMount() {
-    BackAndroid.addEventListener('hardwareBackPress', this.handleBackAndroid);
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackHandler);
   }
 
   componentWillUnmount() {
-    BackAndroid.removeEventListener('hardwareBackPress', this.handleBackAndroid);
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackHandler);
   }
 
-  handleBackAndroid = () => {
+  handleBackHandler = () => {
     return true;
   }
 

@@ -117,10 +117,10 @@ export default class BusinessContact extends Component {
         </View>
         <View>
           {
-            business.telephone &&
+            business.phone &&
             <Social
               color={category.color}
-              text={business.telephone}
+              text={business.phone}
               icon={require('../../resources/icons/phone-circle.png')}
             />
           }

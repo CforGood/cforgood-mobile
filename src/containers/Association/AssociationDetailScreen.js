@@ -340,7 +340,10 @@ class AssociationDetailScreen extends Component {
           onValidate={() => this.onValidate(true)}
           onClose={() => this.setValidationPopup(false)}
         />
-        <Loading loading={!this.state.loaded} />
+        <Loading
+          loading={!this.state.loaded}
+          title={'Chargement des données'}
+        />
       </View>
     );
   }

@@ -46,7 +46,7 @@ export default class Distance extends Component {
             size={15}
             color={this.props.active === false ? colors.white : '#4285f4' }  
           /> 
-        }  
+        }
         <Text
           style={this.props.active? stylesDistance.textActive : stylesDistance.text}
         >  

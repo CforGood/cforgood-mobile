@@ -38,7 +38,7 @@ class SignUpScreen extends Component {
     else if (nextProps.loaded) {
       Keyboard.dismiss();
       await this.props.loadUserData();
-      this.props.navigation.navigate('SignUpCode');
+      setTimeout(() => this.props.navigation.navigate('SignUpCode'), 300);
     }
   }
 
@@ -88,7 +88,10 @@ class SignUpScreen extends Component {
           firstText={""}
           nextStep={this.verify}
         />
-        <Loading loading={!this.props.loaded} />
+        <Loading
+          loading={!this.props.loaded}
+          title={'Création Compte'}
+        />
         <ErrorView
           message={this.state.error}
           removeError={() => this.setState({ error: '' })}

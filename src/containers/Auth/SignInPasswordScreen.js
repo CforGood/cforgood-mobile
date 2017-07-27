@@ -26,12 +26,11 @@ class SignInPassword extends Component {
 
   state = {
     email: '',
-    password: 'cforgood',
+    password: '',
     error: '',
   };
 
   async componentWillReceiveProps(nextProps) {
-
     if (nextProps.LoggedIn === true && this.props.LoggedIn === false) {
       Keyboard.dismiss();
       await this.props.loadUserData();
@@ -39,7 +38,6 @@ class SignInPassword extends Component {
     } else if (nextProps.failure === true && this.props.failure === false) {
       this.setState({ error: nextProps.error });
     }
-
   }
 
   verify = () => {
@@ -72,14 +70,17 @@ class SignInPassword extends Component {
           secondText={"Mot de passe oublié ?"}
           onPress={() => this.props.navigation.navigate('SignInForgetPassword')}
           nextStep={this.verify}
-          styleContainer={{ paddingTop: metrics.doubleBaseMargin * 2 }}
+          styleContainer={{ paddingTop: metrics.doubleBaseMargin }}
         />
         <ErrorView
           message={this.state.error}
           removeError={() => this.setState({ error: '' })}
         />
 
-        <Loading loading={!this.props.loaded} />
+        <Loading
+          loading={!this.props.loaded}
+          title={'Connexion ...'}
+        />
 
       </Background>
     );

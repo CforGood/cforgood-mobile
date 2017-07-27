@@ -1,4 +1,4 @@
-import React, { Component,  } from 'react'; import PropTypes from 'prop-types';
+import React, { Component, } from 'react'; import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -40,20 +40,21 @@ class SignUpCodeScreen extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.failure || nextProps.error !== '') {
       this.setState({ error: nextProps.error });
-    } else if(nextProps.loaded) {
-      this.props.navigation.navigate('SignUpValidation');
-
+    } else if (nextProps.loaded) {
+      Keyboard.dismiss();
+      setTimeout(() => this.props.navigation.navigate('SignUpValidation'), 300);
     }
   }
 
   verify = () => {
     const { code_partner } = this.state;
+
     if (code_partner !== '') {
       this.props.updateUserData(this.props.user.id, { code_partner });
-      Keyboard.dismiss();
     }
     else {
-      this.props.navigation.navigate('SignUpValidation');
+      Keyboard.dismiss();
+      setTimeout(() => this.props.navigation.navigate('SignUpValidation'), 300);
     }
   }
 
@@ -95,7 +96,10 @@ class SignUpCodeScreen extends Component {
           nextStep={() => this.verify()}
           canHandleNextStep={true}
         />
-        <Loading loading={!this.props.loaded} />
+        <Loading
+          loading={!this.props.loaded}
+          title={'Mise à jour code promo'}
+        />
         <ErrorView
           message={this.state.error}
           removeError={() => this.setState({ error: '' })}

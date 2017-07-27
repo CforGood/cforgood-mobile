@@ -120,7 +120,10 @@ class ProfileCreditCardScreen extends Component {
           message={this.state.error}
           removeError={() => this.setState({ error: '' })}
         />
-        <Loading loading={!this.props.loaded} />
+        <Loading
+          loading={!this.props.loaded}
+          title={'Mise à jour CB'}
+        />
         <Header
           back={'-90deg'}
           text={'Ajouter une CB'}

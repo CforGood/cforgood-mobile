@@ -128,7 +128,7 @@ export default class Container extends PureComponent {
                 textAlign: textAlign,
                 color: 'white',
               },
-              Platform.OS === 'android' ? { height: 50 } : { height: 20 },
+              Platform.OS === 'android' ? { height: 40 } : { height: 20 },
               styleTextInput
             ]}
             placeholderTextColor={'rgba(255,255,255,0.3)'}
@@ -150,7 +150,7 @@ export default class Container extends PureComponent {
         </View>
         <Text style={[
           style.text,
-          { marginVertical: metrics.doubleBaseMargin }
+          { marginVertical: metrics.baseMargin }
         ]}>
           {firstText}
         </Text>
@@ -169,7 +169,7 @@ export default class Container extends PureComponent {
             {secondText}
           </Text>
         </TouchableOpacity>
-        <View style={{ alignItems: 'center', height: 100 }}>
+        <View style={{ alignItems: 'center' }}>
           <Icon
             styleImage={{
               width: 60,

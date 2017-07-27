@@ -410,7 +410,10 @@ class AssociationFormScreen extends PureComponent {
           text={'Valider'}
           onPress={() => this.propose()}
         />
-        <Loading loading={!this.state.loaded} />
+        <Loading
+          loading={!this.state.loaded}
+          title={'Envoi des données'}
+        />
       </View>
     );
   }

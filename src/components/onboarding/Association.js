@@ -48,10 +48,10 @@ class Association extends PureComponent {
           ><Text style={[style.text, fonts.style.mediumBold]}>Pour devenir membre ?</Text></Background>)}
           text={(<View>
             <Text style={style.text}>
-              Faites un <Text style={fonts.style.mediumBold}> don </Text> à une association
+              Faites un<Text style={fonts.style.mediumBold}> don </Text>à une association
           </Text>
             <Text style={style.text}>
-              ou <Text style={fonts.style.mediumBold}> invitez vos amis sur l’app ! </Text>
+              ou<Text style={fonts.style.mediumBold}> invitez vos amis sur l’app ! </Text>
             </Text>
           </View>)}
           cta={() => this.setState({ visiblePopupVideo: true })}

@@ -8,7 +8,7 @@ import {
   Animated,
   TouchableOpacity,
   Alert,
-  BackAndroid,
+  BackHandler,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -55,10 +55,10 @@ class BusinessScreen extends PureComponent {
   };
 
   componentDidMount() {
-    BackAndroid.addEventListener('hardwareBackPress', this.backHandler);
+    BackHandler.addEventListener('hardwareBackPress', this.backHandler);
   }
   componentWillUnmount() {
-    BackAndroid.removeEventListener('hardwareBackPress', this.backHandler);
+    BackHandler.removeEventListener('hardwareBackPress', this.backHandler);
   }
 
   backHandler = () => {
@@ -295,7 +295,10 @@ class BusinessScreen extends PureComponent {
             </TouchableOpacity>
           </Animated.View>
         </Animated.View>
-        <Loading loading={!this.state.loaded} />
+        <Loading
+          loading={!this.state.loaded}
+          title={'Chargement des données'}
+        />
         <Button
           type={'simple'}
           onPress={() => this.props.navigation.navigate('PerkList', { business: detailsBusiness, category })}

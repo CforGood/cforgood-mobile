@@ -26,7 +26,6 @@ export default class ContactItem extends Component {
     if (!this.state.selected) {
       this.props.sendInvitation(item);
       this.setState({ selected: true });
-
     }
   }
 

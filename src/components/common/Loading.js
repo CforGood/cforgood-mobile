@@ -2,41 +2,52 @@ import PropTypes from 'prop-types';
 import React, { PureComponent, } from 'react';
 
 import {
-  View,
+  Text,
   Modal,
-  ActivityIndicator
 } from 'react-native';
 import Spinner from 'react-native-spinkit';
 
 import {
   styles,
+  fonts,
+  colors,
 } from '../../themes';
+import Background from './Background';
 
 export default class ModalLoading extends PureComponent {
 
   static propTypes = {
     loading: PropTypes.bool,
+    title: PropTypes.string,
   };
 
   static defaultProps = {
-    loading: false
+    loading: false,
+    title: '',
   };
 
   render() {
-    const { loading } = this.props;
+    const { loading, title } = this.props;
     return (
       <Modal
         animationType={"fade"}
         transparent={true}
         visible={loading}
-        onRequestClose={() => { alert("Fenetre a été fermé") }}
+        onRequestClose={() => { }}
       >
-        <View style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: 'rgba(0,0,0,0.3)',
-        }}>
+        <Background
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Text style={{
+            ...fonts.style.t22,
+            color: colors.white,
+          }}>
+            {title}
+          </Text>
           <Spinner
             style={{
               marginBottom: 40,
@@ -46,7 +57,7 @@ export default class ModalLoading extends PureComponent {
             type={'ThreeBounce'}
             color={'#FFFFFF'}
           />
-        </View>
+        </Background>
       </Modal>
     );
   }
