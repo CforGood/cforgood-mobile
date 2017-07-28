@@ -59,7 +59,8 @@ public class MainApplication extends Application implements ReactApplication {
 
     SoLoader.init(this, /* native exopackage */ false);
     Branch.getAutoInstance(this);
-    Intercom.initialize(this, "android_sdk-b8ee00eb87640fa514372617ba00b3a44393abc5", "a7004d3n");
+    // Intercom.initialize(this, "android_sdk-b8ee00eb87640fa514372617ba00b3a44393abc5", "a7004d3n");
+    Intercom.initialize(this, "android_sdk-a01671cf1d5143126c58d791d40acd5", "qpywnvwu");
   }
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {

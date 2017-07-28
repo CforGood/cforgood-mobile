@@ -48,24 +48,19 @@ class Back extends PureComponent {
             :
             require('../../resources/icons/close-circular-button-of-a-cross-white.png')
         }
-        style={[
-          {
-            backgroundColor: 'transparent',
-            height: 36,
-            width: 36,
-          },
-          this.props.style
-        ]}
-
-        styleImage={[
-          {
-            height: 36,
-            width: 36,
-            tintColor: color,
-            transform: [{ rotate: rotate ? '-90deg' : '0deg' }],
-          },
-          this.props.styleImage
-        ]}
+        style={{
+          backgroundColor: 'transparent',
+          height: 36,
+          width: 36,
+          ...this.props.style
+        }}
+        styleImage={{
+          height: 36,
+          width: 36,
+          tintColor: color,
+          transform: [{ rotate: rotate ? '-90deg' : '0deg' }],
+          ...this.props.styleImage
+        }}
       />
     );
   }

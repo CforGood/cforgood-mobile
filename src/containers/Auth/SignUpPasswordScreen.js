@@ -34,8 +34,7 @@ class SignUpScreen extends Component {
 
     if (nextProps.failure === true) {
       this.setState({ error: nextProps.error[0] });
-    }
-    else if (nextProps.loaded) {
+    } else if (nextProps.loaded) {
       Keyboard.dismiss();
       await this.props.loadUserData();
       setTimeout(() => this.props.navigation.navigate('SignUpCode'), 300);
@@ -76,8 +75,6 @@ class SignUpScreen extends Component {
           source={require('../../resources/icons/arrow-left.png')}
           onPress={() => this.props.navigation.goBack()}
         />
-
-
         <Container
           styleContainer={{ paddingTop: metrics.base }}
           title={'Choisissez un mot de passe'}

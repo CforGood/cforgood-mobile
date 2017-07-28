@@ -56,10 +56,10 @@ export default class ContactItem extends Component {
           />
           <Text style={[
             style.text,
-            { marginLeft: metrics.smallMargin }
+            { marginHorizontal: metrics.smallMargin }
           ]}>
             {
-              item.givenName === null ? item.phoneNumbers.number : (item.familyName + ' ' + item.givenName)
+              item.givenName === null ? item.phoneNumbers.number : ((item.familyName ? item.familyName : '' )+ ' ' + item.givenName)
             }
           </Text>
         </View>

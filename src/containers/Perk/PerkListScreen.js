@@ -75,8 +75,6 @@ class PerkListScreen extends PureComponent {
     }
   }
 
-
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.perk !== null && this.props.perk === null) {
       this.goBack();
@@ -109,7 +107,6 @@ class PerkListScreen extends PureComponent {
           color={category.color}
           text={'Les bons plans'}
         />
-
         <View style={{ flex: 1 }} >
           <Animated.ScrollView
             scrollEventThrottle={1}
@@ -150,7 +147,6 @@ class PerkListScreen extends PureComponent {
             ]}
           />
         </View>
-
       </View>
     );
   }

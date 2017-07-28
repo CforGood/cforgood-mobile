@@ -1,4 +1,5 @@
-import PropTypes from 'prop-types'; import React, {  PureComponent, } from 'react';
+import PropTypes from 'prop-types';
+import React, { PureComponent, } from 'react';
 import {
   View,
   Text,
@@ -47,6 +48,9 @@ export default class Container extends PureComponent {
     style: {},
     typeAuth: 'SignUp',
     canHandleNextStep: false,
+    setErrorFacebook: () => { },
+    validateFacebook: () => { },
+    setLoadedFacebook: () => { },
   };
 
   static propTypes = {
@@ -69,6 +73,9 @@ export default class Container extends PureComponent {
     style: PropTypes.object,
     typeAuth: PropTypes.string,
     canHandleNextStep: PropTypes.bool,
+    setErrorFacebook: PropTypes.func,
+    validateFacebook: PropTypes.func,
+    setLoadedFacebook: PropTypes.func,
   };
 
   componentDidMount() {
@@ -76,7 +83,6 @@ export default class Container extends PureComponent {
   }
 
   render() {
-
     const {
       title,
       textInput,
@@ -157,7 +163,9 @@ export default class Container extends PureComponent {
         {
           facebook &&
           <ButtonFacebook
-            validate={nextStep}
+            setLoaded={this.props.setLoadedFacebook}
+            setError={this.props.setErrorFacebook}
+            validate={this.props.validateFacebook}
             typeAuth={typeAuth}
           />
         }

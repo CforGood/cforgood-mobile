@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -27,18 +28,30 @@ import {
 
 class ButtonFacebook extends PureComponent {
 
-  componentWillReceiveProps(nextProps) {
 
-    if (nextProps.LoggedIn === true && this.props.LoggedIn === false) {
+  static propTypes = {
+    typeAuth: PropTypes.string.isRequired,
+    setError: PropTypes.func.isRequired,
+    validate: PropTypes.func.isRequired,
+    setLoaded: PropTypes.func.isRequired,
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.failure === true && this.props.failure == false) {
+      this.props.setLoaded(true);
+      this.props.setError(nextProps.error[0]);
+    } else if (
+      nextProps.LoggedIn === true && this.props.LoggedIn === false
+    ) {
       this.props.validate();
     }
-
   }
 
   connectWithAcessToken = async (verifyToken = false) => {
 
     const accessToken = await AsyncStorage.getItem('accessToken');
     if (accessToken) {
+      this.props.setLoaded(false);
       const infoRequest = new GraphRequest(
         '/me',
         {
@@ -50,56 +63,58 @@ class ButtonFacebook extends PureComponent {
           }
         },
         (error, result) => {
-
+          // if (verifyToken && error) {
+          //   this.facebookManager();
+          // } else {
+          //alert(JSON.stringify(result));
           this.storeResponseFacebookData(
             error,
             result,
             accessToken
           );
 
-          if (verifyToken && error) {
-            this.facebookManager();
-          }
-
+          // }
         },
       );
       // Start the graph request.
       new GraphRequestManager().addRequest(infoRequest).start();
-    }
-    else if (verifyToken) {
+    } else if (verifyToken) {
       this.facebookManager();
     }
 
   }
 
   facebookManager() {
-
     LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
       (result) => {
         if (result.isCancelled) {
-          alert('Login cancelled');
+          this.props.setError('Login cancelled');
         } else {
           AccessToken.getCurrentAccessToken().then(
             async (data) => {
               await AsyncStorage.setItem('accessToken', data.accessToken);
-              this.connectWithAcessToken();
+              this.connectWithAcessToken(false);
             }
-          );
-
+          ).catch(error => {
+            this.props.setError(error.errorMessage);
+          });
         }
       },
       (error) => {
-        console.log('Login fail with error: ' + error);
+        this.props.setError(error.errorMessage);
       }
     );
   }
 
   //Create response callback.
   storeResponseFacebookData(error, result, accessToken) {
+    this.props.setLoaded(true);
     if (error) {
-      //alert('Error fetching data: ' + error.toString());
+      this.props.setError(error.errorMessage);
     } else {
+
       const { typeAuth } = this.props;
+
       if (typeAuth === 'SignUp') {
         this.props.signup({
           email: result.email,
@@ -108,12 +123,9 @@ class ButtonFacebook extends PureComponent {
           city: result.location ? result.location.name : null,
           zipcode: result.location ? result.location.zip : null,
         }, 'facebook');
-      }
-      else {
+      } else {
         this.props.signin(result.email, accessToken, 'facebook');
       }
-
-
     }
   }
 
@@ -139,6 +151,8 @@ class ButtonFacebook extends PureComponent {
 const mapStateToProps = state => ({
   LoggedIn: state.auth.LoggedIn,
   failure: state.auth.failure,
+  loaded: state.auth.failure,
+  error: state.auth.error,
 });
 
 
@@ -148,8 +162,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ButtonFacebook);
-
-
 
 const style = StyleSheet.create({
   textButton: {

@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'; import React, {  PureComponent, } from 'react';
+import PropTypes from 'prop-types'; import React, { PureComponent, } from 'react';
 
 import {
   View,
@@ -66,11 +66,14 @@ class Header extends PureComponent {
 
     return (
       <HeaderGradiant
-        style={{ ...style.container, ...this.props.style }}
+        style={{
+          ...style.container,
+          ...this.props.style
+        }}
         type={type}
       >
         {(leftElement || back || close) &&
-          <View style={{ flex: 1 }}>
+          <View>
             {
               back &&
               <Back
@@ -83,7 +86,6 @@ class Header extends PureComponent {
           </View>
         }
         <View style={{
-          flex: 4,
           alignItems: 'center',
           justifyContent: 'center'
         }}
@@ -118,7 +120,7 @@ class Header extends PureComponent {
         </View>
         {
           (this.props.close || back || rightElement) &&
-          <View style={{ flex: 1, alignItems: 'flex-end' }}>
+          <View style={{ alignItems: 'flex-end' }}>
             {
               this.props.close &&
               <Back
@@ -130,7 +132,6 @@ class Header extends PureComponent {
             {rightElement}
           </View>
         }
-
       </HeaderGradiant>
     );
   }

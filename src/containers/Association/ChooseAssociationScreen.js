@@ -91,7 +91,7 @@ class AssociationListScreen extends Component {
           <ButtonGradiantRadius
             text={'Soutenir'}
             styleButton={{
-              width: 180
+              width: 150
             }}
             styleText={{
               color: colors.darkGray,
@@ -110,7 +110,7 @@ class AssociationListScreen extends Component {
             contentContainerStyle={[
               styles.wrap,
               {
-                paddingHorizontal: metrics.marginApp,
+                paddingHorizontal: metrics.baseMargin,
                 paddingTop: metrics.baseMargin,
               }
             ]}

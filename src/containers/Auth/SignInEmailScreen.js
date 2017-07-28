@@ -1,20 +1,21 @@
-import React, { Component, } from 'react'; import PropTypes from 'prop-types';
+import React, { Component, } from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
   StyleSheet,
   Keyboard,
 } from 'react-native';
-import FontMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { Kohana } from 'react-native-textinput-effects';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import Background from '../../components/common/Background';
+import Loading from '../../components/common/Loading';
 import ErrorView from '../../components/common/ErrorView';
 import Container from '../../components/login/Container';
+import { loadUserData } from '../../redux/actions/user';
 
-import {
-  validateEmail,
-} from '../../utils/helpers';
+import { validateEmail, } from '../../utils/helpers';
 
 import {
   styles,
@@ -23,22 +24,19 @@ import {
   fonts,
 } from '../../themes';
 
-export default class SingInScreen extends Component {
+class SingInScreen extends Component {
   state = {
-    email: '',
+    email: 'kottianouar@gmail.com',
     error: '',
     step: 1,
+    loaded: true,
   };
 
   verify = () => {
-
     const { email, step } = this.state;
     if (!validateEmail(email)) {
       this.setState({ error: 'L\'adresse email n\'est pas valide' });
-    } else if (step === 1) {
-      this.setState({
-        step: 2
-      });
+    } else {
       Keyboard.dismiss();
       this.props.navigation.navigate('SignInPassword', { email });
     }
@@ -62,19 +60,34 @@ export default class SingInScreen extends Component {
           typeAuth={'Signin'}
           secondText={"Pas de compte ? Je m’inscris"}
           onPress={() => this.props.navigation.goBack()}
-          nextStep={this.verify}
+          nextStep={() => this.verify()}
           styleContainer={{ paddingTop: metrics.doubleBaseMargin }}
+          setLoadedFacebook={(loaded) => this.setState({ loaded })}
+          setErrorFacebook={(error) => this.setState({ error })}
+          validateFacebook={async () => {
+            await this.props.loadUserData();
+            this.props.navigation.navigate('SignInValidation');
+            this.setState({ loaded: true });
+          }}
         />
         <ErrorView
           message={this.state.error}
           removeError={() => this.setState({ error: '' })}
+        />
+        <Loading
+          loading={!this.state.loaded}
+          title={'connexion via Facebook'}
         />
       </Background>
     );
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  loadUserData: bindActionCreators(loadUserData, dispatch),
+});
 
-
-
-
+export default connect(
+  false,
+  mapDispatchToProps
+)(SingInScreen);

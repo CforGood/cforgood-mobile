@@ -37,7 +37,6 @@ export default class SignUpScreen extends Component {
       this.setState({ error: 'L\'adresse email n\'est pas valide' });
     }
     else {
-      //this.setState({ loaded: false });
       ApiHandler.check(email)
         .then(response => {
           if (!response.exist) {
@@ -51,7 +50,7 @@ export default class SignUpScreen extends Component {
           }
         })
         .catch(message => {
-          this.setState({ error: 'Oups ! ce compte existe déjà', loaded: true });
+          this.setState({ error: 'Oups ! Un problème technique est survenu, veuillez réessayer plus tard ?', loaded: true });
         });
     }
   }

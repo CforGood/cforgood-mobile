@@ -24,7 +24,7 @@ class SignInValidationScreen extends Component {
 
   async componentWillMount() {
     // this.props.navigation.navigate('InvitationContacts')
-    setTimeout(() => { this.props.siginSuccess(); }, 1000);
+    setTimeout(() => { this.props.siginSuccess(); }, 3000);
   }
 
   render() {

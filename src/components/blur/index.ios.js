@@ -28,7 +28,6 @@ class Blur extends PureComponent {
 
   render() {
     return (
-
       <BlurView
         blurType={this.props.blurType}
         overlayColor={this.props.overlayColor}

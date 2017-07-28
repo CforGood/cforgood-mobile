@@ -1,4 +1,4 @@
-import React, { Component,  } from 'react'; import PropTypes from 'prop-types';
+import React, { Component, } from 'react'; import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -63,17 +63,14 @@ class ProfileScreen extends Component {
       });
     }
     else {
-      this.props.navigation.goBack();
+     // this.props.navigation.goBack();
     }
 
 
   }
 
   setUserData = (user) => {
-    console.log('subscription', user.subscription, user.amount)
-    this.setState({ user }, () => {
-      //console.log(this.state.user);
-    });
+    this.setState({ user });
   };
 
   setPrictureSource = (pictureSource) => {
@@ -139,8 +136,6 @@ class ProfileScreen extends Component {
 
     await this.props.updateUserData(user.id, userData);
 
-
-
     if (user.subscription !== subscription) {
       this.setVisiblePopupSubscription(true);
     }
@@ -151,8 +146,7 @@ class ProfileScreen extends Component {
     setTimeout(() => {
       this.setVisiblePopupUser(false);
       this.setVisiblePopupSubscription(false);
-    }, 2500
-    );
+    }, 2500);
 
 
     this.updateEmail();
@@ -166,7 +160,8 @@ class ProfileScreen extends Component {
         ||
         subscription != this.state.user.subscription)
 
-      && member === false) {
+      && member === false
+    ) {
       const url = "https://app.cforgood.com/member/users/" + id + "/profile#subscription"
       Linking.canOpenURL(url).then(supported => {
         if (!supported) {
@@ -260,7 +255,6 @@ class ProfileScreen extends Component {
             }
           </View>
         </ScrollView>
-
         {
           Platform.OS === 'ios' &&
           <ModalDatePicker
@@ -268,12 +262,10 @@ class ProfileScreen extends Component {
             onDateChange={(date) => this.setBirthDay(date)}
           />
         }
-
         <Button
           text={' Enregistrer '}
           onPress={() => this.saveUserUpdating()}
         />
-
         <Popup
           onClose={() => this.closePopup()}
           visible={
@@ -286,7 +278,6 @@ class ProfileScreen extends Component {
               'user'
               :
               user.subscription
-
           }
         />
       </View>

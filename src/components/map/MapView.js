@@ -246,7 +246,6 @@ class MapView extends Component {
 
   onUpdateUserLocation = (location) => {
 
-
     if (
       !this.props.location ||
       (
@@ -264,7 +263,10 @@ class MapView extends Component {
       this.setState({ regionUser });
 
       this.props.onUpdateUserLocation(regionUser);
-      this.setCenterCoordinate(regionUser);
+
+      if (!this.props.changedLocation) {
+        this.setCenterCoordinate(regionUser);
+      }
     }
 
   };
@@ -451,7 +453,6 @@ class MapView extends Component {
               coordinates.push([step.end_location.lat, step.end_location.lng]);
             })
           }
-
 
           if (!this.props.mapDirection) {
 

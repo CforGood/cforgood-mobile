@@ -47,11 +47,9 @@ export const signup = (user, type = 'email') => {
       .then(response => {
         if (response.id) {
           dispatch(signin(user.email, user.password, type));
-        }
-        else if (response.error) {
+        } else if (response.error) {
           dispatch(failure(response.error));
         }
-
       })
       .catch(message => {
         dispatch(failure(message.error));
@@ -79,7 +77,6 @@ export const signin = (email, password, type = 'email') => {
           dispatch(sucrityData(response));
         }
         else {
-          alert(response.error);
           dispatch(failure(response.error));
         }
 

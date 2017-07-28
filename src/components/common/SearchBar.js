@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'; import React, {  PureComponent } from 'react';
+import PropTypes from 'prop-types'; import React, { PureComponent } from 'react';
 import {
   StyleSheet,
   ActivityIndicator,
@@ -57,13 +57,11 @@ class SearchBar extends PureComponent {
             <Icon
               onPress={() => this.props.goBack()}
               source={require('../../resources/icons/back-arrow-circular-symbol.png')}
-              style={[
-                {
-                  justifyContent: 'center',
-                  flex: 1,
-                  marginHorizontal: metrics.baseMargin,
-                }
-              ]}
+              style={{
+                justifyContent: 'center',
+                flex: 1,
+                marginHorizontal: metrics.marginApp,
+              }}
               styleImage={{
                 height: 36,
                 width: 36,

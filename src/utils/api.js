@@ -120,8 +120,7 @@ class ApiHandler {
   }
 
   check(email) {
-
-
+    
     let request = {
       method: 'GET',
       headers: {
@@ -141,8 +140,7 @@ class ApiHandler {
         })
         .catch(error => {
           Promise.resolve({ exist: false });
-        })
-
+        });
 
     } catch (e) {
       return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard ?' });
@@ -188,9 +186,7 @@ class ApiHandler {
         })
         .catch(error => {
           return Promise.reject({ error: error.errors || error.error || error.message });
-        })
-
-
+        });
     } catch (e) {
       return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard ?' });
     }

@@ -116,7 +116,7 @@ export default class LikeScreen extends Component {
           />
           <View >
             <Text style={style.text}>
-              Offrez à vos amis <Text style={fonts.style.bold}> 1 mois gratuit </Text>
+              Offrez à vos amis <Text style={fonts.style.bold}>1 mois gratuit</Text>
             </Text>
             <Text style={style.text}>
               graduit sur CforGood !
@@ -126,7 +126,7 @@ export default class LikeScreen extends Component {
           <Text style={[
             style.smallText,
           ]}>
-            Et bénéficiez de <Text style={fonts.style.bold}> 3 mois offerts ! </Text>
+            Et bénéficiez de <Text style={fonts.style.bold}>3 mois offerts !</Text>
           </Text>
           <Icon
             styleImage={{
@@ -177,17 +177,17 @@ export default class LikeScreen extends Component {
 
 const style = StyleSheet.create({
   title: {
-    ...fonts.style.t22,
+    ...fonts.style.t25,
     color: colors.white,
     textAlign: 'center'
   },
   text: {
-    ...fonts.style.t20,
+    ...fonts.style.t22,
     color: colors.white,
     textAlign: 'center'
   },
   smallText: {
-    ...fonts.style.t16,
+    ...fonts.style.t18,
     color: colors.white,
     textAlign: 'center'
   },

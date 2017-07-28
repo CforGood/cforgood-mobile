@@ -94,7 +94,6 @@ class PerksScreen extends Component {
 
 
   componentWillReceiveProps(nextProps) {
-
     if (nextProps.businesses !== this.props.businesses
       ||
       nextProps.categories !== this.props.categories
@@ -109,7 +108,6 @@ class PerksScreen extends Component {
 
   componentWillUpdate(nextProps, nextState) {
     if (nextState.sort !== this.state.sort) {
-
       this._onRefresh(nextState.sort);
     }
   }
@@ -126,7 +124,6 @@ class PerksScreen extends Component {
         (categories.indexOf(13) !== -1 && obj.online === true)
       )
     }
-
 
     if (businesses) {
       results.forEach(business => {
@@ -150,8 +147,7 @@ class PerksScreen extends Component {
           }
 
         })
-      })
-
+      });
 
       this.setState({
         perks,
@@ -190,7 +186,7 @@ class PerksScreen extends Component {
           category={obj.category}
         />
       </TouchableOpacity>
-    )
+    );
   }
 
   _onRefresh = (sort) => {
@@ -210,8 +206,6 @@ class PerksScreen extends Component {
   }
 
   render() {
-
-
     return (
       <View style={styles.screen.mainContainer}>
         <Header
@@ -223,7 +217,6 @@ class PerksScreen extends Component {
             <ListView
               dataSource={this.state.dataSource}
               renderRow={this._renderRow}
-
               enableEmptySections={true}
               onEndReachedThreshold={4}
               initialListSize={4}
@@ -243,7 +236,6 @@ class PerksScreen extends Component {
                 <SeparatorColor />
               </View>
             }
-
             <Filter
               onPress={() => this.props.navigation.navigate('Filter', { from: 'perk' })}
             />

@@ -221,15 +221,17 @@ class ContactsScreen extends Component {
           visiblePopup={this.state.visiblePopupConfirm}
           title={
             (
-              this.props.user &&
-              <Text>
-                Félicitations {
-                  this.props.user.first_name.length > 10 ?
-                    '\n' + this.props.user.first_name
-                    :
-                    this.props.user.first_name
-                } ;-)
-              </Text>
+              this.props.user ?
+                <Text>
+                  Félicitations {
+                    this.props.user.first_name.length > 10 ?
+                      '\n' + this.props.user.first_name
+                      :
+                      this.props.user.first_name
+                  } ;-)
+                </Text>
+                :
+                <Text>Félicitations :-)</Text>
             )
           }
           message={
