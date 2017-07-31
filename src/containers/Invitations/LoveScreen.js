@@ -187,7 +187,7 @@ const style = StyleSheet.create({
     textAlign: 'center'
   },
   smallText: {
-    ...fonts.style.t18,
+    ...fonts.style.t20,
     color: colors.white,
     textAlign: 'center'
   },

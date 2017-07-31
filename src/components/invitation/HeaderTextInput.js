@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'; import React, {  PureComponent, } from 'react';
+import PropTypes from 'prop-types'; import React, { PureComponent, } from 'react';
 import {
   View,
   Text,
@@ -33,10 +33,6 @@ export default class HeaderTextInput extends PureComponent {
       <View style={[
         style.container,
         styles.row,
-        {
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }
       ]}>
         <View>
           <Icon
@@ -53,9 +49,8 @@ export default class HeaderTextInput extends PureComponent {
         <View style={[
           style.containerTextInput,
           {
-            borderBottomColor: this.props.value ? 'white' : 'rgba(255,255,255,0.3)'
+            borderBottomColor: this.props.value ? 'white' : 'rgba(255,255,255,0.3)',
           }
-
         ]}>
           <TextInput
             placeholder={'Chercher par nom …'}
@@ -93,7 +88,9 @@ export default class HeaderTextInput extends PureComponent {
 
 const style = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   text: {
     ...fonts.style.t15,
@@ -112,6 +109,5 @@ const style = StyleSheet.create({
     borderBottomWidth: 2,
     flex: 1,
     borderBottomColor: colors.white,
-    paddingBottom: metrics.baseMargin,
   }
 });                               

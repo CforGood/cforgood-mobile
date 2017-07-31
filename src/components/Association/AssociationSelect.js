@@ -18,7 +18,7 @@ import {
 } from '../../themes';
 
 const WIDTH_WIDGET = (metrics.deviceWidth) / 2
-  - metrics.baseMargin*2;
+  - metrics.smallMargin * 4;
 
 export default class AssociationSelect extends Component {
 
@@ -124,10 +124,11 @@ export default class AssociationSelect extends Component {
 
 const style = StyleSheet.create({
   associationContainer: {
-    width: metrics.deviceWidth / 2 - metrics.baseMargin,
+    width: WIDTH_WIDGET,
     height: 214,
     marginVertical: metrics.smallMargin,
     backgroundColor: 'transparent',
+    marginHorizontal: metrics.smallMargin
   },
   image: {
     width: WIDTH_WIDGET,

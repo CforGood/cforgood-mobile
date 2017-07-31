@@ -89,8 +89,7 @@ export default class Header extends PureComponent {
                   </Text>
                 }
                 <Text style={[
-                  style.text,
-                  { marginHorizontal: metrics.smallMargin }
+                  style.text, 
                 ]}>
                   {numberInvitaion - number} invitations
                 </Text>
@@ -99,7 +98,7 @@ export default class Header extends PureComponent {
                 </Text>
                 <Image
                   style={{
-                    marginLeft: 10,
+                    marginLeft: 30,
                     width: 31,
                     height: 32,
                     tintColor: colors.white,

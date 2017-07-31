@@ -100,6 +100,7 @@ export default StackNavigator(
       },
       header: null,
     },
+    //initialRouteName: '', //xxxxx
     mode: 'card',
     cardStyle: {
       backgroundColor: 'transparent',

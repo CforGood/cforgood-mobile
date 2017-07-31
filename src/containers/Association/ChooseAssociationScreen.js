@@ -24,8 +24,7 @@ import Button from '../../components/common/ButtonGradiant';
 import ButtonGradiantRadius from '../../components/common/ButtonGradiantRadius'
 import AssociationSelect from '../../components/Association/AssociationSelect';
 import { updateUserData } from '../../redux/actions/user';
-
-
+ 
 class AssociationListScreen extends Component {
   state = {
     selected: null,
@@ -100,17 +99,17 @@ class AssociationListScreen extends Component {
           />
         </View>
         <View style={{
-          flex: 1,
-          backgroundColor: colors.white
-        }}
+            flex: 1,
+            backgroundColor: colors.white
+          }}
         >
           <FlatList
-            data={this.props.associations}
+            data={ this.props.associations}  
             keyExtractor={this._keyExtractor}
             contentContainerStyle={[
               styles.wrap,
               {
-                paddingHorizontal: metrics.baseMargin,
+                marginHorizontal: metrics.baseMargin,
                 paddingTop: metrics.baseMargin,
               }
             ]}
@@ -131,7 +130,7 @@ class AssociationListScreen extends Component {
             backgroundColor: 'white'
           }}
           styleText={{
-            ...fonts.style.t15,
+            ...fonts.style.t18,
             color: colors.ignore,
           }}
           text={'Passer'}
