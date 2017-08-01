@@ -54,7 +54,11 @@ export default class Commitment extends PureComponent {
     return (
       <View style={[
         styleCommitment.container,
-        { justifyContent: this.props.index % 2 ? 'flex-end' : 'flex-start' }
+        {
+          width: (metrics.deviceWidth / 2) - (metrics.baseMargin * 2),
+          paddingLeft: this.props.index % 2 ? metrics.smallMargin : 0,
+          marginLeft: this.props.index % 2 ? metrics.smallMargin : 0, 
+        }
       ]}
       >
         <Image
@@ -66,6 +70,7 @@ export default class Commitment extends PureComponent {
           style={[
             fonts.style.bold,
             fonts.style.normal,
+            { marginLeft: metrics.smallMargin /2 }
           ]}
         >
           {this.props.name}
@@ -78,10 +83,10 @@ export default class Commitment extends PureComponent {
 const styleCommitment = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    //justifyContent: 'flex-start',
     alignItems: 'center',
     width: (metrics.deviceWidth) / 2 - metrics.marginApp,
     marginVertical: metrics.smallMargin,
-    paddingLeft: metrics.smallMargin,
   },
   image: {
     height: metrics.deviceWidth / 20,

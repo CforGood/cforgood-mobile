@@ -85,7 +85,7 @@ const Routes = {
   },
   SignUpValidation: {
     screen: SignUpValidationScreen
-  },
+  },  
 };
 
 export default StackNavigator(

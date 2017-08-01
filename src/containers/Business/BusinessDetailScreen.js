@@ -42,7 +42,7 @@ import {
   getCategory,
 } from '../../constants/categories';
 
-
+import { labelsBusniness } from '../../dummyData';
 
 const HEADER_MAX_HEIGHT = 221;
 const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 70 : 50;
@@ -189,8 +189,7 @@ class BusinessScreen extends PureComponent {
                     index={key}
                     key={key}
                     name={label.name}
-                    picture={label.picture}
-
+                    picture={label.picture} 
                   />
                 )
               }
