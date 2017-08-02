@@ -41,12 +41,40 @@ class ApiHandler {
     return this.api(`users/${id}`, params, 'PATCH');
   }
 
-  uses(perk_id: number) {
+  uses(perk_id) {
     return this.api(`uses`, { use: { perk_id } }, 'POST');
   }
 
-  feedback(id: number, feedback: string) {
+  feedback(id, feedback) {
     return this.api(`uses/${id}`, { use: { feedback } }, 'PATCH');
+  }
+
+  sendInvitation(invitations) {
+    const contacts = invitations.map(i => {
+      return {
+        first_name: i.givenName,
+        last_name: i.familyName,
+        phone: i.phoneNumbers && i.phoneNumbers.number,
+        city: (i.postalAddresses && i.postalAddresses[0]) ?
+          i.postalAddresses[0].city : ''
+      }
+    });
+    
+    const request = {
+      method: 'POST',
+      body: JSON.stringify({ contacts })
+    };
+
+    return this.simpleAPI(request, 'contacts');
+  }
+
+  code_partner(location) {
+    const { latitude, longitude } = location;
+
+    const request = {
+      method: 'GET',
+    };
+   return this.simpleAPI(request, `partners?lat=${latitude}&lng=${longitude}`);
   }
 
   async loadUserData() {
@@ -68,8 +96,6 @@ class ApiHandler {
   }
 
   uploadPicture(uri, prevPicture = null) {
-
-
     const fileName = uri.split('/').slice(-1)[0];
 
     const timestamp = (Date.now() / 1000 | 0).toString();
@@ -94,14 +120,10 @@ class ApiHandler {
       formdata.append('public_id', public_id);
 
       hashString = hashString + '&public_id=' + public_id;
-
     }
 
     const signature = CryptoJS.SHA1(hashString).toString();
     formdata.append('signature', signature);
-
-    console.log('formdataformdata', formdata);
-
 
     return fetch(uploadUrl, {
       method: "POST",
@@ -120,7 +142,7 @@ class ApiHandler {
   }
 
   check(email) {
-    
+
     let request = {
       method: 'GET',
       headers: {
@@ -128,7 +150,6 @@ class ApiHandler {
       },
     };
     try {
-
       return fetch(`${API_URL}/check`, request)
         .then(response => {
           if (response.status === 200) {
@@ -148,7 +169,6 @@ class ApiHandler {
   };
 
   signin(email, password, type) {
-
 
     let request = {
       method: 'POST',
@@ -208,7 +228,6 @@ class ApiHandler {
       })
       .then((responseJson) => {
         return Promise.resolve(responseJson);
-
       })
       .catch(error => {
         console.log('catchAPI', error)
@@ -251,7 +270,6 @@ class ApiHandler {
         })
         .then((responseJson) => {
           return responseJson;
-
         })
         .catch(error => {
           return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard ?' });
@@ -261,6 +279,26 @@ class ApiHandler {
       return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard ?' });
     }
   }
+
+
+  simpleAPI(request, endpoint) {
+
+    try {
+      return fetch(`${API_URL}/${endpoint}`, request)
+        .then(response => {
+          return response.json();
+        })
+        .then((responseJson) => {
+          return Promise.resolve(responseJson);
+        })
+        .catch(error => {
+          Promise.resolve({ exist: false });
+        });
+
+    } catch (e) {
+      return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard ?' });
+    }
+  };
 
 }
 

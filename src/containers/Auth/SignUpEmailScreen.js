@@ -32,6 +32,7 @@ export default class SignUpScreen extends Component {
   };
 
   verify = () => {
+    this.setState({ loaded: false });
     const { email } = this.state;
     if (!validateEmail(email)) {
       this.setState({ error: 'L\'adresse email n\'est pas valide' });

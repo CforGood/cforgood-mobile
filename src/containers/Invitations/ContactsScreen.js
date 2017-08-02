@@ -22,6 +22,8 @@ import ContactItem from '../../components/invitation/ContactItem';
 import SeparatorInvitation from '../../components/invitation/SeparatorInvitation';
 import { siginSuccess } from '../../redux/actions/auth';
 
+import ApiHandler from '../../utils/api';
+
 import {
   styles,
   colors,
@@ -93,14 +95,19 @@ class ContactsScreen extends Component {
     if (this.state.invitations.length < NUMBER_INVITATION) {
       this.setState({ visiblePopupWarning: true });
     } else {
-      this.setState({ visiblePopupConfirm: true });
+      this.setState({ visiblePopupConfirm: true, loaded: false });
 
-      setTimeout(() => {
-        this.setState({ visiblePopupConfirm: false },
-          () => this.props.siginSuccess()
-        );
-      }, 1000);
-
+      ApiHandler.sendInvitation(this.state.invitations)
+        .then(response => {
+          this.setState({ loaded: true });
+          setTimeout(() => {
+            this.setState({ visiblePopupConfirm: false },
+              () => this.props.siginSuccess()
+            );
+          }, 2000);
+        })
+        .catch(message => {
+        });
     }
   }
 
@@ -288,10 +295,6 @@ class ContactsScreen extends Component {
             />
           )}
           confirmText={'Envoyer'}
-        />
-        <Loading
-          loading={!this.state.loaded}
-          title={'Chargement des contacts'}
         />
       </Background>
     );

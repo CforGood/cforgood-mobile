@@ -16,6 +16,7 @@ import Icon from '../../components/common/Icon';
 import ErrorView from '../../components/common/ErrorView';
 import { signup } from '../../redux/actions/auth';
 import { loadUserData } from '../../redux/actions/user';
+import ApiHandler from '../../utils/api';
 
 import {
   styles,
@@ -37,7 +38,29 @@ class SignUpScreen extends Component {
     } else if (nextProps.loaded) {
       Keyboard.dismiss();
       await this.props.loadUserData();
-      setTimeout(() => this.props.navigation.navigate('SignUpCode'), 300);
+
+      this.CodePartner();
+
+    }
+  }
+
+  CodePartner() {
+    if (this.props.location) {
+      ApiHandler.code_partner(this.props.location)
+        .then(response => {
+          this.setState({ loaded: true });
+          if (response.code_partner) {
+            setTimeout(() => this.props.navigation.navigate('SignUpCodePartner', { code_partner: response.code_partner }));
+          }
+          else {
+            setTimeout(() => this.props.navigation.navigate('SignUpCode'));
+          }
+        })
+        .catch(message => {
+          setTimeout(() => this.props.navigation.navigate('SignUpCode'));
+        });
+    } else {
+      setTimeout(() => this.props.navigation.navigate('SignUpCode'));
     }
   }
 
@@ -99,6 +122,7 @@ class SignUpScreen extends Component {
 }
 
 const mapStateToProps = state => ({
+  location: state.location.latlng,
   LoggedIn: state.auth.LoggedIn,
   failure: state.auth.failure,
   loaded: state.auth.loaded,

@@ -21,6 +21,7 @@ import SignUpFirstnameScreen from '../containers/Auth/SignUpFirstnameScreen';
 import SignUpLastnameScreen from '../containers/Auth/SignUpLastnameScreen';
 import SignUpPasswordScreen from '../containers/Auth/SignUpPasswordScreen';
 import SignUpCodeScreen from '../containers/Auth/SignUpCodeScreen';
+import SignUpCodePartnerScreen from '../containers/Auth/SignUpCodePartnerScreen';
 import SignUpValidationScreen from '../containers/Auth/SignUpValidationScreen';
 
 
@@ -64,6 +65,9 @@ const Routes = {
   },
   SignUpCode: {
     screen: SignUpCodeScreen,
+  },
+  SignUpCodePartner: {
+    screen: SignUpCodePartnerScreen,
   },
   SignUpEmail: {
     screen: SignUpEmailScreen,

@@ -119,13 +119,15 @@ export default class Container extends PureComponent {
           ...styleContainer,
         }}
       >
-        <View>
+        <View style={{ alignItems: 'center', }}>
           <Text style={style.title}>
             {title}
           </Text>
           <Text style={style.textSub}>
             {subtitle}
           </Text>
+        </View>
+        <View>
           <TextInput
             ref={(input) => { this.input = input; }}
             style={[
@@ -133,6 +135,7 @@ export default class Container extends PureComponent {
               {
                 textAlign: textAlign,
                 color: 'white',
+                width: metrics.deviceWidth - metrics.marginApp
               },
               Platform.OS === 'android' ? { height: 40 } : { height: 20 },
               styleTextInput

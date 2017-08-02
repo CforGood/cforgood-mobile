@@ -14,6 +14,8 @@ import Loading from '../../components/common/Loading';
 import ErrorView from '../../components/common/ErrorView';
 import { loadUserData } from '../../redux/actions/user';
 
+import ApiHandler from '../../utils/api';
+
 import {
   styles,
   colors,
@@ -43,6 +45,30 @@ class SignUpFirstnameScreen extends Component {
     }
   }
 
+  validateFacebook = async () => {
+    await this.props.loadUserData();
+
+    if (this.props.location) {
+      ApiHandler.code_partner(this.props.location)
+        .then(response => {
+          this.setState({ loaded: true });
+          if (response.code_partner) {
+            setTimeout(() => this.props.navigation.navigate('SignUpCodePartner', { code_partner: response.code_partner }));
+          }
+          else {
+            setTimeout(() => this.props.navigation.navigate('SignUpCode'));
+          }
+        })
+        .catch(message => {
+          setTimeout(() => this.props.navigation.navigate('SignUpCode'));
+        });
+    } else {
+      setTimeout(() => this.props.navigation.navigate('SignUpCode'));
+    }
+
+    this.setState({ loaded: true });
+  }
+
   render() {
     const { firstname } = this.state;
     return (
@@ -67,11 +93,7 @@ class SignUpFirstnameScreen extends Component {
             this.setState({ error })
           }
           }
-          validateFacebook={async () => {
-            await this.props.loadUserData();
-            setTimeout(() => this.props.navigation.navigate('SignUpCode'), 300);
-            this.setState({ loaded: true });
-          }}
+          validateFacebook={this.validateFacebook}
         />
 
         <ErrorView
@@ -86,13 +108,16 @@ class SignUpFirstnameScreen extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  location: state.location.latlng,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   loadUserData: bindActionCreators(loadUserData, dispatch),
 });
 
 export default connect(
-  false,
+  mapStateToProps,
   mapDispatchToProps
 )(SignUpFirstnameScreen);
 
