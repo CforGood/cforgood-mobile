@@ -43,9 +43,11 @@ export default class SignUpScreen extends Component {
           if (!response.exist) {
             const { params } = this.props.navigation.state;
             Keyboard.dismiss();
-            setTimeout(() => this.props.navigation.navigate('SignUpPassword', { user: { email, ...params.user } }), 300);
+            this.setState({ loaded: true },
+              () => {
+                setTimeout(() => this.props.navigation.navigate('SignUpPassword', { user: { email, ...params.user } }), 500);
+              });
 
-            this.setState({ loaded: true });
           } else {
             this.setState({ error: 'Oups ! ce compte existe déjà', loaded: true });
           }

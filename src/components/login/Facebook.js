@@ -37,13 +37,15 @@ class ButtonFacebook extends PureComponent {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.failure === true && this.props.failure == false) {
-      this.props.setLoaded(true);
-      this.props.setError(nextProps.error[0]);
+    if (
+      nextProps.failure === true
+      && this.props.failure == false
+    ) {
+      this.props.setError(nextProps.error);
     } else if (
       nextProps.LoggedIn === true && this.props.LoggedIn === false
     ) {
-      this.props.validate();
+      this.props.validate(nextProps.typeAuthF);
     }
   }
 
@@ -51,7 +53,6 @@ class ButtonFacebook extends PureComponent {
 
     const accessToken = await AsyncStorage.getItem('accessToken');
     if (accessToken) {
-      this.props.setLoaded(false);
       const infoRequest = new GraphRequest(
         '/me',
         {
@@ -63,10 +64,6 @@ class ButtonFacebook extends PureComponent {
           }
         },
         (error, result) => {
-          // if (verifyToken && error) {
-          //   this.facebookManager();
-          // } else {
-          //alert(JSON.stringify(result));
           this.storeResponseFacebookData(
             error,
             result,
@@ -108,7 +105,6 @@ class ButtonFacebook extends PureComponent {
 
   //Create response callback.
   storeResponseFacebookData(error, result, accessToken) {
-    this.props.setLoaded(true);
     if (error) {
       this.props.setError(error.errorMessage);
     } else {
@@ -122,6 +118,7 @@ class ButtonFacebook extends PureComponent {
           first_name: result.first_name,
           city: result.location ? result.location.name : null,
           zipcode: result.location ? result.location.zip : null,
+          access_token: accessToken,
         }, 'facebook');
       } else {
         this.props.signin(result.email, accessToken, 'facebook');
@@ -153,6 +150,7 @@ const mapStateToProps = state => ({
   failure: state.auth.failure,
   loaded: state.auth.failure,
   error: state.auth.error,
+  typeAuthF: state.auth.typeAuth,
 });
 
 

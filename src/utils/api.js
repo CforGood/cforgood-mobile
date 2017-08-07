@@ -59,7 +59,7 @@ class ApiHandler {
           i.postalAddresses[0].city : ''
       }
     });
-    
+
     const request = {
       method: 'POST',
       body: JSON.stringify({ contacts })
@@ -70,11 +70,11 @@ class ApiHandler {
 
   code_partner(location) {
     const { latitude, longitude } = location;
-
     const request = {
       method: 'GET',
     };
-   return this.simpleAPI(request, `partners?lat=${latitude}&lng=${longitude}`);
+
+    return this.simpleAPI(request, `partners?lat=${latitude}&lng=${longitude}`);
   }
 
   async loadUserData() {
@@ -184,7 +184,7 @@ class ApiHandler {
         method: 'POST',
         headers: {
           'email': email,
-          'access_token': password,
+          'access_token': password
         }
       };
     }

@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 
 import Background from '../../components/common/Background';
 import Loading from '../../components/common/Loading';
@@ -26,7 +27,7 @@ import {
 
 class SingInScreen extends Component {
   state = {
-    email: 'kottianouar@gmail.com',
+    email: '',
     error: '',
     step: 1,
     loaded: true,
@@ -59,15 +60,22 @@ class SingInScreen extends Component {
           facebook={true}
           typeAuth={'Signin'}
           secondText={"Pas de compte ? Je m’inscris"}
-          onPress={() => this.props.navigation.goBack()}
+          onPress={() => {
+            this.props.navigation.goBack();
+          }}
           nextStep={() => this.verify()}
           styleContainer={{ paddingTop: metrics.doubleBaseMargin }}
           setLoadedFacebook={(loaded) => this.setState({ loaded })}
-          setErrorFacebook={(error) => this.setState({ error })}
-          validateFacebook={async () => {
-            await this.props.loadUserData();
-            this.props.navigation.navigate('SignInValidation');
-            this.setState({ loaded: true });
+          setErrorFacebook={(error) => {
+            this.setState({ error, loaded: true })
+          }}
+          validateFacebook={async (type) => {
+            if (type === 'signin') {
+              this.setState({ loaded: true });
+              await this.props.loadUserData();
+              this.props.navigation.navigate('SignInValidation');
+            }
+
           }}
         />
         <ErrorView

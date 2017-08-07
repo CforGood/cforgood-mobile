@@ -13,7 +13,8 @@ const initialState = {
   loaded: true,
   failure: false,
   LoggedIn: false,
-  error: null
+  error: null,
+  typeAuth: 'signup',
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -24,6 +25,7 @@ const reducer = (state = initialState, action = {}) => {
         loaded: false,
         failure: false,
         error: null,
+        typeAuth: action.typeAuth,
       };
     case LOGIN_SUCCESS:
       return {
@@ -32,7 +34,7 @@ const reducer = (state = initialState, action = {}) => {
         isLoggedIn: true,
         failure: false,
         error: null,
-        
+
       };
     case LOGIN:
       return {
@@ -41,7 +43,7 @@ const reducer = (state = initialState, action = {}) => {
         LoggedIn: true,
         failure: false,
         error: null,
-        
+
       };
     case LOGIN_FAILURE:
       AsyncStorage.removeItem('@CfoorGoodStore:auth');

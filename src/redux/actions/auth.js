@@ -12,9 +12,10 @@ import {
 
 import { sucrityData, loadUserData } from './user';
 
-export const load = () => {
+export const load = (type) => {
   return {
-    type: LOGIN_LOAD
+    type: LOGIN_LOAD,
+    typeAuth: type
   };
 }
 
@@ -41,7 +42,7 @@ export const siginSuccess = () => {
 export const signup = (user, type = 'email') => {
   return async (dispatch) => {
 
-    dispatch(load());
+    dispatch(load('signup', type));
 
     ApiHandler.signup(user)
       .then(response => {
@@ -67,7 +68,7 @@ export const sigin = () => {
 export const signin = (email, password, type = 'email') => {
 
   return (dispatch) => {
-    dispatch(load());
+    dispatch(load('signin'));
 
     ApiHandler.signin(email, password, type)
       .then(response => {

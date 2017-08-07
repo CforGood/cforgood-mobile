@@ -25,8 +25,8 @@ import {
 class SignInPassword extends Component {
 
   state = {
-    email: 'kottianouar@gmail.com',
-    password: 'cforgood',
+    email: '',
+    password: '',
     error: '',
   };
 

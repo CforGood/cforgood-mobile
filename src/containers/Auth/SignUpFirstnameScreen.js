@@ -33,40 +33,45 @@ class SignUpFirstnameScreen extends Component {
 
   verifyFirstname = () => {
     const { firstname, step } = this.state;
-    if (firstname !== '' && step === 1) {
-      this.setState({
-        step: 2
-      });
-      Keyboard.dismiss();
-      setTimeout(() => this.props.navigation.navigate('SignUpLastname', { user: { first_name: firstname } }), 300);
+    if (firstname !== '') {
+      if (step === 1) {
+        this.setState({
+          step: 2
+        });
+        Keyboard.dismiss();
+        setTimeout(() => this.props.navigation.navigate('SignUpLastname', { user: { first_name: firstname } }), 300);
+      }
     }
     else {
-      this.setState({ error: '' });
+      this.setState({ error: 'Prénom Obligatoire !' });
     }
   }
 
-  validateFacebook = async () => {
-    await this.props.loadUserData();
+  validateFacebook = async (type) => {
+    if (type === 'signup') {
+      await this.props.loadUserData();
 
-    if (this.props.location) {
-      ApiHandler.code_partner(this.props.location)
-        .then(response => {
-          this.setState({ loaded: true });
-          if (response.code_partner) {
-            setTimeout(() => this.props.navigation.navigate('SignUpCodePartner', { code_partner: response.code_partner }));
-          }
-          else {
+      if (this.props.location) {
+        ApiHandler.code_partner(this.props.location)
+          .then(response => {
+            this.setState({ loaded: true });
+            if (response.code_partner) {
+              setTimeout(() => this.props.navigation.navigate('SignUpCodePartner', { code_partner: response.code_partner }));
+            }
+            else {
+              setTimeout(() => this.props.navigation.navigate('SignUpCode'));
+            }
+          })
+          .catch(message => {
             setTimeout(() => this.props.navigation.navigate('SignUpCode'));
-          }
-        })
-        .catch(message => {
-          setTimeout(() => this.props.navigation.navigate('SignUpCode'));
-        });
-    } else {
-      setTimeout(() => this.props.navigation.navigate('SignUpCode'));
+          });
+      } else {
+        setTimeout(() => this.props.navigation.navigate('SignUpCode'));
+      }
+
+      this.setState({ loaded: true });
     }
 
-    this.setState({ loaded: true });
   }
 
   render() {
@@ -95,7 +100,6 @@ class SignUpFirstnameScreen extends Component {
           }
           validateFacebook={this.validateFacebook}
         />
-
         <ErrorView
           message={this.state.error}
           removeError={() => this.setState({ error: '' })}
@@ -108,6 +112,7 @@ class SignUpFirstnameScreen extends Component {
     );
   }
 }
+
 const mapStateToProps = state => ({
   location: state.location.latlng,
 });

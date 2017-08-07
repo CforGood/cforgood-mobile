@@ -29,6 +29,7 @@ class SignUpScreen extends Component {
   state = {
     password: '',
     error: '',
+    loaded: true,
   };
 
   async componentWillReceiveProps(nextProps) {
@@ -45,10 +46,11 @@ class SignUpScreen extends Component {
   }
 
   CodePartner() {
+
+    this.setState({ loaded: true });
     if (this.props.location) {
       ApiHandler.code_partner(this.props.location)
         .then(response => {
-          this.setState({ loaded: true });
           if (response.code_partner) {
             setTimeout(() => this.props.navigation.navigate('SignUpCodePartner', { code_partner: response.code_partner }));
           }
@@ -66,9 +68,11 @@ class SignUpScreen extends Component {
 
   verify = () => {
     const { password } = this.state;
-    if (password !== '') {
-      const { params } = this.props.navigation.state;
 
+    if (password !== '') {
+
+      const { params } = this.props.navigation.state;
+      this.setState({ loaded: false });
       this.props.signup({
         password,
         ...params.user
@@ -109,7 +113,7 @@ class SignUpScreen extends Component {
           nextStep={this.verify}
         />
         <Loading
-          loading={!this.props.loaded}
+          loading={!this.state.loaded}
           title={'Création Compte'}
         />
         <ErrorView

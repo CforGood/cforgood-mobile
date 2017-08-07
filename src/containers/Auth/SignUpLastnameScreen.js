@@ -27,11 +27,10 @@ export default class SignUpLastnameScreen extends Component {
     const { params } = this.props.navigation.state;
     if (lastname !== '') {
        Keyboard.dismiss();
-
       setTimeout(() => this.props.navigation.navigate('SignUpEmail', { user: { last_name: lastname, ...params.user } }), 300);
     }
     else {
-      this.setState({ error: '' });
+      this.setState({ error: 'Nom Obligatoire !' });
     }
   }
 

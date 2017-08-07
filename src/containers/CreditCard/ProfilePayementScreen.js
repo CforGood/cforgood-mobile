@@ -1,4 +1,4 @@
-import React, { Component,  } from 'react'; import PropTypes from 'prop-types';
+import React, { Component, } from 'react'; import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -33,7 +33,7 @@ import ApiHandler from '../../utils/api';
 class ProfilePaymentScreen extends Component {
   state = {
     error: '',
-    user: null,
+    user: null
   };
 
   componentWillReceiveProps(nextProps) {
@@ -46,7 +46,13 @@ class ProfilePaymentScreen extends Component {
   }
 
   componentWillMount() {
-    this.setState({ user: this.props.user });
+    this.setState({
+      user: {
+        ...this.props.user,
+        subscription: 'Y',
+        amount: 5,
+      }
+    });
   }
 
   handleConfirm = () => {
@@ -61,7 +67,7 @@ class ProfilePaymentScreen extends Component {
       }
       else {
         this.setState({
-          error: 'Oups ! \n Choisissez d\'abort un montant :-)',
+          error: 'Oups ! \n Choisissez d\'abord un montant :-)',
         })
       }
     }
@@ -88,8 +94,8 @@ class ProfilePaymentScreen extends Component {
           onClose={null}
         />
         <ScrollView contentContainerStyle={{
-          flex: 1,
-          marginHorizontal: metrics.marginApp
+          marginHorizontal: metrics.marginApp,
+          paddingBottom: metrics.doubleBaseMargin
         }}>
           <Payement
             user={this.props.user}
