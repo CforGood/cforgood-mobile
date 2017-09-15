@@ -99,8 +99,6 @@ export default class DateTimePicker extends Component {
   }
 
   onDateChange = (date) => {
-    //this.setState({ date });
-
     this.props.onDateChange(date);
   }
 

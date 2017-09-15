@@ -50,6 +50,7 @@ class ApiHandler {
   }
 
   sendInvitation(invitations) {
+    alert(JSON.stringify(invitations));
     const contacts = invitations.map(i => {
       return {
         first_name: i.givenName,
@@ -64,6 +65,8 @@ class ApiHandler {
       method: 'POST',
       body: JSON.stringify({ contacts })
     };
+
+    console.log('SEND SMS ', request);
 
     return this.simpleAPI(request, 'contacts');
   }

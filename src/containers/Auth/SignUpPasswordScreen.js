@@ -114,7 +114,7 @@ class SignUpScreen extends Component {
         />
         <Loading
           loading={!this.state.loaded}
-          title={'Création Compte'}
+          title={'Création du Compte'}
         />
         <ErrorView
           message={this.state.error}

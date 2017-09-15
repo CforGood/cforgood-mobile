@@ -102,7 +102,7 @@ class MapDirection extends Component {
             onPress={() => this.props.setMode('driving')}
           />
           <Distance 
-            text={'A pied'} 
+            text={''} 
             icon={'directions-walk'}
             active={this.props.mode === 'walking'}
             onPress={() => this.props.setMode('walking')}

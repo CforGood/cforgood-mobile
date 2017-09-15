@@ -94,7 +94,7 @@ export default class Header extends PureComponent {
                   {numberInvitaion - number} invitations
                 </Text>
                 <Text style={style.smallText}>
-                  à envoyer!
+                  {` à envoyer!`}
                 </Text>
                 <Image
                   style={{

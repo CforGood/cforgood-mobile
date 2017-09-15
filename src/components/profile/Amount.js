@@ -269,10 +269,11 @@ export default class Amount extends PureComponent {
           <Text
             style={{
               ...fonts.style.t13,
-              color: colors.textinput
+              color: colors.textinput,
+              marginVertical: metrics.smallMargin
             }}
           >
-            Nos membres donnent en moyenne 7 €
+            Nos membres donnent en moyenne {subscription === 'Y' ? 60 : 7} €
           </Text>
         </View>
         {

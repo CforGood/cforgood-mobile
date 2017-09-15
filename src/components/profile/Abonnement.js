@@ -1,4 +1,4 @@
-import React, { PureComponent,  } from 'react'; import PropTypes from 'prop-types';
+import React, { PureComponent, } from 'react'; import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -43,12 +43,12 @@ class Abonnement extends PureComponent {
 
   OpenMember() {
     this.props.navigation.navigate(
-      'WebView',
+      'CreditCard',
       {
-        url: `https://app.cforgood.com/member/users/${this.props.user.id}/profile#subscription`,
-        title: 'Mettre à jour CB'
+        title: 'Mettre à jour CB',
+        from: 'profile',
       }
-    )
+    );
   }
 
   render() {
@@ -59,7 +59,7 @@ class Abonnement extends PureComponent {
     }
     return (
       <View style={styles.screen.mainContainer}>
-        <Payement 
+        <Payement
           user={user}
           title={'Participation'}
           setUserData={this.props.setUserData}
@@ -105,7 +105,11 @@ class Abonnement extends PureComponent {
           <View style={{ flex: 1 }} />
         </View>
         <Separator color={colors.separatorLine} style={{ marginVertical: 20 }} />
-        <Text style={style.boldCenter} >
+        <Text style={[
+          fonts.style.t16,
+          style.boldCenter
+        ]}
+        >
           Coordonnées bancaires
         </Text>
         <ButtonUpdate
@@ -115,16 +119,18 @@ class Abonnement extends PureComponent {
           onPress={() => this.OpenMember()}
 
         />
-        <TouchableOpacity
-          onPress={() => this.updateMember()}
-        >
-          <Text
-            style={[fonts.style.t16, { textAlign: 'center' }]}
+        {
+          this.props.user.member &&
+          <TouchableOpacity
+            onPress={() => this.updateMember()}
           >
-            Je me désabonne
+            <Text
+              style={[fonts.style.t16, { textAlign: 'center' }]}
+            >
+              Je me désabonne
           </Text>
-        </TouchableOpacity>
-
+          </TouchableOpacity>
+        }
 
       </View>
     );

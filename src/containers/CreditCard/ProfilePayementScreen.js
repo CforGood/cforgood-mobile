@@ -40,12 +40,17 @@ class ProfilePaymentScreen extends Component {
     if (nextProps.failure === true) {
       this.setState({ error: nextProps.error[0] });
     }
-    else if (nextProps.user.amount !== null) {
-      this.props.navigation.navigate('CreditCard');
+    else if (nextProps.user.amount !== null && 
+      this.props.user.amount !== nextProps.user.amount
+    ) {
+      this.props.navigation.navigate('CreditCard', {
+        from: 'auth',
+        title: 'Ajouter une CB',
+      });
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({
       user: {
         ...this.props.user,

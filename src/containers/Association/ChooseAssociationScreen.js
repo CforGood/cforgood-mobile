@@ -1,4 +1,4 @@
-import React, { Component,  } from 'react'; import PropTypes from 'prop-types';
+import React, { Component, } from 'react'; import PropTypes from 'prop-types';
 import {
   View,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import ApiHandler from '../../utils/api';
 
 import {
   styles,
@@ -24,12 +25,29 @@ import Button from '../../components/common/ButtonGradiant';
 import ButtonGradiantRadius from '../../components/common/ButtonGradiantRadius'
 import AssociationSelect from '../../components/Association/AssociationSelect';
 import { updateUserData } from '../../redux/actions/user';
- 
+
 class AssociationListScreen extends Component {
   state = {
     selected: null,
     error: '',
+    associations: [],
+    loaded: false,
   };
+
+  componentWillMount() {
+    let location = this.props.location || { latitude: 44.8460252, longitude: -0.5736973 };
+    ApiHandler.associations(location)
+      .then(response => {
+        if (response && !response.error) {
+          if (response.length !== 0) {
+            this.setState({ associations: response });
+          }
+        }
+      })
+      .catch(message => {
+        // dispatch(failure(message.error));
+      });
+  }
 
   componentWillReceiveProps(nextProps) {
 
@@ -40,10 +58,12 @@ class AssociationListScreen extends Component {
       nextProps.user.cause_id !== null
       &&
       nextProps.loaded
+      &&
+      !this.state.loaded
     ) {
+      this.setState({ loaded: true })
       this.props.navigation.navigate('Payment');
     }
-
   }
 
   _keyExtractor = (item) => item.id;
@@ -54,7 +74,7 @@ class AssociationListScreen extends Component {
     }
     else {
       this.setState({
-        error: 'Oups ! \n Séléctinnez d\'abort une association :-)',
+        error: 'Oups ! \n Sélectionnez d\'abord une association :-)',
       })
     }
   }
@@ -90,7 +110,7 @@ class AssociationListScreen extends Component {
           <ButtonGradiantRadius
             text={'Soutenir'}
             styleButton={{
-              width: 150
+              width: 200
             }}
             styleText={{
               color: colors.darkGray,
@@ -99,12 +119,12 @@ class AssociationListScreen extends Component {
           />
         </View>
         <View style={{
-            flex: 1,
-            backgroundColor: colors.white
-          }}
+          flex: 1,
+          backgroundColor: colors.white
+        }}
         >
           <FlatList
-            data={ this.props.associations}  
+            data={this.state.associations}
             keyExtractor={this._keyExtractor}
             contentContainerStyle={[
               styles.wrap,
@@ -141,7 +161,7 @@ class AssociationListScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-  associations: state.association.entities,
+  location: state.location.latlng,
   user: state.user.data,
   failure: state.user.failure,
   error: state.user.error,

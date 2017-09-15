@@ -20,7 +20,7 @@ import {
   fonts,
 } from '../../themes';
 
-export default class LikeScreen extends Component {
+export default class LoveScreen extends Component {
   state = {
     visiblePopupWarning: false,
     authorized: false,
@@ -116,11 +116,9 @@ export default class LikeScreen extends Component {
           />
           <View >
             <Text style={style.text}>
-              Offrez à vos amis <Text style={fonts.style.bold}>1 mois gratuit</Text>
+            Offrez à vos amis <Text style={fonts.style.bold}>1 mois gratuit</Text>
             </Text>
-            <Text style={style.text}>
-              graduit sur CforGood !
-          </Text>
+            <Text style={style.text}> sur CforGood !</Text>
           </View>
 
           <Text style={[

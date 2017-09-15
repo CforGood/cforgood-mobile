@@ -41,7 +41,9 @@ class Header extends PureComponent {
     type: 'simple',
     leftElement: null,
     style: {},
-    titleStyle: {},
+    titleStyle: {
+      textAlign: 'center',
+    },
   };
 
   close() {
@@ -90,13 +92,18 @@ class Header extends PureComponent {
           justifyContent: 'center'
         }}
         >
-          <View>
+          <View style={{
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+          >
             <Text
               style={[
                 fonts.style.mediumBold,
                 fonts.style.t22,
                 {
                   zIndex: 1,
+                  textAlign: 'center',
                 },
                 this.props.titleStyle,
                 type === 'gradiant' ? { color: 'white' } : {},

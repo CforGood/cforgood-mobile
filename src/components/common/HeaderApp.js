@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'; import React, {  PureComponent, } from 'react';
+import PropTypes from 'prop-types'; import React, { PureComponent, } from 'react';
 
 import {
   TouchableOpacity,
@@ -59,9 +59,9 @@ class Header extends PureComponent {
           >
 
             {
-              this.props.user && this.props.user.picture ?
+              this.props.user && (this.props.user.picture || this.props.user.remote_picture_url) ?
                 <ProfileImage
-                  picture={this.props.user.picture}
+                  picture={(this.props.user.picture || this.props.user.remote_picture_url)}
                   styleBorder={style.styleBorder}
                   stylePicture={style.stylePicture}
                 />

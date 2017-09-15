@@ -14,6 +14,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import { updateUserData } from '../redux/actions/user';
 
+
 import {
   styles,
   fonts,
@@ -24,9 +25,11 @@ import {
 import Info from '../components/profile/Info';
 import Tab from '../components/profile/Tab';
 import Popup from '../components/profile/Popup';
-
 import ProfileHeader from '../components/profile/ProfileHeader';
 
+
+import Loading from '../components/common/Loading';
+import ErrorView from '../components/common/ErrorView';
 import Separator from '../components/common/Separator';
 import ModalDatePicker from '../components/common/ModalDatePicker';
 import Button from '../components/common/ButtonGradiant';
@@ -63,7 +66,7 @@ class ProfileScreen extends Component {
       });
     }
     else {
-     // this.props.navigation.goBack();
+      // this.props.navigation.goBack();
     }
 
 
@@ -123,23 +126,19 @@ class ProfileScreen extends Component {
 
     if (uploadPictureResponse && uploadPictureResponse.secure_url) {
 
-      userData.picture = uploadPictureResponse.secure_url;
-
+      // userData.picture = uploadPictureResponse.secure_url;
+      userData.remote_picture_url = uploadPictureResponse.secure_url;
       this.setUserData({
-        ...this.state.user, picture: userData.picture
+        ...this.state.user, remote_picture_url: userData.remote_picture_url
       })
     }
 
     const { subscription } = this.props.user;
 
+    await this.props.updateUserData(user.id, userData);
     this.verifyMember();
 
-    await this.props.updateUserData(user.id, userData);
-
-    if (user.subscription !== subscription) {
-      this.setVisiblePopupSubscription(true);
-    }
-    else {
+    if (user.subscription === subscription) {
       this.setVisiblePopupUser(true);
     }
 
@@ -162,14 +161,24 @@ class ProfileScreen extends Component {
 
       && member === false
     ) {
-      const url = "https://app.cforgood.com/member/users/" + id + "/profile#subscription"
-      Linking.canOpenURL(url).then(supported => {
-        if (!supported) {
-          console.log('Can\'t handle url: ');
-        } else {
-          return Linking.openURL(url);
+      this.props.navigation.navigate(
+        'CreditCard',
+        {
+          title: 'Mettre à jour CB',
+          from: 'profile',
         }
-      }).catch(err => console.error('An error occurred', err));
+      );
+      // const url = "https://app.cforgood.com/member/users/" + id + "/profile#subscription"
+      // Linking.canOpenURL(url).then(supported => {
+      //   if (!supported) {
+      //     console.log('Can\'t handle url: ');
+      //   } else {
+      //     return Linking.openURL(url);
+      //   }
+      // }).catch(err => console.error('An error occurred', err));
+    }
+    else {
+      this.setVisiblePopupSubscription(true);
     }
 
   }
@@ -205,6 +214,14 @@ class ProfileScreen extends Component {
         styles.screen.mainContainer,
       ]}
       >
+        <Loading
+          loading={!this.props.loaded}
+          title={'Mise à jour Profile'}
+        />
+        <ErrorView
+          message={this.state.error}
+          removeError={() => this.setState({ error: '' })}
+        />
         <View style={style.profileheader}>
           <ProfileHeader ambassador={user.ambassador} />
         </View>
@@ -213,7 +230,7 @@ class ProfileScreen extends Component {
           <View style={style.info}>
             <Info
               user={user}
-              pictureSource={this.state.pictureSource || user.picture}
+              pictureSource={this.state.pictureSource || user.picture || user.remote_picture_url}
               setPrictureSource={(pictureSource) => this.setPrictureSource(pictureSource)}
             />
           </View>
@@ -287,6 +304,9 @@ class ProfileScreen extends Component {
 
 const mapStateToProps = state => ({
   user: state.user.data,
+  failure: state.user.failure,
+  error: state.user.error,
+  loaded: state.user.loaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({

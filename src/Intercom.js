@@ -33,12 +33,10 @@ class Intercom extends PureComponent {
   }
 
   _onUnreadChange = ({ count }) => {
-    //alert(count)
-    //...
+
   }
 
   registerIdentifiedUser(user) {
-    //alert(JSON.stringify(user))
     IntercomRN.registerIdentifiedUser({ userId: String(user.id) })
     .then(() => {
       console.log('registerIdentifiedUser done');

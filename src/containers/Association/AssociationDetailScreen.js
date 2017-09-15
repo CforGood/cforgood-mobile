@@ -107,7 +107,7 @@ class AssociationDetailScreen extends Component {
         }
       }).
       catch(message => {
-        alert(message.error);
+        // alert(message.error);
       });
 
   }

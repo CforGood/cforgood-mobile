@@ -56,17 +56,17 @@ class SignUpFirstnameScreen extends Component {
           .then(response => {
             this.setState({ loaded: true });
             if (response.code_partner) {
-              setTimeout(() => this.props.navigation.navigate('SignUpCodePartner', { code_partner: response.code_partner }));
+              setTimeout(() => this.props.navigation.navigate('SignUpCodePartner', { code_partner: response.code_partner }), 100);
             }
             else {
-              setTimeout(() => this.props.navigation.navigate('SignUpCode'));
+              setTimeout(() => this.props.navigation.navigate('SignUpCode'), 100);
             }
           })
           .catch(message => {
-            setTimeout(() => this.props.navigation.navigate('SignUpCode'));
+            setTimeout(() => this.props.navigation.navigate('SignUpCode'), 100);
           });
       } else {
-        setTimeout(() => this.props.navigation.navigate('SignUpCode'));
+        setTimeout(() => this.props.navigation.navigate('SignUpCode'), 100);
       }
 
       this.setState({ loaded: true });

@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { NavigationActions } from 'react-navigation';
 
 import { loadAssociation } from '../../redux/actions/association';
 import Background from '../../components/common/Background';
@@ -24,6 +25,18 @@ class SignUpValidationScreen extends Component {
     this.props.loadAssociation();
   }
 
+  goTo() {
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'ChooseAssociation' })
+      ]
+    });
+
+    this.props.navigation.dispatch(resetAction);
+  }
+
+
   render() {
     return (
       <Background style={{
@@ -35,7 +48,7 @@ class SignUpValidationScreen extends Component {
           firstText={'Votre compte est créé.'}
           secondText={''}
           name={`Bienvenue  ${this.props.user.first_name} !`}
-          nextStep={() => this.props.navigation.navigate('ChooseAssociation')}
+          nextStep={() => this.goTo()}
         />
       </Background>
     );

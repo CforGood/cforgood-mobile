@@ -26,6 +26,8 @@ import PerkDetailScreen from '../containers/Perk/PerkDetailScreen';
 import ReservedSpaceScreen from '../containers/Perk/ReservedSpaceScreen';
 
 import ProfileScreen from '../containers/ProfileScreen';
+import ProfileCreditCardScreen from '../containers/CreditCard/ProfileCreditCardScreen';
+
 import WebViewScreen from '../containers/WebViewScreen';
 
 const Routes = {
@@ -72,6 +74,11 @@ const Routes = {
     name: 'Profile',
     screen: ProfileScreen,
     path: 'profile',
+  },
+  CreditCard: {
+    name: 'CreditCard',
+    screen: ProfileCreditCardScreen,
+    path: 'CreditCard',
   },
   MapPerk: {
     name: 'MapPerk',

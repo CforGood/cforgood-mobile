@@ -1,4 +1,4 @@
-import React, { Component,  } from 'react'; import PropTypes from 'prop-types';
+import React, { Component, } from 'react'; import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -48,6 +48,9 @@ class ProfileCreditCardScreen extends Component {
   }
 
   createToken = () => {
+
+    const { from } = this.props.navigation.state.params;
+
     const {
       number,
       expMonth,
@@ -67,7 +70,12 @@ class ProfileCreditCardScreen extends Component {
       };
 
       stripe.createTokenWithCard(params).then(token => {
-        this.props.navigation.navigate('InvitationLove');
+        if (from === 'auth') {
+          this.props.navigation.navigate('InvitationLove');
+        }
+        else {
+          this.props.navigation.goBack();
+        }
         //call api to add token
       }).catch(error => this.setState({
         error: error.message
@@ -114,6 +122,7 @@ class ProfileCreditCardScreen extends Component {
 
   render() {
     const { user } = this.state;
+    const { title, from } = this.props.navigation.state.params;
     return (
       <View style={styles.screen.mainContainer}>
         <ErrorView
@@ -126,7 +135,7 @@ class ProfileCreditCardScreen extends Component {
         />
         <Header
           back={'-90deg'}
-          text={'Ajouter une CB'}
+          text={title}
           type={'gradiant'}
           style={{
             paddingHorizontal: metrics.marginApp
@@ -201,18 +210,21 @@ class ProfileCreditCardScreen extends Component {
             text={'Valider'}
           />
         </View>
-        <Button
-          onPress={() => this.props.navigation.navigate('InvitationLove')}
-          type={'simple'}
-          style={{
-            backgroundColor: 'white'
-          }}
-          styleText={{
-            ...fonts.style.t15,
-            color: colors.ignore,
-          }}
-          text={'Passer'}
-        />
+        {
+          from === 'auth' &&
+          <Button
+            onPress={() => this.props.navigation.navigate('InvitationLove')}
+            type={'simple'}
+            style={{
+              backgroundColor: 'white'
+            }}
+            styleText={{
+              ...fonts.style.t15,
+              color: colors.ignore,
+            }}
+            text={'Passer'}
+          />
+        }
       </View>
     );
   }
