@@ -72,7 +72,6 @@ export const signin = (email, password, type = 'email') => {
 
     ApiHandler.signin(email, password, type)
       .then(response => {
-
         if (response.authentication_token) {
           dispatch(sigin());
           dispatch(sucrityData(response));

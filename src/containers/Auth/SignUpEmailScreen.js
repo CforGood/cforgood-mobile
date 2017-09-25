@@ -32,7 +32,7 @@ export default class SignUpScreen extends Component {
   };
 
   verify = () => {
-    
+
     const { email } = this.state;
     if (!validateEmail(email)) {
       this.setState({ error: 'L\'adresse email n\'est pas valide' });
@@ -44,11 +44,8 @@ export default class SignUpScreen extends Component {
           if (!response.exist) {
             const { params } = this.props.navigation.state;
             Keyboard.dismiss();
-            this.setState({ loaded: true },
-              () => {
-                setTimeout(() => this.props.navigation.navigate('SignUpPassword', { user: { email, ...params.user } }), 500);
-              });
-
+            this.props.navigation.navigate('SignUpPassword', { user: { email, ...params.user } });
+            setTimeout(() => this.setState({ loaded: true }), 500);
           } else {
             this.setState({ error: 'Oups ! ce compte existe déjà', loaded: true });
           }

@@ -238,6 +238,7 @@ const style = StyleSheet.create({
   textSub: {
     ...fonts.style.t15,
     color: colors.white,
-    marginVertical: metrics.baseMargin
+    marginVertical: metrics.baseMargin,
+    textAlign: 'center',
   }
 });                               

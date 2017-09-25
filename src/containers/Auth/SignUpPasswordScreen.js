@@ -52,17 +52,17 @@ class SignUpScreen extends Component {
       ApiHandler.code_partner(this.props.location)
         .then(response => {
           if (response.code_partner) {
-            setTimeout(() => this.props.navigation.navigate('SignUpCodePartner', { code_partner: response.code_partner }));
+            this.props.navigation.navigate('SignUpCodePartner', { code_partner: response.code_partner });
           }
           else {
-            setTimeout(() => this.props.navigation.navigate('SignUpCode'));
+            this.props.navigation.navigate('SignUpCode');
           }
         })
         .catch(message => {
-          setTimeout(() => this.props.navigation.navigate('SignUpCode'));
+          this.props.navigation.navigate('SignUpCode');
         });
     } else {
-      setTimeout(() => this.props.navigation.navigate('SignUpCode'));
+      this.props.navigation.navigate('SignUpCode');
     }
   }
 
@@ -117,7 +117,7 @@ class SignUpScreen extends Component {
           title={'Création du Compte'}
         />
         <ErrorView
-          message={this.state.error}
+          message={this.state.error[0] || this.state.error}
           removeError={() => this.setState({ error: '' })}
         />
       </Background>

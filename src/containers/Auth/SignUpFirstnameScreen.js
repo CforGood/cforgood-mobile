@@ -12,7 +12,7 @@ import Background from '../../components/common/Background';
 import Container from '../../components/login/Container';
 import Loading from '../../components/common/Loading';
 import ErrorView from '../../components/common/ErrorView';
-import { loadUserData } from '../../redux/actions/user';
+import { loadUserData, geocode } from '../../redux/actions/user';
 
 import ApiHandler from '../../utils/api';
 
@@ -31,6 +31,12 @@ class SignUpFirstnameScreen extends Component {
     loaded: true,
   };
 
+
+  componentWillMount() {
+    const { location } = this.props;
+    this.props.geocode(location);
+  }
+
   verifyFirstname = () => {
     const { firstname, step } = this.state;
     if (firstname !== '') {
@@ -39,7 +45,7 @@ class SignUpFirstnameScreen extends Component {
           step: 2
         });
         Keyboard.dismiss();
-        setTimeout(() => this.props.navigation.navigate('SignUpLastname', { user: { first_name: firstname } }), 300);
+        this.props.navigation.navigate('SignUpLastname', { user: { first_name: firstname } });
       }
     }
     else {
@@ -50,29 +56,29 @@ class SignUpFirstnameScreen extends Component {
   validateFacebook = async (type) => {
     if (type === 'signup') {
       await this.props.loadUserData();
-
       if (this.props.location) {
         ApiHandler.code_partner(this.props.location)
           .then(response => {
-            this.setState({ loaded: true });
+
             if (response.code_partner) {
-              setTimeout(() => this.props.navigation.navigate('SignUpCodePartner', { code_partner: response.code_partner }), 100);
+              this.props.navigation.navigate('SignUpCodePartner', { code_partner: response.code_partner });
             }
             else {
-              setTimeout(() => this.props.navigation.navigate('SignUpCode'), 100);
+              this.props.navigation.navigate('SignUpCode');
             }
           })
           .catch(message => {
-            setTimeout(() => this.props.navigation.navigate('SignUpCode'), 100);
+            () => this.props.navigation.navigate('SignUpCode');
           });
       } else {
-        setTimeout(() => this.props.navigation.navigate('SignUpCode'), 100);
+        this.props.navigation.navigate('SignUpCode');
       }
 
-      this.setState({ loaded: true });
+      setTimeout(() => this.setState({ loaded: true }), 100);
     }
 
   }
+
 
   render() {
     const { firstname } = this.state;
@@ -119,6 +125,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loadUserData: bindActionCreators(loadUserData, dispatch),
+  geocode: bindActionCreators(geocode, dispatch),
 });
 
 export default connect(

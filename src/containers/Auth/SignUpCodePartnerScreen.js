@@ -93,7 +93,7 @@ class SignUpCodeScreen extends Component {
           }}
           title={'Code promo disponible !'}
           onChangeText={() => { }}
-          value={code_partner.toUpperCase()}
+          value={(this.props.navigation.state.params.code_partner || code_partner).toUpperCase()}
           placeholder={'Mon code promo'}
           firstText={""}
           subtitle={'Le code promo ci-dessous est disponible dans votre région, profitez-en !'}

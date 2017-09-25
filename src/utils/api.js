@@ -5,6 +5,7 @@ import CryptoJS from 'crypto-js';
 import {
   API_URL,
   cloudinary,
+  geoKey,
 } from '../config.json';
 
 class ApiHandler {
@@ -233,7 +234,6 @@ class ApiHandler {
         return Promise.resolve(responseJson);
       })
       .catch(error => {
-        console.log('catchAPI', error)
         return Promise.reject({ error: error.message });
       })
   }
@@ -296,6 +296,34 @@ class ApiHandler {
         })
         .catch(error => {
           Promise.resolve({ exist: false });
+        });
+
+    } catch (e) {
+      return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard ?' });
+    }
+  };
+
+  geocode(latitude, longitude) {
+
+
+    const headers = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    };
+    const googleApiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${geoKey}`;
+    try {
+      return fetch(googleApiUrl, { headers, method: 'GET' })
+        .then(response => {
+          return response.json();
+        })
+        .then((responseJson) => {
+          if (responseJson.results && responseJson.results[0])
+            return Promise.resolve(responseJson.results[0].address_components);
+          else
+            Promise.reject({ error: 'no data' });
+        })
+        .catch(error => {
+          Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard ?' });
         });
 
     } catch (e) {

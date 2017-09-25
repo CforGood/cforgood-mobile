@@ -1,5 +1,5 @@
 import {
-  UPDATE,
+  UPDATE_LOCATION,
 } from '../constants/user.js';
 
 const initialState = {
@@ -10,8 +10,7 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    
-    case UPDATE:
+    case UPDATE_LOCATION:
       return {
         ...state,
         latlng: action.location,

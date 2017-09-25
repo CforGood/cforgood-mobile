@@ -1,4 +1,4 @@
-import React, { PureComponent,  } from 'react'; import PropTypes from 'prop-types';
+import React, { PureComponent, } from 'react'; import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -20,7 +20,7 @@ import Switch from '../../components/common/Switch';
 import Item from './Item';
 
 const monthlyMinAmount = 1;
-const monthlyMaxAmount = 50;
+const monthlyMaxAmount = 51;
 const yearlyMinAmount = 30;
 const yearlyMaxAmount = 500;
 const minLeft = 1;
@@ -65,7 +65,9 @@ export default class Amount extends PureComponent {
 
     if (amount === null) {
       this.props.setUserData({
-        ...this.props.user, subscription: 'M', amount: 5,
+        ...this.props.user,
+        subscription: 'M',
+        amount: 5,
       });
     }
 
@@ -98,7 +100,7 @@ export default class Amount extends PureComponent {
     const ratio = (minLeft + maxLeft) / left;
 
     let amount = (this.state.minAmount + this.state.maxAmount) / ratio;
-
+    
     if (amount < this.state.minAmount) {
       amount = this.state.minAmount;
     } else {
@@ -106,7 +108,6 @@ export default class Amount extends PureComponent {
         amount = this.state.maxAmount;
       }
     }
-
     this.setState({ amount: parseInt(amount), left }, () => {
       if (update) {
         const { subscription } = this.state;
@@ -262,7 +263,7 @@ export default class Amount extends PureComponent {
             Ma participation
           </Text>
           <Box
-            text={String(Math.floor(this.state.amount)) + ' €'}
+            text={String(Math.round(this.state.amount)) + ' €'}
           />
         </View>
         <View style={[styles.row, styles.center]}>

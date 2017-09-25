@@ -4,12 +4,13 @@ import {
   LOAD_FAIL,
   LOAD_SECURITY,
   UPDATE_SUCCESS,
+  UPDATE_CITY,
 } from '../constants/user.js';
 
 const initialState = {
   failed: false,
   loaded: true,
-  data: null,
+  data: {},
   security: {}
 };
 
@@ -42,6 +43,19 @@ export default function reducer(state = initialState, action = {}) {
         },
       };
     }
+    case UPDATE_CITY: {
+      const { city, } = action;
+      return {
+        ...state,
+        loaded: true,
+        failed: false,
+        data: {
+          ...state.data,
+          city,
+        },
+      };
+    }
+
     case LOAD_FAIL:
       return {
         ...state,

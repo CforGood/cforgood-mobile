@@ -1,11 +1,12 @@
 
 import {
-  UPDATE,
+  UPDATE_LOCATION,
   LOAD,
   LOAD_SUCCESS,
   LOAD_FAIL,
   LOAD_SECURITY,
   UPDATE_SUCCESS,
+  UPDATE_CITY,
 } from '../constants/user';
 
 import ApiHandler from '../../utils/api';
@@ -91,9 +92,60 @@ export const loadUserData = () => {
 };
 
 export const onUpdateUserLocation = (location) => {
-  return {
-    type: UPDATE,
-    location,
+
+  return (dispatch, getState) => {
+
+    ApiHandler.geocode(location.latitude, location.longitude)
+      .then(async response => {
+        let zipcode = '33300';
+        let city = 'Bordeaux';
+        await response.forEach(address => {
+          if (address.types.indexOf('postal_code') !== -1) {
+            zipcode = address.long_name;
+          }
+          if (address.types.indexOf('administrative_area_level_1') !== -1) {
+            city = address.long_name;
+          }
+
+          dispatch({
+            type: UPDATE_CITY,
+            city,
+            zipcode
+          });
+        });
+      }).catch(message => {
+      });
+    dispatch({
+      type: UPDATE_LOCATION,
+      location,
+    });
+  };
+}
+
+export const geocode = (location) => {
+
+  return (dispatch, getState) => {
+
+    ApiHandler.geocode(location.latitude, location.longitude)
+      .then(async response => {
+        let zipcode = '33300';
+        let city = 'Bordeaux';
+        await response.forEach(address => {
+          if (address.types.indexOf('postal_code') !== -1) {
+            zipcode = address.long_name;
+          }
+          if (address.types.indexOf('administrative_area_level_1') !== -1) {
+            city = address.long_name;
+          }
+
+          dispatch({
+            type: UPDATE_CITY,
+            city,
+            zipcode
+          });
+        });
+      }).catch(message => {
+      });
   };
 }
 

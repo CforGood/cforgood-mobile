@@ -109,15 +109,15 @@ class ButtonFacebook extends PureComponent {
       this.props.setError(error.errorMessage);
     } else {
 
-      const { typeAuth } = this.props;
+      const { typeAuth, user } = this.props;
 
       if (typeAuth === 'SignUp') {
         this.props.signup({
           email: result.email,
           last_name: result.last_name,
           first_name: result.first_name,
-          city: result.location ? result.location.name : null,
-          zipcode: result.location ? result.location.zip : null,
+          city: result.location ? result.location.name : user.data.city,
+          zipcode: result.location ? result.location.zip : user.data.zipcode,
           access_token: accessToken,
         }, 'facebook');
       } else {
@@ -150,6 +150,7 @@ const mapStateToProps = state => ({
   failure: state.auth.failure,
   loaded: state.auth.failure,
   error: state.auth.error,
+  user: state.user.data,
   typeAuthF: state.auth.typeAuth,
 });
 
