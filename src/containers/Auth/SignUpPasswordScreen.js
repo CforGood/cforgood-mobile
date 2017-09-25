@@ -30,18 +30,17 @@ class SignUpScreen extends Component {
     password: '',
     error: '',
     loaded: true,
+    validate: false
   };
 
   async componentWillReceiveProps(nextProps) {
 
     if (nextProps.failure === true) {
       this.setState({ error: nextProps.error[0] });
-    } else if (nextProps.loaded) {
+    } else if (nextProps.LoggedIn && nextProps.LoggedIn !== this.props.LoggedIn) {
       Keyboard.dismiss();
       await this.props.loadUserData();
-
       this.CodePartner();
-
     }
   }
 
@@ -73,7 +72,9 @@ class SignUpScreen extends Component {
 
       const { params } = this.props.navigation.state;
       this.setState({ loaded: false });
+
       this.props.signup({
+        ...this.props.user,
         password,
         ...params.user
       });
@@ -130,6 +131,7 @@ const mapStateToProps = state => ({
   LoggedIn: state.auth.LoggedIn,
   failure: state.auth.failure,
   loaded: state.auth.loaded,
+  user: state.user.data,
   error: state.auth.error,
 });
 

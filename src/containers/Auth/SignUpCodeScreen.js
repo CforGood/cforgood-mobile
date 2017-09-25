@@ -26,7 +26,7 @@ import {
 
 class SignUpCodeScreen extends Component {
   state = {
-    code_partner: ''
+    code_partner: '',
   };
 
   static propTypes = {
@@ -37,14 +37,15 @@ class SignUpCodeScreen extends Component {
     error: '',
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.failure || nextProps.error !== '') {
-      this.setState({ error: nextProps.error });
-    } else if (nextProps.loaded) {
-      Keyboard.dismiss();
-      setTimeout(() => this.props.navigation.navigate('SignUpValidation'), 300);
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.failure || nextProps.error !== '') {
+  //     this.setState({ error: nextProps.error });
+  //   } else if (nextProps.loaded) {
+  //     Keyboard.dismiss();
+  //     setTimeout(() => this.props.navigation.navigate('SignUpValidation'), 300);
+  //   }
+  // }
+
 
   verify = () => {
     const { code_partner } = this.state;
@@ -67,18 +68,6 @@ class SignUpCodeScreen extends Component {
         style={{
           flex: 1,
         }}>
-        <Icon
-          styleImage={{
-            marginTop: metrics.marginApp + (Platform.OS === 'ios' ? 20 : 0),
-            marginLeft: metrics.baseMargin,
-            height: 20,
-            width: 20,
-            resizeMode: 'contain',
-            tintColor: colors.white
-          }}
-          source={require('../../resources/icons/arrow-left.png')}
-          onPress={() => this.props.navigation.goBack()}
-        />
 
         <Container
           styleContainer={{
@@ -95,10 +84,6 @@ class SignUpCodeScreen extends Component {
           onPress={() => { }}
           nextStep={() => this.verify()}
           canHandleNextStep={true}
-        />
-        <Loading
-          loading={!this.props.loaded}
-          title={'Mise à jour code promo'}
         />
         <ErrorView
           message={this.state.error}

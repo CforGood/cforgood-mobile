@@ -37,17 +37,17 @@ class ProfilePaymentScreen extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.failure === true) {
-      this.setState({ error: nextProps.error[0] });
-    }
-    else if (nextProps.user.amount !== null && 
-      this.props.user.amount !== nextProps.user.amount
-    ) {
-      this.props.navigation.navigate('CreditCard', {
-        from: 'auth',
-        title: 'Ajouter une CB',
-      });
-    }
+    // if (nextProps.failure === true) {
+    //   this.setState({ error: nextProps.error[0] });
+    // }
+    // else if (nextProps.user.amount !== null &&
+    //   this.props.user.amount !== nextProps.user.amount
+    // ) {
+    //   this.props.navigation.navigate('CreditCard', {
+    //     from: 'auth',
+    //     title: 'Ajouter une CB',
+    //   });
+    // }
   }
 
   componentDidMount() {
@@ -69,6 +69,10 @@ class ProfilePaymentScreen extends Component {
             amount: this.state.user.amount,
           }
         );
+        this.props.navigation.navigate('CreditCard', {
+          from: 'auth',
+          title: 'Ajouter une CB',
+        });
       }
       else {
         this.setState({

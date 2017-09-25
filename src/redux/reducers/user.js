@@ -44,14 +44,15 @@ export default function reducer(state = initialState, action = {}) {
       };
     }
     case UPDATE_CITY: {
-      const { city, } = action;
+      const { city,zipcode } = action;
       return {
         ...state,
-        loaded: true,
         failed: false,
+        loaded: true,
         data: {
           ...state.data,
           city,
+          zipcode
         },
       };
     }

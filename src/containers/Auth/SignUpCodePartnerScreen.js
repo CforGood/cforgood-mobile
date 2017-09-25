@@ -73,18 +73,6 @@ class SignUpCodeScreen extends Component {
         style={{
           flex: 1,
         }}>
-        <Icon
-          styleImage={{
-            marginTop: metrics.marginApp + (Platform.OS === 'ios' ? 20 : 0),
-            marginLeft: metrics.baseMargin,
-            height: 20,
-            width: 20,
-            resizeMode: 'contain',
-            tintColor: colors.white
-          }}
-          source={require('../../resources/icons/arrow-left.png')}
-          onPress={() => this.props.navigation.goBack()}
-        />
 
         <Container
           styleContainer={{
