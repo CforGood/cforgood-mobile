@@ -72,7 +72,7 @@ class ContactsScreen extends Component {
       //update the first record
       this.setState({
         allContacts,
-        contacts: allContacts.filter(c => c.phoneNumbers && c.phoneNumbers.number),
+        contacts: allContacts.filter(c => c.phoneNumbers && c.phoneNumbers[0].number),
         loaded: true,
       });
 

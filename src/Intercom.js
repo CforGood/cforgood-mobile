@@ -19,7 +19,6 @@ class Intercom extends PureComponent {
   }
   
   componentWillMount(){
-    //IntercomRN.displayMessageComposer();
   }
 
   componentWillReceiveProps(nextProps){

@@ -43,11 +43,11 @@ export const signup = (user, type = 'email') => {
   return async (dispatch) => {
 
     dispatch(load('signup', type));
-
+    // console.log('useruser', user);
     ApiHandler.signup(user)
       .then(response => {
         if (response.id) {
-          dispatch(signin(user.email, user.password, type));
+          dispatch(signin(user.email, type === 'email' ? user.password : user.access_token, type));
         } else if (response.error) {
           dispatch(failure(response.error));
         }

@@ -26,10 +26,6 @@ import PerkFullRow from '../../components/perk/PerkFullRow';
 import Header from '../../components/common/Header';
 import Modal from '../../components/Modal';
 
-import ReservedSpaceScreen from './ReservedSpaceScreen';
-import MembreshipCardScreen from './MembreshipCardScreen';
-import MapPerkScreen from './MapPerkScreen';
-
 import PopupProfile from '../../components/profile/Popup';
 
 import {
@@ -162,7 +158,8 @@ class PerkDetailScreen extends Component {
     } = this.state;
 
 
-    if (user.member || (
+    if (
+      user.member || (
       user.first_perk_offer_attributes
       &&
       user.first_perk_offer_attributes.business_id === business.id

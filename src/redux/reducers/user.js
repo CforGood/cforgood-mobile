@@ -44,7 +44,9 @@ export default function reducer(state = initialState, action = {}) {
       };
     }
     case UPDATE_CITY: {
-      const { city,zipcode } = action;
+      const { city, zipcode } = action;
+
+      
       return {
         ...state,
         failed: false,

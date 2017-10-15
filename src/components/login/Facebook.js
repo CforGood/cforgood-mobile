@@ -37,6 +37,7 @@ class ButtonFacebook extends PureComponent {
   };
 
   componentWillReceiveProps(nextProps) {
+    console.log('nextPropsnextProps', nextProps);
     if (
       nextProps.failure === true
       && this.props.failure == false
@@ -116,8 +117,8 @@ class ButtonFacebook extends PureComponent {
           email: result.email,
           last_name: result.last_name,
           first_name: result.first_name,
-          city: result.location ? result.location.name : user.data.city,
-          zipcode: result.location ? result.location.zip : user.data.zipcode,
+          city: result.location ? result.location.name : user.city,
+          zipcode: result.location ? result.location.zip : user.zipcode,
           access_token: accessToken,
         }, 'facebook');
       } else {

@@ -56,6 +56,7 @@ export const updateUserData = (id, data) => {
       .then(response => {
 
         if (response && !response.error) {
+          dispatch(loadUserData());
           dispatch(successUpdate(data));
         }
         else {
@@ -123,30 +124,32 @@ export const onUpdateUserLocation = (location) => {
 }
 
 export const geocode = (location) => {
-
-  return (dispatch, getState) => {
-
-    ApiHandler.geocode(location.latitude, location.longitude)
-      .then(async response => {
-        let zipcode = '33300';
-        let city = 'Bordeaux';
-        await response.forEach(address => {
-          if (address.types.indexOf('postal_code') !== -1) {
-            zipcode = address.long_name;
-          }
-          if (address.types.indexOf('administrative_area_level_1') !== -1) {
-            city = address.long_name;
-          }
-
-          dispatch({
-            type: UPDATE_CITY,
-            city,
-            zipcode
+  if (location && location.coords) {
+    return (dispatch, getState) => {
+      ApiHandler.geocode(location.coords.latitude, location.coords.longitude)
+        .then(async response => {
+          let zipcode = '33300';
+          let city = 'Bordeaux';
+          await response.forEach(address => {
+            if (address.types.indexOf('postal_code') !== -1) {
+              zipcode = address.long_name;
+            }
+            if (address.types.indexOf('administrative_area_level_1') !== -1) {
+              city = address.long_name;
+            }
+            dispatch({
+              type: UPDATE_CITY,
+              city,
+              zipcode
+            });
           });
+        }).catch(message => {
         });
-      }).catch(message => {
-      });
-  };
+    };
+  }
+
+  return (dispatch, getState) => {};
+
 }
 
 export const sucrityData = (data) => {

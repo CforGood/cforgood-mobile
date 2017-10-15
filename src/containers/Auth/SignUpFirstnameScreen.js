@@ -40,13 +40,8 @@ class SignUpFirstnameScreen extends Component {
   verifyFirstname = () => {
     const { firstname, step } = this.state;
     if (firstname !== '') {
-      if (step === 1) {
-        this.setState({
-          step: 2
-        });
         Keyboard.dismiss();
         this.props.navigation.navigate('SignUpLastname', { user: { first_name: firstname } });
-      }
     }
     else {
       this.setState({ error: 'Prénom Obligatoire !' });
@@ -59,7 +54,6 @@ class SignUpFirstnameScreen extends Component {
       if (this.props.location) {
         ApiHandler.code_partner(this.props.location)
           .then(response => {
-
             if (response.code_partner) {
               this.props.navigation.navigate('SignUpCodePartner', { code_partner: response.code_partner });
             }
@@ -102,8 +96,7 @@ class SignUpFirstnameScreen extends Component {
           setLoadedFacebook={(loaded) => this.setState({ loaded })}
           setErrorFacebook={(error) => {
             this.setState({ error })
-          }
-          }
+          }}
           validateFacebook={this.validateFacebook}
         />
         <ErrorView

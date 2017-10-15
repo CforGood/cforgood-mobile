@@ -90,6 +90,7 @@ class SearchBar extends PureComponent {
                 justifyContent: 'center',
                 alignItems: 'center',
                 flex: 1,
+                paddingHorizontal: metrics.baseMargin,
               }}
               styleImage={{
                 height: 15,
@@ -124,13 +125,12 @@ const styleSearch = StyleSheet.create({
     width: metrics.deviceWidth * 3 / 4,
     flex: 1,
     fontSize: 18,
-    // bottom: à
   },
   textContainer: {
     borderBottomColor: '#CDCDCD',
     borderBottomWidth: 1,
     flex: 4,
     marginBottom: metrics.smallMargin,
-    //height: metrics.deviceWidth/10, 
+    paddingRight: metrics.smallMargin,
   }
 });

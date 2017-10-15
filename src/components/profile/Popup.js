@@ -105,31 +105,6 @@ class PopupProfile extends Component {
           />
         )
         break;
-      // case 'businesses_around':
-      //   return (
-      //     <Popup
-      //       bgImage={
-      //         <Image
-      //           style={{
-      //             width: 264,
-      //             height: 173,
-      //             opacity: 0.2,
-      //           }}
-      //           resizeMode={'contain'}
-      //           source={require('../../resources/images/map.png')}
-      //         />
-      //       }
-      //       icon={require('../../resources/profile/claping-hands.png')}
-      //       bigtitle={'Hey ... :-)'}
-      //       smalltitle={'Il n’y a pas de partenaire\nautour de vous !'}
-      //       description={'CforGood n’est pas encore dans\nvotre ville, mais ça peut s’arranger …'}
-      //       textButton={'Faites-nous signe !'}
-      //       iconButton={require('../../resources/icons/message.png')}
-      //       onClose={this.props.onClose}
-      //       onValidate={() => this.props.onValidate()}
-      //     />
-      //   )
-      //   break;
       case 'partner':
         return (
           <Popup

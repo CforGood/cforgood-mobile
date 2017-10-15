@@ -76,7 +76,8 @@ class ProfileCreditCardScreen extends Component {
         else {
           this.props.navigation.goBack();
         }
-        this.props.updateUserData(this.props.user.id, { stripeToken: token });
+        if(token && token.tokenId)
+        this.props.updateUserData(this.props.user.id, { stripeToken: token.tokenId });
         //stripeToken
         //call api to add token
       }).catch(error => this.setState({

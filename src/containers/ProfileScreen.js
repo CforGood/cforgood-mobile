@@ -116,13 +116,19 @@ class ProfileScreen extends Component {
       "first_name": user.first_name,
       "last_name": user.last_name,
       "birthday": user.birthday,
-      "subscription": user.subscription,
-      "amount": user.amount,
       "street": user.street,
       "zipcode": user.zipcode,
       "city": user.city,
       "code_partner": user.code_partner
     };
+
+    if (user.amount) {
+      userData.amount = user.amount;
+    }
+
+    if (user.subscription) {
+      userData.subscription = user.subscription;
+    }
 
     if (uploadPictureResponse && uploadPictureResponse.secure_url) {
 
@@ -134,7 +140,6 @@ class ProfileScreen extends Component {
     }
 
     const { subscription } = this.props.user;
-
     await this.props.updateUserData(user.id, userData);
     this.verifyMember();
 
@@ -216,7 +221,7 @@ class ProfileScreen extends Component {
       >
         <Loading
           loading={!this.props.loaded}
-          title={'Mise à jour Profile'}
+          title={'Mise à jour Profil'}
         />
         <ErrorView
           message={this.state.error}

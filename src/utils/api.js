@@ -51,12 +51,11 @@ class ApiHandler {
   }
 
   sendInvitation(invitations) {
-    alert(JSON.stringify(invitations));
     const contacts = invitations.map(i => {
       return {
         first_name: i.givenName,
         last_name: i.familyName,
-        phone: i.phoneNumbers && i.phoneNumbers.number,
+        phone: i.phoneNumbers && i.phoneNumbers[0] && i.phoneNumbers[0].number,
         city: (i.postalAddresses && i.postalAddresses[0]) ?
           i.postalAddresses[0].city : ''
       }
@@ -194,7 +193,6 @@ class ApiHandler {
     }
 
     try {
-
       return fetch(`${API_URL}`, request)
         .then(response => {
           return response.json();
@@ -305,7 +303,6 @@ class ApiHandler {
 
   geocode(latitude, longitude) {
 
-
     const headers = {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -317,8 +314,10 @@ class ApiHandler {
           return response.json();
         })
         .then((responseJson) => {
-          if (responseJson.results && responseJson.results[0])
+          
+          if (responseJson.results && responseJson.results[0]) {
             return Promise.resolve(responseJson.results[0].address_components);
+          }
           else
             Promise.reject({ error: 'no data' });
         })

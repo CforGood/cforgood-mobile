@@ -18,7 +18,7 @@ import {
 
 import Button from '../../components/common/ButtonGradiant';
 import Like from '../../components/common/Like';
-import Modal from '../../components/Modal/WidthRNModal';
+import Modal from '../../components/Modal';
 import Separator from '../../components/common/Separator';
 
 import {
@@ -106,7 +106,7 @@ class PerkReviewsScreen extends Component {
                 </Text> 
               </View>
 
-            <View style={{
+              <View style={{
                   flexDirection: 'row',
                   justifyContent: 'center',
                   marginBottom: metrics.baseMargin

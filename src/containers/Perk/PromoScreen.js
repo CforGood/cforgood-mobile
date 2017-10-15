@@ -33,7 +33,7 @@ class PromoScreen extends PureComponent {
 
   onValidate = () => {
     const { business, perk } = this.props.navigation.state.params;
-
+    this._setClipboardContent();
     this.props.use(perk, business, false);
 
     if (Platform.OS === 'android') {
@@ -60,13 +60,13 @@ class PromoScreen extends PureComponent {
   _setClipboardContent = async () => {
     const { perk } = this.props.navigation.state.params;
     Clipboard.setString(perk.perk_code);
-    try {
-      var content = await Clipboard.getString();
-      this.setState({ content });
-    }
-    catch (e) {
-      this.setState({ content: e.message });
-    }
+    // try {
+    //   var content = await Clipboard.getString();
+    //   this.setState({ content });
+    // }
+    // catch (e) {
+    //   this.setState({ content: e.message });
+    // }
   };
 
   componentDidMount() {
@@ -143,7 +143,6 @@ class PromoScreen extends PureComponent {
             >
               <View style={style.textPromoContainer}>
                 <Text
-                  onPress={this._setClipboardContent}
                   style={style.textPromo}
                 >
                   {perk.perk_code}
