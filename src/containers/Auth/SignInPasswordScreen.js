@@ -33,8 +33,8 @@ class SignInPassword extends Component {
   async componentWillReceiveProps(nextProps) {
     if (nextProps.LoggedIn === true && this.props.LoggedIn === false) {
       Keyboard.dismiss();
-      await this.props.loadUserData();
-      this.props.navigation.navigate('SignInValidation');
+      // await this.props.loadUserData();
+      // this.props.navigation.navigate('SignInValidation');
     } else if (nextProps.failure === true && this.props.failure === false) {
       this.setState({ error: nextProps.error });
     }

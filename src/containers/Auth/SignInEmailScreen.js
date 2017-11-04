@@ -70,11 +70,10 @@ class SingInScreen extends Component {
             this.setState({ error, loaded: true })
           }}
           validateFacebook={async (type) => {
-            if (type === 'signin') {
-              this.setState({ loaded: true });
-              await this.props.loadUserData();
-              this.props.navigation.navigate('SignInValidation');
-            }
+
+            this.setState({ loaded: true });
+            await this.props.loadUserData();
+            this.props.navigation.navigate('SignInValidation');
 
           }}
         />

@@ -38,6 +38,9 @@ const realAmountPercent = 0.34;
 class Abonnement extends PureComponent {
 
   updateMember() {
+    this.props.setUserData({
+      ...this.props.user, membre: false,
+    });
     this.props.updateUserData(this.props.user.id, { subscription: 'X' });
   }
 

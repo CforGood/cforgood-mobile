@@ -1,11 +1,6 @@
-import React, { Component, } from 'react'; import PropTypes from 'prop-types';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Platform,
-  Keyboard,
-} from 'react-native';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { View, Text, StyleSheet, Platform, Keyboard } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -17,13 +12,7 @@ import Button from '../../components/common/Button';
 import ErrorView from '../../components/common/ErrorView';
 import { updateUserData } from '../../redux/actions/user';
 
-
-import {
-  styles,
-  colors,
-  metrics,
-  fonts,
-} from '../../themes';
+import { styles, colors, metrics, fonts } from '../../themes';
 
 class SignUpCodeScreen extends Component {
   state = {
@@ -31,22 +20,23 @@ class SignUpCodeScreen extends Component {
   };
 
   static propTypes = {
-    error: PropTypes.string,
+    error: PropTypes.string
   };
 
   static defaultProps = {
-    error: '',
+    error: ''
   };
 
   componentWillMount() {
-
-    this.setState({ code_partner: this.props.navigation.state.params.code_partner });
+    this.setState({
+      code_partner: this.props.navigation.state.params.code_partner
+    });
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.failure || nextProps.error !== '') {
       this.setState({ error: nextProps.error });
-    } else if (nextProps.loaded) {
+    } else if (nextProps.loaded && nextProps.loaded !== this.props.loaded) {
       Keyboard.dismiss();
       setTimeout(() => this.props.navigation.navigate('SignUpValidation'), 300);
     }
@@ -57,13 +47,11 @@ class SignUpCodeScreen extends Component {
 
     if (code_partner !== '') {
       this.props.updateUserData(this.props.user.id, { code_partner });
-    }
-    else {
+    } else {
       Keyboard.dismiss();
       setTimeout(() => this.props.navigation.navigate('SignUpValidation'), 300);
     }
-  }
-
+  };
 
   render() {
     const { code_partner } = this.state;
@@ -71,28 +59,26 @@ class SignUpCodeScreen extends Component {
     return (
       <Background
         style={{
-          flex: 1,
-        }}>
-
+          flex: 1
+        }}
+      >
         <Container
           styleContainer={{
             paddingTop: metrics.base,
-            paddingBottom: metrics.doubleBaseMargin,
+            paddingBottom: metrics.doubleBaseMargin
           }}
           title={'Code promo disponible !'}
-          onChangeText={() => { }}
-          value={(this.props.navigation.state.params.code_partner || code_partner).toUpperCase()}
+          onChangeText={code_partner => this.setState({ code_partner })}
+          value={code_partner.toUpperCase()}
           placeholder={'Mon code promo'}
-          firstText={""}
-          subtitle={'Le code promo ci-dessous est disponible dans votre région, profitez-en !'}
+          firstText={''}
+          subtitle={
+            'Le code promo ci-dessous est disponible dans votre région, profitez-en !'
+          }
           subButton={''}
-          onPress={() => { }}
+          onPress={() => {}}
           nextStep={() => this.verify()}
           canHandleNextStep={true}
-        />
-        <Loading
-          loading={!this.props.loaded}
-          title={'Mise à jour code promo'}
         />
         <ErrorView
           message={this.state.error}
@@ -108,18 +94,11 @@ const mapStateToProps = state => ({
   location: state.location.latlng,
   error: state.user.error,
   failed: state.user.failed,
-  loaded: state.user.loaded,
+  loaded: state.user.loaded
 });
 
-
-const mapDispatchToProps = (dispatch) => ({
-  updateUserData: bindActionCreators(updateUserData, dispatch),
+const mapDispatchToProps = dispatch => ({
+  updateUserData: bindActionCreators(updateUserData, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SignUpCodeScreen);
-
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpCodeScreen);

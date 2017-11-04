@@ -68,7 +68,22 @@ class ProfileScreen extends Component {
     else {
       // this.props.navigation.goBack();
     }
+  }
 
+  componentWillReceiveProps({ user }) {
+    if (user !== this.props.user) {
+      if (user.subscription !== this.props.user.subscription) {
+        this.setVisiblePopupSubscription(true);
+      } else {
+        this.setVisiblePopupUser(true);
+      }
+
+      setTimeout(() => {
+        this.setVisiblePopupUser(false);
+        this.setVisiblePopupSubscription(false);
+      }, 2500);
+    }
+    console.log('useruser', user);
 
   }
 
@@ -115,13 +130,23 @@ class ProfileScreen extends Component {
       "email": user.email,
       "first_name": user.first_name,
       "last_name": user.last_name,
-      "birthday": user.birthday,
-      "street": user.street,
       "zipcode": user.zipcode,
-      "city": user.city,
-      "code_partner": user.code_partner
+      "city": user.city
     };
+    
+    if(user.birthday) {
+      userData.birthday = user.birthday;
+    }
 
+    if(user.birthday) {
+      userData.street = user.street;
+    }
+
+    if(user.code_partner) {
+      userData.code_partner = user.code_partner;
+      user.member = true;
+    }
+ 
     if (user.amount) {
       userData.amount = user.amount;
     }
@@ -142,16 +167,6 @@ class ProfileScreen extends Component {
     const { subscription } = this.props.user;
     await this.props.updateUserData(user.id, userData);
     this.verifyMember();
-
-    if (user.subscription === subscription) {
-      this.setVisiblePopupUser(true);
-    }
-
-    setTimeout(() => {
-      this.setVisiblePopupUser(false);
-      this.setVisiblePopupSubscription(false);
-    }, 2500);
-
 
     this.updateEmail();
 

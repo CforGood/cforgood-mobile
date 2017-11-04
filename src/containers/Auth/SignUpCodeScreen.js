@@ -37,14 +37,14 @@ class SignUpCodeScreen extends Component {
     error: '',
   };
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.failure || nextProps.error !== '') {
-  //     this.setState({ error: nextProps.error });
-  //   } else if (nextProps.loaded) {
-  //     Keyboard.dismiss();
-  //     setTimeout(() => this.props.navigation.navigate('SignUpValidation'), 300);
-  //   }
-  // }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.failure || nextProps.error !== '') {
+      this.setState({ error: nextProps.error });
+    } else if (nextProps.loaded) {
+      Keyboard.dismiss();
+      setTimeout(() => this.props.navigation.navigate('SignUpValidation'), 300);
+    }
+  }
 
 
   verify = () => {

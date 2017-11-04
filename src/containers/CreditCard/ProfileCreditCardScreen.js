@@ -125,7 +125,7 @@ class ProfileCreditCardScreen extends Component {
 
   render() {
     const { user } = this.state;
-    const { title, from } = this.props.navigation.state.params;
+    const { title, from, amount, subscription } = this.props.navigation.state.params;
     return (
       <View style={styles.screen.mainContainer}>
         <ErrorView
@@ -162,7 +162,7 @@ class ProfileCreditCardScreen extends Component {
               { color: colors.textLightGray, marginBottom: 10 }
             ]}>
               Participation choisie de
-              <Text style={fonts.style.mediumBold}>{' 85 € mensuel'}</Text>
+              <Text style={fonts.style.mediumBold}>{` ${amount} € `}{subscription === 'Y' ? 'annuel': 'mensuel' }</Text>
             </Text>
           </View>
           <View style={{ flex: 5 }}>

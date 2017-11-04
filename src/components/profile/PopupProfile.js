@@ -82,7 +82,6 @@ class PopupProfileMap extends Component {
     else if (type === 'not_member') {
       this.props.navigation.navigate('Profile', { 'tab': 'Abonnement' })
     }
-
     else if (type === 'first_perk_offer' && this.props.businesses) {
 
       let business = null;
@@ -97,7 +96,6 @@ class PopupProfileMap extends Component {
             const category = getCategory(response.business_category_id);
 
             perk = response.perks.find(perk => perk.id === perk_id);
-            //alert(JSON.stringify(response));
             this.props.newOffer(perk, response, category);
           }
         });

@@ -92,38 +92,32 @@ class Header extends PureComponent {
           justifyContent: 'center'
         }}
         >
-          <View style={{
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
+          <Text
+            style={[
+              fonts.style.mediumBold,
+              fonts.style.t22,
+              {
+                zIndex: 1,
+                textAlign: 'center',
+                alignSelf: 'center',
+              },
+              this.props.titleStyle,
+              type === 'gradiant' ? { color: 'white' } : {},
+            ]}
+            numberOfLines={1}
           >
-            <Text
-              style={[
-                fonts.style.mediumBold,
-                fonts.style.t22,
-                {
-                  zIndex: 1,
-                  textAlign: 'center',
-                },
-                this.props.titleStyle,
-                type === 'gradiant' ? { color: 'white' } : {},
-              ]}
-              numberOfLines={1}
-            >
-              {this.props.text}
-            </Text>
-            {
-              type === 'simple' && color &&
-              <View
-                style={{
-                  borderBottomWidth: 8,
-                  borderBottomColor: color,
-                  bottom: 8
-                }}
-              />
-            }
-
-          </View>
+            {this.props.text}
+          </Text>
+          {
+            type === 'simple' && color &&
+            <View
+              style={{
+                borderBottomWidth: 8,
+                borderBottomColor: color,
+                bottom: 8
+              }}
+            />
+          }
         </View>
         {
           (this.props.close || back || rightElement) &&

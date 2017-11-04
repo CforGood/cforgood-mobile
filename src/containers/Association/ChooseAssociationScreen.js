@@ -51,8 +51,8 @@ class AssociationListScreen extends Component {
 
   componentWillReceiveProps(nextProps) {
 
-    if (nextProps.failure === true) {
-      this.setState({ error: nextProps.error[0] });
+    if (nextProps.failure === true && nextProps.error) {
+      this.setState({ error: nextProps.error[0] || nextProps.error });
     }
     else if (
       nextProps.user.cause_id !== null
@@ -94,7 +94,8 @@ class AssociationListScreen extends Component {
           text={'Séléctionnez une association'}
           type={'gradiant'}
           style={{
-            paddingHorizontal: metrics.marginApp
+            paddingHorizontal: metrics.marginApp,
+            justifyContent: 'center',
           }}
           onClose={() => this.props.navigation.goBack()}
         />

@@ -37,16 +37,18 @@ class ButtonFacebook extends PureComponent {
   };
 
   componentWillReceiveProps(nextProps) {
-    console.log('nextPropsnextProps', nextProps);
     if (
       nextProps.failure === true
       && this.props.failure == false
     ) {
       this.props.setError(nextProps.error);
     } else if (
-      nextProps.LoggedIn === true && this.props.LoggedIn === false
+      nextProps.LoggedIn === true && 
+      this.props.LoggedIn === false &&
+      this.props.typeSignIn === 'facebook'
     ) {
       this.props.validate(nextProps.typeAuthF);
+      this.props.validateFacebook();
     }
   }
 
@@ -117,8 +119,8 @@ class ButtonFacebook extends PureComponent {
           email: result.email,
           last_name: result.last_name,
           first_name: result.first_name,
-          city: result.location ? result.location.name : user.city,
-          zipcode: result.location ? result.location.zip : user.zipcode,
+          city: result.location ? result.location.name : (user.city || 'Bordeaux'),
+          zipcode: result.location ? result.location.zip : (user.zipcode || 33000),
           access_token: accessToken,
         }, 'facebook');
       } else {
@@ -153,6 +155,7 @@ const mapStateToProps = state => ({
   error: state.auth.error,
   user: state.user.data,
   typeAuthF: state.auth.typeAuth,
+  typeSignIn: state.auth.typeSignIn,
 });
 
 

@@ -1,61 +1,73 @@
 import React, { PureComponent } from 'react';
-import {
-  Text,
-  Platform,
-  View,
-} from 'react-native';
-import Swiper from 'react-native-swiper';
-
+import { Text, Platform, View } from 'react-native';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 import Business from './Business';
 import Perk from './Perk';
 import Member from './Member';
 import Association from './Association';
 
-import {
-  colors,
-  fonts,
-  styles,
-  metrics,
-} from '../../themes';
-
+import { colors, fonts, styles, metrics } from '../../themes';
 
 class OnboardingSwiper extends PureComponent {
-
   state = {
-    visiblePopupVideo: false,
+    activeSlide: 0
   };
 
-  scroll = (last = null) => {
-    this.swipe.scrollBy(1);
-  }
+  scroll = () => {
+    this._carousel.snapToNext();
+  };
+
+  pagination = () => {
+    const { activeSlide } = this.state;
+    return (
+      <Pagination
+        dotsLength={4}
+        activeDotIndex={activeSlide}
+        containerStyle={{
+          paddingVertical: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0)'
+        }}
+        dotStyle={style.dotStyle}
+        inactiveDotOpacity={0.4}
+        inactiveDotScale={0.5}
+      />
+    );
+  };
+
+  _renderItem = ({ item, index }) => {
+    switch (index) {
+      case 0:
+        return <Business scroll={this.scroll} />;
+      case 1:
+        return <Perk scroll={this.scroll} />;
+      case 2:
+        return <Member scroll={this.scroll} />;
+      default:
+        return <Association scroll={this.scroll} />;
+    }
+  };
 
   render() {
     return (
-      <Swiper
-        ref={swipe => { this.swipe = swipe; }}
-        loop={false}
-        showsButtons={true}
-        onMomentumScrollEnd={this.onMomentumScrollEnd}
-        buttonWrapperStyle={
-          style.buttonWrapperStyle
-        }
-        nextButton={(
-          <View />
-        )}
-        prevButton={(
-          <View />
-        )}
-        dotColor={colors.lightGray}
-        activeDotColor={colors.grey}
-        dotStyle={style.dotStyle}
-        activeDotStyle={style.activeDotStyle}
-      >
-        <Business scroll={this.scroll} />
-        <Perk scroll={this.scroll} />
-        <Member scroll={this.scroll} />
-        <Association scroll={this.scroll} />
-      </Swiper>
+      <View style={{ flex: 1 }}>
+        {this.pagination()}
+        <Carousel
+          ref={ref => {
+            this._carousel = ref;
+          }}
+          data={[{}, {}, {}, {}]}
+          renderItem={this._renderItem}
+          sliderWidth={metrics.deviceWidth}
+          itemWidth={metrics.deviceWidth}
+          slideStyle={{
+            width: metrics.deviceWidth
+          }}
+          inactiveSlideOpacity={1}
+          inactiveSlideScale={1}
+          onSnapToItem={index => this.setState({ activeSlide: index })}
+        />
+      </View>
     );
   }
 }
@@ -63,28 +75,9 @@ class OnboardingSwiper extends PureComponent {
 export default OnboardingSwiper;
 
 var style = {
-  buttonWrapperStyle: {
-    backgroundColor: 'transparent',
-    flexDirection: 'row',
-    position: 'absolute',
-    left: 0,
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    paddingBottom: Platform.OS === 'android' ? metrics.doubleBaseMargin + metrics.baseMargin : metrics.baseMargin
-  },
   dotStyle: {
     marginLeft: metrics.smallMargin,
     marginRight: metrics.smallMargin,
-    top: -metrics.deviceHeight + 80,
-    zIndex: 10,
-  },
-  activeDotStyle: {
-    height: 12,
-    width: 12,
-    borderRadius: 6,
-    marginLeft: metrics.smallMargin,
-    marginRight: metrics.smallMargin,
-    top: -metrics.deviceHeight + 80,
-    zIndex: 10,
-  },
+    top: metrics.doubleBaseMargin,
+  }
 };

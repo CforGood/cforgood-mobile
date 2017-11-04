@@ -51,7 +51,7 @@ export default class SignUpScreen extends Component {
           }
         })
         .catch(message => {
-          this.setState({ error: 'Oups ! Un problème technique est survenu, veuillez réessayer plus tard ?', loaded: true });
+          this.setState({ error: 'Oups ! un problème technique est survenu, veuillez réessayer plus tard !', loaded: true });
         });
     }
   }

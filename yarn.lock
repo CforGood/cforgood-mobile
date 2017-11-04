@@ -3527,6 +3527,13 @@ raw-body@~2.1.2:
     iconv-lite "0.4.13"
     unpipe "1.0.0"
 
+react-addons-shallow-compare@15.6.0:
+  version "15.6.0"
+  resolved "https://registry.yarnpkg.com/react-addons-shallow-compare/-/react-addons-shallow-compare-15.6.0.tgz#b7a4e5ff9f2704c20cf686dd8a05dd08b26de252"
+  dependencies:
+    fbjs "^0.8.4"
+    object-assign "^4.1.0"
+
 react-addons-shallow-compare@^15.0.2:
   version "15.5.2"
   resolved "https://registry.yarnpkg.com/react-addons-shallow-compare/-/react-addons-shallow-compare-15.5.2.tgz#7cb0ee7acc8d7c93fcc202df0bf47ba916a7bdad"
@@ -3616,7 +3623,7 @@ react-native-firebase-crash-report@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-firebase-crash-report/-/react-native-firebase-crash-report-1.2.0.tgz#ab4021a4acc0484b5153aae31076bb8d97e5bc62"
 
-react-native-flip-card@^3.3.0, react-native-flip-card@^3.4.1:
+react-native-flip-card@^3.3.0:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/react-native-flip-card/-/react-native-flip-card-3.4.1.tgz#29599ae8bce082e091a2bdec2a982f7ab9a22460"
 
@@ -3667,6 +3674,13 @@ react-native-slider@^0.9.1:
   dependencies:
     react-addons-shallow-compare "^15.0.2"
     style-equal "^1.0.0"
+
+react-native-snap-carousel@^3.3.4:
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/react-native-snap-carousel/-/react-native-snap-carousel-3.3.4.tgz#40a7763ec40bed325cfade836e7f306c4a0a2541"
+  dependencies:
+    prop-types "^15.5.10"
+    react-addons-shallow-compare "15.6.0"
 
 react-native-spinkit@^1.0.3:
   version "1.0.3"

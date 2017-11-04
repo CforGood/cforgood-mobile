@@ -40,8 +40,8 @@ class SignUpFirstnameScreen extends Component {
   verifyFirstname = () => {
     const { firstname, step } = this.state;
     if (firstname !== '') {
-        Keyboard.dismiss();
-        this.props.navigation.navigate('SignUpLastname', { user: { first_name: firstname } });
+      Keyboard.dismiss();
+      this.props.navigation.navigate('SignUpLastname', { user: { first_name: firstname } });
     }
     else {
       this.setState({ error: 'Prénom Obligatoire !' });
@@ -49,27 +49,27 @@ class SignUpFirstnameScreen extends Component {
   }
 
   validateFacebook = async (type) => {
-    if (type === 'signup') {
-      await this.props.loadUserData();
-      if (this.props.location) {
-        ApiHandler.code_partner(this.props.location)
-          .then(response => {
-            if (response.code_partner) {
-              this.props.navigation.navigate('SignUpCodePartner', { code_partner: response.code_partner });
-            }
-            else {
-              this.props.navigation.navigate('SignUpCode');
-            }
-          })
-          .catch(message => {
-            () => this.props.navigation.navigate('SignUpCode');
-          });
-      } else {
-        this.props.navigation.navigate('SignUpCode');
-      }
-
-      setTimeout(() => this.setState({ loaded: true }), 100);
+    //if (type === 'SignUp') {
+    await this.props.loadUserData();
+    if (this.props.location) {
+      ApiHandler.code_partner(this.props.location)
+        .then(response => {
+          if (response.code_partner) {
+            this.props.navigation.navigate('SignUpCodePartner', { code_partner: response.code_partner });
+          }
+          else {
+            this.props.navigation.navigate('SignUpCode');
+          }
+        })
+        .catch(message => {
+          () => this.props.navigation.navigate('SignUpCode');
+        });
+    } else {
+      this.props.navigation.navigate('SignUpCode');
     }
+
+    // setTimeout(() => this.setState({ loaded: true }), 100);
+    //}
 
   }
 

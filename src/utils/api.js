@@ -55,7 +55,7 @@ class ApiHandler {
       return {
         first_name: i.givenName,
         last_name: i.familyName,
-        phone: i.phoneNumbers && i.phoneNumbers[0] && i.phoneNumbers[0].number,
+        phone: (i.phoneNumbers && i.phoneNumbers[0] && i.phoneNumbers[0].number).replace(/-|(|)/gi, ""),
         city: (i.postalAddresses && i.postalAddresses[0]) ?
           i.postalAddresses[0].city : ''
       }
@@ -77,7 +77,7 @@ class ApiHandler {
       method: 'GET',
     };
 
-    return this.simpleAPI(request, `partners?lat=${latitude}&lng=${longitude}`);
+    return this.simpleAPI(request, `partners?lat=${latitude || 44.8460252}&lng=${longitude || -0.5736973}`);
   }
 
   async loadUserData() {
@@ -167,7 +167,7 @@ class ApiHandler {
         });
 
     } catch (e) {
-      return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard ?' });
+      return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard !' });
     }
   };
 
@@ -191,8 +191,7 @@ class ApiHandler {
         }
       };
     }
-
-    try {
+    // try {
       return fetch(`${API_URL}`, request)
         .then(response => {
           return response.json();
@@ -209,9 +208,10 @@ class ApiHandler {
         .catch(error => {
           return Promise.reject({ error: error.errors || error.error || error.message });
         });
-    } catch (e) {
-      return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard ?' });
-    }
+    // } 
+    // catch (e) {
+    //   return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard !' });
+    // }
   };
 
   signup(user) {
@@ -229,7 +229,12 @@ class ApiHandler {
         return response.json();
       })
       .then((responseJson) => {
-        return Promise.resolve(responseJson);
+        if (responseJson.error) {
+          return Promise.reject({ error: responseJson.error });
+        }
+        else {
+          return Promise.resolve(responseJson);
+        }
       })
       .catch(error => {
         return Promise.reject({ error: error.message });
@@ -261,7 +266,7 @@ class ApiHandler {
         }
       }
 
-
+      console.log('requestrequest', `${API_URL}/${endpoint}` , request.body, request.headers)
       return fetch(`${API_URL}/${endpoint}`, request)
         .then(response => {
           if (response.status === 401) {
@@ -273,11 +278,11 @@ class ApiHandler {
           return responseJson;
         })
         .catch(error => {
-          return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard ?' });
+          return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard !' });
         })
 
     } catch (e) {
-      return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard ?' });
+      return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard !' });
     }
   }
 
@@ -297,7 +302,7 @@ class ApiHandler {
         });
 
     } catch (e) {
-      return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard ?' });
+      return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard !' });
     }
   };
 
@@ -322,11 +327,11 @@ class ApiHandler {
             Promise.reject({ error: 'no data' });
         })
         .catch(error => {
-          Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard ?' });
+          Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard !' });
         });
 
     } catch (e) {
-      return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard ?' });
+      return Promise.reject({ error: 'un problème technique est survenu, veuillez réessayer plus tard !' });
     }
   };
 

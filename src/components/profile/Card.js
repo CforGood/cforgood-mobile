@@ -26,13 +26,14 @@ import {
 
 class Card extends PureComponent {
   
-  render() { 
+  render() {
     const { user } = this.props;
     return (
       <View style={styleCard.container}>
         <View style={styleCard.header}>
           {
-            user.supervisor_logo &&
+            user.supervisor_attributes &&
+            user.supervisor_attributes.supervisor_logo &&
             <View style={{flexDirection: 'row'}}>
               <Text
                 style={[
@@ -51,7 +52,7 @@ class Card extends PureComponent {
                   width: 15,
                   marginLeft: metrics.smallMargin      
                 }}
-                source={{uri: user.supervisor_logo}}
+                source={{uri: user.supervisor_attributes.supervisor_logo}}
               /> 
             </View>
           }

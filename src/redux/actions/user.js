@@ -104,15 +104,18 @@ export const onUpdateUserLocation = (location) => {
           if (address.types.indexOf('postal_code') !== -1) {
             zipcode = address.long_name;
           }
-          if (address.types.indexOf('administrative_area_level_1') !== -1) {
+          if (address.types.indexOf('administrative_area_level_1') !== -1
+            ||
+            address.types.indexOf('administrative_area_level_2') !== -1
+          ) {
             city = address.long_name;
           }
 
-          dispatch({
-            type: UPDATE_CITY,
-            city,
-            zipcode
-          });
+        });
+        dispatch({
+          type: UPDATE_CITY,
+          city,
+          zipcode
         });
       }).catch(message => {
       });
@@ -126,6 +129,7 @@ export const onUpdateUserLocation = (location) => {
 export const geocode = (location) => {
   if (location && location.coords) {
     return (dispatch, getState) => {
+
       ApiHandler.geocode(location.coords.latitude, location.coords.longitude)
         .then(async response => {
           let zipcode = '33300';
@@ -134,21 +138,25 @@ export const geocode = (location) => {
             if (address.types.indexOf('postal_code') !== -1) {
               zipcode = address.long_name;
             }
-            if (address.types.indexOf('administrative_area_level_1') !== -1) {
+            if (address.types.indexOf('administrative_area_level_2') !== -1
+              ||
+              address.types.indexOf('administrative_area_level_1') !== -1
+            ) {
               city = address.long_name;
             }
-            dispatch({
-              type: UPDATE_CITY,
-              city,
-              zipcode
-            });
+
+          });
+          dispatch({
+            type: UPDATE_CITY,
+            city,
+            zipcode
           });
         }).catch(message => {
         });
     };
   }
 
-  return (dispatch, getState) => {};
+  return (dispatch, getState) => { };
 
 }
 

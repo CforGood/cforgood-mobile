@@ -80,7 +80,8 @@ class ReservedSpaceScreen extends Component {
         </View>
         <Button
           onPress={() => this.props.navigation.navigate('Profile', {
-            'tab': 'Abonnement'
+            'tab': 'Abonnement',
+            backToPerk: true
           })}
           text={"Je deviens membre "}
         />

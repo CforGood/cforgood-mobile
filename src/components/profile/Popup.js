@@ -48,6 +48,7 @@ class PopupProfile extends Component {
   }
 
   renderPopup() {
+    console.log('this.props.type', this.props.type);
     switch (this.props.type) {
       case 'user':
         return (
@@ -59,7 +60,8 @@ class PopupProfile extends Component {
           />
         )
         break;
-      case 'M' || 'Y':
+      case 'M':
+      case 'Y':
         return (
           <Popup
             icon={require('../../resources/profile/claping-hands.png')}

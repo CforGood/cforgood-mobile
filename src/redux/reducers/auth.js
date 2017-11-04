@@ -5,7 +5,7 @@ import {
   LOGIN_FAILURE,
   LOGOUT_SUCCESS,
   LOGIN_LOAD,
-  LOGIN,
+  LOGIN
 } from '../constants/auth';
 
 const initialState = {
@@ -15,6 +15,7 @@ const initialState = {
   LoggedIn: false,
   error: null,
   typeAuth: 'signup',
+  typeSignIn: ''
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -25,7 +26,7 @@ const reducer = (state = initialState, action = {}) => {
         loaded: false,
         failure: false,
         error: null,
-        typeAuth: action.typeAuth,
+        typeAuth: action.typeAuth
       };
     case LOGIN_SUCCESS:
       return {
@@ -33,8 +34,7 @@ const reducer = (state = initialState, action = {}) => {
         loaded: true,
         isLoggedIn: true,
         failure: false,
-        error: null,
-
+        error: null
       };
     case LOGIN:
       return {
@@ -43,7 +43,7 @@ const reducer = (state = initialState, action = {}) => {
         LoggedIn: true,
         failure: false,
         error: null,
-
+        typeSignIn: action.typeSignIn
       };
     case LOGIN_FAILURE:
       AsyncStorage.removeItem('@CfoorGoodStore:auth');
@@ -52,7 +52,9 @@ const reducer = (state = initialState, action = {}) => {
         loaded: true,
         isLoggedIn: false,
         failure: true,
-        error: action.error
+        error:
+          action.error ||
+          'un problème technique est survenu, veuillez réessayer plus tard !'
       };
     case LOGOUT_SUCCESS:
       AsyncStorage.removeItem('@CfoorGoodStore:auth');
@@ -62,11 +64,11 @@ const reducer = (state = initialState, action = {}) => {
         isLoggedIn: false,
         LoggedIn: false,
         failure: false,
-        error: null,
+        error: null
       };
     default:
       return state;
   }
-}
+};
 
 export default reducer;

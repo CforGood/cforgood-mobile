@@ -1,4 +1,4 @@
-import React, { Component,  } from 'react'; import PropTypes from 'prop-types';
+import React, { Component, } from 'react'; import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -160,15 +160,14 @@ class PerkDetailScreen extends Component {
 
     if (
       user.member || (
-      user.first_perk_offer_attributes
-      &&
-      user.first_perk_offer_attributes.business_id === business.id
-    )) {
-
+        user.first_perk_offer_attributes
+        &&
+        user.first_perk_offer_attributes.business_id === business.id
+      )) {
       this.props.navigation.navigate('Member', { business, perk });
     }
     else {
-      this.props.navigation.navigate('Reserved');
+      this.props.navigation.navigate('Reserved', { perk });
     }
 
   }

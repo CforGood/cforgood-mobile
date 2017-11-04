@@ -6,7 +6,6 @@ import {
   StyleSheet,
   TouchableOpacity
 } from 'react-native';
-import FlipCard from 'react-native-flip-card';
 
 import Icon from '../common/Icon';
 import RadioSelect from '../common/RadioSelect';
