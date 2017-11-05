@@ -50,8 +50,8 @@ export const updateUserData = (id, data) => {
     return ApiHandler.updateUserData(id, data)
       .then(response => {
         if (response && !response.error) {
-          dispatch(loadUserData());
           dispatch(successUpdate(data));
+          dispatch(loadUserData());
         } else {
           dispatch(failure(response.error[0]));
         }
@@ -112,7 +112,6 @@ export const onUpdateUserLocation = location => {
 };
 
 export const geocode = location => {
-  alert(JSON.stringify(location));
   if (location && location.latitude) {
     return (dispatch, getState) => {
       ApiHandler.geocode(location.latitude, location.longitude)

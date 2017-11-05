@@ -26,12 +26,9 @@ export default class Info extends Component {
         <Text style={[fonts.style.t17, { fontWeight: '500' }]}>
           {user.name || user.first_name + ' ' + user.last_name}
         </Text>
-        {user.member && (
-          <Text style={[fonts.style.normal, { color: colors.grayDate }]}>
-            {user.status}
-          </Text>
-        )}
-
+        <Text style={[fonts.style.normal, { color: colors.grayDate }]}>
+          {user.status}
+        </Text>
         <Text
           style={[
             fonts.style.normal,

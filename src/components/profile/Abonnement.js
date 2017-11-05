@@ -50,6 +50,8 @@ class Abonnement extends PureComponent {
       {
         title: 'Mettre à jour CB',
         from: 'profile',
+        amount: this.props.user.amount,
+        subscription: this.props.user.subscription
       }
     );
   }

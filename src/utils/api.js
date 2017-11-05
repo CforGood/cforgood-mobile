@@ -103,6 +103,7 @@ class ApiHandler {
   }
 
   updateUserData(userId, userData) {
+    console.log('PATCHPATCH', { user: userData });
     return this.api(`users/${userId}`, { user: userData }, 'PATCH');
   }
 
@@ -240,6 +241,7 @@ class ApiHandler {
         return response.json();
       })
       .then(responseJson => {
+        console.log('signupsignup', JSON.stringify(responseJson));
         if (responseJson.error) {
           return Promise.resolve({ error: responseJson.error });
         } else {
@@ -273,12 +275,6 @@ class ApiHandler {
         }
       }
 
-      console.log(
-        'requestrequest',
-        `${API_URL}/${endpoint}`,
-        request.body,
-        request.headers
-      );
       return fetch(`${API_URL}/${endpoint}`, request)
         .then(response => {
           if (response.status === 401) {

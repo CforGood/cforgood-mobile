@@ -163,7 +163,7 @@ class ProfileCreditCardScreen extends Component {
             >
               Participation choisie de
               <Text style={fonts.style.mediumBold}>
-                {` ${amount} € `}
+                {` ${String(Math.ceil(amount))} € `}
                 {subscription === 'Y' ? 'annuel' : 'mensuel'}
               </Text>
             </Text>

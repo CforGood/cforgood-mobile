@@ -40,7 +40,6 @@ class SignUpFirstnameScreen extends Component {
   CodePartner() {
     this.setState({ loaded: true });
     if (this.props.location) {
-      alert('OK')
       ApiHandler.code_partner(this.props.location)
         .then(response => {
           if (response.code_partner) {
