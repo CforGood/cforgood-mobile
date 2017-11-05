@@ -1,4 +1,5 @@
-import React, { Component, } from 'react'; import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -6,18 +7,13 @@ import {
   StyleSheet,
   Platform,
   Linking,
-  Alert,
+  Alert
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import stripe from 'tipsi-stripe';
 
-import {
-  styles,
-  fonts,
-  metrics,
-  colors,
-} from '../../themes';
+import { styles, fonts, metrics, colors } from '../../themes';
 import { updateUserData } from '../../redux/actions/user';
 
 import Header from '../../components/common/Header';
@@ -31,34 +27,25 @@ import ErrorView from '../../components/common/ErrorView';
 import ApiHandler from '../../utils/api';
 
 class ProfileCreditCardScreen extends Component {
-
   state = {
     valid: null,
     status: {},
     number: '',
     expMonth: '',
     expYear: '',
-    cvc: '',
+    cvc: ''
   };
 
   componentWillMount() {
     stripe.init({
-      publishableKey: 'sk_test_UKyzFlg4ttw8q0rN6Wtqz3ni',
+      publishableKey: 'sk_test_UKyzFlg4ttw8q0rN6Wtqz3ni'
     });
   }
 
   createToken = () => {
-
     const { from } = this.props.navigation.state.params;
 
-    const {
-      number,
-      expMonth,
-      expYear,
-      cvc,
-      status,
-      valid,
-    } = this.state;
+    const { number, expMonth, expYear, cvc, status, valid } = this.state;
 
     if (valid) {
       const params = {
@@ -66,35 +53,44 @@ class ProfileCreditCardScreen extends Component {
         number,
         expMonth,
         expYear,
-        cvc,
+        cvc
       };
 
-      stripe.createTokenWithCard(params).then(token => {
-        if (from === 'auth') {
-          this.props.navigation.navigate('InvitationLove');
-        }
-        else {
-          this.props.navigation.goBack();
-        }
-        if(token && token.tokenId)
-        this.props.updateUserData(this.props.user.id, { stripeToken: token.tokenId });
-        //stripeToken
-        //call api to add token
-      }).catch(error => this.setState({
-        error: error.message
-      }))
-    }
-    else {
+      stripe
+        .createTokenWithCard(params)
+        .then(token => {
+          if (from === 'auth') {
+            this.props.navigation.navigate('InvitationLove');
+          } else {
+            this.props.navigation.goBack();
+          }
+          if (token && token.tokenId) {
+            this.props.updateUserData(this.props.user.id, {
+              stripeToken: token.tokenId
+            });
+          } else {
+            this.setState({
+              error: 'Erreur de Payement'
+            });
+          }
+
+          //stripeToken
+          //call api to add token
+        })
+        .catch(error =>
+          this.setState({
+            error: error.message
+          })
+        );
+    } else {
       const message = '';
       if (status.number !== 'valid') {
         message = 'Numéro de carte invalide !';
-      }
-      else if (status.expiry !== 'valid') {
+      } else if (status.expiry !== 'valid') {
         message = 'Date d’expiration invalide !';
       } else if (status.cvc !== 'valid') {
         message = 'Cryptogramme visuel invalide !';
-      }
-      else if (number === '') {
+      } else if (number === '') {
         message = 'Formulaire invalide ! ';
       }
 
@@ -102,9 +98,9 @@ class ProfileCreditCardScreen extends Component {
         this.setState({ error: message });
       }
     }
-  }
+  };
 
-  _onChange = (form) => {
+  _onChange = form => {
     const { valid, values, status } = form;
     if (valid) {
       this.setState({
@@ -112,36 +108,37 @@ class ProfileCreditCardScreen extends Component {
         expYear: parseInt(values.expiry.substr(3)),
         expMonth: parseInt(values.expiry.substr(0, 2)),
         cvc: values.cvc,
-        valid: true,
+        valid: true
       });
-    }
-    else {
+    } else {
       this.setState({
         status,
-        valid: false,
+        valid: false
       });
     }
-  }
+  };
 
   render() {
     const { user } = this.state;
-    const { title, from, amount, subscription } = this.props.navigation.state.params;
+    const {
+      title,
+      from,
+      amount,
+      subscription
+    } = this.props.navigation.state.params;
     return (
       <View style={styles.screen.mainContainer}>
         <ErrorView
           message={this.state.error}
           removeError={() => this.setState({ error: '' })}
         />
-        <Loading
-          loading={!this.props.loaded}
-          title={'Mise à jour CB'}
-        />
+        <Loading loading={!this.props.loaded} title={'Mise à jour CB'} />
         <Header
           back={'-90deg'}
           text={title}
           type={'gradiant'}
           style={{
-            paddingHorizontal: metrics.marginApp
+            paddingHorizontal: metrics.marginApp,
           }}
           onClose={() => this.props.navigation.goBack()}
         />
@@ -149,20 +146,26 @@ class ProfileCreditCardScreen extends Component {
           contentContainerStyle={{ marginVertical: metrics.marginApp }}
         >
           <View style={{ flex: 1, alignItems: 'center' }}>
-            <Text style={[
-              fonts.style.t20,
-              fonts.style.mediumBold,
-              { marginBottom: 10 }
-            ]}
+            <Text
+              style={[
+                fonts.style.t20,
+                fonts.style.mediumBold,
+                { marginBottom: 10 }
+              ]}
             >
               Renseignez vos données bancaires
             </Text>
-            <Text style={[
-              fonts.style.t15,
-              { color: colors.textLightGray, marginBottom: 10 }
-            ]}>
+            <Text
+              style={[
+                fonts.style.t15,
+                { color: colors.textLightGray, marginBottom: 10 }
+              ]}
+            >
               Participation choisie de
-              <Text style={fonts.style.mediumBold}>{` ${amount} € `}{subscription === 'Y' ? 'annuel': 'mensuel' }</Text>
+              <Text style={fonts.style.mediumBold}>
+                {` ${amount} € `}
+                {subscription === 'Y' ? 'annuel' : 'mensuel'}
+              </Text>
             </Text>
           </View>
           <View style={{ flex: 5 }}>
@@ -177,44 +180,40 @@ class ProfileCreditCardScreen extends Component {
                 borderBottomColor: colors.ignore,
                 borderBottomWidth: 2,
                 flex: 1,
-                marginHorizontal: metrics.marginApp,
+                marginHorizontal: metrics.marginApp
               }}
               labels={{
                 name: "CARDHOLDER'S NAME",
-                number: "Numéro de carte",
-                expiry: "Date d’expiration",
-                cvc: "Cryptogramme visuel",
-                postalCode: "Code postal",
+                number: 'Numéro de carte',
+                expiry: 'Date d’expiration',
+                cvc: 'Cryptogramme visuel',
+                postalCode: 'Code postal'
               }}
               placeholders={{
-                name: "Full Name",
-                number: "**** **** **** ****",
-                expiry: "MM/YY",
-                cvc: "123",
-                postalCode: "34567",
+                name: 'Full Name',
+                number: '**** **** **** ****',
+                expiry: 'MM/YY',
+                cvc: '123',
+                postalCode: '34567'
               }}
               placeholderColor={'white'}
             />
             <View style={styles.center}>
-              <Text style={[
-                fonts.style.t15,
-                { color: colors.info, marginBottom: 20 }
-              ]}
+              <Text
+                style={[
+                  fonts.style.t15,
+                  { color: colors.info, marginBottom: 20 }
+                ]}
               >
                 Informations légales
               </Text>
             </View>
-
           </View>
         </ScrollView>
         <View style={[{ height: 60 }, styles.center]}>
-          <ButtonGradiantRadius
-            onPress={this.createToken}
-            text={'Valider'}
-          />
+          <ButtonGradiantRadius onPress={this.createToken} text={'Valider'} />
         </View>
-        {
-          from === 'auth' &&
+        {from === 'auth' && (
           <Button
             onPress={() => this.props.navigation.navigate('InvitationLove')}
             type={'simple'}
@@ -223,11 +222,11 @@ class ProfileCreditCardScreen extends Component {
             }}
             styleText={{
               ...fonts.style.t15,
-              color: colors.ignore,
+              color: colors.ignore
             }}
             text={'Passer'}
           />
-        }
+        )}
       </View>
     );
   }
@@ -237,20 +236,21 @@ const mapStateToProps = state => ({
   user: state.user.data,
   failure: state.user.failure,
   error: state.user.error,
-  loaded: state.user.loaded,
+  loaded: state.user.loaded
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  updateUserData: bindActionCreators(updateUserData, dispatch),
+const mapDispatchToProps = dispatch => ({
+  updateUserData: bindActionCreators(updateUserData, dispatch)
 });
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileCreditCardScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  ProfileCreditCardScreen
+);
 
 const style = StyleSheet.create({
   profileheader: {
     height: metrics.navBarHeight,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   info: {
     height: 200,
@@ -263,6 +263,6 @@ const style = StyleSheet.create({
   boldCenter: {
     textAlign: 'center',
     marginVertical: metrics.baseMargin,
-    fontWeight: 'bold',
-  },
+    fontWeight: 'bold'
+  }
 });

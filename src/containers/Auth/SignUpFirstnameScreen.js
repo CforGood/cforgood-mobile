@@ -1,10 +1,6 @@
-import React, { Component, } from 'react'; import PropTypes from 'prop-types';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Keyboard,
-} from 'react-native';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { View, Text, StyleSheet, Keyboard } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -16,21 +12,52 @@ import { loadUserData, geocode } from '../../redux/actions/user';
 
 import ApiHandler from '../../utils/api';
 
-import {
-  styles,
-  colors,
-  metrics,
-  fonts,
-} from '../../themes';
+import { styles, colors, metrics, fonts } from '../../themes';
 
 class SignUpFirstnameScreen extends Component {
   state = {
     firstname: '',
     step: 1,
     error: '',
-    loaded: true,
+    loaded: true
   };
 
+  async componentWillReceiveProps(nextProps) {
+    if (nextProps.LoggedIn === true && this.props.LoggedIn === false) {
+      Keyboard.dismiss();
+      await this.props.loadUserData();
+      
+      if (nextProps.isSignUp === true) {
+        this.CodePartner();
+      } else {
+        this.props.navigation.navigate('SignInValidation');
+      }
+    } else if (nextProps.failure === true && this.props.failure === false) {
+      this.setState({ error: nextProps.error });
+    }
+  }
+
+  CodePartner() {
+    this.setState({ loaded: true });
+    if (this.props.location) {
+      alert('OK')
+      ApiHandler.code_partner(this.props.location)
+        .then(response => {
+          if (response.code_partner) {
+            this.props.navigation.navigate('SignUpCodePartner', {
+              code_partner: response.code_partner
+            });
+          } else {
+            this.props.navigation.navigate('SignUpCode');
+          }
+        })
+        .catch(message => {
+          this.props.navigation.navigate('SignUpCode');
+        });
+    } else {
+      this.props.navigation.navigate('SignUpCode');
+    }
+  }
 
   componentWillMount() {
     const { location } = this.props;
@@ -41,38 +68,13 @@ class SignUpFirstnameScreen extends Component {
     const { firstname, step } = this.state;
     if (firstname !== '') {
       Keyboard.dismiss();
-      this.props.navigation.navigate('SignUpLastname', { user: { first_name: firstname } });
-    }
-    else {
+      this.props.navigation.navigate('SignUpLastname', {
+        user: { first_name: firstname }
+      });
+    } else {
       this.setState({ error: 'Prénom Obligatoire !' });
     }
-  }
-
-  validateFacebook = async (type) => {
-    //if (type === 'SignUp') {
-    await this.props.loadUserData();
-    if (this.props.location) {
-      ApiHandler.code_partner(this.props.location)
-        .then(response => {
-          if (response.code_partner) {
-            this.props.navigation.navigate('SignUpCodePartner', { code_partner: response.code_partner });
-          }
-          else {
-            this.props.navigation.navigate('SignUpCode');
-          }
-        })
-        .catch(message => {
-          () => this.props.navigation.navigate('SignUpCode');
-        });
-    } else {
-      this.props.navigation.navigate('SignUpCode');
-    }
-
-    // setTimeout(() => this.setState({ loaded: true }), 100);
-    //}
-
-  }
-
+  };
 
   render() {
     const { firstname } = this.state;
@@ -84,20 +86,19 @@ class SignUpFirstnameScreen extends Component {
         }}
       >
         <Container
-          title={"Quel est votre prénom ?"}
-          onChangeText={(firstname) => this.setState({ firstname })}
+          title={'Quel est votre prénom ?'}
+          onChangeText={firstname => this.setState({ firstname })}
           value={firstname}
           placeholder={'Je m’appelle'}
-          firstText={"ou"}
+          firstText={'ou'}
           facebook={true}
-          secondText={"Déjà membre ? Connexion"}
+          secondText={'Déjà membre ? Connexion'}
           onPress={() => this.props.navigation.navigate('Login')}
           nextStep={() => this.verifyFirstname()}
-          setLoadedFacebook={(loaded) => this.setState({ loaded })}
-          setErrorFacebook={(error) => {
-            this.setState({ error })
+          setLoadedFacebook={loaded => this.setState({ loaded })}
+          setErrorFacebook={error => {
+            this.setState({ error });
           }}
-          validateFacebook={this.validateFacebook}
         />
         <ErrorView
           message={this.state.error}
@@ -114,16 +115,15 @@ class SignUpFirstnameScreen extends Component {
 
 const mapStateToProps = state => ({
   location: state.location.latlng,
+  LoggedIn: state.auth.LoggedIn,
+  isSignUp: state.auth.isSignUp,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   loadUserData: bindActionCreators(loadUserData, dispatch),
-  geocode: bindActionCreators(geocode, dispatch),
+  geocode: bindActionCreators(geocode, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SignUpFirstnameScreen);
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(
+  SignUpFirstnameScreen
+);

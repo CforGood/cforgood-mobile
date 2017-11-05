@@ -91,7 +91,7 @@ class AssociationListScreen extends Component {
           title={'Envoi des données'}
         />
         <Header
-          text={'Séléctionnez une association'}
+          text={'Sélectionnez une association'}
           type={'gradiant'}
           style={{
             paddingHorizontal: metrics.marginApp,

@@ -1,4 +1,5 @@
-import React, { Component, } from 'react'; import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -6,18 +7,13 @@ import {
   StyleSheet,
   Platform,
   Linking,
-  Alert,
+  Alert
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import stripe from 'tipsi-stripe'
+import stripe from 'tipsi-stripe';
 
-import {
-  styles,
-  fonts,
-  metrics,
-  colors,
-} from '../../themes';
+import { styles, fonts, metrics, colors } from '../../themes';
 import { updateUserData } from '../../redux/actions/user';
 
 import Loading from '../../components/common/Loading';
@@ -41,7 +37,7 @@ class ProfilePaymentScreen extends Component {
       user: {
         ...this.props.user,
         subscription: 'Y',
-        amount: 5,
+        amount: 5
       }
     });
   }
@@ -49,27 +45,23 @@ class ProfilePaymentScreen extends Component {
   handleConfirm = () => {
     if (this.state.user) {
       if (this.state.user.amount > 0 && this.state.user.amount !== null) {
-        this.props.updateUserData(this.props.user.id,
-          {
-            subscription: this.state.user.subscription,
-            amount: this.state.user.amount,
-          }
-        );
+        this.props.updateUserData(this.props.user.id, {
+          subscription: this.state.user.subscription,
+          amount: this.state.user.amount
+        });
         this.props.navigation.navigate('CreditCard', {
           from: 'auth',
           title: 'Ajouter une CB',
           amount: this.state.user.amount,
-          subscription: this.state.user.subscription,
+          subscription: this.state.user.subscription
+        });
+      } else {
+        this.setState({
+          error: "Oups ! \n Choisissez d'abord un montant :-)"
         });
       }
-      else {
-        this.setState({
-          error: 'Oups ! \n Choisissez d\'abord un montant :-)',
-        })
-      }
     }
-
-  }
+  };
 
   render() {
     return (
@@ -86,17 +78,20 @@ class ProfilePaymentScreen extends Component {
           text={'Choisissez un montant'}
           type={'gradiant'}
           style={{
-            paddingHorizontal: metrics.marginApp
+            paddingHorizontal: metrics.marginApp,
+            justifyContent: 'center'
           }}
           onClose={null}
         />
-        <ScrollView contentContainerStyle={{
-          marginHorizontal: metrics.marginApp,
-          paddingBottom: metrics.doubleBaseMargin
-        }}>
+        <ScrollView
+          contentContainerStyle={{
+            marginHorizontal: metrics.marginApp,
+            paddingBottom: metrics.doubleBaseMargin
+          }}
+        >
           <Payement
             user={this.props.user}
-            setUserData={(user) => this.setState({ user })}
+            setUserData={user => this.setState({ user })}
           />
         </ScrollView>
         <View
@@ -119,7 +114,7 @@ class ProfilePaymentScreen extends Component {
           }}
           styleText={{
             ...fonts.style.t15,
-            color: colors.ignore,
+            color: colors.ignore
           }}
           text={"Passer l'étape en invitant des amis"}
         />
@@ -132,20 +127,21 @@ const mapStateToProps = state => ({
   user: state.user.data,
   failure: state.user.failure,
   error: state.user.error,
-  loaded: state.user.loaded,
+  loaded: state.user.loaded
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  updateUserData: bindActionCreators(updateUserData, dispatch),
+const mapDispatchToProps = dispatch => ({
+  updateUserData: bindActionCreators(updateUserData, dispatch)
 });
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProfilePaymentScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  ProfilePaymentScreen
+);
 
 const style = StyleSheet.create({
   profileheader: {
     height: metrics.navBarHeight,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   info: {
     height: 200,
@@ -158,6 +154,6 @@ const style = StyleSheet.create({
   boldCenter: {
     textAlign: 'center',
     marginVertical: metrics.baseMargin,
-    fontWeight: 'bold',
-  },
+    fontWeight: 'bold'
+  }
 });

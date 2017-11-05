@@ -10,7 +10,6 @@ import Container from '../../components/login/Container';
 import Icon from '../../components/common/Icon';
 import ErrorView from '../../components/common/ErrorView';
 import { signup } from '../../redux/actions/auth';
-import { loadUserData } from '../../redux/actions/user';
 import ApiHandler from '../../utils/api';
 
 import { styles, colors, metrics, fonts } from '../../themes';
@@ -23,39 +22,16 @@ class SignUpScreen extends Component {
     validate: false
   };
 
-  async componentWillReceiveProps(nextProps) {
-    // alert(JSON.stringify(nextProps))
+  componentWillReceiveProps(nextProps) {
     if (nextProps.failure === true) {
-      this.setState({ error: nextProps.error[0] || nextProps.error });
-    } else if (
-      nextProps.LoggedIn
-       &&
-      nextProps.LoggedIn !== this.props.LoggedIn
-    ) {
-      Keyboard.dismiss();
-      await this.props.loadUserData();
-      this.CodePartner();
-    }
-  }
-
-  CodePartner() {
-    this.setState({ loaded: true });
-    if (this.props.location) {
-      ApiHandler.code_partner(this.props.location)
-        .then(response => {
-          if (response.code_partner) {
-            this.props.navigation.navigate('SignUpCodePartner', {
-              code_partner: response.code_partner
-            });
-          } else {
-            this.props.navigation.navigate('SignUpCode');
-          }
-        })
-        .catch(message => {
-          this.props.navigation.navigate('SignUpCode');
-        });
+      this.setState({
+        error: nextProps.error[0] || nextProps.error,
+        loaded: true
+      });
     } else {
-      this.props.navigation.navigate('SignUpCode');
+      this.setState({
+        loaded: true
+      });
     }
   }
 
@@ -113,8 +89,6 @@ class SignUpScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-  location: state.location.latlng,
-  LoggedIn: state.auth.LoggedIn,
   failure: state.auth.failure,
   loaded: state.auth.loaded,
   user: state.user.data,
@@ -122,8 +96,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  signup: bindActionCreators(signup, dispatch),
-  loadUserData: bindActionCreators(loadUserData, dispatch)
+  signup: bindActionCreators(signup, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen);

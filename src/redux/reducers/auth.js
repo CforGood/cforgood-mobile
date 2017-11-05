@@ -5,10 +5,12 @@ import {
   LOGIN_FAILURE,
   LOGOUT_SUCCESS,
   LOGIN_LOAD,
-  LOGIN
+  LOGIN,
+  SIGNUP_SUCESS
 } from '../constants/auth';
 
 const initialState = {
+  isSignUp: false,
   isLoggedIn: false,
   loaded: true,
   failure: false,
@@ -20,6 +22,11 @@ const initialState = {
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
+    case SIGNUP_SUCESS:
+      return {
+        ...state,
+        isSignUp: true
+      };
     case LOGIN_LOAD:
       return {
         ...state,

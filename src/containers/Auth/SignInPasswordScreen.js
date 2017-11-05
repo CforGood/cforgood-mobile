@@ -13,7 +13,6 @@ import ErrorView from '../../components/common/ErrorView';
 import Loading from '../../components/common/Loading';
 import Container from '../../components/login/Container';
 import { signin } from '../../redux/actions/auth';
-import { loadUserData } from '../../redux/actions/user';
 
 import {
   styles,
@@ -29,17 +28,7 @@ class SignInPassword extends Component {
     password: '',
     error: '',
   };
-
-  async componentWillReceiveProps(nextProps) {
-    if (nextProps.LoggedIn === true && this.props.LoggedIn === false) {
-      Keyboard.dismiss();
-      // await this.props.loadUserData();
-      // this.props.navigation.navigate('SignInValidation');
-    } else if (nextProps.failure === true && this.props.failure === false) {
-      this.setState({ error: nextProps.error });
-    }
-  }
-
+  
   verify = () => {
     const { password } = this.state;
     const { email } = this.props.navigation.state.params;
@@ -88,7 +77,6 @@ class SignInPassword extends Component {
 }
 
 const mapStateToProps = state => ({
-  LoggedIn: state.auth.LoggedIn,
   loaded: state.auth.loaded,
   failure: state.auth.failure,
   error: state.auth.error,
@@ -97,7 +85,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
   signin: bindActionCreators(signin, dispatch),
-  loadUserData: bindActionCreators(loadUserData, dispatch),
 });
 
 export default connect(

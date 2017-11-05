@@ -49,7 +49,6 @@ export default class Container extends PureComponent {
     typeAuth: 'SignUp',
     canHandleNextStep: false,
     setErrorFacebook: () => { },
-    validateFacebook: () => { },
     setLoadedFacebook: () => { },
   };
 
@@ -74,7 +73,6 @@ export default class Container extends PureComponent {
     typeAuth: PropTypes.string,
     canHandleNextStep: PropTypes.bool,
     setErrorFacebook: PropTypes.func,
-    validateFacebook: PropTypes.func,
     setLoadedFacebook: PropTypes.func,
   };
 
@@ -168,7 +166,6 @@ export default class Container extends PureComponent {
           <ButtonFacebook
             setLoaded={this.props.setLoadedFacebook}
             setError={this.props.setErrorFacebook}
-            validate={this.props.validateFacebook}
             typeAuth={typeAuth}
           />
         }

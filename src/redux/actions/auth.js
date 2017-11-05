@@ -6,7 +6,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   LOGOUT_SUCCESS,
-  LOGIN
+  LOGIN,
+  SIGNUP_SUCESS
 } from '../constants/auth';
 
 import { sucrityData, loadUserData } from './user';
@@ -37,12 +38,19 @@ export const siginSuccess = () => {
   };
 };
 
+export const sigupSuccess = () => {
+  return {
+    type: SIGNUP_SUCESS
+  };
+};
+
 export const signup = (user, type = 'email') => {
   return async dispatch => {
     dispatch(load('signup', type));
     ApiHandler.signup(user)
       .then(response => {
         if (response.id) {
+          dispatch(sigupSuccess());
           dispatch(
             signin(
               user.email,
@@ -60,7 +68,7 @@ export const signup = (user, type = 'email') => {
   };
 };
 
-export const sigin = (type) => {
+export const sigin = type => {
   return {
     type: LOGIN,
     typeSignIn: type

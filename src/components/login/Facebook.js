@@ -1,17 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  AsyncStorage,
-} from 'react-native';
+import { View, Text, StyleSheet, TextInput, AsyncStorage } from 'react-native';
 import {
   LoginManager,
   GraphRequest,
   GraphRequestManager,
-  AccessToken,
+  AccessToken
 } from 'react-native-fbsdk';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -19,41 +13,22 @@ import { bindActionCreators } from 'redux';
 import { signin, signup } from '../../redux/actions/auth';
 
 import Button from '../common/Button';
-import {
-  styles,
-  colors,
-  fonts,
-  metrics,
-} from '../../themes';
+import { styles, colors, fonts, metrics } from '../../themes';
 
 class ButtonFacebook extends PureComponent {
-
-
   static propTypes = {
     typeAuth: PropTypes.string.isRequired,
     setError: PropTypes.func.isRequired,
-    validate: PropTypes.func.isRequired,
-    setLoaded: PropTypes.func.isRequired,
+    setLoaded: PropTypes.func.isRequired
   };
 
   componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.failure === true
-      && this.props.failure == false
-    ) {
+    if (nextProps.failure === true && this.props.failure == false) {
       this.props.setError(nextProps.error);
-    } else if (
-      nextProps.LoggedIn === true && 
-      this.props.LoggedIn === false &&
-      this.props.typeSignIn === 'facebook'
-    ) {
-      this.props.validate(nextProps.typeAuthF);
-      this.props.validateFacebook();
     }
   }
 
   connectWithAcessToken = async (verifyToken = false) => {
-
     const accessToken = await AsyncStorage.getItem('accessToken');
     if (accessToken) {
       const infoRequest = new GraphRequest(
@@ -67,40 +42,33 @@ class ButtonFacebook extends PureComponent {
           }
         },
         (error, result) => {
-          this.storeResponseFacebookData(
-            error,
-            result,
-            accessToken
-          );
-
-          // }
-        },
+          this.storeResponseFacebookData(error, result, accessToken);
+        }
       );
       // Start the graph request.
       new GraphRequestManager().addRequest(infoRequest).start();
     } else if (verifyToken) {
       this.facebookManager();
     }
-
-  }
+  };
 
   facebookManager() {
     LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
-      (result) => {
+      result => {
         if (result.isCancelled) {
           this.props.setError('Login cancelled');
         } else {
-          AccessToken.getCurrentAccessToken().then(
-            async (data) => {
+          AccessToken.getCurrentAccessToken()
+            .then(async data => {
               await AsyncStorage.setItem('accessToken', data.accessToken);
               this.connectWithAcessToken(false);
-            }
-          ).catch(error => {
-            this.props.setError(error.errorMessage);
-          });
+            })
+            .catch(error => {
+              this.props.setError(error.errorMessage);
+            });
         }
       },
-      (error) => {
+      error => {
         this.props.setError(error.errorMessage);
       }
     );
@@ -111,18 +79,24 @@ class ButtonFacebook extends PureComponent {
     if (error) {
       this.props.setError(error.errorMessage);
     } else {
-
       const { typeAuth, user } = this.props;
 
       if (typeAuth === 'SignUp') {
-        this.props.signup({
-          email: result.email,
-          last_name: result.last_name,
-          first_name: result.first_name,
-          city: result.location ? result.location.name : (user.city || 'Bordeaux'),
-          zipcode: result.location ? result.location.zip : (user.zipcode || 33000),
-          access_token: accessToken,
-        }, 'facebook');
+        this.props.signup(
+          {
+            email: result.email,
+            last_name: result.last_name,
+            first_name: result.first_name,
+            city: result.location
+              ? result.location.name
+              : user.city || 'Bordeaux',
+            zipcode: result.location
+              ? result.location.zip
+              : user.zipcode || 33000,
+            access_token: accessToken
+          },
+          'facebook'
+        );
       } else {
         this.props.signin(result.email, accessToken, 'facebook');
       }
@@ -136,32 +110,28 @@ class ButtonFacebook extends PureComponent {
         styleButton={style.button}
         styleText={style.textButton}
         text={
-          typeAuth === 'SignUp' ?
-            "S'inscrire avec Facebook"
-            :
-            "Se connecter avec Facebook"
+          typeAuth === 'SignUp'
+            ? "S'inscrire avec Facebook"
+            : 'Se connecter avec Facebook'
         }
         onPress={() => this.connectWithAcessToken(true)}
       />
     );
   }
-
 }
 
 const mapStateToProps = state => ({
-  LoggedIn: state.auth.LoggedIn,
   failure: state.auth.failure,
   loaded: state.auth.failure,
   error: state.auth.error,
   user: state.user.data,
   typeAuthF: state.auth.typeAuth,
-  typeSignIn: state.auth.typeSignIn,
+  typeSignIn: state.auth.typeSignIn
 });
 
-
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   signin: bindActionCreators(signin, dispatch),
-  signup: bindActionCreators(signup, dispatch),
+  signup: bindActionCreators(signup, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ButtonFacebook);
@@ -170,7 +140,7 @@ const style = StyleSheet.create({
   textButton: {
     color: colors.white,
     fontSize: 15,
-    marginHorizontal: metrics.baseMargin,
+    marginHorizontal: metrics.baseMargin
   },
   button: {
     backgroundColor: colors.transparent,
@@ -179,6 +149,6 @@ const style = StyleSheet.create({
     borderRadius: metrics.buttonHeight / 2,
     height: metrics.buttonHeight,
     justifyContent: 'center',
-    paddingHorizontal: metrics.baseMargin,
-  },
-});                               
+    paddingHorizontal: metrics.baseMargin
+  }
+});

@@ -39,7 +39,7 @@ class Abonnement extends PureComponent {
 
   updateMember() {
     this.props.setUserData({
-      ...this.props.user, membre: false,
+      ...this.props.user, member: false,
     });
     this.props.updateUserData(this.props.user.id, { subscription: 'X' });
   }
