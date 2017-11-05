@@ -135,6 +135,16 @@ export const geocode = location => {
         })
         .catch(message => {});
     };
+  } else {
+    return (dispatch, getState) => {
+      let zipcode = '33300';
+      let city = 'Bordeaux';
+      dispatch({
+        type: UPDATE_CITY,
+        city,
+        zipcode
+      });
+    };
   }
 
   return (dispatch, getState) => {};
