@@ -29,9 +29,7 @@ class SignUpScreen extends Component {
         loaded: true
       });
     } else {
-      this.setState({
-        loaded: true
-      });
+      this.setState({ loaded: nextProps.loaded });
     }
   }
 

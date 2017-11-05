@@ -241,7 +241,6 @@ class ApiHandler {
         return response.json();
       })
       .then(responseJson => {
-        console.log('signupsignup', JSON.stringify(responseJson));
         if (responseJson.error) {
           return Promise.resolve({ error: responseJson.error });
         } else {
@@ -249,7 +248,7 @@ class ApiHandler {
         }
       })
       .catch(error => {
-        return Promise.reject({ error: error.message });
+        return Promise.reject({ error: [error.message] });
       });
   }
 

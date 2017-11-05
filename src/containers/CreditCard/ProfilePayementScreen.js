@@ -29,7 +29,7 @@ import ApiHandler from '../../utils/api';
 class ProfilePaymentScreen extends Component {
   state = {
     error: '',
-    user: null
+    user: null,
   };
 
   componentDidMount() {

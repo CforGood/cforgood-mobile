@@ -50,8 +50,8 @@ export const updateUserData = (id, data) => {
     return ApiHandler.updateUserData(id, data)
       .then(response => {
         if (response && !response.error) {
-          dispatch(successUpdate(data));
           dispatch(loadUserData());
+          dispatch(successUpdate(data));
         } else {
           dispatch(failure(response.error[0]));
         }
