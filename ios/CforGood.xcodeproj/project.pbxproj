@@ -822,6 +822,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				9F3B0454182B42728A3F7809 /* Resources */,
 				762B8E8AC65E47A307A9F50D /* Pods */,
+				B16EEE581FC74B9E0040C004 /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -989,6 +990,30 @@
 				B85185351E6040A1B5A94204 /* MaterialIcons.ttf */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		B16EEE581FC74B9E0040C004 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				8983778F0B6A47938632FE2E /* libRCTVideo.a */,
+				4E1C073A70434BB39403F80C /* libRNBlur.a */,
+				EEC6CF45876B4824A61095DD /* libRCTFBSDK.a */,
+				7C903E6A18B44DE0935EFEF3 /* libRCTOrientation.a */,
+				EB57040557D44D6AAF49FC16 /* libRNVectorIcons.a */,
+				013EE9433F65413A8108CA57 /* libBVLinearGradient.a */,
+				EA102029953747FFA9DD8526 /* libRNShare.a */,
+				5CAC5FB0A75346DBA9BB929E /* libRNFirebaseCrashReport.a */,
+				4E139CFAB90F4A898E23E8AC /* libRNImagePicker.a */,
+				4A1E5A0060E3474EA5A89213 /* libRNIntercom.a */,
+				0B4CD685A40C49C1B24FCAC7 /* libCodePush.a */,
+				9D9C64FD8AEF4647A4AF9B79 /* libRNFIRMessaging.a */,
+				3B1F227591714A0DACCCC573 /* libReactNativePermissions.a */,
+				46B2D138BA8F4DACB9E1478F /* libTPSStripe.a */,
+				7753FF385F854B59AEB98C41 /* libRCTContacts.a */,
+				B5DD258C39164F02AB0D71DB /* libRCTMapboxGL.a */,
+				56B16652299D4884B874DEFB /* libRNSpinkit.a */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		B199F6251F24A394007649E9 /* Products */ = {

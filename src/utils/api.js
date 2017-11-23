@@ -6,7 +6,9 @@ import { API_URL, cloudinary, geoKey } from '../config.json';
 class ApiHandler {
   businesses(online, position) {
     return this.api(
-      `businesses?online=${online}&lat=${position.latitude}&lng=${position.longitude}`
+      `businesses?online=${online}&lat=${position.latitude}&lng=${
+        position.longitude
+      }`
     );
   }
 
@@ -53,7 +55,8 @@ class ApiHandler {
       return {
         first_name: i.givenName,
         last_name: i.familyName,
-        phone: (i.phoneNumbers &&
+        phone: (
+          i.phoneNumbers &&
           i.phoneNumbers[0] &&
           i.phoneNumbers[0].number
         ).replace(/-|(|)/gi, ''),
@@ -233,7 +236,17 @@ class ApiHandler {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ user: user })
+      body: JSON.stringify({
+        user: {
+          first_name: user.first_name,
+          last_name: user.last_name,
+          password: user.password,
+          email: user.email,
+          city: user.city,
+          zipcode: user.zipcode,
+          code_partner: user.code_partner
+        }
+      })
     };
 
     return fetch(`${API_URL}/users`, request)
@@ -323,7 +336,9 @@ class ApiHandler {
       Accept: 'application/json',
       'Content-Type': 'application/json'
     };
-    const googleApiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${geoKey}`;
+    const googleApiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${
+      latitude
+    },${longitude}&key=${geoKey}`;
     try {
       return fetch(googleApiUrl, { headers, method: 'GET' })
         .then(response => {

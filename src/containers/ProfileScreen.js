@@ -138,14 +138,6 @@ class ProfileScreen extends Component {
       user.member = true;
     }
 
-    if (user.amount) {
-      userData.amount = user.amount;
-    }
-
-    if (user.subscription) {
-      userData.subscription = user.subscription;
-    }
-
     if (uploadPictureResponse && uploadPictureResponse.secure_url) {
       // userData.picture = uploadPictureResponse.secure_url;
       userData.remote_picture_url = uploadPictureResponse.secure_url;
@@ -154,37 +146,31 @@ class ProfileScreen extends Component {
         remote_picture_url: userData.remote_picture_url
       });
     }
-
-    const { subscription } = this.props.user;
-    await this.props.updateUserData(user.id, userData);
-    this.verifyMember();
-
-    this.updateEmail();
+    if (
+      this.props.user.amount !== this.state.user.amount ||
+      this.props.user.subscription != this.state.user.subscription
+    ) {
+      this.verifyMember();
+    } else {
+      await this.props.updateUserData(user.id, userData);
+      this.updateEmail();
+    }
   };
 
   verifyMember() {
-    const { amount, id, member, subscription } = this.props.user;
-    if (
-      (amount !== this.state.user.amount ||
-        subscription != this.state.user.subscription) &&
-      member === false
-    ) {
+    const { member } = this.props.user;
+    if (member === false) {
       this.props.navigation.navigate('CreditCard', {
+        from: 'profile',
         title: 'Mettre à jour CB',
-        from: 'profile'
+        amount: this.state.user.amount,
+        subscription: this.state.user.subscription
       });
-      // const url = "https://app.cforgood.com/member/users/" + id + "/profile#subscription"
-      // Linking.canOpenURL(url).then(supported => {
-      //   if (!supported) {
-      //     console.log('Can\'t handle url: ');
-      //   } else {
-      //     return Linking.openURL(url);
-      //   }
-      // }).catch(err => console.error('An error occurred', err));
     } else {
       this.setVisiblePopupSubscription(true);
     }
   }
+
   setVisiblePopupSubscription(popupUpdateSubsription) {
     this.setState({ popupUpdateSubsription });
   }
@@ -230,7 +216,8 @@ class ProfileScreen extends Component {
                 user.remote_picture_url
               }
               setPrictureSource={pictureSource =>
-                this.setPrictureSource(pictureSource)}
+                this.setPrictureSource(pictureSource)
+              }
             />
           </View>
 

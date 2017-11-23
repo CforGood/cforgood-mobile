@@ -43,7 +43,7 @@ class ProfileCreditCardScreen extends Component {
   }
 
   createToken = () => {
-    const { from } = this.props.navigation.state.params;
+    const { from, amount, subscription } = this.props.navigation.state.params;
 
     const { number, expMonth, expYear, cvc, status, valid } = this.state;
 
@@ -66,16 +66,15 @@ class ProfileCreditCardScreen extends Component {
           }
           if (token && token.tokenId) {
             this.props.updateUserData(this.props.user.id, {
-              stripeToken: token.tokenId
+              stripeToken: token.tokenId,
+              amount,
+              subscription
             });
           } else {
             this.setState({
               error: 'Erreur de Payement'
             });
           }
-
-          //stripeToken
-          //call api to add token
         })
         .catch(error =>
           this.setState({
@@ -132,13 +131,16 @@ class ProfileCreditCardScreen extends Component {
           message={this.state.error}
           removeError={() => this.setState({ error: '' })}
         />
-        <Loading loading={!this.props.loaded} title={'Mise à jour CB'} />
+        <Loading
+          loading={!this.props.loaded}
+          title={'Mise à jour de montant et CB'}
+        />
         <Header
           back={'-90deg'}
           text={title}
           type={'gradiant'}
           style={{
-            paddingHorizontal: metrics.marginApp,
+            paddingHorizontal: metrics.marginApp
           }}
           onClose={() => this.props.navigation.goBack()}
         />

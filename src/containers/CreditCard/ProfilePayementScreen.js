@@ -10,11 +10,9 @@ import {
   Alert
 } from 'react-native';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import stripe from 'tipsi-stripe';
 
 import { styles, fonts, metrics, colors } from '../../themes';
-import { updateUserData } from '../../redux/actions/user';
 
 import Loading from '../../components/common/Loading';
 import Payement from '../../components/profile/Payement';
@@ -29,7 +27,7 @@ import ApiHandler from '../../utils/api';
 class ProfilePaymentScreen extends Component {
   state = {
     error: '',
-    user: null,
+    user: null
   };
 
   componentDidMount() {
@@ -45,10 +43,10 @@ class ProfilePaymentScreen extends Component {
   handleConfirm = () => {
     if (this.state.user) {
       if (this.state.user.amount > 0 && this.state.user.amount !== null) {
-        this.props.updateUserData(this.props.user.id, {
-          subscription: this.state.user.subscription,
-          amount: this.state.user.amount
-        });
+        // this.props.updateUserData(this.props.user.id, {
+        //   subscription: this.state.user.subscription,
+        //   amount: this.state.user.amount
+        // });
         this.props.navigation.navigate('CreditCard', {
           from: 'auth',
           title: 'Ajouter une CB',
@@ -130,13 +128,7 @@ const mapStateToProps = state => ({
   loaded: state.user.loaded
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateUserData: bindActionCreators(updateUserData, dispatch)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(
-  ProfilePaymentScreen
-);
+export default connect(mapStateToProps)(ProfilePaymentScreen);
 
 const style = StyleSheet.create({
   profileheader: {
