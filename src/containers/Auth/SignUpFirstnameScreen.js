@@ -26,7 +26,7 @@ class SignUpFirstnameScreen extends Component {
     if (nextProps.LoggedIn === true && this.props.LoggedIn === false) {
       Keyboard.dismiss();
       await this.props.loadUserData();
-      
+
       if (nextProps.isSignUp === true) {
         this.CodePartner();
       } else {
@@ -38,6 +38,7 @@ class SignUpFirstnameScreen extends Component {
   }
 
   CodePartner() {
+    
     this.setState({ loaded: true });
     if (this.props.location) {
       ApiHandler.code_partner(this.props.location)
@@ -115,7 +116,7 @@ class SignUpFirstnameScreen extends Component {
 const mapStateToProps = state => ({
   location: state.location.latlng,
   LoggedIn: state.auth.LoggedIn,
-  isSignUp: state.auth.isSignUp,
+  isSignUp: state.auth.isSignUp
 });
 
 const mapDispatchToProps = dispatch => ({

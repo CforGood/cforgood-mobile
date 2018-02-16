@@ -1,11 +1,12 @@
-import React, { Component, } from 'react'; import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   Platform,
-  Image,
+  Image
 } from 'react-native';
 import Contacts from 'react-native-contacts';
 import { connect } from 'react-redux';
@@ -24,12 +25,7 @@ import { siginSuccess } from '../../redux/actions/auth';
 
 import ApiHandler from '../../utils/api';
 
-import {
-  styles,
-  colors,
-  metrics,
-  fonts,
-} from '../../themes';
+import { styles, colors, metrics, fonts } from '../../themes';
 
 const NUMBER_INVITATION = 5;
 
@@ -42,7 +38,7 @@ class ContactsScreen extends Component {
     visiblePopupWarning: false,
     searchText: '',
     visibleSearch: false,
-    loaded: true,
+    loaded: true
   };
 
   componentWillMount() {
@@ -51,11 +47,12 @@ class ContactsScreen extends Component {
 
   checkPermission = () => {
     Contacts.checkPermission((err, permission) => {
-
       if (permission === 'undefined') {
         Contacts.requestPermission((err, permission) => {
-          // ...
-        })
+          if (permission === 'authorized') {
+            this.getContacts();
+          }
+        });
       }
       if (permission === 'authorized') {
         this.getContacts();
@@ -63,33 +60,32 @@ class ContactsScreen extends Component {
       if (permission === 'denied') {
         // x.x
       }
-    })
-  }
+    });
+  };
 
   getContacts = () => {
     this.setState({ loaded: false });
     Contacts.getAll((err, allContacts) => {
-      //update the first record
-      this.setState({
-        allContacts,
-        contacts: allContacts.filter(c => c.phoneNumbers && c.phoneNumbers[0].number),
-        loaded: true,
-      });
+      if (allContacts) {
+        this.setState({
+          allContacts,
+          contacts: allContacts.filter(
+            c => c.phoneNumbers && c.phoneNumbers[0] && c.phoneNumbers[0].number
+          ),
+          loaded: true
+        });
+      }
+    });
+  };
 
-    })
-  }
-
-  sendInvitation = (item) => {
-
-    this.setState((oldState) => ({
+  sendInvitation = item => {
+    this.setState(oldState => ({
       invitations: [
         ...oldState.invitations, // copy old data
         item // toggle
       ]
     }));
-
-
-  }
+  };
 
   validate = () => {
     if (this.state.invitations.length < NUMBER_INVITATION) {
@@ -101,72 +97,68 @@ class ContactsScreen extends Component {
         .then(response => {
           this.setState({ loaded: true });
           setTimeout(() => {
-            this.setState({ visiblePopupConfirm: false },
-              () => this.props.siginSuccess()
+            this.setState({ visiblePopupConfirm: false }, () =>
+              this.props.siginSuccess()
             );
           }, 2000);
         })
-        .catch(message => {
-        });
+        .catch(message => {});
     }
-  }
+  };
 
-  confirm = () => {
-
-  }
+  confirm = () => {};
 
   ignore = () => {
-    this.setState({ visiblePopupWarning: false },
-      () => this.props.siginSuccess()
+    this.setState({ visiblePopupWarning: false }, () =>
+      this.props.siginSuccess()
     );
-  }
+  };
 
-  setSearchText = (searchText) => {
-    if (searchText !== '') {
-      const contacts = this.state.allContacts.filter(contact =>
-        contact.familyName.toLowerCase().includes(searchText.toLowerCase())
-        ||
-        contact.givenName.toLowerCase().includes(searchText.toLowerCase())
+  setSearchText = searchText => {
+    if (searchText !== '' && this.state.allContacts) {
+      const contacts = this.state.allContacts.filter(
+        contact =>
+          contact.familyName.toLowerCase().includes(searchText.toLowerCase()) ||
+          contact.givenName.toLowerCase().includes(searchText.toLowerCase())
       );
       this.setState({
         contacts,
-        searchText,
+        searchText
       });
-
-    }
-    else {
+    } else if (this.state.allContacts) {
       this.setState({
         contacts: this.state.allContacts,
-        searchText,
+        searchText
       });
     }
-
-  }
+  };
 
   render() {
     const { searchText } = this.state;
     return (
       <Background
         style={{
-          flex: 1,
+          flex: 1
         }}
       >
-        <View style={{
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          bottom: 55,
-          justifyContent: 'center',
-          alignItems: 'center',
-          zIndex: 10,
-        }}>
+        <View
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            bottom: 55,
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 10
+          }}
+        >
           <ButtonRadius
             text={'C’est parti !'}
             styleButton={{
               width: 180
             }}
             styleText={{
-              color: colors.darkGray,
+              color: colors.darkGray
             }}
             onPress={this.validate}
           />
@@ -177,29 +169,28 @@ class ContactsScreen extends Component {
             height: (Platform.OS === 'ios' ? 20 : 10) + 75,
             paddingHorizontal: metrics.marginApp,
             paddingTop: Platform.OS === 'ios' ? 20 : 10,
-            paddingBottom: 10,
+            paddingBottom: 10
           }}
         >
-          {
-            this.state.visibleSearch ?
-              <HeaderTextInput
-                onChangeText={(searchText) => this.setSearchText(searchText)}
-                onClose={() => this.setState({
+          {this.state.visibleSearch ? (
+            <HeaderTextInput
+              onChangeText={searchText => this.setSearchText(searchText)}
+              onClose={() =>
+                this.setState({
                   searchText: '',
                   visibleSearch: false,
-                  contacts: this.state.allContacts,
+                  contacts: this.state.allContacts
                 })
-                }
-                value={this.state.searchText}
-              />
-              :
-              <Header
-                number={this.state.invitations.length}
-                numberInvitaion={NUMBER_INVITATION}
-                onPressSearch={() => this.setState({ visibleSearch: true })}
-              />
-
-          }
+              }
+              value={this.state.searchText}
+            />
+          ) : (
+            <Header
+              number={this.state.invitations.length}
+              numberInvitaion={NUMBER_INVITATION}
+              onPressSearch={() => this.setState({ visibleSearch: true })}
+            />
+          )}
         </View>
 
         <SeparatorInvitation
@@ -208,92 +199,74 @@ class ContactsScreen extends Component {
         />
 
         <View style={{ flex: 1 }}>
-          <ScrollView keyboardShouldPersistTaps='always'>
-            {
-              this.state.contacts.map(contact =>
+          <ScrollView keyboardShouldPersistTaps="always">
+            {this.state.contacts &&
+              this.state.contacts.map(contact => (
                 <ContactItem
                   key={contact.recordID}
                   item={contact}
                   sendInvitation={this.sendInvitation}
                 />
-              )
-            }
+              ))}
           </ScrollView>
         </View>
         <WarningPopup
           popupStyle={{
             minWidth: metrics.deviceWidth * 4 / 5,
-            minHeight: metrics.deviceHeight * 1 / 2,
+            minHeight: metrics.deviceHeight * 1 / 2
           }}
           visiblePopup={this.state.visiblePopupConfirm}
           title={
-            (
-              this.props.user ?
-                <Text>
-                  Félicitations {
-                    this.props.user.first_name.length > 10 ?
-                      '\n' + this.props.user.first_name
-                      :
-                      this.props.user.first_name
-                  } ;-)
-                </Text>
-                :
-                <Text>Félicitations :-)</Text>
-            )
-          }
-          message={
-            (
+            this.props.user ? (
               <Text>
-                Vous êtes au top !
+                Félicitations{' '}
+                {this.props.user.first_name.length > 10
+                  ? '\n' + this.props.user.first_name
+                  : this.props.user.first_name}{' '}
+                ;-)
               </Text>
+            ) : (
+              <Text>Félicitations :-)</Text>
             )
           }
-          image={(
+          message={<Text>Vous êtes au top !</Text>}
+          image={
             <Image
               source={require('../../resources/icons/start.png')}
               style={{
                 height: 125,
-                width: 120,
+                width: 120
               }}
               resizeMode={'contain'}
             />
-          )}
+          }
           buttomText={'3 mois offerts !'}
         />
         <WarningPopup
           popupStyle={{
             minWidth: metrics.deviceWidth * 4 / 5,
-            minHeight: metrics.deviceHeight * 1 / 2,
+            minHeight: metrics.deviceHeight * 1 / 2
           }}
           visiblePopup={this.state.visiblePopupWarning}
           title={
-            (
-              <Text>
-                {
-                  this.state.invitations.length !== 0 &&
-                  'Plus que '
-                } {NUMBER_INVITATION - this.state.invitations.length} invitations à envoyer !
-              </Text>
-            )
+            <Text>
+              {this.state.invitations.length !== 0 && 'Plus que '}{' '}
+              {NUMBER_INVITATION - this.state.invitations.length} invitations à
+              envoyer !
+            </Text>
           }
-          message={
-            (
-              <Text>
-                C’est dommage de s’arrêter maintenant :-)
-              </Text>
-            )
-          }
+          message={<Text>C’est dommage de s’arrêter maintenant :-)</Text>}
           ignore={this.ignore}
           confirm={() => this.setState({ visiblePopupWarning: false })}
-          image={(
+          image={
             <Image
               source={require('../../resources/icons/flay.png')}
               style={{
-                height: 70,
+                height: 70
               }}
               resizeMode={'contain'}
             />
-          )}
+          }
           confirmText={'Envoyer'}
         />
       </Background>
@@ -302,11 +275,11 @@ class ContactsScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user.data,
+  user: state.user.data
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  siginSuccess: bindActionCreators(siginSuccess, dispatch),
+const mapDispatchToProps = dispatch => ({
+  siginSuccess: bindActionCreators(siginSuccess, dispatch)
 });
 
-export default connect(null, mapDispatchToProps)(ContactsScreen);  
+export default connect(null, mapDispatchToProps)(ContactsScreen);

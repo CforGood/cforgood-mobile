@@ -60,12 +60,14 @@ export default function reducer(state = initialState, action = {}) {
     }
 
     case LOAD_FAIL:
+    console.log('UPDATEFAIL', action)
       return {
         ...state,
         loaded: true,
         failed: true,
         error: action.error,
       };
+      
     case LOAD_SECURITY:
       return {
         ...state,

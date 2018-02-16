@@ -53,7 +53,11 @@ export const updateUserData = (id, data) => {
           dispatch(loadUserData());
           dispatch(successUpdate(data));
         } else {
-          dispatch(failure(response.error[0]));
+          const error =
+            typeof response.error === 'string'
+              ? response.error
+              : response.error[0];
+          dispatch(failure(error));
         }
       })
       .catch(message => {
@@ -71,7 +75,11 @@ export const loadUserData = () => {
         if (response && !response.error) {
           dispatch(success(response));
         } else {
-          dispatch(failure(response.error[0]));
+          const error =
+            typeof response.error === 'string'
+              ? response.error
+              : response.error[0];
+          dispatch(failure(error));
         }
       })
       .catch(message => {

@@ -1,4 +1,4 @@
-import React, { PureComponent, } from 'react'; import PropTypes from 'prop-types';
+import React, { Component, } from 'react'; import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -35,12 +35,9 @@ const minLeft = 1;
 const maxLeft = (metrics.deviceWidth - metrics.marginApp * 2 - 25);
 const realAmountPercent = 0.34;
 
-class Abonnement extends PureComponent {
+class Abonnement extends Component {
 
   updateMember() {
-    this.props.setUserData({
-      ...this.props.user, member: false,
-    });
     this.props.updateUserData(this.props.user.id, { subscription: 'X' });
   }
 
@@ -126,6 +123,7 @@ class Abonnement extends PureComponent {
         />
         {
           this.props.user.member &&
+          this.props.user.subscription !== 'X' &&
           <TouchableOpacity
             onPress={() => this.updateMember()}
           >

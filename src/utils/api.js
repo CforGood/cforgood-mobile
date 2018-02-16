@@ -106,7 +106,7 @@ class ApiHandler {
   }
 
   updateUserData(userId, userData) {
-    console.log('PATCHPATCH', { user: userData });
+    console.log('PATCHPATCH', userId, { user: userData });
     return this.api(`users/${userId}`, { user: userData }, 'PATCH');
   }
 
@@ -279,7 +279,7 @@ class ApiHandler {
           'X-User-Token': user.authentication_token
         }
       };
-
+      console.log('requestrequest', request)
       if (params && method !== 'get') {
         request.body = JSON.stringify(params);
         if (method !== 'get') {
@@ -289,12 +289,14 @@ class ApiHandler {
 
       return fetch(`${API_URL}/${endpoint}`, request)
         .then(response => {
+          
           if (response.status === 401) {
             AsyncStorage.removeItem('@CfoorGoodStore:auth');
           }
           return response.json();
         })
         .then(responseJson => {
+          console.log('responseJsonresponseJsonresponseJson', responseJson)
           return responseJson;
         })
         .catch(error => {

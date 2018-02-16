@@ -9,6 +9,7 @@ import ErrorView from '../../components/common/ErrorView';
 import Loading from '../../components/common/Loading';
 import Container from '../../components/login/Container';
 import { signin } from '../../redux/actions/auth';
+import Icon from '../../components/common/Icon';
 
 import { styles, colors, metrics, fonts } from '../../themes';
 
@@ -47,6 +48,18 @@ class SignInPassword extends Component {
           flex: 1
         }}
       >
+        <Icon
+          styleImage={{
+            marginTop: metrics.marginApp + (Platform.OS === 'ios' ? 20 : 0),
+            marginLeft: metrics.baseMargin,
+            height: 20,
+            width: 20,
+            resizeMode: 'contain',
+            tintColor: colors.white
+          }}
+          source={require('../../resources/icons/arrow-left.png')}
+          onPress={() => this.props.navigation.goBack()}
+        />
         <Container
           title={'Entrez votre mot de passe'}
           onChangeText={password => this.setState({ password })}

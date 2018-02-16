@@ -30,10 +30,10 @@ class ProfileCreditCardScreen extends Component {
   state = {
     valid: null,
     status: {},
-    number: '',
-    expMonth: '',
-    expYear: '',
-    cvc: ''
+    number: '4242424242424242',
+    expMonth: '20',
+    expYear: '20',
+    cvc: '222'
   };
 
   componentWillMount() {
@@ -68,7 +68,7 @@ class ProfileCreditCardScreen extends Component {
             this.props.updateUserData(this.props.user.id, {
               stripeToken: token.tokenId,
               amount,
-              subscription
+              subscription: subscription !== 'X'? subscription : 'M'
             });
           } else {
             this.setState({

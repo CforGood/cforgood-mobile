@@ -67,9 +67,6 @@ class PopupProfileMap extends Component {
     if (type === 'no_permission_location') {
       this.props.checkLocation(true);
     }
-    // if (type === 'partner' || type === 'not_partner') {
-    //   //this.props.updateUserData(this.props.user.id, {trial_done: false});
-    // }
     else if (type === 'businesses_around') {
       this.props.navigation.navigate(
         'WebView',

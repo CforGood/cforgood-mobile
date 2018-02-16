@@ -62,9 +62,12 @@ class ProfileScreen extends Component {
     }
   }
 
-  componentWillReceiveProps({ user }) {
+  componentWillReceiveProps({ user, error }) {
     if (user !== this.props.user) {
-      if (user.subscription !== this.props.user.subscription) {
+      if (
+        user.subscription !== this.props.user.subscription &&
+        user.subscription !== 'X'
+      ) {
         this.setVisiblePopupSubscription(true);
       } else {
         this.setVisiblePopupUser(true);
@@ -74,11 +77,11 @@ class ProfileScreen extends Component {
         this.setVisiblePopupUser(false);
         this.setVisiblePopupSubscription(false);
       }, 2500);
-      this.setState({
-        user: this.props.user
-      });
+      this.setState({ user: this.props.user });
+    } else if (this.props.error !== error && error !== '') {
+      this.setState({ error });
     }
-    console.log('useruser', user);
+    console.log('componentWillReceivePropsProfile', user);
   }
 
   setUserData = user => {
@@ -146,18 +149,19 @@ class ProfileScreen extends Component {
         remote_picture_url: userData.remote_picture_url
       });
     }
+    const { member } = this.props.user;
     if (
       this.props.user.amount !== this.state.user.amount ||
       this.props.user.subscription != this.state.user.subscription
     ) {
-      this.verifyMember();
+      this.verifyMember(userData);
     } else {
-      await this.props.updateUserData(user.id, userData);
       this.updateEmail();
+      await this.props.updateUserData(user.id, userData);
     }
   };
 
-  verifyMember() {
+  verifyMember(userData) {
     const { member } = this.props.user;
     if (member === false) {
       this.props.navigation.navigate('CreditCard', {
@@ -167,6 +171,7 @@ class ProfileScreen extends Component {
         subscription: this.state.user.subscription
       });
     } else {
+      this.props.updateUserData(this.state.user.id, userData);
       this.setVisiblePopupSubscription(true);
     }
   }
