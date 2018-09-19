@@ -81,7 +81,6 @@ class ProfileScreen extends Component {
     } else if (this.props.error !== error && error !== '') {
       this.setState({ error });
     }
-    console.log('componentWillReceivePropsProfile', user);
   }
 
   setUserData = user => {

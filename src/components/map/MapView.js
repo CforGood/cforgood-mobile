@@ -1,35 +1,38 @@
-'use strict';
+"use strict";
 /* eslint no-console: 0 */
 
-import React, { Component } from 'react';
-import Mapbox, { MapView as RNMapView, Annotation } from 'react-native-mapbox-gl';
+import React, { Component } from "react";
+import Mapbox, {
+  MapView as RNMapView,
+  Annotation
+} from "react-native-mapbox-gl";
 import {
   StyleSheet,
   Image,
   View,
   TouchableOpacity,
   Platform,
-  Alert,
-} from 'react-native';
+  Alert
+} from "react-native";
 
-import Permissions from 'react-native-permissions';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import { onUpdateUserLocation } from '../../redux/actions/user';
+import Permissions from "react-native-permissions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { checkLocationAndroid } from '../../helpers/location';
+import { onUpdateUserLocation } from "../../redux/actions/user";
 import {
   loadPopupNearMe,
   noPermissionLocation,
-  checkLocation,
-} from '../../redux/actions/popup';
+  checkLocation
+} from "../../redux/actions/popup";
 
-import { loadBusiness } from '../../redux/actions/business';
-import { loadAssociation } from '../../redux/actions/association';
-import { maximumDistance } from '../../helpers/distance';
+import { loadBusiness } from "../../redux/actions/business";
+import { loadAssociation } from "../../redux/actions/association";
+import { maximumDistance } from "../../helpers/distance";
 
-import Marker from './Marker';
-import MapDirection from './MapDirection';
-import AuthorizeLocation from '../authorize/Location';
+import Marker from "./Marker";
+import MapDirection from "./MapDirection";
+import AuthorizeLocation from "../authorize/Location";
 
 Mapbox.setAccessToken(accessTokenMapBox);
 
@@ -37,22 +40,17 @@ import {
   accessTokenMapBox,
   styleMapBox,
   mapGoogleKey
-} from '../../config.json';
+} from "../../config.json";
 
-import { metrics, colors } from '../../themes';
-import { businessType, } from '../../types';
+import { metrics, colors } from "../../themes";
+import { businessType } from "../../types";
 
-import {
-  getCategory,
-} from '../../constants/categories';
-
+import { getCategory } from "../../constants/categories";
 
 const rayonMarker = 21;
 const circle = 52;
 
-
 class MapView extends Component {
-
   state = {
     legs: {},
     direction: [],
@@ -62,31 +60,24 @@ class MapView extends Component {
     userTrackingMode: Mapbox.userTrackingMode.followWithHeading,
     annotations: [],
     annotation: null,
-    color: 'white',
+    color: "white",
     gps_activate: true,
-    mode: 'walking',
+    mode: "walking",
     loadedDirection: true,
     nearMe: false,
     verifyLocation: false,
-    activateLocation: false,
+    activateLocation: false
     //findRegionUser: true
   };
 
   shouldComponentUpdate(nextProps, nextState) {
-
     if (
-      nextState.verifyLocation !== this.state.verifyLocation
-      ||
-      nextState.annotations !== this.state.annotations
-      ||
-      nextState.direction !== this.state.direction
-      ||
-      nextState.mode !== this.state.mode
-      ||
-      nextState.userTrackingMode !== this.state.userTrackingMode
-      ||
-      nextProps.changedLocation !== this.props.changedLocation
-      ||
+      nextState.verifyLocation !== this.state.verifyLocation ||
+      nextState.annotations !== this.state.annotations ||
+      nextState.direction !== this.state.direction ||
+      nextState.mode !== this.state.mode ||
+      nextState.userTrackingMode !== this.state.userTrackingMode ||
+      nextProps.changedLocation !== this.props.changedLocation ||
       nextProps.check_location !== this.props.check_location
     ) {
       return true;
@@ -94,37 +85,37 @@ class MapView extends Component {
     return false;
   }
 
-
   componentWillMount() {
-
     if (this.props.location && this.props.location.latitude) {
       this.setState({ regionUser: this.props.location });
     }
 
     this.checkAuthorizedLocation();
 
-    this._offlineProgressSubscription = Mapbox.addOfflinePackProgressListener(progress => {
-      //console.log('offline pack progress', progress);
-    });
-    this._offlineMaxTilesSubscription = Mapbox.addOfflineMaxAllowedTilesListener(tiles => {
-      //console.log('offline max allowed tiles', tiles);
-    });
+    this._offlineProgressSubscription = Mapbox.addOfflinePackProgressListener(
+      progress => {
+        //console.log('offline pack progress', progress);
+      }
+    );
+    this._offlineMaxTilesSubscription = Mapbox.addOfflineMaxAllowedTilesListener(
+      tiles => {
+        //console.log('offline max allowed tiles', tiles);
+      }
+    );
     this._offlineErrorSubscription = Mapbox.addOfflineErrorListener(error => {
       //console.log('offline error', error);
     });
   }
 
-
-
   componentWillUpdate(nextProps, nextState) {
-    if (
-      nextState.mode !== this.state.mode
-    ) {
+    if (nextState.mode !== this.state.mode) {
       this.fetchDirection(
         this.props.address,
-        this.props.category.color, true, nextState.mode);
-    }
-    else if (this.state.userTrackingMode !== nextState.userTrackingMode) {
+        this.props.category.color,
+        true,
+        nextState.mode
+      );
+    } else if (this.state.userTrackingMode !== nextState.userTrackingMode) {
       this.fetchDirection(
         this.state.annotation,
         this.state.color,
@@ -135,10 +126,8 @@ class MapView extends Component {
   }
 
   componentDidMount() {
-
     this.loadmarkers(this.props);
     if (this.props.address) {
-
       let category = {};
 
       if (!this.props.businesses) {
@@ -147,28 +136,27 @@ class MapView extends Component {
 
       if (this.props.business) {
         category = getCategory(this.props.business.business_category_id);
-      }
-      else if (this.props.category) {
+      } else if (this.props.category) {
         category = this.props.category;
       }
 
       if (category) {
         this.fetchDirection(this.props.address, category.color, true);
       }
-
     }
 
     if (this.props.businesses && this.props.businesses[0]) {
-      this.fetchAnnotation(this.props.businesses[0], this.props.businesses[0].addresses[0]);
+      this.fetchAnnotation(
+        this.props.businesses[0],
+        this.props.businesses[0].addresses[0]
+      );
     }
   }
 
   componentWillReceiveProps(nextProps) {
-
     if (nextProps.businesses !== this.props.businesses) {
       this.loadmarkers(nextProps);
     }
-
 
     if (nextProps.changedLocation !== this.props.changedLocation) {
       this.load();
@@ -176,36 +164,34 @@ class MapView extends Component {
   }
 
   checkAuthorizedLocation() {
-    Permissions.requestPermission('location')
+    Permissions.requestPermission("location")
       .then(response => {
-        if (response === 'authorized') {
+        if (response === "authorized") {
           this.load();
-        }
-        else {
+        } else {
+          checkLocationAndroid();
           this.props.noPermissionLocation();
         }
-      }).catch(e => {
+      })
+      .catch(e => {
+        checkLocationAndroid();
         this.props.noPermissionLocation();
       });
-
-    navigator.geolocation.getCurrentPosition((position) => {
-
-    }, (error) => {
-      this.props.noPermissionLocation();
-    });
+    navigator.geolocation.getCurrentPosition(
+      position => {},
+      error => {
+        this.props.noPermissionLocation();
+      }
+    );
   }
 
   loadmarkers(props) {
     this.generateMarkers(props.businesses);
-    if (
-      props.businesses && props.businesses[0]
-    ) {
-
+    if (props.businesses && props.businesses[0]) {
       let business = null;
       let address = null;
 
       if (!this.state.nearMe) {
-
         if (props.businesses[0].addresses[0]) {
           business = props.businesses[0];
           address = props.businesses[0].addresses[0];
@@ -215,10 +201,9 @@ class MapView extends Component {
           this.setState({ nearMe: true });
           this.maximumDistance(business, address);
         }
-
       }
     } else {
-      props.showBusiness(null, null)
+      props.showBusiness(null, null);
       this.setState({ nearMe: false, direction: [] });
     }
   }
@@ -231,34 +216,26 @@ class MapView extends Component {
     }
 
     this.props.loadPopupNearMe(verify);
-
   }
 
-  onRegionDidChange = (location) => {
-
+  onRegionDidChange = location => {
     //console.log('onRegionDidChange', location);
   };
 
-  onRegionWillChange = (location) => {
+  onRegionWillChange = location => {
     // console.log('onRegionWillChange', location);
-
   };
 
-  onUpdateUserLocation = (location) => {
-
+  onUpdateUserLocation = location => {
     if (
       !this.props.location ||
-      (
-        this.props.location.latitude !== location.latitude
-        &&
-        this.props.location.longitude !== location.longitude
-      )
+      (this.props.location.latitude !== location.latitude &&
+        this.props.location.longitude !== location.longitude)
     ) {
-
       const regionUser = {
         latitude: location.latitude,
-        longitude: location.longitude,
-      }
+        longitude: location.longitude
+      };
 
       this.setState({ regionUser });
 
@@ -268,7 +245,6 @@ class MapView extends Component {
         this.setCenterCoordinate(regionUser);
       }
     }
-
   };
 
   load() {
@@ -276,57 +252,54 @@ class MapView extends Component {
     this.props.loadAssociation();
   }
 
-
-  onOpenAnnotation = (annotation) => {
-
+  onOpenAnnotation = annotation => {
     if (this.props.businesses) {
-      const id = annotation.id.split('address');
+      const id = annotation.id.split("address");
 
-      const business = this.props.businesses.find(obj => parseInt(obj.id) === parseInt(id[0]));
-      const address = business.addresses.find(obj => parseInt(obj.id) === parseInt(id[1]));
-
+      const business = this.props.businesses.find(
+        obj => parseInt(obj.id) === parseInt(id[0])
+      );
+      const address = business.addresses.find(
+        obj => parseInt(obj.id) === parseInt(id[1])
+      );
 
       const category = getCategory(business.business_category_id);
 
       this.fetchDirection(address, category.color, this.state.gps_activate);
       this.props.showBusiness(business, address);
     }
-
   };
 
   fetchAnnotation = (business, address) => {
     const category = getCategory(business.business_category_id);
     this.fetchDirection(address, category.color, this.state.gps_activate);
     this.props.showBusiness(business, address);
-  }
-
-  onRightAnnotationTapped = (e) => {
-    console.log('onRightAnnotationTapped', e);
   };
 
-  onLongPress = (location) => {
-    console.log('onLongPress', location);
+  onRightAnnotationTapped = e => {
+    console.log("onRightAnnotationTapped", e);
   };
 
-  onTap = (location) => {
-    console.log('onTap', location);
+  onLongPress = location => {
+    console.log("onLongPress", location);
   };
 
-  onChangeUserTrackingMode = (userTrackingMode) => {
+  onTap = location => {
+    console.log("onTap", location);
+  };
+
+  onChangeUserTrackingMode = userTrackingMode => {
     this.setState({ userTrackingMode });
   };
-
 
   setDirection = () => {
     this.setState({
       gps_activate: !this.state.gps_activate,
-      userTrackingMode:
-      !this.state.gps_activate ?
-        Mapbox.userTrackingMode.followWithHeading :
-        Mapbox.userTrackingMode.none
+      userTrackingMode: !this.state.gps_activate
+        ? Mapbox.userTrackingMode.followWithHeading
+        : Mapbox.userTrackingMode.none
     });
-
-  }
+  };
 
   setCenterCoordinate(regionUser) {
     this._map.setCenterCoordinate(
@@ -339,29 +312,28 @@ class MapView extends Component {
   generateMarker() {
     const annotations = [];
 
-    annotations.push(this.annotationItem({ id: 1 }, this.props.address, this.props.category));
+    annotations.push(
+      this.annotationItem({ id: 1 }, this.props.address, this.props.category)
+    );
 
     this.setState({
       annotations
     });
-
   }
 
   annotationItem(business, address, category) {
     return {
       coordinates: [address.latitude, address.longitude],
-      type: 'point',
-      id: business.id + 'address' + address.id,
+      type: "point",
+      id: business.id + "address" + address.id,
       annotationImage: {
         source: {
-          uri: Platform.OS === 'android' ?
-            category.marker :
-            category.markerIOS
+          uri: Platform.OS === "android" ? category.marker : category.markerIOS
         },
         height: 20,
         width: 20,
         zIndex: 10
-      },
+      }
     };
   }
 
@@ -370,114 +342,92 @@ class MapView extends Component {
 
     if (businesses) {
       businesses.forEach(business => {
-
         const category = getCategory(business.business_category_id);
 
         business.addresses.forEach((address, key) => {
           annotations.push(this.annotationItem(business, address, category));
-        })
+        });
       });
     }
-
 
     // Treat annotations as immutable and create a new one instead of using .push()
     this.setState({
       annotations
     });
-  };
+  }
 
-  onRightAnnotationTapped = (e) => {
-
-    console.log('onRightAnnotationTapped', e);
+  onRightAnnotationTapped = e => {
+    console.log("onRightAnnotationTapped", e);
   };
 
   fetchDirection(address, color, gps, mode = null) {
-
     this.setState({
       annotation: address,
       color: color,
-      direction: [],
+      direction: []
     });
 
     if (gps && address) {
+      const startPosition =
+        this.state.regionUser.latitude + "," + this.state.regionUser.longitude;
+      const endPosition = address.latitude + "," + address.longitude;
 
-      const startPosition = this.state.regionUser.latitude + ',' + this.state.regionUser.longitude;
-      const endPosition = address.latitude + ',' + address.longitude;
-
-      const url = 'https://maps.googleapis.com/maps/api/directions/json?origin='
-        + startPosition
-        + '&destination='
-        + endPosition
-
-        + '&key='
-        + mapGoogleKey;
+      const url =
+        "https://maps.googleapis.com/maps/api/directions/json?origin=" +
+        startPosition +
+        "&destination=" +
+        endPosition +
+        "&key=" +
+        mapGoogleKey;
 
       if (this.props.mapDirection) {
-        url += '&departure_time='
-          + Date.now()
-          + '&traffic_model=best_guess';
+        url += "&departure_time=" + Date.now() + "&traffic_model=best_guess";
       }
       const m = mode || this.state.mode;
-      if (m === 'driving'
-        ||
-        m === 'walking'
-        ||
-        m === 'bicycling'
-
-      ) {
-        url += '&mode=' + m;
+      if (m === "driving" || m === "walking" || m === "bicycling") {
+        url += "&mode=" + m;
+      } else {
+        url += "&mode=transit&transit_mode=" + m;
       }
-      else {
-        url += '&mode=transit&transit_mode=' + m;
-      }
-
 
       return fetch(url)
         .then(response => {
           return response.json();
         })
-        .then(async (responseData) => {
-
-          console.log('responseDataDirection', responseData)
+        .then(responseData => {
           let coordinates = [];
           let legs = {};
 
           if (responseData && responseData.routes[0]) {
-
             //setInfoAddress
 
-
             legs = responseData.routes[0].legs[0];
-            await legs.steps.forEach(step => {
-              coordinates.push([step.start_location.lat, step.start_location.lng]);
+            legs.steps.forEach(step => {
+              coordinates.push([
+                step.start_location.lat,
+                step.start_location.lng
+              ]);
               coordinates.push([step.end_location.lat, step.end_location.lng]);
-            })
+            });
           }
 
           if (!this.props.mapDirection) {
-
             this.setState({
-              direction: coordinates,
+              direction: coordinates
             });
-          }
-          else {
-
+          } else {
             if (this.props.setDistance) {
               this.props.setDistance(legs);
             }
 
             this.setState({
               direction: coordinates,
-              legs,
+              legs
             });
           }
-
         })
-        .catch(error => {
-        })
-
+        .catch(error => {});
     }
-
   }
 
   render() {
@@ -486,21 +436,22 @@ class MapView extends Component {
         <AuthorizeLocation
           nextStep={() => this.props.checkLocation(false)}
           verify={this.props.check_location}
-          handleError={() => { }}
+          handleError={() => {}}
         />
-        {
-          this.props.mapDirection &&
+        {this.props.mapDirection && (
           <MapDirection
             address={this.props.address}
             mode={this.state.mode}
-            setMode={(mode) => this.setState({ mode })}
+            setMode={mode => this.setState({ mode })}
             legs={this.state.legs}
             onClose={this.props.onClose}
           />
-        }
+        )}
         {
           <RNMapView
-            ref={map => { this._map = map; }}
+            ref={map => {
+              this._map = map;
+            }}
             style={styles.map}
             initialCenterCoordinate={this.state.regionUser}
             initialZoomLevel={this.state.zoom}
@@ -510,15 +461,18 @@ class MapView extends Component {
             zoomEnabled={true}
             showsUserLocation={this.state.showsUserLocation}
             styleURL={styleMapBox}
-            annotations={[{
-              type: 'polyline',
-              fillAlpha: 1,
-              strokeColor: this.state.color,
-              strokeAlpha: 3,
-              strokeWidth: 3,
-              id: 'polyline',
-              coordinates: this.state.direction
-            }, ...this.state.annotations]}
+            annotations={[
+              {
+                type: "polyline",
+                fillAlpha: 1,
+                strokeColor: this.state.color,
+                strokeAlpha: 3,
+                strokeWidth: 3,
+                id: "polyline",
+                coordinates: this.state.direction
+              },
+              ...this.state.annotations
+            ]}
             userTrackingMode={this.state.userTrackingMode}
             annotationsAreImmutable={true}
             annotationsPopUpEnabled={false}
@@ -530,64 +484,57 @@ class MapView extends Component {
             onTap={this.onTap}
             logoIsHidden={true}
             compassIsHidden={true}
-
             onRightAnnotationTapped={this.onRightAnnotationTapped}
             onOpenAnnotation={this.onOpenAnnotation}
           />
-
         }
 
         <View style={styles.rightContainer}>
           <TouchableOpacity
-            style={[
-              styles.iconContainer,
-            ]}
+            style={[styles.iconContainer]}
             onPress={() => this.setCenterCoordinate(this.state.regionUser)}
           >
             <Image
-              resizeMode='contain'
+              resizeMode="contain"
               style={styles.image}
-              source={require('../../resources/icons/oval.png')}
+              source={require("../../resources/icons/oval.png")}
             >
               <Image
-                source={require('../../resources/icons/gps-fixed-indicator.png')}
-                resizeMode='contain'
+                source={require("../../resources/icons/gps-fixed-indicator.png")}
+                resizeMode="contain"
                 style={{
                   height: 20,
-                  width: 20,
+                  width: 20
                 }}
               />
             </Image>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => this.setDirection()}
-            style={[
-              styles.iconContainer,
-            ]}
+            style={[styles.iconContainer]}
           >
-            {
-              !this.state.gps_activate ?
+            {!this.state.gps_activate ? (
+              <Image
+                resizeMode="contain"
+                style={styles.image}
+                source={require("../../resources/icons/oval.png")}
+              >
                 <Image
-                  resizeMode='contain'
-                  style={styles.image}
-                  source={require('../../resources/icons/oval.png')}
-                >
-                  <Image
-                    resizeMode='contain'
-                    source={require('../../resources/icons/navigation-blue.png')}
-                    style={{
-                      height: 20,
-                      width: 14,
-                    }}
-                  />
-                </Image>
-                :
-                <Image
-                  resizeMode='contain'
-                  style={styles.image}
-                  source={require('../../resources/icons/gps_activate.png')}
+                  resizeMode="contain"
+                  source={require("../../resources/icons/navigation-blue.png")}
+                  style={{
+                    height: 20,
+                    width: 14
+                  }}
                 />
-            }
+              </Image>
+            ) : (
+              <Image
+                resizeMode="contain"
+                style={styles.image}
+                source={require("../../resources/icons/gps_activate.png")}
+              />
+            )}
           </TouchableOpacity>
         </View>
       </View>
@@ -598,53 +545,54 @@ class MapView extends Component {
 const mapStateToProps = state => ({
   location: state.location.latlng,
   changedLocation: state.location.changed,
-  check_location: state.popup.check_location,
+  check_location: state.popup.check_location
 });
 
-
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   onUpdateUserLocation: bindActionCreators(onUpdateUserLocation, dispatch),
   loadBusiness: bindActionCreators(loadBusiness, dispatch),
   loadAssociation: bindActionCreators(loadAssociation, dispatch),
   loadPopupNearMe: bindActionCreators(loadPopupNearMe, dispatch),
   noPermissionLocation: bindActionCreators(noPermissionLocation, dispatch),
-  checkLocation: bindActionCreators(checkLocation, dispatch),
+  checkLocation: bindActionCreators(checkLocation, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapView);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MapView);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'stretch',
-    backgroundColor: 'white',
+    alignItems: "stretch",
+    backgroundColor: "white"
   },
   map: {
     flex: 5
   },
   rightContainer: {
-    position: 'absolute',
+    position: "absolute",
     bottom: metrics.smallMargin,
     right: metrics.baseMargin,
-    flexDirection: 'row',
+    flexDirection: "row"
   },
   iconContainer: {
     height: circle,
     width: circle,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center"
   },
   annotation: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
     width: 18,
-    height: 18,
+    height: 18
   },
   image: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
-

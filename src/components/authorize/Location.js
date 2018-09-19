@@ -20,6 +20,7 @@ import {
   styles,
 } from '../../themes';
 import { onUpdateUserLocation } from '../../redux/actions/user';
+import { checkLocationAndroid } from '../../helpers/location';
 
 class AuthorizeLocation extends PureComponent {
 
@@ -70,12 +71,14 @@ class AuthorizeLocation extends PureComponent {
   }
 
   updateLocation() {
+    
     navigator.geolocation.getCurrentPosition((position) => {
       if (position && position.coords) {
         this.props.onUpdateUserLocation(position);
         //this.props.nextStep();
       }
     }, (error) => {
+      checkLocationAndroid();
       //this.props.nextStep();
       //this.notifyAutorize(error);
     });
