@@ -178,7 +178,12 @@ class MapView extends Component {
         this.props.noPermissionLocation();
       });
     navigator.geolocation.getCurrentPosition(
-      position => {},
+      position => {
+        if(position) {
+
+          this.onUpdateUserLocation(position.coords);
+        }
+      },
       error => {
         this.props.noPermissionLocation();
       }
