@@ -35,10 +35,10 @@
   [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self];
 
   // Initialize Intercom
-  //  [Intercom setApiKey:@"ios_sdk-cc1f39a922a7771a44a5f05fdc8e381e2293e83d" forAppId:@"a7004d3n"];
+  [Intercom setApiKey:@"ios_sdk-cc1f39a922a7771a44a5f05fdc8e381e2293e83d" forAppId:@"a7004d3n"];
 
   // STAGING
-  [Intercom setApiKey:@"ios_sdk-a9461e5a3a44ab0ef8639c91bc176d83c65c2b53" forAppId:@"qpywnvwu"];
+  // [Intercom setApiKey:@"ios_sdk-a9461e5a3a44ab0ef8639c91bc176d83c65c2b53" forAppId:@"qpywnvwu"];
 
   
   NSURL *jsCodeLocation;

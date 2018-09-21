@@ -71,3 +71,6 @@
 
 -keep class com.google.android.gms.** { *; }
 -dontwarn com.google.android.gms.**
+
+-keep class io.branch.sdk.android.** { *; }
+-dontwarn io.branch.sdk.android.**

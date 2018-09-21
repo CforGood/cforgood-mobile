@@ -1061,8 +1061,6 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				D87476A086B06F23DE213A12 /* [CP] Embed Pods Frameworks */,
-				1B3D2B59FE1FC19C077B5765 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1085,7 +1083,6 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				86AA09931E6455F4002E76A7 /* Embed Frameworks */,
 				86AA09941E645639002E76A7 /* MapBox */,
-				8B69AD496D814D207AFC94CF /* [CP] Embed Pods Frameworks */,
 				BB289B8904B8559EA1A8DA7E /* [CP] Copy Pods Resources */,
 				864AB6F51E82F1CC00970440 /* Intercom */,
 				861390C71E83DE460086A873 /* Crash Report */,
@@ -1677,34 +1674,22 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		1B3D2B59FE1FC19C077B5765 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CforGoodTests/Pods-CforGoodTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		1C4C0FED3F6DC79665E113A1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CforGoodTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		861390C71E83DE460086A873 /* Crash Report */ = {
@@ -1749,34 +1734,22 @@
 			shellPath = /bin/sh;
 			shellScript = "${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework/strip-frameworks.sh";
 		};
-		8B69AD496D814D207AFC94CF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CforGood/Pods-CforGood-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		ABB1A331E8752CBF038EAD3B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CforGood-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BB289B8904B8559EA1A8DA7E /* [CP] Copy Pods Resources */ = {
@@ -1785,28 +1758,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-CforGood/Pods-CforGood-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/Stripe/Stripe.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Stripe.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CforGood/Pods-CforGood-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D87476A086B06F23DE213A12 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CforGoodTests/Pods-CforGoodTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1992,8 +1953,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cforGood.app;
 				PRODUCT_NAME = CforGood;
-				PROVISIONING_PROFILE = "d595b82a-c734-41fe-ad2f-bcd178026bf8";
-				PROVISIONING_PROFILE_SPECIFIER = "Prof dist cforgoods";
+				PROVISIONING_PROFILE = "0398e2a6-057c-48c8-8e92-894fb2b8ee4c";
+				PROVISIONING_PROFILE_SPECIFIER = Anouar;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -2045,8 +2006,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cforGood.app;
 				PRODUCT_NAME = CforGood;
-				PROVISIONING_PROFILE = "d595b82a-c734-41fe-ad2f-bcd178026bf8";
-				PROVISIONING_PROFILE_SPECIFIER = "Prof dist cforgoods";
+				PROVISIONING_PROFILE = "0398e2a6-057c-48c8-8e92-894fb2b8ee4c";
+				PROVISIONING_PROFILE_SPECIFIER = Anouar;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -2232,8 +2193,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cforGood.app;
 				PRODUCT_NAME = CforGood;
-				PROVISIONING_PROFILE = "d595b82a-c734-41fe-ad2f-bcd178026bf8";
-				PROVISIONING_PROFILE_SPECIFIER = "Prof dist cforgoods";
+				PROVISIONING_PROFILE = "0398e2a6-057c-48c8-8e92-894fb2b8ee4c";
+				PROVISIONING_PROFILE_SPECIFIER = Anouar;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
